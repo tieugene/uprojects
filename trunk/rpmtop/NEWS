@@ -1,0 +1,28 @@
+			0.8 version
+			-------------
+add simple graphical user interface (optionnal), which require
+the perl-tk package :use --gui command line argument
+
+the code has been split in smaller subroutines.
+
+
+			0.4 version
+			-------------
+add optionnal cache, which can be shared by all rpmorphan tools
+to spare rpm query time :
+use --use-cache and --clear-cache command line arguments
+
+			0.3 version
+			-------------
+new feature : add rpmusage tool
+
+			0.2 version
+			-------------
+new feature : add a permanent list of exclude file (default is empty) and
+4 new options for rpmorphan : --zero-keep, --list-keep, --add-keep, --del-keep
+
+-------------------------------------------------------------------------------
+			0.1 version
+			-------------
+
+first public release

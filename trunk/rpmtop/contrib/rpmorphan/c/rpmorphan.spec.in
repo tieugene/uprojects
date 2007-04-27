@@ -1,0 +1,34 @@
+Summary: List installed RPMs that can be uninstalled.
+Name: @PACKAGE@
+Version: @VERSION@
+Release: 1
+Copyright: GPL
+Group: Applications/System
+Source0: rpmorphan-%{version}.tar.gz
+BuildRoot: %{_tmppath}/%{name}-root
+
+%description
+rpmorphan is a program that will list RPMs that can be uninstalled -
+i.e., that are not depended on by any other installed RPMs.  Inspired
+by deborphan from debian.
+
+%prep
+%setup
+
+%build
+%configure
+make
+
+%install
+make DESTDIR="$RPM_BUILD_ROOT" install
+
+%clean
+rm -rf "${RPM_BUILD_ROOT}"/usr/
+
+%files
+%defattr(-,root,root)
+/usr/bin/rpmorphan
+
+%changelog
+* Tue Dec 27  2002 Ralph Loader <suckfish@ihug.co.nz>
+- Created.
