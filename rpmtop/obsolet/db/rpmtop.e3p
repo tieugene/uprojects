@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE Project SYSTEM "Project-3.8.dtd">
+<!-- Project file for project rpmtop -->
+<!-- Saved: 2006-05-14, 15:36:47 -->
+<!-- Copyright (C) 2006 Eugene A. Pivnev, ti.eugene@gmail.com -->
+<Project version="3.8">
+  <ProgLanguage mixed="0">Python</ProgLanguage>
+  <UIType>Console</UIType>
+  <Description>Utility to get 'top' rpms of installed system.</Description>
+  <Version>0.1</Version>
+  <Author>Eugene A. Pivnev</Author>
+  <Email>ti.eugene@gmail.com</Email>
+  <Sources>
+    <Source>
+      <Name>gvar.py</Name>
+    </Source>
+    <Source>
+      <Name>load.py</Name>
+    </Source>
+    <Source>
+      <Name>rpmtop.py</Name>
+    </Source>
+  </Sources>
+  <Forms>
+  </Forms>
+  <Translations>
+  </Translations>
+  <Interfaces>
+  </Interfaces>
+  <Others>
+    <Other>
+      <Name>README</Name>
+    </Other>
+  </Others>
+  <Vcs>
+    <VcsType>None</VcsType>
+  </Vcs>
+  <FiletypeAssociations>
+    <FiletypeAssociation pattern="*.ui.h" type="FORMS" />
+    <FiletypeAssociation pattern="*.ptl" type="SOURCES" />
+    <FiletypeAssociation pattern="*.idl" type="INTERFACES" />
+    <FiletypeAssociation pattern="*.ui" type="FORMS" />
+    <FiletypeAssociation pattern="*.py" type="SOURCES" />
+  </FiletypeAssociations>
+</Project>
