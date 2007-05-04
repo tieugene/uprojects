@@ -1,0 +1,30 @@
+Quamachi ChangeLog
+
+
+0.2
+* Grep: added URL in 'Help' menu
+* Startup: website launched if Hamachi isn't installed
+* Copy Address: of a peer to the clipboard
+* Position: of the main window is remembered between sessions
+* Alternating row colours: option added to the 'Settings' dialog
+* Invisible mode: for servers
+* Demonstration mode: for perusal
+* Code structure: several minor changes
+
+0.1.2
+* Offline peers: now hidden by default
+* Hide Offline Peers: toggle available from the 'Option' menu
+* Ping icon: added to the peer context menu
+* TunCfg: Main and 'kdesu' dialogs won't be shown if already running
+* Exit: prevented occasional timing-related segmentation fault
+
+0.1.1
+* Startup: timing improvements
+* Automation: restart and reconnect
+* Exit button: now regardless of the status
+* Partial verbose mode: 'v' option for debugging purposes
+* Usage statement: available via the 'h' command-line option
+* Code structure: several minor changes
+
+0.1
+* All Hamachi features included in v0.9.9.9

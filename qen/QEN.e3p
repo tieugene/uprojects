@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE Project SYSTEM "Project-3.9.dtd">
+<!-- Project file for project QEN -->
+<!-- Saved: 2007-05-04, 19:28:01 -->
+<!-- Copyright (C) 2007 Eugene A. Pivnev, ti.eugene@gmail.com -->
+<Project version="3.9">
+  <ProgLanguage mixed="0">Python</ProgLanguage>
+  <UIType>Qt4</UIType>
+  <Description>Qt eGroupWare Notifier</Description>
+  <Version>0.1</Version>
+  <Author>Eugene A. Pivnev</Author>
+  <Email>ti.eugene@gmail.com</Email>
+  <TranslationPrefix>
+    <Name>qen</Name>
+  </TranslationPrefix>
+  <Sources>
+    <Source>
+      <Name>QEN.py</Name>
+    </Source>
+    <Source>
+      <Name>Display.py</Name>
+    </Source>
+    <Source>
+      <Name>Input.py</Name>
+    </Source>
+    <Source>
+      <Name>Main.py</Name>
+    </Source>
+    <Source>
+      <Name>Import.py</Name>
+    </Source>
+    <Source>
+      <Name>Help.py</Name>
+    </Source>
+    <Source>
+      <Name>Settings.py</Name>
+    </Source>
+    <Source>
+      <Name>Network.py</Name>
+    </Source>
+    <Source>
+      <Name>Thread.py</Name>
+    </Source>
+    <Source>
+      <Name>Ui_Settings.py</Name>
+    </Source>
+    <Source>
+      <Name>Ui_Main.py</Name>
+    </Source>
+    <Source>
+      <Name>egroupware.py</Name>
+    </Source>
+  </Sources>
+  <Forms>
+    <Form>
+      <Name>Settings.ui</Name>
+    </Form>
+    <Form>
+      <Name>Main.ui</Name>
+    </Form>
+  </Forms>
+  <Translations>
+  </Translations>
+  <Interfaces>
+  </Interfaces>
+  <Others>
+    <Other>
+      <Name>TODO.txt</Name>
+    </Other>
+  </Others>
+  <MainScript>
+    <Name>QEN.py</Name>
+  </MainScript>
+  <Vcs>
+    <VcsType>None</VcsType>
+  </Vcs>
+  <FiletypeAssociations>
+    <FiletypeAssociation pattern="*.ui.h" type="FORMS" />
+    <FiletypeAssociation pattern="*.ui" type="FORMS" />
+    <FiletypeAssociation pattern="*.idl" type="INTERFACES" />
+    <FiletypeAssociation pattern="*.py" type="SOURCES" />
+    <FiletypeAssociation pattern="*.ptl" type="SOURCES" />
+  </FiletypeAssociations>
+</Project>

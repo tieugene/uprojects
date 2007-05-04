@@ -1,0 +1,39 @@
+<RCC>
+    <qresource prefix="/actions" >
+        <file>Images/actions/add.png</file>
+        <file>Images/actions/add_user.png</file>
+        <file>Images/actions/button_cancel.png</file>
+        <file>Images/actions/button_ok.png</file>
+        <file>Images/actions/circle.png</file>
+        <file>Images/actions/delete_user.png</file>
+        <file>Images/actions/edit_add.png</file>
+        <file>Images/actions/edit_remove.png</file>
+        <file>Images/actions/edit_user.png</file>
+        <file>Images/actions/exit.png</file>
+        <file>Images/actions/led-green.png</file>
+        <file>Images/actions/led-red.png</file>
+        <file>Images/actions/pill-purple.png</file>
+        <file>Images/actions/pill-seagreen.png</file>
+        <file>Images/actions/pill-yellow.png</file>
+        <file>Images/actions/remove.png</file>
+    </qresource>
+    <qresource prefix="/apps" >
+        <file>Images/apps/Hamachi.png</file>
+        <file>Images/apps/Quamachi.png</file>
+        <file>Images/apps/ckhome2.png</file>
+        <file>Images/apps/gnu-head-sm.jpg</file>
+        <file>Images/apps/icon-clipboard.png</file>
+        <file>Images/apps/package_settings.png</file>
+        <file>Images/apps/pyqt-logo.png</file>
+        <file>Images/apps/python-logo.png</file>
+        <file>Images/apps/qt4-logo.png</file>
+        <file>Images/apps/egw.png</file>
+        <file>Images/apps/infolog.png</file>
+    </qresource>
+    <qresource prefix="/filesystems" >
+        <file>Images/filesystems/folder_open.png</file>
+    </qresource>
+    <qresource prefix="/mimetypes" >
+        <file>Images/mimetypes/txt.png</file>
+    </qresource>
+</RCC>

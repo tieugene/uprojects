@@ -1,0 +1,25 @@
+Quamachi ISSUES
+
+
+
+All:
+
+
+Linux:
+
+	TunCfg
+		See the 'TunCfg' section of 'INSTALL.txt'
+
+	Hamachi
+		See the 'TunCfg' and 'Hamachi' sections of 'INSTALL.txt'
+		tap: bad response
+			Remove the "~/.hamachi/" dir and run "hamachi-init -n <nickname>" (again)
+		tap: connect() failed
+			Restart "tuncfg"
+		Logging in ... failed
+			Add "/sbin" to yours and root's $PATH statement; re-login to KDE
+			Try removing the "~/.hamachi/" dir and run "hamachi-init -n <nickname>" (again)
+
+	Qt
+		Bug: 4.2.1: In the 'Qt4 Configuration' program, setting 'Interface --> GUI Effects --> Menu Effect' to 'Animate' can cause an error.  To prevent this, try setting 'Menu Effect' to 'Fade' instead.
+			Fix: Please use only Qt >= 4.2.2 with Quamachi.
