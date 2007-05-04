@@ -119,10 +119,11 @@ Message.sTaskAccepting		= "Task accepting ..."
 
 # Input
 Input					= QtCore.QObject()
-##Input.iNumArgs			= len(sys.argv)
+Input.iNumArgs			= len(sys.argv)
 ##Input.Network				= QtCore.QObject()
 ##Input.Network.sName		= QtCore.QString()
 ##Input.Network.sPassword	= QtCore.QString()
+Input.Task				= QtCore.QObject()
 Input.Task.sID			= QtCore.QString()
 
 # Setting
