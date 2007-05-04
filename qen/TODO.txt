@@ -28,10 +28,11 @@ QTreeWidget twNetworks => QListView lwTasks
 
 + de bug
 + filter on offer only
-* Accepting task
+* Accepting task - now can't accept
 * offered counter
 * subj as URL
-* Setup
+* Options
+* db
 -------
 string	access
 	addr

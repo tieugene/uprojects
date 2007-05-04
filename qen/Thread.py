@@ -97,7 +97,7 @@ class tLogin( QtCore.QThread ) :
 	def Login( self ) :
 		if Settings.Init.bVerbose is True :
 			print "tLogin.Login: Initiating"
-		data = ['http://server/egroupware', 'eugene', 'S41Plus']
+		data = ['http://server/egroupware', 'user', 'password']
 		try:
 			Settings.Status.oSession = egroupware.getsession(data[0], data[1], data[2])
 			Settings.Status.bConnected = True
@@ -175,13 +175,15 @@ class tUpdate( QtCore.QThread ) :
 		if Settings.Init.bVerbose is True :
 			print "tUpdate.GetTasks: Beginning"
 
+		ok = False
 		if (Settings.Status.bConnected) :
 			try:
 				tasks = Settings.Status.oSession.getinfolog({"info_type": "task", "info_status": "offer"})
 				sOutput = ""
+				ok = True
 			except:
 				sOutput = "Can't get data from server"
-			if (len(sOutput)):
+			if (ok):
 				Settings.Status.lFreshData = []
 				for task in tasks:
 #					if (task['status'] == 'offer'):
@@ -216,19 +218,21 @@ class tUpdate( QtCore.QThread ) :
 
 class tTaskAccept( QtCore.QThread ) :
 
-	def Accept( self, id ) :
+	def Accept( self ) :
 		if Settings.Init.bVerbose is True :
 			print "tTaskAccept.Accept: Beginning"
 
+		ok = False
 		if (Settings.Status.bConnected) :
+			#print "Accepting %d" % Settings.Input.Task.sID
 			try:
-				#ok = Settings.Status.oSession.accepttask({"info_id": Settings.Input.Task.sID, "info_status": "not-started"})
-				ok = True	# FIXME:
+				ok = Settings.Status.oSession.accepttask({"info_id": Settings.Input.Task.sID, "info_status": "not-started"})
+				#ok = True	# FIXME:
 				sOutput = ""
 			except:
 				sOutput = "Can't put data to server"
-			if Settings.Init.bVerbose is True :
-				print "Result: " % ok
+#			if Settings.Init.bVerbose is True :
+#				print "Result: " % ok
 		else:
 			sOutput = "Not connected to server."
 		if Settings.Init.bVerbose is True :

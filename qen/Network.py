@@ -140,7 +140,8 @@ def slTaskAccept() :
 	Main.uiMain.sbMain.showMessage( Settings.Message.sTaskAccepting )
 
 	# get value
-	Settings.Input.Task.sID		= Main.uiMain.lwTasks.currentItem().text()
+	Settings.Input.Task.sID = Main.uiMain.twTasks.item(Main.uiMain.twTasks.currentRow(), 0).text().toInt()[0]		# PyQt feature
+	#print Settings.Input.Task.sID
 	# Execute thread
 	Thread.tiTaskAccept.start()
 	Thread.tiTaskAccept.setPriority( QtCore.QThread.LowPriority )
@@ -290,7 +291,7 @@ def slConnectDone( sError ) :
 
 
 # Update Done
-def slUpdateListDone( sList ) :
+def slUpdateListDone() :
 
 	#print "slUpdateListDone"
 
@@ -298,7 +299,7 @@ def slUpdateListDone( sList ) :
 	slExitUpdate()
 
 	# Update Display
-	Display.slUpdateList( sList )
+	Display.slUpdateList()
 	Display.slUpdateGUI()
 
 	# Update timer

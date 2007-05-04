@@ -41,27 +41,10 @@ except :
 # Display Init
 def slInit() :
 
-	# Tree Widget
-##	Main.uiMain.aSep1.setSeparator( True )
-##	Main.uiMain.aSep2.setSeparator( True )
-##	Main.uiMain.aSep3.setSeparator( True )
-##	Main.uiMain.aSep1.setText( "" )
-##	Main.uiMain.aSep2.setText( "" )
-##	Main.uiMain.aSep3.setText( "" )
-
-##	Main.uiMain.lwTasks.header().setResizeMode( 0, QtGui.QHeaderView.ResizeToContents )
-##	Main.uiMain.lwTasks.addAction( Main.uiMain.aPeerBrowse )
-##	Main.uiMain.lwTasks.addAction( Main.uiMain.aPeerPing )
-##	Main.uiMain.lwTasks.addAction( Main.uiMain.aPeerEvict )
-##	Main.uiMain.lwTasks.addAction( Main.uiMain.aPeerCA )
-##	Main.uiMain.lwTasks.addAction( Main.uiMain.aSep1 )
-##	Main.uiMain.lwTasks.addAction( Main.uiMain.aNetLeave )
-##	Main.uiMain.lwTasks.addAction( Main.uiMain.aSep2 )
-##	Main.uiMain.lwTasks.addAction( Main.uiMain.aNetConnect )
-##	Main.uiMain.lwTasks.addAction( Main.uiMain.aNetDisconnect )
-##	Main.uiMain.lwTasks.addAction( Main.uiMain.aSep3 )
-##	Main.uiMain.lwTasks.addAction( Main.uiMain.aNetDelete )
-	Main.uiMain.lwTasks.addAction( Main.uiMain.aTaskAccept )
+	# Table Widget
+	Main.uiMain.twTasks.setColumnCount( 3 )
+	#Main.uiMain.twTasks.horizontalHeaderItem(0).setText("ID")
+	Main.uiMain.twTasks.addAction( Main.uiMain.aTaskAccept )
 
 	# Main Window
 	if not Settings.Setting.Geometry.bPosition :
@@ -111,8 +94,8 @@ def slUpdateGUI() :
 	Main.uiMain.aStaDisconnect.setEnabled( Settings.Status.bConnected )
 
 	# Tab widget
-	Main.uiMain.lwTasks.setEnabled( Settings.Status.bConnected )
-	#Main.uiMain.lwTasks.setAlternatingRowColors( Settings.Setting.Appearance.bARC )
+	Main.uiMain.twTasks.setEnabled( Settings.Status.bConnected )
+	#Main.uiMain.twTasks.setAlternatingRowColors( Settings.Setting.Appearance.bARC )
 
 	# Menus
 	#Main.uiMain.mNetwork.setEnabled( Settings.Status.bConnected )
@@ -141,17 +124,16 @@ def slUpdateGUI() :
 
 
 # Update List
-def slUpdateList( sList ) :
+def slUpdateList() :
 
-	Main.uiMain.lwTasks.clear()
+	#print Settings.Status.lFreshData
+	Main.uiMain.twTasks.clear()
+	Main.uiMain.twTasks.setRowCount(len(Settings.Status.lFreshData))
 
-	for task in Settings.Status.lFreshData :
-		lwiTask	= QtGui.QListWidgetItem()
-		sName	= QtCore.QString(task[1])
-		sTip		= QtCore.QString(task[2])
-		lwiTask.setText( sName )
-		lwiTask.setToolTip( sTip )
-		Main.uiMain.lwTasks.addItem( lwiTask )
+	for row, task in enumerate(Settings.Status.lFreshData) :
+		Main.uiMain.twTasks.setItem(row, 0, QtGui.QTableWidgetItem(QtCore.QString(task[0])))
+		Main.uiMain.twTasks.setItem(row, 1, QtGui.QTableWidgetItem(QtCore.QString(task[1])))
+		Main.uiMain.twTasks.setItem(row, 2, QtGui.QTableWidgetItem(QtCore.QString(task[2])))
 #		lwiTask.setIcon( 0 , iIcon )
 
 	# Sort
