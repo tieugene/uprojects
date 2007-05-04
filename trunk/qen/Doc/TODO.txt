@@ -1,0 +1,20 @@
+Quamachi TODO
+
+
+Bugs
+
+Improvements
+	Avoid needing to use 'kdesu'; use 'sudo' instead
+		User must have already configured the permissions
+		Try using Python's processes instead of Qt's
+		Run TunCfg via sudo on system startup
+	Fix dodgy comments and implement 'verbose' mode properly
+	Make the dialog contents stretch with the main window size
+	Get locations of required commands (tuncfg, hamachi) on start-up
+
+Features
+	Get own nickname from running simply 'hamachi'
+	Auto-launch when logging back into KDE
+	Store and structure all variables in the 'Settings' module
+
+Documentation

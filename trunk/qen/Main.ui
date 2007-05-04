@@ -1,0 +1,574 @@
+<ui version="4.0" >
+ <class>Main</class>
+ <widget class="QMainWindow" name="Main" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>364</width>
+    <height>439</height>
+   </rect>
+  </property>
+  <property name="minimumSize" >
+   <size>
+    <width>364</width>
+    <height>439</height>
+   </size>
+  </property>
+  <property name="maximumSize" >
+   <size>
+    <width>364</width>
+    <height>439</height>
+   </size>
+  </property>
+  <property name="windowTitle" >
+   <string>QEN</string>
+  </property>
+  <property name="windowIcon" >
+   <iconset resource="Main.qrc" >:/apps/Images/apps/infolog.png</iconset>
+  </property>
+  <widget class="QWidget" name="cwMain" >
+   <widget class="QWidget" name="layoutWidget" >
+    <property name="geometry" >
+     <rect>
+      <x>10</x>
+      <y>350</y>
+      <width>341</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <layout class="QHBoxLayout" >
+     <property name="margin" >
+      <number>0</number>
+     </property>
+     <property name="spacing" >
+      <number>6</number>
+     </property>
+     <item>
+      <widget class="QPushButton" name="pbOnline" >
+       <property name="enabled" >
+        <bool>false</bool>
+       </property>
+       <property name="text" >
+        <string>Offline</string>
+       </property>
+       <property name="icon" >
+        <iconset resource="Main.qrc" >:/actions/Images/actions/led-red.png</iconset>
+       </property>
+       <property name="checkable" >
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer>
+       <property name="orientation" >
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" >
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pbExit" >
+       <property name="text" >
+        <string>Exit</string>
+       </property>
+       <property name="icon" >
+        <iconset resource="Main.qrc" >:/actions/Images/actions/exit.png</iconset>
+       </property>
+       <property name="shortcut" >
+        <string/>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QListWidget" name="lwTasks" >
+    <property name="geometry" >
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>341</width>
+      <height>331</height>
+     </rect>
+    </property>
+    <property name="contextMenuPolicy" >
+     <enum>Qt::ActionsContextMenu</enum>
+    </property>
+    <property name="toolTip" >
+     <string>Accepts</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QStatusBar" name="sbMain" >
+   <property name="sizeGripEnabled" >
+    <bool>false</bool>
+   </property>
+  </widget>
+  <widget class="QMenuBar" name="mbMain" >
+   <property name="geometry" >
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>364</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="mHelp" >
+    <property name="title" >
+     <string>Help</string>
+    </property>
+    <widget class="QMenu" name="mAbout" >
+     <property name="title" >
+      <string>About</string>
+     </property>
+     <addaction name="aAQEN" />
+     <addaction name="separator" />
+     <addaction name="aAQt4" />
+    </widget>
+    <widget class="QMenu" name="mDoc" >
+     <property name="title" >
+      <string>Documentation</string>
+     </property>
+     <addaction name="aDAuthors" />
+     <addaction name="aDChanges" />
+     <addaction name="aDCopying" />
+     <addaction name="aDInstall" />
+     <addaction name="aDIntroduction" />
+     <addaction name="aDIssues" />
+     <addaction name="aDLicence" />
+     <addaction name="aDNews" />
+     <addaction name="aDRequests" />
+    </widget>
+    <widget class="QMenu" name="mHome" >
+     <property name="title" >
+      <string>URL</string>
+     </property>
+     <addaction name="aUQEN" />
+     <addaction name="aUQt4" />
+     <addaction name="aUPyQt4" />
+     <addaction name="aUPython" />
+     <addaction name="aUEGroupWare" />
+    </widget>
+    <addaction name="mHome" />
+    <addaction name="mAbout" />
+    <addaction name="separator" />
+    <addaction name="mDoc" />
+   </widget>
+   <widget class="QMenu" name="mOption" >
+    <property name="title" >
+     <string>Option</string>
+    </property>
+    <addaction name="aOptSettings" />
+   </widget>
+   <widget class="QMenu" name="mStatus" >
+    <property name="title" >
+     <string>Status</string>
+    </property>
+    <addaction name="aStaConnect" />
+    <addaction name="aStaDisconnect" />
+    <addaction name="separator" />
+    <addaction name="aStaExit" />
+   </widget>
+   <addaction name="mStatus" />
+   <addaction name="mOption" />
+   <addaction name="mHelp" />
+  </widget>
+  <action name="aStaExit" >
+   <property name="icon" >
+    <iconset resource="Main.qrc" >:/actions/Images/actions/exit.png</iconset>
+   </property>
+   <property name="text" >
+    <string>Exit</string>
+   </property>
+   <property name="shortcut" >
+    <string>Ctrl+Q</string>
+   </property>
+  </action>
+  <action name="aStaDisconnect" >
+   <property name="enabled" >
+    <bool>false</bool>
+   </property>
+   <property name="icon" >
+    <iconset resource="Main.qrc" >:/actions/Images/actions/led-red.png</iconset>
+   </property>
+   <property name="text" >
+    <string>Disconnect</string>
+   </property>
+  </action>
+  <action name="aOptSettings" >
+   <property name="icon" >
+    <iconset resource="Main.qrc" >:/apps/Images/apps/package_settings.png</iconset>
+   </property>
+   <property name="text" >
+    <string>Settings</string>
+   </property>
+   <property name="toolTip" >
+    <string>Open Settings dialog</string>
+   </property>
+  </action>
+  <action name="aFBBad" >
+   <property name="icon" >
+    <iconset resource="Main.qrc" >:/actions/Images/actions/led-red.png</iconset>
+   </property>
+   <property name="text" >
+    <string>Bad</string>
+   </property>
+   <property name="toolTip" >
+    <string>Send bad feedback</string>
+   </property>
+  </action>
+  <action name="aFBGood" >
+   <property name="icon" >
+    <iconset resource="Main.qrc" >:/actions/Images/actions/led-green.png</iconset>
+   </property>
+   <property name="text" >
+    <string>Good</string>
+   </property>
+   <property name="toolTip" >
+    <string>Send good feedback</string>
+   </property>
+  </action>
+  <action name="aAQEN" >
+   <property name="icon" >
+    <iconset resource="Main.qrc" >:/apps/Images/apps/infolog.png</iconset>
+   </property>
+   <property name="text" >
+    <string>QEN</string>
+   </property>
+  </action>
+  <action name="aAQt4" >
+   <property name="icon" >
+    <iconset resource="Main.qrc" >:/apps/Images/apps/qt4-logo.png</iconset>
+   </property>
+   <property name="text" >
+    <string>Qt4</string>
+   </property>
+  </action>
+  <action name="aUQuamachi" >
+   <property name="icon" >
+    <iconset resource="Main.qrc" >:/apps/Images/apps/Quamachi.png</iconset>
+   </property>
+   <property name="text" >
+    <string>Quamachi</string>
+   </property>
+  </action>
+  <action name="aUQt4" >
+   <property name="icon" >
+    <iconset resource="Main.qrc" >:/apps/Images/apps/qt4-logo.png</iconset>
+   </property>
+   <property name="text" >
+    <string>Qt4</string>
+   </property>
+  </action>
+  <action name="aUPyQt4" >
+   <property name="icon" >
+    <iconset resource="Main.qrc" >:/apps/Images/apps/pyqt-logo.png</iconset>
+   </property>
+   <property name="text" >
+    <string>PyQt4</string>
+   </property>
+  </action>
+  <action name="aUPython" >
+   <property name="icon" >
+    <iconset resource="Main.qrc" >:/apps/Images/apps/python-logo.png</iconset>
+   </property>
+   <property name="text" >
+    <string>Python</string>
+   </property>
+  </action>
+  <action name="aDAuthors" >
+   <property name="icon" >
+    <iconset resource="Main.qrc" >:/mimetypes/Images/mimetypes/txt.png</iconset>
+   </property>
+   <property name="text" >
+    <string>Authors</string>
+   </property>
+  </action>
+  <action name="aDChanges" >
+   <property name="icon" >
+    <iconset resource="Main.qrc" >:/mimetypes/Images/mimetypes/txt.png</iconset>
+   </property>
+   <property name="text" >
+    <string>Changes</string>
+   </property>
+  </action>
+  <action name="aDCopying" >
+   <property name="icon" >
+    <iconset resource="Main.qrc" >:/mimetypes/Images/mimetypes/txt.png</iconset>
+   </property>
+   <property name="text" >
+    <string>Copying</string>
+   </property>
+  </action>
+  <action name="aDInstall" >
+   <property name="icon" >
+    <iconset resource="Main.qrc" >:/mimetypes/Images/mimetypes/txt.png</iconset>
+   </property>
+   <property name="text" >
+    <string>Install</string>
+   </property>
+  </action>
+  <action name="aDIssues" >
+   <property name="icon" >
+    <iconset resource="Main.qrc" >:/mimetypes/Images/mimetypes/txt.png</iconset>
+   </property>
+   <property name="text" >
+    <string>Issues</string>
+   </property>
+  </action>
+  <action name="aDLicence" >
+   <property name="icon" >
+    <iconset resource="Main.qrc" >:/mimetypes/Images/mimetypes/txt.png</iconset>
+   </property>
+   <property name="text" >
+    <string>Licence</string>
+   </property>
+  </action>
+  <action name="aDNews" >
+   <property name="icon" >
+    <iconset resource="Main.qrc" >:/mimetypes/Images/mimetypes/txt.png</iconset>
+   </property>
+   <property name="text" >
+    <string>News</string>
+   </property>
+  </action>
+  <action name="aDIntroduction" >
+   <property name="icon" >
+    <iconset resource="Main.qrc" >:/mimetypes/Images/mimetypes/txt.png</iconset>
+   </property>
+   <property name="text" >
+    <string>Introduction</string>
+   </property>
+  </action>
+  <action name="aDRequests" >
+   <property name="icon" >
+    <iconset resource="Main.qrc" >:/mimetypes/Images/mimetypes/txt.png</iconset>
+   </property>
+   <property name="text" >
+    <string>Requests</string>
+   </property>
+  </action>
+  <action name="aUCheckInstall" >
+   <property name="icon" >
+    <iconset resource="Main.qrc" >:/apps/Images/apps/ckhome2.png</iconset>
+   </property>
+   <property name="text" >
+    <string>CheckInstall</string>
+   </property>
+  </action>
+  <action name="aUMake" >
+   <property name="icon" >
+    <iconset resource="Main.qrc" >:/apps/Images/apps/gnu-head-sm.jpg</iconset>
+   </property>
+   <property name="text" >
+    <string>Make</string>
+   </property>
+  </action>
+  <action name="aUMinGW" >
+   <property name="text" >
+    <string>MinGW</string>
+   </property>
+  </action>
+  <action name="aStaConnect" >
+   <property name="icon" >
+    <iconset resource="Main.qrc" >:/actions/Images/actions/led-green.png</iconset>
+   </property>
+   <property name="text" >
+    <string>Connect</string>
+   </property>
+  </action>
+  <action name="aNetNickname" >
+   <property name="icon" >
+    <iconset resource="Main.qrc" >:/actions/Images/actions/edit_user.png</iconset>
+   </property>
+   <property name="text" >
+    <string>Nickname</string>
+   </property>
+  </action>
+  <action name="aNetJoin" >
+   <property name="icon" >
+    <iconset resource="Main.qrc" >:/actions/Images/actions/edit_add.png</iconset>
+   </property>
+   <property name="text" >
+    <string>Join</string>
+   </property>
+   <property name="shortcut" >
+    <string>Ctrl+J</string>
+   </property>
+  </action>
+  <action name="aNetCreate" >
+   <property name="icon" >
+    <iconset resource="Main.qrc" >:/actions/Images/actions/add.png</iconset>
+   </property>
+   <property name="text" >
+    <string>Create</string>
+   </property>
+  </action>
+  <action name="aNetDelete" >
+   <property name="icon" >
+    <iconset resource="Main.qrc" >:/actions/Images/actions/remove.png</iconset>
+   </property>
+   <property name="text" >
+    <string>Delete</string>
+   </property>
+  </action>
+  <action name="aNetLeave" >
+   <property name="icon" >
+    <iconset resource="Main.qrc" >:/actions/Images/actions/edit_remove.png</iconset>
+   </property>
+   <property name="text" >
+    <string>Leave</string>
+   </property>
+  </action>
+  <action name="aPeerEvict" >
+   <property name="icon" >
+    <iconset resource="Main.qrc" >:/actions/Images/actions/delete_user.png</iconset>
+   </property>
+   <property name="text" >
+    <string>Evict</string>
+   </property>
+  </action>
+  <action name="aNetConnect" >
+   <property name="icon" >
+    <iconset resource="Main.qrc" >:/actions/Images/actions/led-green.png</iconset>
+   </property>
+   <property name="text" >
+    <string>Connect</string>
+   </property>
+  </action>
+  <action name="aNetDisconnect" >
+   <property name="icon" >
+    <iconset resource="Main.qrc" >:/actions/Images/actions/led-red.png</iconset>
+   </property>
+   <property name="text" >
+    <string>Disconnect</string>
+   </property>
+  </action>
+  <action name="aSep1" >
+   <property name="text" >
+    <string>Separator</string>
+   </property>
+  </action>
+  <action name="aSep2" >
+   <property name="text" >
+    <string>Separator</string>
+   </property>
+  </action>
+  <action name="aUHamachi" >
+   <property name="icon" >
+    <iconset resource="Main.qrc" >:/apps/Images/apps/Hamachi.png</iconset>
+   </property>
+   <property name="text" >
+    <string>Hamachi</string>
+   </property>
+  </action>
+  <action name="aUSudo" >
+   <property name="text" >
+    <string>Sudo</string>
+   </property>
+  </action>
+  <action name="aSep3" >
+   <property name="text" >
+    <string>Separator</string>
+   </property>
+  </action>
+  <action name="aPeerBrowse" >
+   <property name="icon" >
+    <iconset resource="Main.qrc" >:/filesystems/Images/filesystems/folder_open.png</iconset>
+   </property>
+   <property name="text" >
+    <string>Browse</string>
+   </property>
+  </action>
+  <action name="aPeerPing" >
+   <property name="icon" >
+    <iconset resource="Main.qrc" >:/actions/Images/actions/circle.png</iconset>
+   </property>
+   <property name="text" >
+    <string>Ping</string>
+   </property>
+  </action>
+  <action name="aOptHideOfflinePeers" >
+   <property name="checkable" >
+    <bool>true</bool>
+   </property>
+   <property name="checked" >
+    <bool>true</bool>
+   </property>
+   <property name="text" >
+    <string>Hide Offline Peers</string>
+   </property>
+  </action>
+  <action name="aUGrep" >
+   <property name="icon" >
+    <iconset resource="Main.qrc" >:/apps/Images/apps/gnu-head-sm.jpg</iconset>
+   </property>
+   <property name="text" >
+    <string>Grep</string>
+   </property>
+  </action>
+  <action name="aPeerCA" >
+   <property name="icon" >
+    <iconset resource="Main.qrc" >:/apps/Images/apps/icon-clipboard.png</iconset>
+   </property>
+   <property name="text" >
+    <string>Copy Address</string>
+   </property>
+  </action>
+  <action name="aUEGroupWare" >
+   <property name="icon" >
+    <iconset resource="Main.qrc" >:/apps/Images/apps/egw.png</iconset>
+   </property>
+   <property name="text" >
+    <string>eGroupWare</string>
+   </property>
+  </action>
+  <action name="aUQEN" >
+   <property name="icon" >
+    <iconset resource="Main.qrc" >:/apps/Images/apps/infolog.png</iconset>
+   </property>
+   <property name="text" >
+    <string>QEN</string>
+   </property>
+  </action>
+  <action name="aTaskAccept" >
+   <property name="icon" >
+    <iconset resource="Main.qrc" >:/actions/Images/actions/button_ok.png</iconset>
+   </property>
+   <property name="text" >
+    <string>Accept</string>
+   </property>
+  </action>
+ </widget>
+ <tabstops>
+  <tabstop>pbExit</tabstop>
+  <tabstop>pbOnline</tabstop>
+ </tabstops>
+ <resources>
+  <include location="Main.qrc" />
+ </resources>
+ <connections>
+  <connection>
+   <sender>pbExit</sender>
+   <signal>clicked()</signal>
+   <receiver>aStaExit</receiver>
+   <slot>trigger()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>419</x>
+     <y>434</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>

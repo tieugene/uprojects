@@ -1,0 +1,61 @@
+slStart
+	tiStart
+		=> done
+slStartDone
+	Display.slUpdateGUI
+	slConnect
+		tiLogin
+			=> done
+slConnectDone
+	slUpdateGUI
+	slUpdateList()
+		tiUpdate
+			=> done
+slUpdateListDone
+
+*******
+slStart
+	tiStart
+		=> done
+slStartDone
+	Display.slUpdateGUI
+	slUpdateList()
+		tiUpdate
+			=> done
+
+-------
+QTreeWidget twNetworks => QListView lwTasks 
+
++ de bug
++ filter on offer only
+* Accepting task
+* offered counter
+* subj as URL
+* Setup
+-------
+string	access
+	addr
+digit	anz_subs
+{dig: str}	cat
+string	confirm
+DateTime	datecompleted
+DateTime	datemodified
+unicode	des
+unicode	from
+digit	id
+digit	id_parent
+digit	link_id
+	location
+digit	modifier
+digit	owner
+digit	percent
+digit	planned_time
+digit	pl_id
+digit	price
+digit	priority
+digit	rights
+DateTime	startdate
+string	status
+unicode	subject
+string	type
+digit	used_time
