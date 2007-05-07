@@ -72,7 +72,8 @@ uiMain.aStaExit.connect( uiMain.aStaExit, QtCore.SIGNAL( "triggered()" ), Networ
 
 uiMain.aOptSettings.connect( uiMain.aOptSettings, QtCore.SIGNAL( "triggered()" ), Settings.slDialog )
 
-uiMain.aTaskAccept.connect( uiMain.aTaskAccept, QtCore.SIGNAL( "triggered()" ), Network.slTaskAccept )
+#uiMain.aTaskAccept.connect( uiMain.aTaskAccept, QtCore.SIGNAL( "triggered()" ), Network.slTaskAccept )
+uiMain.aTaskAccept.connect( uiMain.aTaskAccept, QtCore.SIGNAL( "triggered()" ), Help.slGoTask )
 
 # About
 uiMain.aAQEN.connect( uiMain.aAQEN, QtCore.SIGNAL( "triggered()" ), Help.slAboutQEN )
