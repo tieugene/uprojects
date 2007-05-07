@@ -42,7 +42,9 @@ except :
 def slInit() :
 
 	# Table Widget
-	Main.uiMain.twTasks.setColumnCount( 3 )
+	Main.uiMain.twTasks.setColumnCount( 2 )
+	Main.uiMain.twTasks.hideColumn( 0 )
+	#Main.uiMain.twTasks.header().setResizeMode( 0, QtGui.QHeaderView.ResizeToContents )
 	#Main.uiMain.twTasks.horizontalHeaderItem(0).setText("ID")
 	Main.uiMain.twTasks.addAction( Main.uiMain.aTaskAccept )
 
@@ -57,8 +59,9 @@ def slInit() :
 		Main.stiMain.setContextMenu( Main.uiMain.mStatus )
 
 		# Icon
-		iIcon = QtGui.QIcon( Settings.Icon.Location.sApps + "infolog.png" )	# Settings.Application.sName
-		Main.stiMain.setIcon( iIcon )
+		pixmap = QtGui.QPixmap(Settings.Icon.Location.sApps + "infolog.png")
+		Settings.Setting.TrayIcon = pixmap
+		Main.stiMain.setIcon( QtGui.QIcon(pixmap) )
 
 		# Tooltip
 		Main.stiMain.setToolTip( Settings.Application.sName + " (Offline)" )
@@ -127,13 +130,13 @@ def slUpdateGUI() :
 def slUpdateList() :
 
 	#print Settings.Status.lFreshData
+	tasks = len(Settings.Status.lFreshData)
 	Main.uiMain.twTasks.clear()
-	Main.uiMain.twTasks.setRowCount(len(Settings.Status.lFreshData))
+	Main.uiMain.twTasks.setRowCount(tasks)
 
 	for row, task in enumerate(Settings.Status.lFreshData) :
 		Main.uiMain.twTasks.setItem(row, 0, QtGui.QTableWidgetItem(QtCore.QString(task[0])))
 		Main.uiMain.twTasks.setItem(row, 1, QtGui.QTableWidgetItem(QtCore.QString(task[1])))
-		Main.uiMain.twTasks.setItem(row, 2, QtGui.QTableWidgetItem(QtCore.QString(task[2])))
 #		lwiTask.setIcon( 0 , iIcon )
 
 	# Sort
@@ -141,6 +144,17 @@ def slUpdateList() :
 
 	# Statusbar
 	#Main.uiMain.sbMain.clearMessage()
+	Main.uiMain.twTasks.resizeColumnToContents(1)
+	Main.uiMain.twTasks.resizeRowsToContents()
+
+	# tune tray icon
+	pixmap = Settings.Setting.TrayIcon
+	if (tasks):
+		painter = QtGui.QPainter(pixmap)
+		painter.setFont(QtGui.QFont("Arial", 16))
+		painter.drawText(0, 24, QtCore.QString().setNum(tasks))		# x, y
+		painter.end()
+	Main.stiMain.setIcon(QtGui.QIcon(pixmap))
 
 
 # Error Message

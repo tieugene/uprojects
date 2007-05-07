@@ -27,7 +27,7 @@ class	Task:
 #		self.Owner	= None	# owner
 
 def getsession(url, user, password, domain="default"):
-
+	print url, user, password
 	# fixup whatever the user max have given us
 	scheme, location, path, query, fragment = urlparse.urlsplit(url)
 

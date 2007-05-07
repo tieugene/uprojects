@@ -28,11 +28,14 @@ QTreeWidget twNetworks => QListView lwTasks
 
 + de bug
 + filter on offer only
-* Accepting task - now can't accept
-* offered counter
-* subj as URL
++ Accepting task - now can't accept - not! view only + URL
++ subj as URL - Can't; need at least QLabel, but QTable* and QList can conetns QString only => deside get ID from 1st column
++ Actions: Open (/egroupware/index.php?menuaction=infolog.uiinfolog.edit&info_id=62), Refresh
++ counter in tray (?QGraphicsSimpleTextItem)
 * Options
-* db
+* DoubleClick
+[* Option.Browser]
+[* db - not wanted]
 -------
 string	access
 	addr

@@ -186,7 +186,7 @@ def slUpdateList() :
 
 		# Disable
 		#Main.uiMain.twNetworks.clear()
-		Main.uiMain.twNetworks.setEnabled( False )
+		Main.uiMain.twTasks.setEnabled( False )
 
 		# Update GUI
 		Display.slUpdateGUI()

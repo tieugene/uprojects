@@ -60,7 +60,6 @@ Path.sSep		= QtCore.QString( QtCore.QDir.separator() )
 Init				= QtCore.QObject()
 Init.bHide		= False
 Init.bConnect		= True
-Init.bDemo		= False
 Init.bVerbose		= False
 Init.bInvisible	= False
 
@@ -99,14 +98,6 @@ Icon.Location.sActions		= ":/actions/Images/actions/"
 Icon.Action				= QtCore.QObject()
 Icon.Action.sOnline		= "led-green"
 Icon.Action.sOffline		= "led-red"
-##Icon.Tree				= QtCore.QObject()
-##Icon.Tree.sOnline			= "pill-seagreen"
-##Icon.Tree.sDodgy			= "pill-yellow"
-##Icon.Tree.sOffline		= "pill-purple"
-
-# File
-##File						= QtCore.QObject()
-##File.sDemoList			= "../Testing/DemoList.txt"
 
 # Message
 Message					= QtCore.QObject()
@@ -120,25 +111,33 @@ Message.sTaskAccepting		= "Task accepting ..."
 # Input
 Input					= QtCore.QObject()
 Input.iNumArgs			= len(sys.argv)
-##Input.Network				= QtCore.QObject()
+##Input.Network			= QtCore.QObject()
 ##Input.Network.sName		= QtCore.QString()
 ##Input.Network.sPassword	= QtCore.QString()
 Input.Task				= QtCore.QObject()
 Input.Task.sID			= QtCore.QString()
 
+# Default values
+Default					= QtCore.QObject()
+Default.Server			= "http://server/egroupware/"
+Default.Login				= "user"
+Default.Password			= "password"
+Default.RefreshTime		= None
+
+# Settings key names
+Key						= QtCore.QObject()
+Key.Server				= "server"
+Key.Login				= "login"
+Key.Password				= "password"
+Key.RefreshTime			= "refresh"
+
 # Setting
 sSettings				= QtCore.QSettings()
 Setting					= QtCore.QObject()
-Setting.Geometry			= QtCore.QObject()
-Setting.Geometry.bPosition	= False
-Setting.Appearance		= QtCore.QObject()
-Setting.Appearance.bARC	= False
-Setting.Connection		= QtCore.QObject()
-Setting.Connection.Server	= QtCore.QUrl( "http://localhost/egroupware/" );
-Setting.Connection.Login	= "user"
-Setting.Connection.Password	= "password"
+Setting.Server			= "http://server/egroupware/";
+Setting.Login				= "eugene"
+Setting.Password			= "S41Plus"
 Setting.RefreshTime		= 300
-Setting.DBPath			= "~/.qen/"
 
 
 # Linux
@@ -161,16 +160,6 @@ if sOS == "Linux" :
 	# Commands
 	#Command.sSU				= "sudo"
 	Command.sSU				= "kdesu"
-	Command.sHamachiInit	= "hamachi-init"
-	Command.sHamachi		= "hamachi"
-	Command.sKonsole		= "konsole"
-	Command.sPing			= "ping"
-
-	# TunCfg existence
-##	if QtCore.QFile.exists( Command.sTunCfg ) :
-##		Status.bCanLaunch	= True
-##	else :
-##		Status.bCanLaunch	= False
 
 	Init.bHide		= True
 
@@ -192,9 +181,9 @@ if sOS == "Linux" :
 
 		# Commands
 		sCmdSudo		= QtCore.QString( "sudo" )
-		sCmdTunCfg		= QtCore.QString( "tuncfg" )
+		sCmdTunCfg	= QtCore.QString( "tuncfg" )
 		sReg			= QtCore.QSettings( "HKEY_LOCAL_MACHINE\\Software\\Hamachi" , QtCore.QSettings.NativeFormat )
-		sCmdHamachi		= sReg.value( "Path" ).toString() + "/Hamachi.exe"
+		sCmdHamachi	= sReg.value( "Path" ).toString() + "/Hamachi.exe"
 	"""
 
 # Others
@@ -212,56 +201,45 @@ else :
 # Load
 def slLoad() :
 
-	#print "slLoad"
-
-	# Window
-	sSettings.beginGroup( "Geometry" )
-	#Main.mwMain.resize( sSettings.value( "Size" ).toSize() )
-	if sSettings.contains( "Position" ) :
-		Setting.Geometry.bPosition = True
-		Main.mwMain.move( sSettings.value( "Position" ).toPoint() )
-	sSettings.endGroup()
-
-	# Appearance
-	sSettings.beginGroup( Main.uiSettings.gbAppearance.title() )
-	Setting.Appearance.bARC = sSettings.value( Main.uiSettings.cbARC.text() ).toBool()
-	sSettings.endGroup()
-
-	if Setting.Appearance.bARC == False :
-		Main.uiSettings.cbARC.setCheckState( QtCore.Qt.Unchecked )
+	if sSettings.contains(Key.Server) :
+		Setting.Server = sSettings.value(Key.Server).toString()
 	else :
-		Main.uiSettings.cbARC.setCheckState( QtCore.Qt.Checked )
+		Setting.Server = Default.Server
+
+	if sSettings.contains(Key.Login) :
+		Setting.Login = sSettings.value(Key.Login).toString()
+	else :
+		Setting.Login = Default.Login
+
+	if sSettings.contains(Key.Password) :
+		Setting.Password = sSettings.value(Key.Password).toString()
+	else :
+		Setting.Password = Default.Password
+
+	print Setting.Server
+	print Setting.Login
+	print Setting.Password
 
 
 # Save
 def slSave() :
-
-	#print "slSave"
-
-	# Window
-	sSettings.beginGroup( "Geometry" )
-	#sSettings.setValue( "Size" , QtCore.QVariant(Main.mwMain.size()) )
-	sSettings.setValue( "Position" , QtCore.QVariant(Main.mwMain.pos()) )
-	#sSettings.remove( "Position" )
-	sSettings.endGroup()
+	sSettings.setValue( Key.Server,   QtCore.QVariant(Setting.Server))
+	sSettings.setValue( Key.Login,    QtCore.QVariant(Setting.Login))
+	sSettings.setValue( Key.Password, QtCore.QVariant(Setting.Password))
+	#sSettings.setValue( "refresh",  QtCore.QVariant(Setting.Server))
 
 
 # Accept
 def slAccept() :
 
-	# Convert
-	if Main.uiSettings.cbARC.checkState() == QtCore.Qt.Unchecked :
-		Setting.Appearance.bARC = False
-	else :
-		Setting.Appearance.bARC = True
+	Setting.Server = Main.uiSettings.cbServerURL.text()
+	sSettings.setValue( Key.Server , QtCore.QVariant(Setting.Server) )
 
-	#print "slSettingsA: " + str( Setting.Appearance.bARC )
+	Setting.Login = Main.uiSettings.cbLogin.text()
+	sSettings.setValue( Key.Login , QtCore.QVariant(Setting.Login) )
 
-	# Save
-	# Appearance
-	sSettings.beginGroup( Main.uiSettings.gbAppearance.title() )
-	sSettings.setValue( Main.uiSettings.cbARC.text() , QtCore.QVariant(Setting.Appearance.bARC) )
-	sSettings.endGroup()
+	Setting.Password = Main.uiSettings.cbPassword.text()
+	sSettings.setValue( Key.Password , QtCore.QVariant(Setting.Password) )
 
 	# Update GUI
 	#Display.slUpdateGUI()
@@ -270,6 +248,11 @@ def slAccept() :
 
 # Dialog
 def slDialog() :
+
+	# set values
+	Main.uiSettings.cbServerURL.setText(Setting.Server)
+	Main.uiSettings.cbLogin.setText(Setting.Login)
+	Main.uiSettings.cbPassword.setText(Setting.Password)
 
 	# Modal
 	Main.dSettings.exec_()
