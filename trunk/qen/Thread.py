@@ -97,7 +97,7 @@ class tLogin( QtCore.QThread ) :
 	def Login( self ) :
 		if Settings.Init.bVerbose is True :
 			print "tLogin.Login: Initiating"
-		data = ['http://server/egroupware', 'eugene', 'S41Plus']
+		#data = ['http://server/egroupware', 'eugene', 'password']
 		try:
 			Settings.Status.oSession = egroupware.getsession(
 				Settings.Setting.Server,

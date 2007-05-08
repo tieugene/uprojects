@@ -2,7 +2,7 @@
 QEN:		Qt eGroupWare Notifier
 Designed by Eugene A. Pivnev
 
-File:		Settings.py
+File:	Settings.py
 Purpose:	Settings handler
 """
 
@@ -73,19 +73,19 @@ Status.lFreshData		= []		# hot data
 # Timer
 Timer					= QtCore.QObject()
 Timer.Update				= QtCore.QObject()
-Timer.Update.iFreq		= 60000
-Timer.Update.iPause		= 2000
+Timer.Update.iFreq		= 60000				# update timeout - 60k msec == 1 min
+#Timer.Update.iPause		= 2000
 Timer.Control				= QtCore.QObject()
-Timer.Control.iRestart		= 5000
-Timer.Control.iLaunched	= 5000
+Timer.Control.iRestart		= 5000				# 5 sec for restart on start (?)
+Timer.Control.iLaunched	= 5000				# 5 sec for starting msg
 Timer.Process				= QtCore.QObject()
-Timer.Process.iPause		= 500
-Timer.Process.iWaitMax		= 50
+Timer.Process.iPause		= 500				# timeout for stopping (Thread.tiStop)
+#Timer.Process.iWaitMax		= 50
 
 # Display
-Display							= QtCore.QObject()
-Display.bHideOfflinePeers			= True
-Display.bAlternatingRowColours		= True
+#Display							= QtCore.QObject()
+#Display.bHideOfflinePeers			= True
+#Display.bAlternatingRowColours		= True
 
 # Commands
 Command					= QtCore.QObject()
@@ -111,9 +111,6 @@ Message.sTaskAccepting		= "Task accepting ..."
 # Input
 Input					= QtCore.QObject()
 Input.iNumArgs			= len(sys.argv)
-##Input.Network			= QtCore.QObject()
-##Input.Network.sName		= QtCore.QString()
-##Input.Network.sPassword	= QtCore.QString()
 Input.Task				= QtCore.QObject()
 Input.Task.sID			= QtCore.QString()
 
@@ -122,7 +119,7 @@ Default					= QtCore.QObject()
 Default.Server			= "http://server/egroupware/"
 Default.Login				= "user"
 Default.Password			= "password"
-Default.RefreshTime		= None
+Default.RefreshTime		= 600000	# QtCore.QTime(0, 10)	# 1h, 10m, 0s
 
 # Settings key names
 Key						= QtCore.QObject()
@@ -134,10 +131,10 @@ Key.RefreshTime			= "refresh"
 # Setting
 sSettings				= QtCore.QSettings()
 Setting					= QtCore.QObject()
-Setting.Server			= "http://server/egroupware/";
-Setting.Login				= "eugene"
-Setting.Password			= "S41Plus"
-Setting.RefreshTime		= 300
+Setting.Server			= None
+Setting.Login				= None
+Setting.Password			= None
+#Setting.RefreshTime		= None
 
 
 # Linux
@@ -200,46 +197,49 @@ else :
 
 # Load
 def slLoad() :
-
+	# Server
 	if sSettings.contains(Key.Server) :
-		Setting.Server = sSettings.value(Key.Server).toString()
+		Setting.Server = str(sSettings.value(Key.Server).toString())
 	else :
 		Setting.Server = Default.Server
-
+	# Login
 	if sSettings.contains(Key.Login) :
-		Setting.Login = sSettings.value(Key.Login).toString()
+		Setting.Login = str(sSettings.value(Key.Login).toString())
 	else :
 		Setting.Login = Default.Login
-
+	# Password
 	if sSettings.contains(Key.Password) :
-		Setting.Password = sSettings.value(Key.Password).toString()
+		Setting.Password = str(sSettings.value(Key.Password).toString())
 	else :
 		Setting.Password = Default.Password
-
-	print Setting.Server
-	print Setting.Login
-	print Setting.Password
-
+	# RefreshTime
+	if sSettings.contains(Key.RefreshTime) :
+		Timer.Update.iFreq = sSettings.value(Key.RefreshTime).toTime().msec()
+	else :
+		Timer.Update.iFreq = Default.RefreshTime
 
 # Save
 def slSave() :
-	sSettings.setValue( Key.Server,   QtCore.QVariant(Setting.Server))
-	sSettings.setValue( Key.Login,    QtCore.QVariant(Setting.Login))
-	sSettings.setValue( Key.Password, QtCore.QVariant(Setting.Password))
-	#sSettings.setValue( "refresh",  QtCore.QVariant(Setting.Server))
+	sSettings.setValue( Key.Server,      QtCore.QVariant(Setting.Server))
+	sSettings.setValue( Key.Login,       QtCore.QVariant(Setting.Login))
+	sSettings.setValue( Key.Password,    QtCore.QVariant(Setting.Password))
+	sSettings.setValue( Key.RefreshTime, QtCore.QVariant(QtCore.QTime().addMSecs(Timer.Update.iFreq)))
 
 
 # Accept
 def slAccept() :
-
+	# Server
 	Setting.Server = Main.uiSettings.cbServerURL.text()
 	sSettings.setValue( Key.Server , QtCore.QVariant(Setting.Server) )
-
+	# Login
 	Setting.Login = Main.uiSettings.cbLogin.text()
 	sSettings.setValue( Key.Login , QtCore.QVariant(Setting.Login) )
-
+	# Password
 	Setting.Password = Main.uiSettings.cbPassword.text()
 	sSettings.setValue( Key.Password , QtCore.QVariant(Setting.Password) )
+	# RefreshTime
+	Timer.Update.iFreq = Main.uiSettings.cbRefresh.time().msec()
+	sSettings.setValue( Key.RefreshTime , QtCore.QVariant(QtCore.QTime().addMSecs(Timer.Update.iFreq)) )
 
 	# Update GUI
 	#Display.slUpdateGUI()
@@ -253,6 +253,7 @@ def slDialog() :
 	Main.uiSettings.cbServerURL.setText(Setting.Server)
 	Main.uiSettings.cbLogin.setText(Setting.Login)
 	Main.uiSettings.cbPassword.setText(Setting.Password)
+	Main.uiSettings.cbRefresh.setTime(QtCore.QTime().addMSecs(Timer.Update.iFreq))
 
 	# Modal
 	Main.dSettings.exec_()
