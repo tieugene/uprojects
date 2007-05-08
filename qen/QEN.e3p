@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE Project SYSTEM "Project-3.9.dtd">
 <!-- Project file for project QEN -->
-<!-- Saved: 2007-05-07, 19:59:02 -->
+<!-- Saved: 2007-05-08, 15:03:31 -->
 <!-- Copyright (C) 2007 Eugene A. Pivnev, ti.eugene@gmail.com -->
 <Project version="3.9">
   <ProgLanguage mixed="0">Python</ProgLanguage>
@@ -44,12 +44,6 @@
     <Source>
       <Name>egroupware.py</Name>
     </Source>
-    <Source>
-      <Name>Ui_Settings.py</Name>
-    </Source>
-    <Source>
-      <Name>Ui_Main.py</Name>
-    </Source>
   </Sources>
   <Forms>
     <Form>
@@ -65,6 +59,43 @@
   </Interfaces>
   <Others>
     <Other>
+      <Dir>Doc</Dir>
+      <Name>AUTHORS.txt</Name>
+    </Other>
+    <Other>
+      <Dir>Doc</Dir>
+      <Name>ChangeLog.txt</Name>
+    </Other>
+    <Other>
+      <Dir>Doc</Dir>
+      <Name>COPYING.txt</Name>
+    </Other>
+    <Other>
+      <Dir>Doc</Dir>
+      <Name>INSTALL.txt</Name>
+    </Other>
+    <Other>
+      <Dir>Doc</Dir>
+      <Name>ISSUES.txt</Name>
+    </Other>
+    <Other>
+      <Dir>Doc</Dir>
+      <Name>LICENCE.txt</Name>
+    </Other>
+    <Other>
+      <Dir>Doc</Dir>
+      <Name>NEWS.txt</Name>
+    </Other>
+    <Other>
+      <Dir>Doc</Dir>
+      <Name>README.txt</Name>
+    </Other>
+    <Other>
+      <Dir>Doc</Dir>
+      <Name>Testing.txt</Name>
+    </Other>
+    <Other>
+      <Dir>Doc</Dir>
       <Name>TODO.txt</Name>
     </Other>
   </Others>
@@ -78,7 +109,7 @@
     <FiletypeAssociation pattern="*.ui.h" type="FORMS" />
     <FiletypeAssociation pattern="*.ui" type="FORMS" />
     <FiletypeAssociation pattern="*.idl" type="INTERFACES" />
-    <FiletypeAssociation pattern="*.ptl" type="SOURCES" />
     <FiletypeAssociation pattern="*.py" type="SOURCES" />
+    <FiletypeAssociation pattern="*.ptl" type="SOURCES" />
   </FiletypeAssociations>
 </Project>

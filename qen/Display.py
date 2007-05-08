@@ -49,8 +49,8 @@ def slInit() :
 	Main.uiMain.twTasks.addAction( Main.uiMain.aTaskAccept )
 
 	# Main Window
-	if not Settings.Setting.Geometry.bPosition :
-		Main.mwMain.move( QtGui.QApplication.desktop().screen().rect().bottomRight() - Main.mwMain.rect().center() )
+#	if not Settings.Setting.Geometry.bPosition :
+#		Main.mwMain.move( QtGui.QApplication.desktop().screen().rect().bottomRight() - Main.mwMain.rect().center() )
 
 	# System Tray Icon
 	if QtGui.QSystemTrayIcon.isSystemTrayAvailable() :

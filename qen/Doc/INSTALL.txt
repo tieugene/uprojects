@@ -15,13 +15,6 @@ Dependencies
 
 		Required:
 			Make (3.80): http://www.gnu.org/software/make/
-			Grep (2.5): http://www.gnu.org/software/grep/
-			Sudo (1.6.7): http://www.gratisoft.us/sudo/
-			Hamachi (0.9.9.9): http://www.hamachi.cc/download/list.php
-
-		Recommended:
-			CheckInstall (1.6): http://asic-linux.com.mx/~izto/checkinstall/
-
 
 Installation
 
@@ -40,24 +33,6 @@ Installation
 	Linux:
 
 		Configure
-
-			TunCfg:
-
-				Add "/sbin" to yours and root's $PATH statement; re-login to KDE
-				Run "sudo which tuncfg" and ensure that it is found (e.g. in "/sbin/tuncfg")
-					If not, either "/sbin" is not in the $PATH or TunCfg wasn't installed with Hamachi
-				Run "sudo tuncfg" and ensure that no errors are reported
-
-			Hamachi:
-
-				Run "hamachi-init -n <nickname>" and ensure that "ok" is reported in all cases
-					If not, remove your "~/.hamachi/" directory first, then run the above command again
-				After running "sudo tuncfg", run "hamachi start" and ensure it starts properly
-				Run "hamachi login" and ensure it logs in properly
-
-			Service:
-				To optionally have TunCfg and Hamachi run as a system service, visit this webpage for info:
-					http://nul800sebastiaan.nl/joomla/hamachi-for-linux-as-a-service-2.html
 
 		Install:
 

@@ -1,5 +1,4 @@
-Quamachi README
-
+QEN README
 
 
 Reason
@@ -11,9 +10,9 @@ Reason
 
 Purpose
 
-	Quamachi is a Hamachi GUI, residing in the System Tray.
+	QEN is a eGroupWare notifier GUI, residing in the System Tray.
 
-	Ensure that Hamachi connects successfully before using Quamachi.
+	Great thanks to Quamachi project.
 
 	For installation instructions, see INSTALL.txt.  If you encounter any problems, see ISSUES.txt and send me an email if necessary.
 
@@ -60,8 +59,7 @@ Authors
 
 Updates
 
-	http://quamachi.sourceforge.net/
-	http://code.google.com/p/quamachi/
+	http://code.google.com/p/uprojects/
 
 
 Modified

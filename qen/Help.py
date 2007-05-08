@@ -154,5 +154,5 @@ def slDocRequests() :
 # Doc: Requests
 def slGoTask() :
 	id = Settings.Input.Task.sID = Main.uiMain.twTasks.item(Main.uiMain.twTasks.currentRow(), 0).text()	#.toInt()[0]
-	uURL = QtCore.QUrl(Settings.Setting.Connection.Server + "index.php?menuaction=infolog.uiinfolog.edit&info_id=" + id)
+	uURL = QtCore.QUrl(Settings.Setting.Server + "index.php?menuaction=infolog.uiinfolog.edit&info_id=" + id)
 	slUOpen( uURL )
