@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE Project SYSTEM "Project-3.8.dtd">
+<!-- Project file for project Run1C -->
+<!-- Saved: 2006-06-05, 21:02:12 -->
+<!-- Copyright (C) 2006 Eugene A. Pivnev, ti.eugene@gmail.com -->
+<Project version="3.8">
+  <ProgLanguage mixed="0">Python</ProgLanguage>
+  <UIType>Qt</UIType>
+  <Description>Tool to run 1C from Linux for some users and some bases.</Description>
+  <Version>0.1</Version>
+  <Author>Eugene A. Pivnev</Author>
+  <Email>ti.eugene@gmail.com</Email>
+  <Sources>
+    <Source>
+      <Name>run1c.py</Name>
+    </Source>
+  </Sources>
+  <Forms>
+    <Form>
+      <Name>z_run1c.ui</Name>
+    </Form>
+    <Form>
+      <Name>z_z.ui</Name>
+    </Form>
+  </Forms>
+  <Translations>
+    <Translation>
+      <Name>run1c_ru.ts</Name>
+    </Translation>
+  </Translations>
+  <Interfaces>
+  </Interfaces>
+  <Others>
+    <Other>
+      <Name>README</Name>
+    </Other>
+    <Other>
+      <Name>run1c.dtd</Name>
+    </Other>
+    <Other>
+      <Name>run1c.xml</Name>
+    </Other>
+  </Others>
+  <MainScript>
+    <Name>run1c.py</Name>
+  </MainScript>
+  <Vcs>
+    <VcsType>None</VcsType>
+  </Vcs>
+  <FiletypeAssociations>
+    <FiletypeAssociation pattern="*.ui.h" type="FORMS" />
+    <FiletypeAssociation pattern="*.ui" type="FORMS" />
+    <FiletypeAssociation pattern="*.idl" type="INTERFACES" />
+    <FiletypeAssociation pattern="*.ptl" type="SOURCES" />
+    <FiletypeAssociation pattern="*.py" type="SOURCES" />
+  </FiletypeAssociations>
+</Project>

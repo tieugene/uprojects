@@ -1,0 +1,18 @@
+<prj name="Run1C">
+<file name="chkxml" url="chkxml" active="0"/>
+<file name="README" url="README" active="0"/>
+<file name="run1c.dtd" url="run1c.dtd" active="0"/>
+<file name="Run1C.e3p" url="Run1C.e3p" active="0"/>
+<file name="Run1C.e3t" url="Run1C.e3t" active="0"/>
+<file name="run1c.py" url="run1c.py" active="0"/>
+<file name="run1c.py.old" url="run1c.py.old" active="0"/>
+<file name="run1c_ru.qm" url="run1c_ru.qm" active="0"/>
+<file name="run1c_ru.ts" url="run1c_ru.ts" active="0"/>
+<file name="run1c.xml" url="run1c.xml" active="0"/>
+<file name="z_run1c.py" url="z_run1c.py" active="0"/>
+<file name="z_run1c.ui" url="z_run1c.ui" active="0"/>
+<file name="z_run1c.ui~" url="z_run1c.ui~" active="0"/>
+<file name="z_z.py" url="z_z.py" active="0"/>
+<file name="z_z.ui" url="z_z.ui" active="0"/>
+<file name="z_z.ui~" url="z_z.ui~" active="0"/>
+</prj>
