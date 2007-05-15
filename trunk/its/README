@@ -1,0 +1,136 @@
+Tool to get updates from 1C.
+
+Summary:
+1. ITS_String = AskInfoDat(1)
+2. ITS_No = (ITS_String[1] + 26 - ITS_String[0]) % 26;
+3. KeyAddr = "http://www.1c.ru/buhplace/auth.asp?its=" + string(ITS_No) (зависит от моего IP?)
+4. Key = AskInfoDat(KeyAddr)
+5. ITS, KeyAddr и Key используются для авторизации
+
+Contrib:
+https://sourceforge.net/projects/libhttp/
+
+Get AddrKey:
+	http://www.1c.ru/buhplace/
+Get last Account:
+	http://www.1c.ru/buhplace/getfile.asp?its=8&addr=1691&d=JRSCCUZJRGEVOKGY&file=update.exe&dir=BU42TK
+	http://www.1c.ru/buhplace/getfile.asp?its=8&addr=9692&d=RZFSWPGUMPZAUPDE&file=update.exe&dir=BU42TK
+Get Last Ver:
+	Rp:
+		http://www.1c.ru/buhplace/ITSRepV/Reports/Gen/Ver.id
+	Buh:
+		http://www.1c.ru/buhplace/ITSRepV/BU42TK/Ver.id
+
+== Summary
+* python + c++
+* console
+* all control - by .options
+* can be by cron or handle (check updates, download fresh)
+* all data - into separate dirs
+* named as in source
+* naming is R770xxx.tar
+
+== Algorythm
+. get what_need_check
+. get filelist
+. get versions
+. compare vers & filelists; if new...
+. get keys
+ - key1 = askinfodat(1)
+ - addr2 = http://www.1c.ru/buhplace/auth.asp?its=<?>
+ - key2 = askinfodat(addr2)
+ - authstring=
+. get files to tmp
+. repack
+
+== Dirs
+
+=== Confs
+$BASEDIR=http://www.1c.ru/buhplace/
+$KEY=
+==== Last Ver
+http://www.1c.ru/buhplace/ITSRepV/<ID>/Ver.id
+==== Self
+http://www.1c.ru/buhplace/getfile.asp?its=<ITS>&addr=<KEY>1&d=<VALUE>&file=update.exe&dir=<ID>
+
+ID	Description
+=======	===========
+BU42TK	Бухгалтерия
+OUTK	Торговля+Склад
+R2CLKTK	Зарплата+Кадры
+BUOUSL	Комплексная	
+BUPSB25	Производство+Услуги+Бухгалтерия
+BASUOR	Упрощенная система налогообложения	
+BUBK	Бухгалтерия для бюджетных организаций
+EPSBU	Бухгалтерия для бюджетных учереждений
+NLGPL	Налогоплательщик	
+PBOUL	Предприниматель
+OUMNPV	Деньги
+OUBV	Аспект
+BUTK	Бухгалтерия, релиз для перехода на 4.2 (старый)
+BUPSB	Производство+Услуги+Бухгалтерия, редакция 2.1 (старая)
+BUOURCLK	Комплексная, редакция 3.0 (старая) 
+
+=== Repos
+==== Last Ver
+http://www.1c.ru/buhplace/ITSRepV/Reports/<Self>/Ver.id	# like 06q4002
+Note: s/Gen/GeneralN/
+==== Self
+DIR=/Reports/<ID>/Rp<YY>q<Q>.grp	# e.g. /Reports/Gen/Rp06q4.grp
+http://www.1c.ru/buhplace/getfile.asp?its=<ITS>&addr=<KEY>1&d=<VALUE>&file=Ver.id&dir=<DIR>
+http://www.1c.ru/buhplace/getfile.asp?its=<ITS>&addr=<KEY>1&d=<VALUE>&file=Loadlst.txt&dir=<DIR>
+
+Loadlst.txt:
+// Отчетность за 4 квартал 2006 года;
+AKCIZ.EXE;Акцизы
+AKCIZN3.EXE;Акцизы на алкогольную продукцию, реализуемую оптом
+AKCIZ5.EXE;Акцизы на нефтепродукты
+...
+
+ID	Description
+=======	===========
+Gen	Общий (Бухгалтерия, Комплексная..)
+BASUOR	УСН
+PBOUL	ПБОЮЛ
+BudgetN	Бюджетная конфигурация
+
+
+== Dirs
+$BASEDIR
+ Tunes
+  BU42TK
+   .R770486.tar.gz
+   ....
+  OUTK
+ Reports
+  GeneralN
+   .Rp06q4001.tar.gz
+   ....
+  BASUOR
+  PBOUL
+  BudgetN
+
+== Reports
+* Refresh exists
+ * get years
+	ls -1 Rp* | cut -d q -f 1 | colrm 1 2 | sort | uniq
+	ls -1 Rp* | colrm 7 | sort | uniq
+* get new
+	http://www.1c.ru/buhplace/getfile.asp?its=<ITS>&addr=<KEY>1&d=<VALUE>&file=Ver.id&dir=<DIR>
+
+for REPO in `ls Reports`; do
+	for YQ in `ls -1 Rp* | colrm 7 | sort | uniq`; do
+		MYVER=`ls $YP* | cut -d . -f 1 | sort | tail -n 1`
+		NEWVER=`curl http://www.1c.ru/buhplace/getfile.asp?its=<ITS>&addr=<KEY>1&d=<VALUE>&file=Ver.id&dir=$REPO`
+		if [ $MYVER < $NEWVER ]; then
+			# get filelist
+			wget Ver.id
+			wget Loadlst.txt
+			# get all
+			for FILE in `cat Loadlst.txt | grep -v ^/ | cut -f 1 -d ";"`; do
+				wget -q 
+			done
+			tar zcf $NEWVER.tar
+		fi
+	done
+done
