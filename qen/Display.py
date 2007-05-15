@@ -148,7 +148,7 @@ def slUpdateList() :
 	Main.uiMain.twTasks.resizeRowsToContents()
 
 	# tune tray icon
-	pixmap = Settings.Setting.TrayIcon
+	pixmap = QtGui.QPixmap(Settings.Setting.TrayIcon)
 	if (tasks):
 		painter = QtGui.QPainter(pixmap)
 		painter.setFont(QtGui.QFont("Arial", 16))
