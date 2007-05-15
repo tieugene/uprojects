@@ -303,7 +303,7 @@ def slUpdateListDone() :
 	Display.slUpdateGUI()
 
 	# Update timer
-	Main.tmUpdate.start( Settings.Timer.Update.iFreq )
+	Main.tmUpdate.start( Settings.Setting.RefreshTime )
 
 
 # Exit Control

@@ -73,14 +73,12 @@ Status.lFreshData		= []		# hot data
 # Timer
 Timer					= QtCore.QObject()
 Timer.Update				= QtCore.QObject()
-Timer.Update.iFreq		= 60000				# update timeout - 60k msec == 1 min
-#Timer.Update.iPause		= 2000
+#Timer.Update.iFreq		= None
 Timer.Control				= QtCore.QObject()
 Timer.Control.iRestart		= 5000				# 5 sec for restart on start (?)
 Timer.Control.iLaunched	= 5000				# 5 sec for starting msg
 Timer.Process				= QtCore.QObject()
 Timer.Process.iPause		= 500				# timeout for stopping (Thread.tiStop)
-#Timer.Process.iWaitMax		= 50
 
 # Display
 #Display							= QtCore.QObject()
@@ -134,7 +132,7 @@ Setting					= QtCore.QObject()
 Setting.Server			= None
 Setting.Login				= None
 Setting.Password			= None
-#Setting.RefreshTime		= None
+Setting.RefreshTime		= None
 
 
 # Linux
@@ -197,6 +195,9 @@ else :
 
 # Load
 def slLoad() :
+	'''
+	Load settings from config file or set default values.
+	'''
 	# Server
 	if sSettings.contains(Key.Server) :
 		Setting.Server = str(sSettings.value(Key.Server).toString())
@@ -214,20 +215,66 @@ def slLoad() :
 		Setting.Password = Default.Password
 	# RefreshTime
 	if sSettings.contains(Key.RefreshTime) :
-		Timer.Update.iFreq = sSettings.value(Key.RefreshTime).toTime().msec()
+		Setting.RefreshTime = sSettings.value(Key.RefreshTime).toInt()[0]
+		print Setting.RefreshTime
 	else :
-		Timer.Update.iFreq = Default.RefreshTime
+		Setting.RefreshTime = Default.RefreshTime
 
 # Save
 def slSave() :
+	'''
+	Save settings from variables to config file.
+	'''
 	sSettings.setValue( Key.Server,      QtCore.QVariant(Setting.Server))
 	sSettings.setValue( Key.Login,       QtCore.QVariant(Setting.Login))
 	sSettings.setValue( Key.Password,    QtCore.QVariant(Setting.Password))
-	sSettings.setValue( Key.RefreshTime, QtCore.QVariant(QtCore.QTime().addMSecs(Timer.Update.iFreq)))
+	sSettings.setValue( Key.RefreshTime, QtCore.QVariant(Setting.RefreshTime))
+
+
+def __Time2MSec(t):
+	'''
+	Converts QTime into msec
+	'''
+	return (
+		t.hour() * 3600000 +
+		t.minute() * 60000 + 
+		t.second() * 1000 +
+		t.msec()
+	)
+
+def __MSec2Time(t):
+	'''
+	Converts msec into QTime
+	'''
+	h, u = divmod(t, 3600000)
+	m, u = divmod(u,   60000)
+	s, u = divmod(u,    1000)
+	return QtCore.QTime ( h, m, s, u )
+
+# Dialog
+def slDialog() :
+	'''
+	Call Options dialog w/ settings.
+	'''
+
+	# set values
+	Main.uiSettings.cbServerURL.setText(Setting.Server)
+	Main.uiSettings.cbLogin.setText(Setting.Login)
+	Main.uiSettings.cbPassword.setText(Setting.Password)
+	Main.uiSettings.cbRefresh.setTime(__MSec2Time(Setting.RefreshTime))
+
+	# Modal
+	Main.dSettings.exec_()
+
+	# Load
+	slLoad()
 
 
 # Accept
 def slAccept() :
+	'''
+	Accept settings from Options dialog.
+	'''
 	# Server
 	Setting.Server = Main.uiSettings.cbServerURL.text()
 	sSettings.setValue( Key.Server , QtCore.QVariant(Setting.Server) )
@@ -238,34 +285,10 @@ def slAccept() :
 	Setting.Password = Main.uiSettings.cbPassword.text()
 	sSettings.setValue( Key.Password , QtCore.QVariant(Setting.Password) )
 	# RefreshTime
-	Timer.Update.iFreq = Main.uiSettings.cbRefresh.time().msec()
-	sSettings.setValue( Key.RefreshTime , QtCore.QVariant(QtCore.QTime().addMSecs(Timer.Update.iFreq)) )
+	Setting.RefreshTime = __Time2MSec(Main.uiSettings.cbRefresh.time())
+	sSettings.setValue( Key.RefreshTime , QtCore.QVariant(Setting.RefreshTime ))
 
 	# Update GUI
 	#Display.slUpdateGUI()
 	Network.slUpdateList()
 
-
-# Dialog
-def slDialog() :
-
-	# set values
-	Main.uiSettings.cbServerURL.setText(Setting.Server)
-	Main.uiSettings.cbLogin.setText(Setting.Login)
-	Main.uiSettings.cbPassword.setText(Setting.Password)
-	Main.uiSettings.cbRefresh.setTime(QtCore.QTime().addMSecs(Timer.Update.iFreq))
-
-	# Modal
-	Main.dSettings.exec_()
-
-	# Load
-	slLoad()
-
-
-# Offline Peers
-def slHideOfflinePeers() :
-
-	#print "slHideOfflinePeers"
-
-	# Offline Peers
-	Network.slHideOfflinePeers()
