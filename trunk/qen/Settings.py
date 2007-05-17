@@ -216,7 +216,6 @@ def slLoad() :
 	# RefreshTime
 	if sSettings.contains(Key.RefreshTime) :
 		Setting.RefreshTime = sSettings.value(Key.RefreshTime).toInt()[0]
-		print Setting.RefreshTime
 	else :
 		Setting.RefreshTime = Default.RefreshTime
 

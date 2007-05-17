@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE Project SYSTEM "Project-3.9.dtd">
 <!-- Project file for project QEN -->
-<!-- Saved: 2007-05-08, 15:03:31 -->
+<!-- Saved: 2007-05-17, 14:26:29 -->
 <!-- Copyright (C) 2007 Eugene A. Pivnev, ti.eugene@gmail.com -->
 <Project version="3.9">
   <ProgLanguage mixed="0">Python</ProgLanguage>
@@ -44,6 +44,12 @@
     <Source>
       <Name>egroupware.py</Name>
     </Source>
+    <Source>
+      <Name>Ui_Settings.py</Name>
+    </Source>
+    <Source>
+      <Name>Ui_Main.py</Name>
+    </Source>
   </Sources>
   <Forms>
     <Form>
@@ -54,6 +60,9 @@
     </Form>
   </Forms>
   <Translations>
+    <Translation>
+      <Name>qen_ru.ts</Name>
+    </Translation>
   </Translations>
   <Interfaces>
   </Interfaces>
@@ -107,9 +116,9 @@
   </Vcs>
   <FiletypeAssociations>
     <FiletypeAssociation pattern="*.ui.h" type="FORMS" />
-    <FiletypeAssociation pattern="*.ui" type="FORMS" />
-    <FiletypeAssociation pattern="*.idl" type="INTERFACES" />
-    <FiletypeAssociation pattern="*.py" type="SOURCES" />
     <FiletypeAssociation pattern="*.ptl" type="SOURCES" />
+    <FiletypeAssociation pattern="*.idl" type="INTERFACES" />
+    <FiletypeAssociation pattern="*.ui" type="FORMS" />
+    <FiletypeAssociation pattern="*.py" type="SOURCES" />
   </FiletypeAssociations>
 </Project>
