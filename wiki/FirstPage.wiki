@@ -1,3 +1,9 @@
-#summary First page on this wiki
+#summary Main page on this wiki
 
-for testing only
+Subprojects:
+ * faxsplit - split long fax tif image into A4 pieces
+ * its - automatic updating 1C tunes and reports
+ * postcat - output mail barrier
+ * qen - Qt eGroupWare Notifier - tray app to show offered tasks
+ * rpmtop - optimize rpms into rpm-based systems
+ * run1c - 1C on Linux runner
