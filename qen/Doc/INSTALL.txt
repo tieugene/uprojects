@@ -1,4 +1,4 @@
-Quamachi INSTALL
+QEN INSTALL
 
 
 
@@ -57,14 +57,14 @@ Installation
 
 			For all users (use with caution):
 
-				Execute "Quamachi.win.exe"
+				Execute "QEN.win.exe"
 
 
 Usage
 
 	Linux:
 
-		K Menu --> Internet --> Quamachi
+		K Menu --> Internet --> QEN
 
 	Windows:
 

@@ -45,7 +45,7 @@ def slInit() :
 	Main.uiMain.twTasks.setColumnCount( 2 )
 	Main.uiMain.twTasks.hideColumn( 0 )
 	#Main.uiMain.twTasks.header().setResizeMode( 0, QtGui.QHeaderView.ResizeToContents )
-	#Main.uiMain.twTasks.horizontalHeaderItem(0).setText("ID")
+	#Main.uiMain.twTasks.horizontalHeaderItem(1).setText("ID")
 	Main.uiMain.twTasks.addAction( Main.uiMain.aTaskAccept )
 
 	# Main Window
@@ -143,7 +143,7 @@ def slUpdateList() :
 	#Main.uiMain.lwTasks.sortItems( 0 , QtCore.Qt.AscendingOrder )
 
 	# Statusbar
-	#Main.uiMain.sbMain.clearMessage()
+	Main.uiMain.sbMain.clearMessage()
 	Main.uiMain.twTasks.resizeColumnToContents(1)
 	Main.uiMain.twTasks.resizeRowsToContents()
 
