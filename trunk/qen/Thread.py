@@ -182,7 +182,7 @@ class tUpdate( QtCore.QThread ) :
 		ok = False
 		if (Settings.Status.bConnected) :
 			try:
-				tasks = Settings.Status.oSession.getinfolog({"info_type": "task", "info_status": "offer"})
+				tasks = Settings.Status.oSession.getinfolog({"info_type": "task", "info_status": "not-started"})
 				sOutput = ""
 				ok = True
 			except:
