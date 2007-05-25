@@ -33,9 +33,8 @@ Installation
 	Linux:
 
 		Install:
-			make tar
-			rpmbuild -ta qen-0.0.1.tar.bz2
-			rpm -Uvh ...
+			make pkg-all
+			rpm -Uvh /usr/src/redhat/RPMS/noarch/qen-...
 
 	Windows:
 
