@@ -57,7 +57,7 @@ sub mainCycle{
     $self->initShareData();
 
     while(1){
-	my @running = threads->list(threads::running);
+	my @running = threads->list();
 	my %running;
 	$self->{config} = {$self->{ldap}->readConfig("ou=Services","(cn=Messenger)")};
 

@@ -8,7 +8,7 @@ use vars qw($VERSION $BASE_DN $LDAP_HOST @ISA);
 
 $VERSION = "0.0.1";
 $BASE_DN = "dc=lc,dc=floodlightgames,dc=com";
-$LDAP_HOST = "127.0.0.1";
+$LDAP_HOST = "server";
 
 require Net::LDAP;  # this should load everything you need
 
