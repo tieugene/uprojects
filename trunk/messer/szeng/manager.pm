@@ -21,7 +21,7 @@ use szeng::serversocket;
 use szeng::sharedvars;
 
 #Log::Log4perl::init_and_watch('/usr/local/etc/MesSer.conf',10);
-Log::Log4perl::init_and_watch('MesSer.conf',10);
+Log::Log4perl::init_and_watch('MesSer.log.conf',10);
 my $log = Log::Log4perl->get_logger("MesSer::main");
 $log->info("Запуск программы");
 
@@ -44,7 +44,7 @@ sub new {
     my $obj = bless{};
     my $log = Log::Log4perl->get_logger("szeng::manager");
     $log->trace("Создание объекта MANAGER");
-    $obj->{ldap} = szeng::ldap->new();
+    $obj->{conf} = szeng::ldap->new();
     $obj->outer;
 }
 # ------------------------------------------------------------------------------------------------------------------------------
@@ -58,7 +58,7 @@ sub mainCycle{
     while(1){
 	my @running = threads->list();
 	my %running;
-	$self->{config} = {$self->{ldap}->readConfig("ou=Services","(cn=Messenger)")};
+	$self->{config} = {$self->{conf}->readConfig("ou=Services","(cn=Messenger)")};
 
 	my $r; foreach $r (@running){
 	    $running{socketThread} = 1 if ($$r eq $$socketThread);
