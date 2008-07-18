@@ -12,14 +12,14 @@ $VERSION = "0.0.1";
 
 use threads;
 use threads::shared;
-use Thread::Semaphore;
+use Thread::Semaphore; #!!!!!!!!!!!!!
 use Log::Log4perl;
 use szeng::Object;
-use szeng::ldap;
+use szeng::config::ldap;
+use szeng::config::file;
 use szeng::jabber;
 use szeng::serversocket;
 use szeng::sharedvars;
-use Config::Auto;
 
 Log::Log4perl::init_and_watch('MesSer.log.conf',10);
 
@@ -46,7 +46,6 @@ sub new {
     my $obj = bless{};
     my $log = Log::Log4perl->get_logger("szeng::manager");
     $log->trace("Создание объекта MANAGER");
-    $obj->{conf} = szeng::ldap->new();
     $obj->outer;
 }
 # ------------------------------------------------------------------------------------------------------------------------------
@@ -56,18 +55,21 @@ sub getConfig{
     my $arg;
     
     $arg = shift(@args);
+    
+    $self->{conf} = undef;
+    $self->{confParam} = undef;
     while ($arg){
 	if ($arg =~ /^\-c$/){
-	    
+	    $self->{conf} = szeng::config::file->new();
+	    $arg = shift @args;
+	    $self->{confParam} = $arg;
 	}
-warn Dumper($arg);
 	$arg = shift @args;
     }
-    
-    $self->{conf} = szeng::ldap->new();
-use Data::Dumper::Simple;
-warn Dumper(@ARGV);
-exit;
+    if (not defined ($self->{conf})){
+	$self->{conf} = szeng::config::ldap->new();
+	$self->{confParam} = '(cn=Messenger)';
+    }
 }
 # ------------------------------------------------------------------------------------------------------------------------------
 sub mainCycle{
@@ -81,8 +83,7 @@ sub mainCycle{
     while(1){
 	my @running = threads->list();
 	my %running;
-	$self->{config} = {$self->{conf}->getConfig()};
-
+	$self->{config} = {$self->{conf}->getConfig($self->{confParam})};
 	my $r; foreach $r (@running){
 	    $running{socketThread} = 1 if ($$r eq $$socketThread);
 	    $running{emailThread} = 1 if ($$r eq $$emailThread and $self->{config}{email}{enabled} eq 1);
