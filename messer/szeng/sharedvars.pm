@@ -1,6 +1,7 @@
 package szeng::sharedvars;
 
 use strict;
+#use utf8;
 use warnings;
 use threads;
 use threads::shared;

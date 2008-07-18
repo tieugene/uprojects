@@ -1,6 +1,7 @@
 package szeng::ldap;
 
 use strict;
+#use utf8;
 use szeng::Object;
 
 use vars qw($VERSION $BASE_DN $LDAP_HOST @ISA);
