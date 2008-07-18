@@ -1,6 +1,8 @@
 package szeng::jabber;
 
 use strict;
+#use utf8;
+require Encode;
 use warnings;
 
 no strict 'subs';
@@ -24,36 +26,42 @@ use Log::Log4perl;
 
 use AnyEvent;
 use Net::XMPP2::Client;
-use Storable;
-
+use Net::XMPP2::IM::Message;
 
 my $j = AnyEvent->condvar;
+my $j2 = AnyEvent->condvar;
 my $Self;
 
 # ------------------------------------------------------------------------------------------------------------------------------
 my $timer;
 sub ListenForMessages { 
-$Self->{Connect}->send_message (
-    'test 2' => 'slavazanko@gmail.com', undef, 'chat'
-);
-
     $timer = AnyEvent->timer (after => 1, cb => sub {
+	if ($szeng::sharedvars::DATA_jabber{lock} eq 1){
+	    ListenForMessages();
+	    return;
+	}
 	my $log = Log::Log4perl->get_logger("szeng::jabber");
-	$log->debug("Ожидание активности");
-#my $conn = $Self->{Connect}->spawn_connection;
-$Self->{Connect}->send_message (
-    'test 3!!!!!!!!!!!!!!!!!!!!!!!' => 'slavazanko@gmail.com', undef, 'chat'
-);
-	$szeng::sharedvars::DATA_jabber{lock}->down();
 	if ( $szeng::sharedvars::DATA_jabber{needExit} eq 1 ){
 	    $log->trace("Выход из потока");
 	    $Self->disconnect();
 	    $timer = undef;
 	    return;
 	}
-        $Self->send_message();
-        $j->broadcast;
-        threads->yield();
+        $log->trace("Рассылка сообщения");
+	my $text =  Encode::decode('UTF-8', $szeng::sharedvars::DATA_common{subject}."\n\n".$szeng::sharedvars::DATA_common{body});
+	my $cntcts = $szeng::sharedvars::DATA_jabber{to};
+	# общие переменные скопировали себе... сокетный поток может их грохнуть.
+	$szeng::sharedvars::DATA_jabber{lock} = 1;
+
+        $cntcts =~ s/^\s+//;
+        my $contact;
+        foreach $contact (split /\s+/ , $cntcts){
+    	    $log->trace("Отсылка к ".$contact);
+	    my $immsg = Net::XMPP2::IM::Message->new (to => $contact, body => $text);
+	    $immsg->send($Self->{Connect});
+	}
+	$log->trace("Рассылка сообщения завершена");
+	$szeng::sharedvars::DATA_jabber{to} = '';
         ListenForMessages();
     });
 }
@@ -75,10 +83,10 @@ sub mainCycle{
     my $log = Log::Log4perl->get_logger("szeng::jabber");
     $log->trace("Запуск функции mainCycle");
     return if ($self->{parent}->{config}{jabber}{enabled} ne 1);
-    
+    $szeng::sharedvars::DATA_jabber{lock} = 1;
     $log->debug("Устанавливаю соединение с JABBER-сервером");
 
-    $self->{connection} = Net::XMPP2::Client->new (debug => 1);
+    $self->{connection} = Net::XMPP2::Client->new (debug => 0);
     $self->{connection}->add_account ($self->{parent}->{config}{jabber}{uin}, $self->{parent}->{config}{jabber}{password});
 
     $self->{connection}->reg_cb (
@@ -91,17 +99,20 @@ sub mainCycle{
     );
     $self->{connection}->start;
     $j->wait;
+    ListenForMessages();
+    $j2->wait;
+
 }
 # ------------------------------------------------------------------------------------------------------------------------------
 sub session_ready(){
     my $self = shift;
     my ($cl, $acc) = @_;
     my $log = Log::Log4perl->get_logger("szeng::jabber");
-    $self->{Connect} = $cl;
-    $self->{Account} = $acc;
+    $Self->{Connect} = $acc->connection();
+    $Self->{Account} = $acc;
     $log->debug("Соединение с JABBER-сервером установлено");
-    ListenForMessages();
-    1;
+    $j->broadcast;
+    0;
 }
 # ------------------------------------------------------------------------------------------------------------------------------
 sub disconnect {
@@ -140,28 +151,5 @@ sub contact_did_unsubscribe {
     1;
 }
 # ------------------------------------------------------------------------------------------------------------------------------
-sub send_message(){
-    my $self = shift;
-    my $text = $szeng::sharedvars::DATA_common{subject}."\n\n".$szeng::sharedvars::DATA_common{body};
-    $szeng::sharedvars::DATA_jabber{to} =~ s/^\s+//;
-    my $contact;
-    my $log = Log::Log4perl->get_logger("szeng::jabber");
-    $log->trace("Отсылка сообщения");
-
-
-warn($text);
-    foreach $contact (split /\s+/ , $szeng::sharedvars::DATA_jabber{to}){
-warn Dumper($contact);
-#      my $immsg = Net::XMPP2::IM::Message->new (to => $contact, body => $text);
-#      $immsg->send ($Self->{Connect});
-
-	$self->{Connect}->send_message (
-		$text => $contact, undef, 'chat'
-        );
-    }
-    $log->trace("Отсылка сообщения завершена");
-}
-# ------------------------------------------------------------------------------------------------------------------------------
-
 
 1;

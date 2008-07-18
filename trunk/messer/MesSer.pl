@@ -8,6 +8,7 @@ BEGIN {
 
 use strict;
 use utf8;
+
 use Log::Log4perl;
 use szeng::manager;
 

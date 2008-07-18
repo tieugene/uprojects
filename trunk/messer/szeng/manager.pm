@@ -1,6 +1,7 @@
 package szeng::manager;
 
 use strict;
+#use utf8;
 use Data::Dumper::Simple;
 
 use vars qw($VERSION $BASE_DN $LDAP_HOST @ISA);
@@ -23,8 +24,6 @@ use szeng::sharedvars;
 Log::Log4perl::init_and_watch('MesSer.conf',10);
 my $log = Log::Log4perl->get_logger("MesSer::main");
 $log->info("Запуск программы");
-
-
 
 my $THREAD_socket	= undef;
 my $THREAD_icq		= undef;
@@ -96,8 +95,9 @@ sub initShareData{
     share %szeng::sharedvars::DATA_jabber;
     $szeng::sharedvars::DATA_jabber{to} = '';
     $szeng::sharedvars::DATA_jabber{needExit} = 0;
-    $szeng::sharedvars::DATA_jabber{lock} = new Thread::Semaphore();
-    $szeng::sharedvars::DATA_jabber{lock}->down;
+#    $szeng::sharedvars::DATA_jabber{lock} = new Thread::Semaphore();
+#    $szeng::sharedvars::DATA_jabber{lock}->down;
+    $szeng::sharedvars::DATA_jabber{lock} = 1;
 
     share %szeng::sharedvars::DATA_icq;
     $szeng::sharedvars::DATA_icq{to} = undef;

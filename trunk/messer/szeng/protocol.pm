@@ -1,6 +1,7 @@
 package szeng::protocol;
 
 use strict;
+#use utf8;
 use warnings;
 
 no strict 'refs';
