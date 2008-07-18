@@ -1,7 +1,7 @@
 Что надо для работы:
 
 perl -MPAN -e \
-'install Net::XMPP2 Log::Log4perl Net::LDAP Data::Dumper::Simple AnyEvent XML:Twig'
+'install Net::XMPP2 Log::Log4perl Net::LDAP Data::Dumper::Simple AnyEvent XML:Twig Config::Auto'
 
 
 

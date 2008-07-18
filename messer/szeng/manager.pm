@@ -19,17 +19,19 @@ use szeng::ldap;
 use szeng::jabber;
 use szeng::serversocket;
 use szeng::sharedvars;
+use Config::Auto;
 
-#Log::Log4perl::init_and_watch('/usr/local/etc/MesSer.conf',10);
 Log::Log4perl::init_and_watch('MesSer.log.conf',10);
+
 my $log = Log::Log4perl->get_logger("MesSer::main");
 $log->info("Запуск программы");
 
-my $THREAD_socket	= undef;
-my $THREAD_icq		= undef;
-my $THREAD_jabber	= undef;
-my $THREAD_email	= undef;
+my $THREAD_socket_object	= undef;
+my $THREAD_icq_object		= undef;
+my $THREAD_jabber_object	= undef;
+my $THREAD_email_object	= undef;
 
+# TODO:
 #warn Dumper(%SIG);
 #exit;
 
@@ -48,17 +50,38 @@ sub new {
     $obj->outer;
 }
 # ------------------------------------------------------------------------------------------------------------------------------
+sub getConfig{
+    my $self = shift;
+    my @args=@ARGV;
+    my $arg;
+    
+    $arg = shift(@args);
+    while ($arg){
+	if ($arg =~ /^\-c$/){
+	    
+	}
+warn Dumper($arg);
+	$arg = shift @args;
+    }
+    
+    $self->{conf} = szeng::ldap->new();
+use Data::Dumper::Simple;
+warn Dumper(@ARGV);
+exit;
+}
+# ------------------------------------------------------------------------------------------------------------------------------
 sub mainCycle{
     my $self = shift;
     my $log = Log::Log4perl->get_logger("szeng::manager");
     $log->info("Запуск основного цикла обработки");
 
+    $self->getConfig();
     $self->initShareData();
 
     while(1){
 	my @running = threads->list();
 	my %running;
-	$self->{config} = {$self->{conf}->readConfig("ou=Services","(cn=Messenger)")};
+	$self->{config} = {$self->{conf}->getConfig()};
 
 	my $r; foreach $r (@running){
 	    $running{socketThread} = 1 if ($$r eq $$socketThread);
@@ -115,19 +138,18 @@ sub initShareData{
 # запускальщики потоков
 # ------------------------------------------------------------------------------------------------------------------------------
 sub __CreateSocketThread{
-    $THREAD_socket = szeng::serversocket->new($MANAGER);
-    $THREAD_socket->mainCycle();
+    $THREAD_socket_object = szeng::serversocket->new($MANAGER);
+    $THREAD_socket_object->mainCycle();
 }
 # ------------------------------------------------------------------------------------------------------------------------------
 sub __CreateJabberThread{
-    $THREAD_jabber =  szeng::jabber->new($MANAGER);
+    $THREAD_jabber_object =  szeng::jabber->new($MANAGER);
 
-    $THREAD_jabber->mainCycle();
+    $THREAD_jabber_object->mainCycle();
 }
 # ------------------------------------------------------------------------------------------------------------------------------
 
 1;
-
 
 =head1
 0) перехватывать сигнал прерывания и корректно выходить
@@ -138,7 +160,7 @@ sub __CreateJabberThread{
 5) +если жаббер разрешён, то создать обслуживающий поток. Если поток есть - пропуск
 
 +дочерний поток может грохнуться. Надо как-то отследить это...
-дочерний поток нужно будет грохнуть. В дочернем потоке перехватывать сигналы?
++дочерний поток нужно будет грохнуть. В дочернем потоке перехватывать сигналы?
 
 +взаимодействие между потоками через семафорные переменные?
 
