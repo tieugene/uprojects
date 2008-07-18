@@ -5,8 +5,7 @@ perl -MPAN -e \
 
 
 
-
-Настройки проги хранятся в LDAP. У меня это в виде:
+Настройки проги хранятся в конфиге либо в LDAP. У меня это в виде:
 -------------------------------------------------------------------------------------------
 version: 1
 
@@ -28,4 +27,37 @@ description: [jabber][uin] = floodlightgames@gmail.com
 description: [jabber][password] = passwd
 -------------------------------------------------------------------------------------------
 
+
+Можно и в конфиге. Тогда нужно запускать прогу так:
+
+/path/to/MesSer.pl -c /path/to/MesSer.conf
+
+Файл MesSer.conf в качестве примера имеется в наличии:
+
+-------------------------------------------------------------------------------------------
+[main]
+port = 54333
+
+[email]
+enabled = 1
+from = floodlightgames@gmail.com
+auth_host = smtp.gmail.com
+auth_port = 465
+auth_user = floodlightgames@gmail.com
+auth_password = passwd
+
+[ICQ]
+enabled = 1
+uin = 495173817
+password = passwd
+
+[jabber]
+enabled = 1
+uin = floodlightgames@gmail.com
+password = passwd
+-------------------------------------------------------------------------------------------
+
+
+Настройки на логгирование хранятся в отдельном файле MesSer.log.conf
+Опять же - имеется в наличии.
 

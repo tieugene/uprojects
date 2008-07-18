@@ -1,7 +1,6 @@
-package szeng::ldap;
+package szeng::config::ldap;
 
 use strict;
-#use utf8;
 use szeng::Object;
 
 use vars qw($VERSION $BASE_DN $LDAP_HOST @ISA);
@@ -11,31 +10,29 @@ $VERSION = "0.0.1";
 $BASE_DN = "dc=lc,dc=floodlightgames,dc=com";
 $LDAP_HOST = "server";
 
-require Net::LDAP;  # this should load everything you need
-
-use Data::Dumper::Simple;
+require Net::LDAP;
 use Log::Log4perl;
 
 
 # ------------------------------------------------------------------------------------------------------------------------------
 sub new {
-    my $log = Log::Log4perl->get_logger("szeng::ldap");
-    $log->trace("Создание объекта LDAP");
+    my $log = Log::Log4perl->get_logger("szeng::config::ldap");
+    $log->trace("Создание объекта CONIG::LDAP");
     my $self  = shift;
     my $obj = bless{};
     $log->debug("Подключение к LDAP-серверу");
     $obj->{ldap} = Net::LDAP->new($LDAP_HOST);
     $obj->{mesg} = $obj->{ldap}->bind;
-    $log->trace("Завершение создания объекта LDAP");
     $obj->outer;
 }
 # ------------------------------------------------------------------------------------------------------------------------------
-sub readConfig {
-    my $log = Log::Log4perl->get_logger("szeng::ldap");
-    $log->trace("Вызов метода readConfig");
+sub getConfig {
+    my $log = Log::Log4perl->get_logger("szeng::config::ldap");
+    $log->trace("Вызов метода getConfig");
     my $self  = shift;
-    my $searchBase = shift;
     my $searchCond = shift;
+
+    my $searchBase = 'ou=Services';
     my $hash;
     $log->debug("Чтение конфигурационных параметров для ".$searchCond." - ".$searchBase.",".$BASE_DN);
     
@@ -71,11 +68,6 @@ sub ldapDataToArray {
 	}
     }
     %ret;
-}
-# ------------------------------------------------------------------------------------------------------------------------------
-sub getConfig{
-    my $self  = shift;
-    $self->readConfig("ou=Services","(cn=Messenger)");
 }
 # ------------------------------------------------------------------------------------------------------------------------------
 1;
