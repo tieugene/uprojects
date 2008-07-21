@@ -233,15 +233,15 @@ sub protocol_send{
 
     $szeng::sharedvars::DATA_jabber{lock} = 0;
     $szeng::sharedvars::DATA_icq{lock} = 0;
-    $szeng::sharedvars::DATA_icq{lock} = 0;
+    $szeng::sharedvars::DATA_email{lock} = 0;
 
     # тут нужна проверка, что все потоки отработали
     # сделано через такой костыль. Фактически в течении трёх секунд ждём потоки. Кто не успел - тот опоздал.
     my $loop=3;
     while ($loop--){
 	if (($szeng::sharedvars::DATA_jabber{lock} ne 0)
-	    || ($szeng::sharedvars::DATA_icq{lock} ne 0))
-	 { last; }
+	    || ($szeng::sharedvars::DATA_icq{lock} ne 0)
+	    || ($szeng::sharedvars::DATA_email{lock} ne 0)) { last; }
 	sleep 1;
     }
     $self->initBuffers();

@@ -9,6 +9,7 @@ use vars qw($VERSION $BASE_DN $LDAP_HOST @ISA);
 $VERSION = "0.0.1";
 $BASE_DN = "dc=lc,dc=floodlightgames,dc=com";
 $LDAP_HOST = "server";
+my $searchBase = 'ou=Services';
 
 require Net::LDAP;
 use Log::Log4perl;
@@ -32,7 +33,6 @@ sub getConfig {
     my $self  = shift;
     my $searchCond = shift;
 
-    my $searchBase = 'ou=Services';
     my $hash;
     $log->debug("Чтение конфигурационных параметров для ".$searchCond." - ".$searchBase.",".$BASE_DN);
     
