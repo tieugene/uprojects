@@ -3,7 +3,6 @@ package szeng::Object;
 require 5.005;
 
 use strict;
-#use utf8;
 use Tie::Hash;
 
 use vars qw($VERSION @ISA);

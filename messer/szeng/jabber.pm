@@ -1,7 +1,6 @@
 package szeng::jabber;
 
 use strict;
-#use utf8;
 require Encode;
 use warnings;
 
@@ -9,8 +8,6 @@ no strict 'subs';
 use szeng::protocol;
 
 use subs qw (protocol_quit);
-
-#no strict 'refs';
 
 use vars qw($VERSION @ISA);
 @ISA     	= qw(szeng::protocol);
