@@ -1,0 +1,100 @@
+		while ( STOP == FALSE )
+		{
+			write(fd, ask.raw, 16);
+			puts("");
+			status = fread ( &Key, 1, 1, stdin );
+			if ( status == 1 )  //if a key was hit
+			{
+				switch ( Key )
+				{
+					case KEY_ESC:
+						STOP = TRUE;
+						break;
+					default:
+						break;
+				}
+			}
+			sleep(1);
+		}*/
+
+void usage(poptContext options, int exitcode, char *error, char *addl) {
+	poptPrintUsage(options, stderr, 0);
+	if (error) fprintf(stderr, "%s: %s", error, addl);
+	exit(exitcode);
+}
+
+int     parseopts(int argc, const char *argv[]) {
+	// F	Name	args
+	// 0	check	1	ctrl
+	// 1	addID	2	ctrl, ID
+	// 2	delID	2	ctrl, ID
+	// 6	settime	1	ctrl
+	enum    {S_Ok = 1, C_Ok = 2, A_Ok = 3, D_Ok = 4, T_Ok = 5, V_Ok = 6 };
+	static struct poptOption optionTable[] = {
+		{ "slave",	's',	POPT_ARG_INT,	&opts.saddr,	0,	"Slave address.",		"<Slave address>" },
+		{ "check",	'c',	POPT_ARG_NONE,	NULL,		C_Ok,	"Check state (0).",		NULL },
+		{ "add",	'a',	POPT_ARG_LONG,	&opts.id,	A_Ok,   "Add key (1).",			"Key" },
+		{ "delete",	'd',	POPT_ARG_LONG,	&opts.id,	D_Ok,   "Delete key (2).",		"Key" },
+		{ "time",	't',	POPT_ARG_NONE,	NULL,		T_Ok,   "Set time (6).",		NULL },
+		{ "verbose",	'v',	POPT_ARG_INT,	&opts.verbose,	0,      "Verbose level (default - 0).",	NULL },
+		{ "version",	'V',	POPT_ARG_NONE,	NULL,		V_Ok,   "Print version and exit.",	NULL },
+		POPT_AUTOALIAS
+		POPT_AUTOHELP
+		POPT_TABLEEND
+	};
+	char    c;
+
+	// 1. init options
+	opts.saddr = 0;
+	opts.id	= 0;
+	opts.func = 0xFF;
+	bool err = FALSE;
+	// 2. get commanline
+	poptContext options = poptGetContext(NULL, argc, argv, optionTable, 0);
+	// 3. processing
+	if ((c = poptGetNextOpt(options)) >= 0) {
+		switch (c) {
+			case C_Ok:
+				opts.func = 0;
+				break;
+			case A_Ok:
+				opts.func = 1;
+				break;
+			case D_Ok:
+				opts.func = 2;
+				break;
+			case T_Ok:
+				opts.func = 6;
+				break;
+			case V_Ok:
+				fprintf(stdout, "%s", Version);
+				exit(0);
+				break;
+		}
+	}
+	//printf("addr=%d, func=%d, id=%d\n", opts.saddr, opts.func, opts.id);
+	if (opts.saddr == 0) {
+		poptPrintUsage(options, stderr, 0);
+		fprintf(stderr, "You must specify slave.\n");
+		return 1;
+	}
+	if (opts.func == 0xFF) {
+		poptPrintUsage(options, stderr, 0);
+		fprintf(stderr, "You must specify a function to do.\n");
+		return 1;
+	}
+	if (((opts.func == 1) || (opts.func == 2)) && (opts.id == 0)) {
+		poptPrintUsage(options, stderr, 0);
+		fprintf(stderr, "You must specify an id.\n");
+		return 1;
+	}
+	if (!(poptPeekArg(options) == NULL)) {
+		poptPrintUsage(options, stderr, 0);
+		fprintf(stderr, "You must use just one function at a time\n");
+		return 1;
+		}
+	if (err)
+		fprintf(stderr, "%s: %s\n", poptBadOption(options, POPT_BADOPTION_NOALIAS), poptStrerror(c));
+	poptFreeContext(options);
+	return err;
+}
