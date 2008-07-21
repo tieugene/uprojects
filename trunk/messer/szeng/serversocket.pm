@@ -1,7 +1,6 @@
 package szeng::serversocket;
 
 use strict;
-#use utf8;
 use warnings;
 
 no strict 'subs';
@@ -232,21 +231,17 @@ sub protocol_send{
     my $log = Log::Log4perl->get_logger("szeng::serversocket");
     $log->debug("Команда непосредственной отсылки сообщений");
 
-    if ($szeng::sharedvars::DATA_jabber{needExit} eq 0){
-	$szeng::sharedvars::DATA_jabber{lock} = 0;
-#	$szeng::sharedvars::DATA_jabber{lock}->up;
-    }
-    if ($szeng::sharedvars::DATA_icq{needExit} eq 0){
-	$szeng::sharedvars::DATA_icq{lock}->up;
-    }
-    if ($szeng::sharedvars::DATA_email{needExit} eq 0){
-	$szeng::sharedvars::DATA_email{lock}->up;
-    }
+    $szeng::sharedvars::DATA_jabber{lock} = 0;
+    $szeng::sharedvars::DATA_icq{lock} = 0;
+    $szeng::sharedvars::DATA_icq{lock} = 0;
+
     # тут нужна проверка, что все потоки отработали
     # сделано через такой костыль. Фактически в течении трёх секунд ждём потоки. Кто не успел - тот опоздал.
     my $loop=3;
     while ($loop--){
-	if ($szeng::sharedvars::DATA_jabber{lock} ne 0) { last; }
+	if (($szeng::sharedvars::DATA_jabber{lock} ne 0)
+	    || ($szeng::sharedvars::DATA_icq{lock} ne 0))
+	 { last; }
 	sleep 1;
     }
     $self->initBuffers();

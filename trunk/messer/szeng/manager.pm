@@ -1,7 +1,6 @@
 package szeng::manager;
 
 use strict;
-#use utf8;
 use Data::Dumper::Simple;
 
 use vars qw($VERSION $BASE_DN $LDAP_HOST @ISA);
@@ -18,6 +17,7 @@ use szeng::Object;
 use szeng::config::ldap;
 use szeng::config::file;
 use szeng::jabber;
+use szeng::icq;
 use szeng::serversocket;
 use szeng::sharedvars;
 
@@ -101,6 +101,12 @@ sub mainCycle{
 	    $log->debug("Запускаю помощника отсылки jabber-сообщений");
 	    $jabberThread = threads->create("__CreateJabberThread");
 	}
+
+	$log->trace("Проверка, что помощник отсылки icq-сообщений работает");
+	if (not exists($running{icqThread})  and $self->{config}{icq}{enabled} eq 1){
+	    $log->debug("Запускаю помощника отсылки icq-сообщений");
+	    $jabberThread = threads->create("__CreateIcqThread");
+	}
 	my $slp=300; while ($slp--){
 	    threads->yield();
 	    sleep(1);
@@ -119,15 +125,12 @@ sub initShareData{
     share %szeng::sharedvars::DATA_jabber;
     $szeng::sharedvars::DATA_jabber{to} = '';
     $szeng::sharedvars::DATA_jabber{needExit} = 0;
-#    $szeng::sharedvars::DATA_jabber{lock} = new Thread::Semaphore();
-#    $szeng::sharedvars::DATA_jabber{lock}->down;
     $szeng::sharedvars::DATA_jabber{lock} = 1;
 
     share %szeng::sharedvars::DATA_icq;
     $szeng::sharedvars::DATA_icq{to} = undef;
     $szeng::sharedvars::DATA_icq{needExit} = 0;
-    $szeng::sharedvars::DATA_icq{lock} = new Thread::Semaphore();
-    $szeng::sharedvars::DATA_icq{lock}->down;
+    $szeng::sharedvars::DATA_icq{lock} = 1;
 
     share %szeng::sharedvars::DATA_email;
     $szeng::sharedvars::DATA_email{to} = undef;
@@ -147,6 +150,12 @@ sub __CreateJabberThread{
     $THREAD_jabber_object =  szeng::jabber->new($MANAGER);
 
     $THREAD_jabber_object->mainCycle();
+}
+# ------------------------------------------------------------------------------------------------------------------------------
+sub __CreateIcqThread{
+    $THREAD_icq_object =  szeng::icq->new($MANAGER);
+
+    $THREAD_icq_object->mainCycle();
 }
 # ------------------------------------------------------------------------------------------------------------------------------
 
