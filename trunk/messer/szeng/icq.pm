@@ -16,12 +16,9 @@ $VERSION = "0.0.1";
 
 use Net::OSCAR;
 use Net::DNS;
-#use Text::Iconv;
 
 use Data::Dumper::Simple;
 
-
-#my $conv = Text::Iconv->new('utf-8','windows-1251');
 my $resolver = Net::DNS::Resolver->new();
 
 my $Self;

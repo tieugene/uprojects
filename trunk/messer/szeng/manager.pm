@@ -18,6 +18,7 @@ use szeng::config::ldap;
 use szeng::config::file;
 use szeng::jabber;
 use szeng::icq;
+use szeng::email;
 use szeng::serversocket;
 use szeng::sharedvars;
 
@@ -29,7 +30,7 @@ $log->info("Запуск программы");
 my $THREAD_socket_object	= undef;
 my $THREAD_icq_object		= undef;
 my $THREAD_jabber_object	= undef;
-my $THREAD_email_object	= undef;
+my $THREAD_email_object		= undef;
 
 # TODO:
 #warn Dumper(%SIG);
@@ -105,8 +106,14 @@ sub mainCycle{
 	$log->trace("Проверка, что помощник отсылки icq-сообщений работает");
 	if (not exists($running{icqThread})  and $self->{config}{icq}{enabled} eq 1){
 	    $log->debug("Запускаю помощника отсылки icq-сообщений");
-	    $jabberThread = threads->create("__CreateIcqThread");
+	    $icqThread = threads->create("__CreateIcqThread");
 	}
+	$log->trace("Проверка, что помощник отсылки email-сообщений работает");
+	if (not exists($running{emailThread})  and $self->{config}{email}{enabled} eq 1){
+	    $log->debug("Запускаю помощника отсылки email-сообщений");
+	    $emailThread = threads->create("__CreateEmailThread");
+	}
+
 	my $slp=300; while ($slp--){
 	    threads->yield();
 	    sleep(1);
@@ -128,15 +135,14 @@ sub initShareData{
     $szeng::sharedvars::DATA_jabber{lock} = 1;
 
     share %szeng::sharedvars::DATA_icq;
-    $szeng::sharedvars::DATA_icq{to} = undef;
+    $szeng::sharedvars::DATA_icq{to} = '';
     $szeng::sharedvars::DATA_icq{needExit} = 0;
     $szeng::sharedvars::DATA_icq{lock} = 1;
 
     share %szeng::sharedvars::DATA_email;
-    $szeng::sharedvars::DATA_email{to} = undef;
+    $szeng::sharedvars::DATA_email{to} = '';
     $szeng::sharedvars::DATA_email{needExit} = 0;
-    $szeng::sharedvars::DATA_email{lock} = new Thread::Semaphore();
-    $szeng::sharedvars::DATA_email{lock}->down;
+    $szeng::sharedvars::DATA_email{lock} = 1;
 }
 # ------------------------------------------------------------------------------------------------------------------------------
 # запускальщики потоков
@@ -156,6 +162,12 @@ sub __CreateIcqThread{
     $THREAD_icq_object =  szeng::icq->new($MANAGER);
 
     $THREAD_icq_object->mainCycle();
+}
+# ------------------------------------------------------------------------------------------------------------------------------
+sub __CreateEmailThread{
+    $THREAD_email_object =  szeng::email->new($MANAGER);
+
+    $THREAD_email_object->mainCycle();
 }
 # ------------------------------------------------------------------------------------------------------------------------------
 
