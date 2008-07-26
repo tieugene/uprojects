@@ -18,7 +18,7 @@ with open("keys.txt") as f:
 with open("signals.txt") as f:
 	for line in f:
 		k, v = line.split('\t')
-		sig[int(k, 16)] = v.rstrip('\n')
+		sig[int(k, 10)] = v.rstrip('\n')
 # 3. process log
 with open("out.log") as f:
 	for line in f:
