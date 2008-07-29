@@ -45,7 +45,8 @@
 
 BEGIN {
 #    push @INC, "/usr/local/share/szeng";
-    push @INC, "./";
+    my $dr = `pwd`; $dr =~ s/\n//m;
+    push @INC, $dr."/../messer";
 };
 
 use strict;

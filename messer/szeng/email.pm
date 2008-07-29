@@ -47,9 +47,9 @@ use warnings;
 use POSIX qw(strftime);
 use Net::SMTP::SSL;
 use Data::Dumper::Simple;
+use szeng::protocol;
 
 no strict 'subs';
-use szeng::protocol;
 
 use subs qw (protocol_quit);
 
