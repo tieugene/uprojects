@@ -60,10 +60,13 @@ sub new {
     my $log = Log::Log4perl->get_logger("szeng::config::ldap");
     $log->trace("Создание объекта CONIG::LDAP");
     my $self  = shift;
+    my $sdata = shift;
+    $sdata = $searchBase if not defined($sdata);
     my $obj = bless{};
     $log->debug("Подключение к LDAP-серверу");
     $obj->{ldap} = Net::LDAP->new($LDAP_HOST);
     $obj->{mesg} = $obj->{ldap}->bind;
+    $obj->{searchBase} = $sdata;
     $obj->outer;
 }
 # ------------------------------------------------------------------------------------------------------------------------------
@@ -74,10 +77,10 @@ sub getConfig {
     my $searchCond = shift;
 
     my $hash;
-    $log->debug("Чтение конфигурационных параметров для ".$searchCond." - ".$searchBase.",".$BASE_DN);
+    $log->debug("Чтение конфигурационных параметров для ".$searchCond." - ".$self->{searchBase}.",".$BASE_DN);
     
     $self->{mesg} = $self->{ldap}->search( filter=>$searchCond, 
-                         base=>$searchBase.",".$BASE_DN);
+                         base=>$self->{searchBase}.",".$BASE_DN);
     
     $hash = $self->{mesg}->as_struct;
     my @arr  = keys %$hash;

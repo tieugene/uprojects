@@ -51,7 +51,7 @@ $VERSION = "0.0.1";
 
 use threads;
 use threads::shared;
-use Thread::Semaphore; #!!!!!!!!!!!!!
+use Thread::Semaphore;
 use Log::Log4perl;
 use szeng::Object;
 use szeng::config::ldap;
