@@ -63,9 +63,9 @@ sub startPlugin{
 	my $args = $config->{args};
 	
 	
-	$args =~ s/\[file\]/'$fileName'/;
-	$args =~ s/\[action\]/'$action'/;
-	$args =~ s/\[owner\]/'$user'/;
+	$args =~ s/\<file\>/'$fileName'/;
+	$args =~ s/\<action>]/'$action'/;
+	$args =~ s/\<owner\>/'$user'/;
 	
 	my $runStr = $config->{path}." ".$args;
 	system($runStr);
