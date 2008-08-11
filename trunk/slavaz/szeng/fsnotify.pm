@@ -44,8 +44,12 @@ use strict;
 use Data::Dumper::Simple;
 use Log::Log4perl;
 use szeng::Object;
+use szeng::config::ldap;
+use szeng::config::file;
+
 use threads;
 use threads::shared;
+use szeng::serialize;
 
 
 use vars qw($VERSION @ISA);
@@ -55,9 +59,11 @@ $VERSION = "0.0.1";
 
 my $AUDIT_LOG="tail -f -c 0 /var/log/audit/audit.log |";
 my $Self;
-my $timer:shared = 0;
-
 my $watchThread;
+
+my $timer:shared = 0;
+my $shared_Info:shared = '';
+my $shared_Info_flag:shared = 0;
 # ------------------------------------------------------------------------------------------------------------------------------
 sub new {
     my $this = shift;
@@ -71,6 +77,29 @@ sub new {
     $self->{hooks} = undef;
     $self->{filez} = undef;
     $self;
+}
+# ------------------------------------------------------------------------------------------------------------------------------
+sub getConfig{
+    my $self = shift;
+    my @args=@ARGV;
+    my $arg;
+    
+    $arg = shift(@args);
+    
+    $self->{conf} = undef;
+    $self->{confParam} = undef;
+    while ($arg){
+	if ($arg =~ /^\-c$/){
+	    $self->{conf} = szeng::config::file->new();
+	    $arg = shift @args;
+	    $self->{confParam} = $arg;
+	}
+	$arg = shift @args;
+    }
+    if (not defined ($self->{conf})){
+	$self->{conf} = szeng::config::ldap->new();
+	$self->{confParam} = '(cn=inotsrv)';
+    }
 }
 # ------------------------------------------------------------------------------------------------------------------------------
 sub addHook {
@@ -111,7 +140,17 @@ sub checkHook {
     return 0;
 }
 # ------------------------------------------------------------------------------------------------------------------------------
+sub reInitByConfig{
+    my $self = shift;
+    my $pluginName;
+    $self->{config} = {$self->{conf}->getConfig($self->{confParam})};
 
+    for $pluginName (keys %{$self->{config}->{plugins}}){
+	next if ($self->{config}->{plugins}->{$pluginName} ne 1);
+	eval ('use szeng::plugins::'.$pluginName);
+    }
+}
+# ------------------------------------------------------------------------------------------------------------------------------
 sub mainCycle{
     my $self = shift;
     $Self = $self;
@@ -121,8 +160,14 @@ sub mainCycle{
     
     my @auditOrig;
     my @msgs;
-
     my %event;
+
+    $self->getConfig();
+    
+    $self->reInitByConfig();
+
+    $self->addHook($self->{config}->{main}->{watchPath});
+
     my $log = Log::Log4perl->get_logger("szeng::fsnotify");
     $log->trace("Запуск основного цикла обработки.");
 
@@ -222,7 +267,7 @@ sub processEvent(){
 	return;
     } elsif (($event->{audit}{syscall} == 301) || ($event->{audit}{syscall} == 10) || ($event->{audit}{syscall} == 278)){
 	# unlink
-	$event->{fullPath} = $event->{audit}{msgs}->[0]->{cwd}."/".$event->{audit}{msgs}->[2]->{name};
+	$event->{fullPath} = $event->{audit}{msgs}->[2]->{name};
 	$event->{actionMyName} = 'unlink';
     } elsif (($event->{audit}{syscall} == 39) || ($event->{audit}{syscall} == 296)){
 	# mkdir
@@ -238,14 +283,20 @@ sub processEvent(){
     my %event2 = %$event;
     my %event3 = %{$event->{audit}};
     $event2{audit} = \%event3;
+    { 
+	lock $shared_Info_flag;
+	if ($shared_Info_flag eq 1){
+	    $self->{filez} = undef;
+	}
+	$shared_Info_flag = 2;
+    }
     $self->{filez}->{$event->{fullPath}} = \%event2;
     
     
 	{
-print "locking timer 1\n";
 	 lock $timer;
 	 $timer = 0;
-print "unlocking timer 1\n";
+	 $shared_Info = serialize($self->{filez});
 	}
     
     
@@ -253,25 +304,36 @@ print "unlocking timer 1\n";
 # ------------------------------------------------------------------------------------------------------------------------------
 sub __CreateWatchThread{
 
+    my $pluginName;
     while (1){
-        while ($timer < 10){
-print "cycle\n";
+        while ($timer lt $Self->{config}->{main}->{waitBeforeNotify}){
+print "tick\n";
 	    {
-print "locking timer 2\n";
 	     lock $timer;
 	     $timer++;
-print "unlocking timer 2 - ".$timer."\n";
 	    }
 	    sleep 1;
 	}
-	if (not defined ($Self->{filez})) {
-	    { lock $timer; $timer = 0; }
-	    next;
-	}
 
-    warn Dumper($Self->{filez});
-	$Self->{filez} = undef;
+	{ 
+	    lock $shared_Info_flag;
+	    if ($shared_Info_flag ne 2) {
+		{ lock $timer; $timer = 0; }
+		next;
+	    }
 	
+    	    $shared_Info_flag = 1;
+    	    my $data = unserialize($shared_Info);
+        
+	    for $pluginName (keys %{$Self->{config}->{plugins}}){
+		next if ($Self->{config}->{plugins}->{$pluginName} ne 1);
+		eval ('async{ szeng::plugins::'.$pluginName.'->startPlugin($Self->{config}, $data); } ');
+    	    }
+#print "\n".$shared_Info."\n\n";
+#szeng::plugins::slavaz_send_msg->startPlugin($Self->{config}, $data);
+
+
+	}
 	{ lock $timer; $timer = 0; }
     }
 }
@@ -279,41 +341,15 @@ print "unlocking timer 2 - ".$timer."\n";
 # ------------------------------------------------------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------------------------------------------------------
 sub getNameAction{
-    my $self = shift;
-    my $syscall = shift;
-=head1
-    if (($syscall == 39) || ($syscall == 296)){
-	return 'DIR_CHANGE';
-	# создание/изменение: syscall=39 296 
-    } elsif (($syscall == 38) || ($syscall == 302)){
-	# переименование: 38 302
-	return 'RENAME';
-    } elsif ($syscall == 40){
-	# удаление: syscall=40
-	return 'DIR_DELETE';
-    } elsif (($syscall == 5) || ($syscall == 277) || ($syscall == 295)){
-	# Создание/Изменение: 5
-	return 'FILE_CHANGE'
-    } elsif (($syscall == 10) || ($syscall == 278) || ($syscall == 301)){
-	# удаление: syscall=10 278 301
-	return 'FILE_DELETE';
-# -------------------------------
-    } elsif (($syscall == 85) || ($syscall == 305)){
-	# переименование: 38 302
-	return '__NR_readlink';
-    } 
-# -------------------------------
-     else {
-	return 'ACTION_UNKNOWN';
-    }
-=cut
-	
-	if ($syscall == 0)        { return '__NR_restart_syscall';}
-	elsif ($syscall == 1)     { return '__NR_exit';}
-	elsif ($syscall == 2)     { return '__NR_fork';}
-	elsif ($syscall == 3)     { return '__NR_read';}
-	elsif ($syscall == 4)     { return '__NR_write';}
-	elsif ($syscall == 5)     { return '__NR_open';}
+        my $self = shift;
+        my $syscall = shift;
+
+        if ($syscall == 0)        { return '__NR_restart_syscall';}
+        elsif ($syscall == 1)     { return '__NR_exit';}
+        elsif ($syscall == 2)     { return '__NR_fork';}
+        elsif ($syscall == 3)     { return '__NR_read';}
+        elsif ($syscall == 4)     { return '__NR_write';}
+        elsif ($syscall == 5)     { return '__NR_open';}
 	elsif ($syscall == 6)     { return '__NR_close';}
 	elsif ($syscall == 7)     { return '__NR_waitpid';}
 	elsif ($syscall == 8)     { return '__NR_creat';}

@@ -9,7 +9,7 @@ use Data::Dumper::Simple;
 
 BEGIN {
     my $dr = `pwd`; $dr =~ s/\n//m;
-    push @INC, $dr."/../messer";
+    push @INC, $dr."/..";
 };
 
 use szeng::fsnotify;
@@ -22,7 +22,5 @@ $log->info("Запуск программы");
 my $fsn = szeng::fsnotify->new;
 
 
-$fsn->addHook("/srv/work/tmp");
 $fsn->mainCycle();
-$fsn->delHook("/srv/work/tmp");
 
