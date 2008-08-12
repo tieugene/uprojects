@@ -5,5 +5,5 @@ Subprojects:
  * its - automatic updating 1C tunes and reports
  * postcat - output mail barrier
  * qen - Qt eGroupWare Notifier - tray app to show offered tasks
- * rpmtop - optimize rpms into rpm-based systems
+ * [rpmtop rpmtop] - optimize rpms into rpm-based systems
  * run1c - 1C on Linux runner
