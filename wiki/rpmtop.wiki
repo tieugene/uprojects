@@ -24,7 +24,7 @@
 
 = Опции =
 || Short || Long || Description ||
-|| -r || --recuring <level>| Recursive tops (w/o level - max) ||
+|| -r || --recuring <level> || Recursive tops (w/o level - max) ||
 || -a || --all || List all rpms (or -r0) ||
 || -t || --top || List top rpms (or r1+) ||
 || -x || --exclude || Excluding rpms (in recuring tops) ||
@@ -68,4 +68,11 @@ digraph rpm {
   * c+rpm: 1.15"
   * bash+rpm: 13.56"
 
-
+= Thoughts =
+== Shortcuts ==
+ * rpm: package
+  * RS: Required Services – services, required by pkg (rpm -q --requires rpm | grep -v ^/ | gawk '{print $1}')
+  * RF: Required Files – files, required by pkg (rpm -q --requires rpm | grep ^/)
+  * PS: Provided Service – services, provided by pkg (rpm -q --provides rpm | gawk '{print $1}')
+  * PF: Provided Files – files, provided by pkg (rpm -q --provides rpm | gawk '{print $1}')
+  * 1, ?, +, *: multiplycity (1, 0 or 1, 1+, 0+) – qty of the service/file in 1 rpm or all rpms
