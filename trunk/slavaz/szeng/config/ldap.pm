@@ -70,6 +70,32 @@ sub new {
     $obj->outer;
 }
 # ------------------------------------------------------------------------------------------------------------------------------
+sub search {
+    my $log = Log::Log4perl->get_logger("szeng::config::ldap");
+    $log->trace("Вызов метода search");
+    my $self  = shift;
+    my $searchCond = shift;
+    my $searchBase = shift;
+    
+    if (not defined ($searchBase)) {
+	$searchBase = $self->{searchBase}.",".$BASE_DN;
+    } else {
+	$searchBase = $searchBase.",".$BASE_DN;
+    }
+    
+    $self->{mesg} = $self->{ldap}->search(
+			filter=>$searchCond, 
+                        base=> $searchBase
+                    );
+    return if (not defined ($self->{mesg}->{entries}));
+    my %hash = %{$self->{mesg}->as_struct};
+    my @arr  = keys %hash;
+
+#    %{$self->{mesg}->as_struct};
+    
+    %{$hash{$arr[0]}}
+}
+# ------------------------------------------------------------------------------------------------------------------------------
 sub getConfig {
     my $log = Log::Log4perl->get_logger("szeng::config::ldap");
     $log->trace("Вызов метода getConfig");
@@ -81,7 +107,7 @@ sub getConfig {
     
     $self->{mesg} = $self->{ldap}->search( filter=>$searchCond, 
                          base=>$self->{searchBase}.",".$BASE_DN);
-    
+    return if (not defined ($self->{mesg}->{entries}));
     $hash = $self->{mesg}->as_struct;
     my @arr  = keys %$hash;
     $self->ldapDataToArray($$hash{$arr[0]}->{description});
