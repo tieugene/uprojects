@@ -384,7 +384,6 @@ sub __CreateWatchThread{
     my $pluginName;
     while (1){
         while ($timer lt $Self->{config}->{main}->{waitBeforeNotify}){
-print "tick\n";
 	    {
 	     lock $timer;
 	     $timer++;
