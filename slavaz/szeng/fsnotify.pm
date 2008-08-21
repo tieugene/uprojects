@@ -105,7 +105,11 @@ sub getConfig{
 sub addHook {
     my $self = shift;
     my $path = shift;
-    return 1 if ( $self->checkHook($path));
+    
+    if ( $self->checkHook($path)){
+	$self->{hooks}{$path} = 1;
+	return 1;
+    }
     my $log = Log::Log4perl->get_logger("szeng::fsnotify");
     $log->trace("Создание path-хука auditctl : ".$path);
     if (not defined ($self->{hooks}{$path})){
@@ -166,6 +170,7 @@ sub mainCycle{
     
     $self->reInitByConfig();
 
+
     $self->addHook($self->{config}->{main}->{watchPath});
 
     my $log = Log::Log4perl->get_logger("szeng::fsnotify");
@@ -216,7 +221,7 @@ sub mainCycle{
 		
 
 	    if ($msg{type} eq "CWD") {
-	        if ($line =~ /type=\S+ msg=audit\(\S+\):\s+cwd="(\S+)"/){
+	        if ($line =~ /type=\S+ msg=audit\(\S+\):\s+cwd="?(\S+(?="))"?/){ #"
 		    $msg{cwd} = $1;
 		}
 		$msg_count++;
@@ -225,7 +230,14 @@ sub mainCycle{
 	        if ($line =~ /type=\S+ msg=audit\(\S+\):\s+item=(\S+)\s+name="(.+)"\s+inode=(\S+) dev=(\S+) mode=(\S+) ouid=(\S+) ogid=(\S+) rdev=(\S+) obj=(\S+)/){
 		    $msg{item} = $1; $msg{name} = $2; $msg{inode} = $3; $msg{dev} = $4; $msg{mode} = $5; $msg{ouid} = $6; 
 		    $msg{ogid} = $7; $msg{rdev} = $8; $msg{obj} = $9;
+		}elsif ($line =~ /type=\S+ msg=audit\(\S+\):\s+item=(\S+)\s+name=(.+)\s+inode=(\S+) dev=(\S+) mode=(\S+) ouid=(\S+) ogid=(\S+) rdev=(\S+) obj=(\S+)/){
+		    $msg{item} = $1; $msg{name} =$2; $msg{inode} = $3; $msg{dev} = $4; $msg{mode} = $5; $msg{ouid} = $6; 
+		    $msg{ogid} = $7; $msg{rdev} = $8; $msg{obj} = $9;
+		    if ($msg{name} ne '(null)'){
+			$msg{name} = $self->decodeStr($msg{name});
+		    }
 		}
+
 	    } else {
 #	        print "unparsed line: $line\n";
 	    }
@@ -244,19 +256,76 @@ sub mainCycle{
     }
 }
 # ------------------------------------------------------------------------------------------------------------------------------
+sub decodeStr(){
+    my $self = shift;
+    my $str =  shift;
+    my $ret='';
+    my $i;
+    for ($i=0;$i< length ($str);$i+=2){
+        $ret.= chr(hex(substr($str,$i,2)));
+    }
+    return $ret;
+}
+# ------------------------------------------------------------------------------------------------------------------------------
+sub thisIsNotMyEvent(){
+    my $self = shift;
+    my $event= shift;
+    my @msgs = @{$event->{audit}{msgs}};
+    my $baseDir = '';
+    my $somePath = '';
+    my $path; my $onemsg;
+
+    foreach $onemsg (@msgs) {
+	if ( $onemsg->{type} eq 'CWD' ) {
+	    $baseDir = $onemsg->{cwd};
+	} elsif ($onemsg->{type} eq 'PATH' ) {
+	    $somePath = $onemsg->{name};
+	}
+    }
+    return 1 if ((not defined($baseDir)) or ($baseDir eq ''));
+    foreach $path (keys(%{$self->{hooks}})){
+	return 0 if ($baseDir =~ /^$path.*/);
+	return 0 if ($somePath =~ /^$path.*/);
+    }
+    return 1;
+}
+# ------------------------------------------------------------------------------------------------------------------------------
 sub processEvent(){
     my $self = shift;
     my $event= shift;
+    
+    # Временно. Оно иногда, суко, не работает из-за этого :(
+    my @msgs = @{$event->{audit}{msgs}};
+    return if (scalar(@msgs) eq 0);
+    
+    my $msgOffset=0;
+    my $onemsg;
+    
+    foreach $onemsg (@msgs) {
+	if ( $onemsg->{type} ne 'CWD' ) {
+	    $msgOffset++;
+	} else {
+	    last;
+	}
+	
+    }
+    return if $self->thisIsNotMyEvent($event);
+    
+#warn Dumper(@msgs);
     
 
     if ($event->{audit}{syscall} == 5){
 	# изменение файла или каталога
 	if ($event->{audit}{items} == 2){
-	    $event->{fullPath} = $event->{audit}{msgs}->[0]->{cwd}."/".$event->{audit}{msgs}->[2]->{name};
+	    return if (! defined($event->{audit}{msgs}->[$msgOffset+2]->{name}) );
+	    
+#	    $event->{fullPath} = $event->{audit}{msgs}->[$msgOffset]->{cwd}."/".$event->{audit}{msgs}->[$msgOffset+2]->{name};
+	    $event->{fullPath} = $event->{audit}{msgs}->[$msgOffset+2]->{name};
 	    $event->{actionMyName} = 'create';
-
 	} elsif ($event->{audit}{items} == 1){
-	    $event->{fullPath} = $event->{audit}{msgs}->[0]->{cwd}."/".$event->{audit}{msgs}->[1]->{name};
+	    return if (! defined($event->{audit}{msgs}->[$msgOffset+1]->{name}) );
+#	    $event->{fullPath} = $event->{audit}{msgs}->[$msgOffset]->{cwd}."/".$event->{audit}{msgs}->[$msgOffset+1]->{name};
+	    $event->{fullPath} = $event->{audit}{msgs}->[$msgOffset+1]->{name};
 	    $event->{actionMyName} = 'modify';
 	} else {
 	    $event->{fullPath} = '';
@@ -265,20 +334,28 @@ sub processEvent(){
     } elsif ($event->{audit}{syscall} == 85){
 	# readlink - шозанах?
 	return;
-    } elsif (($event->{audit}{syscall} == 301) || ($event->{audit}{syscall} == 10) || ($event->{audit}{syscall} == 278)){
+    } elsif (($event->{audit}{syscall} == 301) or ($event->{audit}{syscall} == 10) or ($event->{audit}{syscall} == 278)){
 	# unlink
-	$event->{fullPath} = $event->{audit}{msgs}->[2]->{name};
+	$event->{fullPath} = $event->{audit}{msgs}->[$msgOffset+2]->{name};
 	$event->{actionMyName} = 'unlink';
-    } elsif (($event->{audit}{syscall} == 39) || ($event->{audit}{syscall} == 296)){
+    } elsif (($event->{audit}{syscall} == 39) or ($event->{audit}{syscall} == 296)){
 	# mkdir
-	$event->{fullPath} = $event->{audit}{msgs}->[2]->{name};
+	$event->{fullPath} = $event->{audit}{msgs}->[$msgOffset+2]->{name};
 	$event->{actionMyName} = 'mkdir';
     } elsif ($event->{audit}{syscall} == 40){
 	# rmdir
-	$event->{fullPath} = $event->{audit}{msgs}->[2]->{name};
+	$event->{fullPath} = $event->{audit}{msgs}->[$msgOffset+2]->{name};
 	$event->{actionMyName} = 'rmdir';
     } else {
 	return;
+    }
+    return if (not defined($event->{fullPath}));
+
+    # эта херня не рассчитана на слежение за несколькими путями... в будущем пофиксю, сейчас нах не нужно.
+    foreach $onemsg (keys(%{$self->{hooks}})){
+	if ( not ($event->{fullPath} =~ /^$onemsg.*/  )){
+	    $event->{fullPath} = $event->{audit}{msgs}->[$msgOffset]->{cwd}."/".$event->{fullPath};
+	}
     }
     my %event2 = %$event;
     my %event3 = %{$event->{audit}};
