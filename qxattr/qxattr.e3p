@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE Project SYSTEM "Project-3.9.dtd">
 <!-- Project file for project qxattr -->
-<!-- Saved: 2008-07-09, 21:28:37 -->
+<!-- Saved: 2008-08-29, 21:10:28 -->
 <!-- Copyright (C) 2008 Eugene A. Pivnev,  -->
 <Project version="3.9">
   <ProgLanguage mixed="0">Python</ProgLanguage>
@@ -11,14 +11,11 @@
   <Author>Eugene A. Pivnev</Author>
   <Email></Email>
   <TranslationPrefix>
-    <Name>qxattr</Name>
+    <Name>tr</Name>
   </TranslationPrefix>
   <Sources>
     <Source>
       <Name>qxattr.py</Name>
-    </Source>
-    <Source>
-      <Name>Ui_main.py</Name>
     </Source>
   </Sources>
   <Forms>
@@ -27,10 +24,16 @@
     </Form>
   </Forms>
   <Translations>
+    <Translation>
+      <Name>tr_ru.ts</Name>
+    </Translation>
   </Translations>
   <Interfaces>
   </Interfaces>
   <Others>
+    <Other>
+      <Name>README</Name>
+    </Other>
   </Others>
   <MainScript>
     <Name>qxattr.py</Name>
@@ -40,9 +43,9 @@
   </Vcs>
   <FiletypeAssociations>
     <FiletypeAssociation pattern="*.ui.h" type="FORMS" />
-    <FiletypeAssociation pattern="*.ui" type="FORMS" />
-    <FiletypeAssociation pattern="*.idl" type="INTERFACES" />
-    <FiletypeAssociation pattern="*.py" type="SOURCES" />
     <FiletypeAssociation pattern="*.ptl" type="SOURCES" />
+    <FiletypeAssociation pattern="*.idl" type="INTERFACES" />
+    <FiletypeAssociation pattern="*.ui" type="FORMS" />
+    <FiletypeAssociation pattern="*.py" type="SOURCES" />
   </FiletypeAssociations>
 </Project>
