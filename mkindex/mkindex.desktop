@@ -1,0 +1,10 @@
+#1. (~/.kde | /usr/share)/apps/konqueror/servicemenus/mkindex.desktop:
+[Desktop Entry]
+ServiceTypes=inode/directory
+Actions=MkIndex
+
+[Desktop Action MkIndex]
+Name=Make index.html
+Name[ru]=Создать индекс
+Icon=www
+Exec=~/bin/mkindex.sh %u
