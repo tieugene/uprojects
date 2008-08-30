@@ -10,7 +10,8 @@
 
 = Scheme =
 Description of available Xattrs:
-|| Mult || *1st Letter* || *Widget* || *DataType* ||
+
+|| *Mult* || *1stLetter* || *Widget* || *DataType* ||
 || - || B || CheckBox || bool ||
 || + || R || RadioButton || int + enum ||
 || + || L/E || List || str + enum ||
