@@ -10,29 +10,30 @@
 
 = Scheme =
 Description of available Xattrs:
-|| Letter || *Widget* || *DataType* ||
-|| B || CheckBox || bool ||
-||   || RadioButton || int + enum ||
-|| L || List || enum ||
-||   || Tree || ? ||
-|| S || Lineedit || string ||
-||   || TextEdit || html ||
-||   || PlainTextEdit || text ||
-|| I || SpinBox || int ||
-|| F || DoubleSpinBox || float ||
-|| D || Date || date ||
-|| T || Time || time ||
-||   || DateTime || datetime ||
-||   || Image || image ||
-|| X || Href || URL ||
-
+|| Mult || *1st Letter* || *Widget* || *DataType* ||
+|| - || B || CheckBox || bool ||
+|| + || R || RadioButton || int + enum ||
+|| + || L/E || List || str + enum ||
+|| + ||   || Tree || str + ? ||
+|| + || S || Lineedit || str ||
+|| - || H || TextEdit || html ||
+|| - || T || PlainTextEdit || text ||
+|| + || I || SpinBox || int ||
+|| + || F || DoubleSpinBox || float ||
+|| + || D || Date || date ||
+|| + || M || Time || time ||
+|| + ||   || DateTime || datetime ||
+|| - || G || Image || image ||
+|| + || X || Href || URL ||
 
 Common attributes:
-  * ID:string - uniq name and label
+  * ID:string - uniq name
+  * Label:string(utf8)
   * Mandatory:bool
 
-Each widget can present 0 or 1 time.
+Widgets can present 0, 1 or many times - but not all of them.
+Plural Xattrs stores in one xattr and sre separated dependently of datatype.
 Widget and data type encoded in 1st letter of xattr name.
 
 == CheckBox ==
-Nothin else
+Nothin else.
