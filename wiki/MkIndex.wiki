@@ -1,0 +1,38 @@
+#summary MkIndex subproject page.
+
+= ToDo =
+
+  * scheme
+  * Qxattr + scheme
+  * xattr2index (w/ scheme)
+  * inotify
+  * index template?
+
+= Scheme =
+Description of available Xattrs:
+|| Letter || *Widget* || *DataType* ||
+|| B || CheckBox || bool ||
+||   || RadioButton || int + enum ||
+|| L || List || enum ||
+||   || Tree || ? ||
+|| S || Lineedit || string ||
+||   || TextEdit || html ||
+||   || PlainTextEdit || text ||
+|| I || SpinBox || int ||
+|| F || DoubleSpinBox || float ||
+|| D || Date || date ||
+|| T || Time || time ||
+||   || DateTime || datetime ||
+||   || Image || image ||
+|| X || Href || URL ||
+
+
+Common attributes:
+  * ID:string - uniq name and label
+  * Mandatory:bool
+
+Each widget can present 0 or 1 time.
+Widget and data type encoded in 1st letter of xattr name.
+
+== CheckBox ==
+Nothin else
