@@ -30,10 +30,10 @@ Description of available Xattrs:
 Excluded: RadioButton.
 
 Main features:
-  * File format - config
-  * Store method - "everything onboard"
-  * Naming - <type>Name
-  * Empty xattr must be deleted
+  * File format - config;
+  * Store method - "everything onboard" - xattr names describe everything about xattr type;
+  * Empty xattr must be deleted;
+  * Naming - <type>Name - "hungarian notation" + CamelCase;
 
 Common attributes:
   * [DEFAULT]:ver - format version
