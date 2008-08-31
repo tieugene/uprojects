@@ -12,20 +12,20 @@
 Description of available Xattrs:
 
 || *Mult* || *1stLetter* || *Widget* || *DataType* ||
-|| - || B || CheckBox || bool ||
-|| + || E || List || str + enum ||
-|| + || ? || Tree || str + ? ||
-|| + || S || Lineedit || str ||
-|| - || H || TextEdit || html ||
-|| - || T || PlainTextEdit || text ||
-|| + || I || SpinBox || int ||
-|| + || F || DoubleSpinBox || float ||
-|| + || D || Date || date ||
-|| + || M || Time || time ||
-|| + || ? || DateTime || datetime ||
-|| - || G || Image || image ||
-|| + || X || Href || URL ||
-|| + || ? || File link || int64 ||
+|| - || b || CheckBox || bool ||
+|| + || se || List || str + enum ||
+|| + || st || Tree || str + enum? ||
+|| + || sl || Lineedit || str ||
+|| - || sh || TextEdit || html ||
+|| - || sp || PlainTextEdit || text ||
+|| + || i/u[1..8] || SpinBox || int ||
+|| + || f... || DoubleSpinBox || float ||
+|| + || d || Date || date ||
+|| + || t || Time || time ||
+|| + || dt || DateTime || datetime ||
+|| - || g || Image || image ||
+|| + || x || Href || URL ||
+|| + || r || Reference to file by inode || int64 ||
 
 Excluded: RadioButton.
 
@@ -33,7 +33,7 @@ Main features:
   * File format - config;
   * Store method - "everything onboard" - xattr names describe everything about xattr type;
   * Empty xattr must be deleted;
-  * Naming - <type>Name - "hungarian notation" + CamelCase;
+  * Naming - <type>.Name - "hungarian notation" + CamelCase;
 
 Common attributes:
   * [DEFAULT]:ver - format version
