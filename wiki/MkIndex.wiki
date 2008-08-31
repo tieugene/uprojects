@@ -13,9 +13,8 @@ Description of available Xattrs:
 
 || *Mult* || *1stLetter* || *Widget* || *DataType* ||
 || - || B || CheckBox || bool ||
-|| + || R || RadioButton || int + enum ||
-|| + || L/E || List || str + enum ||
-|| + ||   || Tree || str + ? ||
+|| + || E || List || str + enum ||
+|| + || ? || Tree || str + ? ||
 || + || S || Lineedit || str ||
 || - || H || TextEdit || html ||
 || - || T || PlainTextEdit || text ||
@@ -23,18 +22,123 @@ Description of available Xattrs:
 || + || F || DoubleSpinBox || float ||
 || + || D || Date || date ||
 || + || M || Time || time ||
-|| + ||   || DateTime || datetime ||
+|| + || ? || DateTime || datetime ||
 || - || G || Image || image ||
 || + || X || Href || URL ||
+|| + || ? || File link || int64 ||
+
+Excluded: RadioButton.
+
+Main features:
+  * File format - config
+  * Store method - "everything onboard"
+  * Naming - <type>Name
+  * Empty xattr must be deleted
 
 Common attributes:
-  * ID:string - uniq name
+  * [DEFAULT]:ver - format version
+  * ID:string - uniq name - and xattr
   * Label:string(utf8)
   * Mandatory:bool
+  * Default: <type>
 
 Widgets can present 0, 1 or many times - but not all of them.
 Plural Xattrs stores in one xattr and sre separated dependently of datatype.
 Widget and data type encoded in 1st letter of xattr name.
 
 == CheckBox ==
-Nothin else.
+Mult: no
+Store as: bit
+Options: None
+
+== ListBox ==
+Mults: yes, splited by CR or \0
+Store as: str
+Options:
+  * Values:str, quoted CSV
+
+== TreeView ==
+Mults: yes, splited by CR or \0
+Store as: str as path
+Options:
+  * Values:str, quoted CSV as paths
+
+== LineEdit ==
+Mults: yes, splited by CR or \0
+Store as: str
+Options:
+  * Mask:str
+
+== TextEdit ==
+Mults: yes, splited by \0
+Store as: str (html)
+Options: None
+
+== PlainTextEdit ==
+Mults: yes, splited by \0
+Store as: str
+Options: None
+
+== SpinBox ==
+Mults: yes, not splited
+Store as: int
+Options:
+  * Size:int - power of 2
+  * Min:int
+  * Max:int
+
+== DoubleSpinBox ==
+Mults: yes, not splited
+Store as: byte sequence
+Options:
+  * Size:int
+  * Prec:int
+  * Min:fixed
+  * Max:fixed
+
+== Date ==
+Mults: yes, not splited
+Store as: int32
+Options:
+  * Min:isodate
+  * Max:isodate
+  * Unsigned:bool
+? TZ, calendar
+
+== Time ==
+Mults: yes, not splited
+Store as: int32 (h5m6s6ms10tz5)
+Options: None
+
+== DateTime ==
+Mults: yes, not splited
+Store as: int64
+Options:
+  * Min:isodate
+  * Max:isodate
+  * Unsigned:bool
+? TZ, calendar
+
+== Image ==
+Mults: no
+Store as: blob
+Options: None
+
+== Href ==
+Mults: yes, splited by CR or \0
+Store as: str
+Options: None
+
+== FileLinked ==
+Mults: yes, not splited
+Store as: int64
+Options: None
+
+----
+  * Find: naming
+  * Xattr name:value => RDF
+  * ...but predicate attrs - ёк...
+  * => everything == file
+  * Anything can be stored in xattr - changing history, scheme own (!)
+  * So, xattr description can be saved in dir xattr
+  * ext3+webdav+http...
