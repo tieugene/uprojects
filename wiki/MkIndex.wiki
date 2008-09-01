@@ -41,10 +41,12 @@ Global attributes ([DEFAULT] section:
 
 Common attributes:
   * ID:string - uniq name - and xattr
-  * Label:string(utf8)
-  * ToolTip:str
-  * Mandatory:bool
-  * Default: <type>
+  * Label:string(utf8) - option (default - ID w/o types
+  * ToolTip:str - option
+  * StatusTip:str - option
+  * WhatsTip:str - option
+  * Mandatory:bool [false] - option
+  * Default: <type> - option
 
 Widgets can present 0, 1 or many times - but not all of them.
 Plural Xattrs stores in one xattr and sre separated dependently of datatype.
