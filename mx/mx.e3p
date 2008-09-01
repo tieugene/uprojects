@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE Project SYSTEM "Project-3.9.dtd">
+<!-- Project file for project mx -->
+<!-- Saved: 2008-09-01, 20:39:11 -->
+<!-- Copyright (C) 2008 T_Eugene, ti.eugene@gmail.com -->
+<Project version="3.9">
+  <ProgLanguage mixed="0">Python</ProgLanguage>
+  <UIType>Qt4</UIType>
+  <Description>Editor of file's xattrs using template</Description>
+  <Version>0.1</Version>
+  <Author>T_Eugene</Author>
+  <Email>ti.eugene@gmail.com</Email>
+  <TranslationPrefix>
+    <Name>mx_</Name>
+  </TranslationPrefix>
+  <Sources>
+    <Source>
+      <Name>mxattr.py</Name>
+    </Source>
+  </Sources>
+  <Forms>
+  </Forms>
+  <Translations>
+    <Translation>
+      <Name>mx_ru.ts</Name>
+    </Translation>
+  </Translations>
+  <Interfaces>
+  </Interfaces>
+  <Others>
+    <Other>
+      <Name>index.conf</Name>
+    </Other>
+  </Others>
+  <MainScript>
+    <Dir></Dir>
+    <Dir>mnt</Dir>
+    <Dir>shares</Dir>
+    <Dir>data</Dir>
+    <Dir>eugene</Dir>
+    <Dir>Projects</Dir>
+    <Dir>uprojects</Dir>
+    <Dir>mx</Dir>
+    <Name>mxattr.py</Name>
+  </MainScript>
+  <Vcs>
+    <VcsType>None</VcsType>
+  </Vcs>
+  <FiletypeAssociations>
+    <FiletypeAssociation pattern="*.ui.h" type="FORMS" />
+    <FiletypeAssociation pattern="*.ui" type="FORMS" />
+    <FiletypeAssociation pattern="*.idl" type="INTERFACES" />
+    <FiletypeAssociation pattern="*.py" type="SOURCES" />
+    <FiletypeAssociation pattern="*.ptl" type="SOURCES" />
+  </FiletypeAssociations>
+</Project>

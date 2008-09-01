@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE Tasks SYSTEM "Tasks-3.8.dtd">
+<!-- Tasks file for project mx -->
+<!-- Saved: 2008-09-01, 20:39:11 -->
+<Tasks version="3.8">
+  <Task priority="1" completed="0" bugfix="1">
+    <Description>FIXME: Force | Reload</Description>
+    <Created>2008-09-01, 20:38:14</Created>
+    <Resource>
+      <Filename>
+        <Name>mxattr.py</Name>
+      </Filename>
+      <Linenumber>124</Linenumber>
+    </Resource>
+  </Task>
+</Tasks>
