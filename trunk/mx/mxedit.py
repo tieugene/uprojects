@@ -3,7 +3,9 @@
 # Handling xattrs
 
 import	sys, xattr, ConfigParser, pprint
-from		treeselect import Node, TreeModel, TreeSelectDialog
+from		PyQt4	import QtCore, QtGui
+from		treeselect	import Node, TreeModel, TreeSelectDialog
+from		mxattr	import MxList
 
 class	MainDialog(QtGui.QDialog):
 	'''
@@ -11,16 +13,19 @@ class	MainDialog(QtGui.QDialog):
 	'''
 	def __init__(self, file):
 		self.file = file
-		self.wdict = {}
-		self.trees = {}
+		self.wdict = {}	# widgets own
+		self.fdict = {}	# flags
+		self.tdict = {}	# tree buttons
+		self.mxlist	= MxList()
+		cp = ConfigParser.ConfigParser()
+		cp.readfp(open('index.conf'))
+		self.mxlist.loadCfg(cp)
+
 		QtGui.QDialog.__init__(self)
 		self.resize(QtCore.QSize(QtCore.QRect(0,0,315,300).size()).expandedTo(self.minimumSizeHint()))
 		self.gl = QtGui.QGridLayout(self)
-
-		cp = self.__loadcfg("index.conf")
-		maxrow = self.__setwidgets(cp, self.gl)
-
-		self.buttonBox = QtGui.QDialogButtonBox(QtGui.QDialogButtonBox.Apply|QtGui.QDialogButtonBox.Ok|QtGui.QDialogButtonBox.Close, QtCore.Qt.Horizontal, self)
+		maxrow = self.__setwidgets(self.gl)
+		self.buttonBox = QtGui.QDialogButtonBox(QtGui.QDialogButtonBox.Apply | QtGui.QDialogButtonBox.Ok | QtGui.QDialogButtonBox.Close, QtCore.Qt.Horizontal, self)
 		self.gl.addWidget(self.buttonBox, maxrow, 0, 1, 3)
 		QtCore.QObject.connect(self.buttonBox.button(QtGui.QDialogButtonBox.Apply), QtCore.SIGNAL("clicked()"), self.__apply)
 		QtCore.QObject.connect(self.buttonBox, QtCore.SIGNAL("accepted()"),self.accept)
@@ -28,80 +33,113 @@ class	MainDialog(QtGui.QDialog):
 		self.selectDialog = TreeSelectDialog()
 		self.__load()
 
-	def	__loadcfg(self, f):
-		'''
-		Load config file.
-		@param f:str - file.
-		'''
-		cp = ConfigParser.ConfigParser()
-		cp.readfp(open('index.conf'))
-		return cp
+	def	__setwidgets(self, gl):
+		for row, fldname in enumerate(self.mxlist.data.keys()):
+			fld = self.mxlist.data[fldname]
+			widget = None
+			label = fld.Label if fld.Label else fld.Name
+			gl.addWidget(QtGui.QLabel(label, self), row, 0)
+			if (fld.Type == "b"):
+				widget = QtGui.QCheckBox()
+			elif (fld.Type == "se"):
+				widget = QtGui.QComboBox()
+				for i in fld.Values:
+					widget.addItem(QtCore.QString().fromUtf8(i))
+			elif (fld.Type == "st"):
+				widget = QtGui.QLineEdit()
+				widget.setReadOnly(True)
+				btn = QtGui.QPushButton("V", self)		# QtGui.QCommandLinkButton("expand")
+				btn.setObjectName(fld.Name)
+				self.tdict[fld.Name] = btn
+				gl.addWidget(btn, row, 3)
+				QtCore.QObject.connect(btn, QtCore.SIGNAL("clicked()"), self.__calltree)
+			elif (fld.Type == "sl"):
+				widget = QtGui.QLineEdit()
+			elif (fld.Type == "sh"):
+				widget = QtGui.QTexEdit()
+			elif (fld.Type == "sp"):
+				widget = QtGui.QPlainTexEdit()
+			elif (fld.Type == "i"):
+				widget = QtGui.QSpinBox()
+			elif (fld.Type == "f"):
+				widget = QtGui.QDoubleSpinBox()
+			elif (fld.Type == "d"):
+				widget = QtGui.QDateEdit()
+			elif (fld.Type == "t"):
+				widget = QtGui.QTimeEdit()
+			elif (fld.Type == "dt"):
+				widget = QtGui.QDateTimeEdit()
+			elif (fld.Type == "g"):
+				widget = QtGui.QGraphicsView()
+			elif (fld.Type == "x"):
+				widget = QtGui.QLineEdit()
+			else:
+				print "Unknown type"
+			if widget:
+				widget.setObjectName(fld.Name)
+				self.wdict[fld.Name] = widget
+				gl.addWidget(widget, row, 1)
+				if (not fld.Mandatory):
+					cb = QtGui.QCheckBox("")
+					cb.setObjectName(fld.Name)
+					QtCore.QObject.connect(cb, QtCore.SIGNAL("clicked()"), self.__chgflag)
+					self.fdict[fld.Name] = cb
+					gl.addWidget(cb, row, 2)
+		return row + 1
 
-	def	__test(self):
+	def	__calltree(self):
 		wn = str(self.sender().objectName())
-		s = self.selectDialog._letsGo(self.trees[wn])
+		s = self.selectDialog._letsGo(self.mxlist.data[wn].Values)
 		if (s):
 			self.wdict[wn].setText(s)
 
-	def	__setwidgets(self, cp, gl):
-		for row, sect in enumerate(cp.sections()):
-			widget = None
-			st, sn = sect.split(".")
-			label = cp.get(sect, "Label") if cp.has_option(sect, "Label") else sn
-			gl.addWidget(QtGui.QLabel(label, self), row, 0)
-			if (st == "b"):
-				widget = QtGui.QCheckBox()
-			elif (st == "se"):
-				values = eval(cp.get(sect, "Values"))			#values = map(lambda x: x.strip(' "\n'), cp.get(sect, "Values").split(";"))
-				widget = QtGui.QComboBox()
-				for i in values:							#widget.addItems(QtCore.QStringList(list(values)))
-					widget.addItem(QtCore.QString().fromUtf8(i))
-			elif (st == "st"):
-				widget = QtGui.QLineEdit()
-				btn = QtGui.QPushButton("V", self)				#QtGui.QCommandLinkButton("expand")
-				btn.setObjectName(sn)
-				gl.addWidget(btn, row, 2)
-				QtCore.QObject.connect(btn, QtCore.SIGNAL("clicked()"), self.__test)
-				values = eval(cp.get(sect, "Values"))
-				self.trees [sn] = values
-			elif (st == "sl"):
-				widget = QtGui.QLineEdit()
-			elif (st == "sh"):
-				widget = QtGui.QTexEdit()
-			elif (st == "sp"):
-				widget = QtGui.QPlainTexEdit()
-			elif (st.startswith("i")):
-				widget = QtGui.QSpinBox()
-			elif (st.startswith("u")):
-				widget = QtGui.QSpinBox()
-			elif (st == "f"):
-				widget = QtGui.QDoubleSpinBox()
-			elif (st == "d"):
-				widget = QtGui.QDateEdit()
-			elif (st == "t"):
-				widget = QtGui.QTimeEdit()
-			elif (st == "dt"):
-				widget = QtGui.QDateTimeEdit()
-			elif (st == "g"):
-				widget = QtGui.QGraphicsView()
-			elif (st == "x"):
-				widget = QtGui.QLineEdit()
-			elif (st == "r"):
-				pass
-			else:
-				print "Unknown type: %s" % st
-			if widget:
-				widget.setObjectName(sect)
-				self.wdict[sn] = widget
-				gl.addWidget(widget, row, 1)
-		return row + 1
+	def	__chgflag(self):
+		cb = self.sender()
+		wn = str(cb.objectName())
+		widget = self.wdict[wn]
+		widget.setEnabled(cb.isChecked())
+		if (self.mxlist.data[wn].Type == 'st'):
+			self.tdict[wn].setEnabled(cb.isChecked())
 
 	def	__load(self):
 		'''
 		Load all xattrs into mem.
 		'''
-		self.xattr0 = self.__file2hash(self.file)		# 1. load data
-		self.__hash2fields(self.xattr0)		# 3. paint
+		self.mxlist.loadData(self.file)
+		for fldname in self.mxlist.data.keys():
+			data = None
+			fld = self.mxlist.data[fldname]
+			if (fld.loaded):
+				data = fld.data
+				if (not fld.Mandatory):
+					self.fdict[fld.Name].setCheckState(QtCore.Qt.Checked)
+			else:
+				if (fld.Mandatory):
+					data = fld.Default
+				else:
+					self.wdict[fld.Name].setEnabled(False)
+			widget = self.wdict[fld.Name]
+			if (data):
+				if (fld.Type == 'b'):
+					widget.setCheckState(QtGui.Qt.Checked)
+				elif (fld.Type == 'se'):
+					i = widget.findText(QtCore.QString().fromUtf8(data))
+					if (i >= 0):
+						widget.setCurrentIndex(i)
+				elif (fld.Type in ('st', 'sl', 'x')):
+					widget.setText(QtCore.QString().fromUtf8(data))
+				elif (fld.Type == 'sh'):
+					widget.setHtml(QtCore.QString().fromUtf8(data))
+				elif (fld.Type == 'sp'):
+					widget.setText(QtCore.QString().fromUtf8(data))
+				elif (fld.Type in ('i', 'f')):
+					widget.setValue(data)
+				elif (fld.Type == 'd'):
+					widget.setDate(QtCore.QDate(data))
+				elif (fld.Type == 't'):
+					widget.setTime(QtCore.QTime(data))
+				elif (fld.Type == 'dt'):
+					widget.setDateTime(QtCore.QDateTime(data))
 
 	def	__apply(self):
 		'''
@@ -117,70 +155,6 @@ class	MainDialog(QtGui.QDialog):
 			)
 		self.__hash2file(h, h1, self.file)
 		self.xattr0 = h1
-
-	def	__file2hash(self, f):
-		'''
-		Load file's xattrs into hash
-		@param f:file
-		@return QHash
-		'''
-		h = {}
-		alist = xattr.listxattr(self.file)
-		for r, a in enumerate(alist):
-			h[a[5:]] = xattr.getxattr(f, a)
-		return h
-
-	def	__hash2fields(self, h):
-		'''
-		Put hash into table
-		@param h:QHash - source
-		@param t:QTableWidget - dest
-		@return None
-		'''
-		for a in enumerate(h.keys()):
-			st, sn = a.split(".")
-##			if self.wdict[]
-			if (st == "b"):
-				widget = QtGui.QCheckBox()
-			elif (st == "se"):
-				values = eval(cp.get(sect, "Values"))			#values = map(lambda x: x.strip(' "\n'), cp.get(sect, "Values").split(";"))
-				widget = QtGui.QComboBox()
-				for i in values:							#widget.addItems(QtCore.QStringList(list(values)))
-					widget.addItem(QtCore.QString().fromUtf8(i))
-			elif (st == "st"):
-				widget = QtGui.QLineEdit()
-				btn = QtGui.QPushButton("V", self)				#QtGui.QCommandLinkButton("expand")
-				btn.setObjectName(sn)
-				gl.addWidget(btn, row, 2)
-				QtCore.QObject.connect(btn, QtCore.SIGNAL("clicked()"), self.__test)
-				values = eval(cp.get(sect, "Values"))
-				self.trees [sn] = values
-			elif (st == "sl"):
-				widget = QtGui.QLineEdit()
-			elif (st == "sh"):
-				widget = QtGui.QTexEdit()
-			elif (st == "sp"):
-				widget = QtGui.QPlainTexEdit()
-			elif (st.startswith("i")):
-				widget = QtGui.QSpinBox()
-			elif (st.startswith("u")):
-				widget = QtGui.QSpinBox()
-			elif (st == "f"):
-				widget = QtGui.QDoubleSpinBox()
-			elif (st == "d"):
-				widget = QtGui.QDateEdit()
-			elif (st == "t"):
-				widget = QtGui.QTimeEdit()
-			elif (st == "dt"):
-				widget = QtGui.QDateTimeEdit()
-			elif (st == "g"):
-				widget = QtGui.QGraphicsView()
-			elif (st == "x"):
-				widget = QtGui.QLineEdit()
-			elif (st == "r"):
-				pass
-			else:
-				print "Unknown type: %s" % st
 
 	def	__table2hash(self, t):
 		'''
@@ -236,7 +210,7 @@ if (__name__ == '__main__'):
 		sys.exit(0)
 	aMain = QtGui.QApplication( sys.argv )
 	translator	= QtCore.QTranslator()
-	translator.load("tr_" + QtCore.QLocale().system().name().left(2))
+	translator.load("mx_" + QtCore.QLocale().system().name().left(2))
 	aMain.installTranslator(translator)
 	mwMain	= MainDialog(sys.argv[1])
 	mwMain.show()

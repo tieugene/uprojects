@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE Project SYSTEM "Project-3.9.dtd">
 <!-- Project file for project mx -->
-<!-- Saved: 2008-09-04, 13:10:45 -->
+<!-- Saved: 2008-09-04, 20:19:41 -->
 <!-- Copyright (C) 2008 T_Eugene, ti.eugene@gmail.com -->
 <Project version="3.9">
   <ProgLanguage mixed="0">Python</ProgLanguage>
@@ -15,13 +15,13 @@
   </TranslationPrefix>
   <Sources>
     <Source>
-      <Name>mxattr.py</Name>
-    </Source>
-    <Source>
       <Name>treeselect.py</Name>
     </Source>
     <Source>
-      <Name>cfgattr.py</Name>
+      <Name>mxedit.py</Name>
+    </Source>
+    <Source>
+      <Name>mxattr.py</Name>
     </Source>
   </Sources>
   <Forms>
@@ -39,15 +39,7 @@
     </Other>
   </Others>
   <MainScript>
-    <Dir></Dir>
-    <Dir>mnt</Dir>
-    <Dir>shares</Dir>
-    <Dir>data</Dir>
-    <Dir>eugene</Dir>
-    <Dir>Projects</Dir>
-    <Dir>uprojects</Dir>
-    <Dir>mx</Dir>
-    <Name>mxattr.py</Name>
+    <Name>mxedit.py</Name>
   </MainScript>
   <Vcs>
     <VcsType>None</VcsType>
