@@ -13,8 +13,8 @@ In short:
 
 = ToDo =
 
-  * scheme
-  * Qxattr + scheme
+  * scheme - DONE
+  * Qxattr + scheme - DONE...
   * xattr2index (w/ scheme)
   * inotify
   * index template?
