@@ -16,8 +16,8 @@ Description of available Xattrs:
 || + || se || str + enum || ComboBox || findText + setCurrentIndex || currentText ||
 || + || st || str + enum || LineEdit + TreeView || setText || text ||
 || + || sl || str || LineEdit || setText || text ||
-|| - || sh || html || TextEdit ||  ||  ||
-|| - || sp || text || PlainTextEdit ||  ||  ||
+|| - || sh || html || TextEdit || setText || toHtml ||
+|| - || sp || text || PlainTextEdit || setText || toPlainText ||
 || + || i/u[1..8] || int/long || SpinBox || setValue || value ||
 || + || f... || float/double || DoubleSpinBox || setValue || Value ||
 || + || d || date || DateEdit || setDate || date ||
