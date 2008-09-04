@@ -1,5 +1,16 @@
 #summary MX subproject wiki.
 
+= Goal =
+Main goal of this project is to make something like DMS (document management filesystem).
+
+This will made by concatenating three technologies - [http://en.wikipedia.org/wiki/Xattr xattr] + [http://en.wikipedia.org/wiki/Inotify inotify] + index.html.
+
+In short:
+  * we edit xattr (extended attributes) of file using special xattr editor (e.g. eiciel); name, type and other attributes of xattrs for files in any folder defined by .index.cfg file ("scheme"), laying in this folder (so - each folder can have own xattr scheme);
+  * after writing to disk inotify run special script - can be different to each handling folder;
+  * this script creates index.html - using user defined algorythm;
+  * then just check on "Use index.html" in your Konqueror... :-)
+
 = ToDo =
 
   * scheme
