@@ -1,0 +1,150 @@
+#summary MX subproject wiki.
+
+= ToDo =
+
+  * scheme
+  * Qxattr + scheme
+  * xattr2index (w/ scheme)
+  * inotify
+  * index template?
+
+= Scheme =
+Description of available Xattrs:
+
+|| *Mult* || *1stLetter* || *Widget* || *DataType* ||
+|| - || b || CheckBox || bool ||
+|| + || se || List || str + enum ||
+|| + || st || Tree || str + enum? ||
+|| + || sl || Lineedit || str ||
+|| - || sh || TextEdit || html ||
+|| - || sp || PlainTextEdit || text ||
+|| + || i/u[1..8] || SpinBox || int ||
+|| + || f... || DoubleSpinBox || float ||
+|| + || d || Date || date ||
+|| + || t || Time || time ||
+|| + || dt || DateTime || datetime ||
+|| - || g || Image || image ||
+|| + || x || Href || URL ||
+|| + || r || Reference to file by inode || int64 ||
+
+Excluded: RadioButton.
+
+Main features:
+  * File format - config;
+  * Store method - "everything onboard" - xattr names describe everything about xattr type;
+  * Empty xattr must be deleted;
+  * Naming - <type>.Name - "hungarian notation" + CamelCase;
+
+Global attributes ([DEFAULT] section:
+  * ver:str - format version
+  * codepage:str
+
+Common attributes:
+  * ID:string - uniq name - and xattr
+  * Label:string(utf8) - option (default - ID w/o types
+  * ToolTip:str - option
+  * StatusTip:str - option
+  * WhatsTip:str - option
+  * Mandatory:bool [false] - option
+  * Default: <type> - option
+
+Widgets can present 0, 1 or many times - but not all of them.
+Plural Xattrs stores in one xattr and sre separated dependently of datatype.
+Widget and data type encoded in 1st letter of xattr name.
+
+== CheckBox ==
+Mult: no
+Store as: bit
+Options: None
+
+== ListBox ==
+Mults: yes, splited by CR or \0
+Store as: str
+Options:
+  * Values:str, quoted CSV
+
+== TreeView ==
+Mults: yes, splited by CR or \0
+Store as: str as path
+Options:
+  * Values:str, quoted CSV as paths
+
+== LineEdit ==
+Mults: yes, splited by CR or \0
+Store as: str
+Options:
+  * Mask:str
+
+== TextEdit ==
+Mults: yes, splited by \0
+Store as: str (html)
+Options: None
+
+== PlainTextEdit ==
+Mults: yes, splited by \0
+Store as: str
+Options: None
+
+== SpinBox ==
+Mults: yes, not splited
+Store as: int
+Options:
+  * Size:int - power of 2
+  * Min:int
+  * Max:int
+
+== DoubleSpinBox ==
+Mults: yes, not splited
+Store as: byte sequence
+Options:
+  * Size:int
+  * Prec:int
+  * Min:fixed
+  * Max:fixed
+
+== Date ==
+Mults: yes, not splited
+Store as: int32
+Options:
+  * Min:isodate
+  * Max:isodate
+  * Unsigned:bool
+? TZ, calendar
+
+== Time ==
+Mults: yes, not splited
+Store as: int32 (h5m6s6ms10tz5)
+Options: None
+
+== DateTime ==
+Mults: yes, not splited
+Store as: int64
+Options:
+  * Min:isodate
+  * Max:isodate
+  * Unsigned:bool
+? TZ, calendar
+
+== Image ==
+Mults: no
+Store as: blob
+Options: None
+
+== Href ==
+Mults: yes, splited by CR or \0
+Store as: str
+Options: None
+
+== FileLinked ==
+Mults: yes, not splited
+Store as: int64
+Options: None
+
+----
+  * Find: naming
+  * Xattr name:value => RDF
+  * ...but predicate attrs - ёк...
+  * => everything == file
+  * Anything can be stored in xattr - changing history, scheme own (!)
+  * So, xattr description can be saved in dir xattr
+  * ext3+webdav+http...
