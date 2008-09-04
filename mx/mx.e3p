@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE Project SYSTEM "Project-3.9.dtd">
 <!-- Project file for project mx -->
-<!-- Saved: 2008-09-01, 20:39:11 -->
+<!-- Saved: 2008-09-04, 13:10:45 -->
 <!-- Copyright (C) 2008 T_Eugene, ti.eugene@gmail.com -->
 <Project version="3.9">
   <ProgLanguage mixed="0">Python</ProgLanguage>
@@ -16,6 +16,12 @@
   <Sources>
     <Source>
       <Name>mxattr.py</Name>
+    </Source>
+    <Source>
+      <Name>treeselect.py</Name>
+    </Source>
+    <Source>
+      <Name>cfgattr.py</Name>
     </Source>
   </Sources>
   <Forms>
@@ -48,9 +54,9 @@
   </Vcs>
   <FiletypeAssociations>
     <FiletypeAssociation pattern="*.ui.h" type="FORMS" />
-    <FiletypeAssociation pattern="*.ui" type="FORMS" />
-    <FiletypeAssociation pattern="*.idl" type="INTERFACES" />
-    <FiletypeAssociation pattern="*.py" type="SOURCES" />
     <FiletypeAssociation pattern="*.ptl" type="SOURCES" />
+    <FiletypeAssociation pattern="*.idl" type="INTERFACES" />
+    <FiletypeAssociation pattern="*.ui" type="FORMS" />
+    <FiletypeAssociation pattern="*.py" type="SOURCES" />
   </FiletypeAssociations>
 </Project>
