@@ -11,21 +11,20 @@
 = Scheme =
 Description of available Xattrs:
 
-|| *Mult* || *1stLetter* || *Widget* || *DataType* ||
-|| - || b || CheckBox || bool ||
-|| + || se || List || str + enum ||
-|| + || st || Tree || str + enum? ||
-|| + || sl || Lineedit || str ||
-|| - || sh || TextEdit || html ||
-|| - || sp || PlainTextEdit || text ||
-|| + || i/u[1..8] || SpinBox || int ||
-|| + || f... || DoubleSpinBox || float ||
-|| + || d || Date || date ||
-|| + || t || Time || time ||
-|| + || dt || DateTime || datetime ||
-|| - || g || Image || image ||
-|| + || x || Href || URL ||
-|| + || r || Reference to file by inode || int64 ||
+|| *Mult* || *1stLetter* || *DataType* || *Widget* || set || get ||
+|| - || b || bool || CheckBox || setCheckState || isChecked ||
+|| + || se || str + enum || ComboBox || findText + setCurrentIndex || currentText ||
+|| + || st || str + enum || LineEdit + TreeView || setText || text ||
+|| + || sl || str || LineEdit || setText || text ||
+|| - || sh || html || TextEdit ||  ||  ||
+|| - || sp || text || PlainTextEdit ||  ||  ||
+|| + || i/u[1..8] || int/long || SpinBox || setValue || value ||
+|| + || f... || float/double || DoubleSpinBox || setValue || Value ||
+|| + || d || date || DateEdit || setDate || date ||
+|| + || t || time || TimeEdit || setTime || time ||
+|| + || dt || datetime || DateTimeEdit || setDateTime || dateTime ||
+|| - || g || image || GraphicsView ||  ||  ||
+|| + || x || URL || LineEdit || setText || text ||
 
 Excluded: RadioButton.
 
