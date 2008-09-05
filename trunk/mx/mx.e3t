@@ -1,46 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE Tasks SYSTEM "Tasks-3.8.dtd">
 <!-- Tasks file for project mx -->
-<!-- Saved: 2008-09-04, 20:19:46 -->
+<!-- Saved: 2008-09-05, 17:27:23 -->
 <Tasks version="3.8">
   <Task priority="1" completed="0" bugfix="1">
     <Description>FIXME: double</Description>
-    <Created>2008-09-04, 18:45:34</Created>
+    <Created>2008-09-05, 17:23:02</Created>
     <Resource>
       <Filename>
         <Name>mxattr.py</Name>
       </Filename>
-      <Linenumber>192</Linenumber>
+      <Linenumber>244</Linenumber>
     </Resource>
   </Task>
   <Task priority="1" completed="0" bugfix="1">
     <Description>FIXME: date</Description>
-    <Created>2008-09-04, 18:45:34</Created>
+    <Created>2008-09-05, 17:23:02</Created>
     <Resource>
       <Filename>
         <Name>mxattr.py</Name>
       </Filename>
-      <Linenumber>206</Linenumber>
+      <Linenumber>261</Linenumber>
     </Resource>
   </Task>
   <Task priority="1" completed="0" bugfix="1">
     <Description>FIXME: date</Description>
-    <Created>2008-09-04, 18:45:34</Created>
+    <Created>2008-09-05, 17:23:02</Created>
     <Resource>
       <Filename>
         <Name>mxattr.py</Name>
       </Filename>
-      <Linenumber>207</Linenumber>
-    </Resource>
-  </Task>
-  <Task priority="1" completed="0" bugfix="1">
-    <Description>FIXME: Force | Reload</Description>
-    <Created>2008-09-04, 20:16:54</Created>
-    <Resource>
-      <Filename>
-        <Name>mxedit.py</Name>
-      </Filename>
-      <Linenumber>151</Linenumber>
+      <Linenumber>262</Linenumber>
     </Resource>
   </Task>
 </Tasks>

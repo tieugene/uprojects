@@ -125,4 +125,4 @@ class	TreeSelectDialog(QtGui.QDialog):
 			while (n and n.parent):	# root is Node too
 				retvalue = "/" + n.str1 + retvalue
 				n = n.parent
-		return retvalue
+		return retvalue.lstrip('/')

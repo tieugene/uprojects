@@ -13,6 +13,10 @@ class	MxList():
 		self.data	= {}
 
 	def	loadCfg(self, cp):
+		'''
+		Load metadata of xattrs from cfg-file
+		@param cp:ConfigParser object
+		'''
 		for sect in cp.sections():
 			st, sn = sect.split(".")
 			if (st == "b"):
@@ -52,6 +56,7 @@ class	MxList():
 	def	loadData(self, file):
 		'''
 		Load field from file's xattr.
+		@param file:str
 		'''
 		for a in xattr.listxattr(file):
 			aname = a[5:]
@@ -59,9 +64,43 @@ class	MxList():
 			if self.data.has_key(sn):
 				self.data[sn].loadData(xattr.getxattr(file, a))
 
+	def	askExtra(self, file):
+		'''
+		Check undefined xattrs of file.
+		@param file:str
+		@return tuple of xattr names or None
+		'''
+		retvalue = []
+		for i in xattr.listxattr(file):
+			if i not in slef.data:
+				retvalue.append(i)
+		return retvalue
+
+	def	saveData(self, file, delextra = False):
+		'''
+		Save field to file's xattr.
+		@param file:str
+		'''
+		# 1. get old list
+		oldlist = xattr.listxattr(file)
+		oldict = {}
+		for i in oldlist:
+			oldict[i[5:]] = True
+		# 2. save need
+		for d in self.data.keys():
+			fld = self.data[d]
+			a = fld.saveData()
+			if (a != None):
+				xattr.setxattr(file, "user." + fld.ID, a)
+				if oldict.has_key(fld.ID):
+					del oldict[fld.ID]
+		# 3. delete unneeded
+		for i in oldict.keys():
+			xattr.removexattr(file, i)
+
 class	_Mx():
 	'''
-	Parent
+	Parent.
 	'''
 	def	__init__(self, id):
 		self.ID		= id
@@ -82,6 +121,7 @@ class	_Mx():
 	def	loadCfg(self, sect, cp):
 		'''
 		Load metadata from cfg-file.
+		@param sect:str section of cfg-file
 		@param cp:ConfigParser - subj.
 		@return None
 		'''
@@ -94,8 +134,14 @@ class	_Mx():
 		self.Default	= self._loadOpt(cp, sect, "Default")
 
 	def	loadData(self, data):
+		'''
+		@param data:any
+		'''
 		self.data		= data
 		self.loaded	= True
+
+	def	saveData(self):
+		return self.data
 
 class	MxBool(_Mx):
 	'''
@@ -104,6 +150,9 @@ class	MxBool(_Mx):
 	def	loadData(self, data):
 		self.data		= bool(data)
 		self.loaded	= True
+
+	def	saveData(self):
+		return 1 if self.data else 0
 
 class	MxEnum(_Mx):
 	'''
@@ -174,6 +223,9 @@ class	MxInt(_Mx):
 	def	loadData(self, data):
 		self.data		= int(data) if (self.Len <= 4) else long(data)
 
+	def	saveData(self):
+		return str(self.data)
+
 class	MxFixed(_Mx):
 	'''
 	Fixed decimal.
@@ -191,6 +243,9 @@ class	MxFixed(_Mx):
 	def	loadData(self, data):
 		self.data		= float(data)		# FIXME: double
 		self.loaded	= True
+
+	def	saveData(self):
+		return str(self.data)
 
 class	MxDate(_Mx):
 	'''
@@ -210,6 +265,9 @@ class	MxDate(_Mx):
 		self.data		= datetime.date(*time.strptime(data, "%Y-%m-%d")[0:3])
 		self.loaded	= True
 
+	def	saveData(self):
+		return str(self.data)
+
 class	MxTime(_Mx):
 	'''
 	Time.
@@ -218,6 +276,9 @@ class	MxTime(_Mx):
 		self.data		= datetime.time(*time.strptime(data, "%H:%M:%S")[3:6])
 		self.loaded	= True
 
+	def	saveData(self):
+		return str(self.data)
+
 class	MxDateTime(_Mx):
 	'''
 	DateTime.
@@ -225,6 +286,9 @@ class	MxDateTime(_Mx):
 	def	loadData(self, data):
 		self.data		= datetime.datetime(*time.strptime(data, "%Y-%m-%dT%H:%M:%S")[3:6])
 		self.loaded	= True
+
+	def	saveData(self):
+		return str(self.data)
 
 class	MxImage(_Mx):
 	'''
