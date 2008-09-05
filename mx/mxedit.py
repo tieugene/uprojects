@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 # Handling xattrs
 
-import	sys, xattr, ConfigParser, pprint
+import	sys, ConfigParser
 from		PyQt4	import QtCore, QtGui
 from		treeselect	import Node, TreeModel, TreeSelectDialog
 from		mxattr	import MxList
@@ -25,11 +25,10 @@ class	MainDialog(QtGui.QDialog):
 		self.resize(QtCore.QSize(QtCore.QRect(0,0,315,300).size()).expandedTo(self.minimumSizeHint()))
 		self.gl = QtGui.QGridLayout(self)
 		maxrow = self.__setwidgets(self.gl)
-		self.buttonBox = QtGui.QDialogButtonBox(QtGui.QDialogButtonBox.Apply | QtGui.QDialogButtonBox.Ok | QtGui.QDialogButtonBox.Close, QtCore.Qt.Horizontal, self)
-		self.gl.addWidget(self.buttonBox, maxrow, 0, 1, 3)
-		QtCore.QObject.connect(self.buttonBox.button(QtGui.QDialogButtonBox.Apply), QtCore.SIGNAL("clicked()"), self.__apply)
-		QtCore.QObject.connect(self.buttonBox, QtCore.SIGNAL("accepted()"),self.accept)
-		QtCore.QObject.connect(self.buttonBox, QtCore.SIGNAL("rejected()"),self.reject)
+		self.buttonBox = QtGui.QDialogButtonBox( QtGui.QDialogButtonBox.Ok | QtGui.QDialogButtonBox.Cancel, QtCore.Qt.Horizontal, self)
+		self.gl.addWidget(self.buttonBox, maxrow, 0, 1, 4)
+		QtCore.QObject.connect(self.buttonBox, QtCore.SIGNAL("accepted()"), self.accept)
+		QtCore.QObject.connect(self.buttonBox, QtCore.SIGNAL("rejected()"), self.reject)
 		self.selectDialog = TreeSelectDialog()
 		self.__load()
 
@@ -37,8 +36,6 @@ class	MainDialog(QtGui.QDialog):
 		for row, fldname in enumerate(self.mxlist.data.keys()):
 			fld = self.mxlist.data[fldname]
 			widget = None
-			label = fld.Label if fld.Label else fld.Name
-			gl.addWidget(QtGui.QLabel(label, self), row, 0)
 			if (fld.Type == "b"):
 				widget = QtGui.QCheckBox()
 			elif (fld.Type == "se"):
@@ -76,7 +73,15 @@ class	MainDialog(QtGui.QDialog):
 			else:
 				print "Unknown type"
 			if widget:
+				label = fld.Label if fld.Label else fld.Name
+				gl.addWidget(QtGui.QLabel(label, self), row, 0)
 				widget.setObjectName(fld.Name)
+				if (fld.ToolTip):
+					widget.setToolTip(QtCore.QString().fromUtf8(fld.ToolTip))
+				if (fld.StatusTip):
+					widget.setStatusTip(QtCore.QString().fromUtf8(fld.StatusTip))
+				if (fld.WhatsTip):
+					widget.setWhatsThis(QtCore.QString().fromUtf8(fld.WhatsTip))
 				self.wdict[fld.Name] = widget
 				gl.addWidget(widget, row, 1)
 				if (not fld.Mandatory):
@@ -103,12 +108,13 @@ class	MainDialog(QtGui.QDialog):
 
 	def	__load(self):
 		'''
-		Load all xattrs into mem.
+		Load all xattrs into widgets.
 		'''
 		self.mxlist.loadData(self.file)
 		for fldname in self.mxlist.data.keys():
 			data = None
 			fld = self.mxlist.data[fldname]
+			widget = self.wdict[fld.Name]
 			if (fld.loaded):
 				data = fld.data
 				if (not fld.Mandatory):
@@ -118,7 +124,6 @@ class	MainDialog(QtGui.QDialog):
 					data = fld.Default
 				else:
 					self.wdict[fld.Name].setEnabled(False)
-			widget = self.wdict[fld.Name]
 			if (data):
 				if (fld.Type == 'b'):
 					widget.setCheckState(QtGui.Qt.Checked)
@@ -141,68 +146,33 @@ class	MainDialog(QtGui.QDialog):
 				elif (fld.Type == 'dt'):
 					widget.setDateTime(QtCore.QDateTime(data))
 
-	def	__apply(self):
-		'''
-		Save attrs and continue edititng.
-		'''
-		h = self.__table2hash(self.tw)			# 1. get new values
-		h1 = self.__file2hash(self.file)		# 2. check that xattrs not changed.
-		#print h, h1
-		if (self.xattr0 != h1):				# FIXME: Force | Reload
-			QtGui.QMessageBox.warning(self,\
-				QtGui.QApplication.translate("mxattr", "Xattrs changed", None, QtGui.QApplication.UnicodeUTF8),\
-				QtGui.QApplication.translate("mxattr", "File attributes changed due editing new. They will be rewrited.", None, QtGui.QApplication.UnicodeUTF8),\
-			)
-		self.__hash2file(h, h1, self.file)
-		self.xattr0 = h1
-
-	def	__table2hash(self, t):
-		'''
-		Get data from GUI into inner dict.
-		@param f:QTableWidget
-		@return dict
-		'''
-		h = {}
-		for r in xrange(t.rowCount()):
-			if ((t.item(r, 0) == None) or (t.item(r, 0).text().isEmpty())):		# 1. check empty key
-				QtGui.QMessageBox.critical(self,\
-					QtGui.QApplication.translate("mxattr", "Empty key", None, QtGui.QApplication.UnicodeUTF8),\
-					QtGui.QApplication.translate("mxattr", "Attribute name is empty", None, QtGui.QApplication.UnicodeUTF8),\
-				)
-				return None
-			a = str(t.item(r, 0).text().toUtf8())
-			if h.has_key(a):										# 2. check double keys
-				QtGui.QMessageBox.critical(self,\
-					QtGui.QApplication.translate("mxattr", "Double key", None, QtGui.QApplication.UnicodeUTF8),\
-					QtGui.QApplication.translate("mxattr", "Attribute name already exists", None, QtGui.QApplication.UnicodeUTF8),\
-				)
-				return None
-			if ((t.item(r, 1) == None) or (t.item(r, 1).text().isEmpty())):		# 3. check empty value
-				QtGui.QMessageBox.critical(self,\
-					QtGui.QApplication.translate("mxattr", "Empty value", None, QtGui.QApplication.UnicodeUTF8),\
-					QtGui.QApplication.translate("mxattr", "Attribute value is empty", None, QtGui.QApplication.UnicodeUTF8),\
-				)
-				return None
-			h[a] = str(t.item(r, 1).text().toUtf8())
-		return h
-
-	def	__hash2file(self, h, h1, f):
-		'''
-		Save dict into file's xattrs.
-		@param h:dict new values
-		@param h1:dict old values
-		@param f:file
-		@return None
-		'''
-		# 1. delete deleted
-		for k in h1.keys():
-			if k not in h:
-				xattr.removexattr(f, "user."+k)
-		for r, k in enumerate(h.keys()):
-			#print type(a).__name__, a, type(h[a]).__name__, h[a]
-			if ((k not in h1) or (h[k] != h1[k])):
-				xattr.setxattr(f, "user."+k, h[k])
-				print k, "=", h[k]
+	def	accept(self):
+		for fldname in self.mxlist.data.keys():
+			fld = self.mxlist.data[fldname]
+			widget = self.wdict[fld.Name]
+			if (not fld.Mandatory) and (not self.fdict[fldname].isChecked()):
+				fld.data = None
+			else:
+				if (fld.Type == 'b'):
+					fld.data = widget.isChecked()
+				elif (fld.Type == 'se'):
+					fld.data = widget.currentText().toUtf8()
+				elif (fld.Type in ('st', 'sl', 'x')):
+					fld.data = widget.text().toUtf8()
+				elif (fld.Type == 'sh'):
+					fld.data = widget.toHtml().toUtf8()
+				elif (fld.Type == 'sp'):
+					fld.data = widget.toPlainText().toUtf8()
+				elif (fld.Type in ('i', 'f')):
+					fld.data = widget.value(data)
+				elif (fld.Type == 'd'):
+					fld.data = widget.date().toPyDate()
+				elif (fld.Type == 't'):
+					fld.data = widget.date().toPyTime()
+				elif (fld.Type == 'dt'):
+					fld.data = widget.date().toPyDateTime()
+		self.mxlist.saveData(self.file)
+		QtGui.QDialog.accept(self)
 
 if (__name__ == '__main__'):
 	if (len(sys.argv) != 2):
