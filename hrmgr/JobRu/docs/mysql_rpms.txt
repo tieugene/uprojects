@@ -1,0 +1,5 @@
+jakarta-servletapi4
+hsqldb
+j2se1.5-sun
+j2se1.5-sun-jdbc
+mysql-jdbc

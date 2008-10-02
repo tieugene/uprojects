@@ -1,0 +1,24 @@
+# -*- coding: utf-8 -*-
+* Buttons: Filter, Sort, XML Restore
+* tune XML Backup
+* history?
+* auto-create db &/| tables
+* printing
+* export to OO
+* DB Backup - 2/ timestamp|ver
+* XML Backup - w/ timestamp|ver, host etc
+* Find by ID
+* Order: ID, Date, Prio, Date, Title, Employer
+* Filter: Prio, Date, Title, Employer, E-Mail
+* Backup of the base (/var/lib/mysql/db/main*, backup*)
+* Filters history (ComboBox)
+* Sort: as OO:
+	-- not defined --	(block downlevel
+	-- #1 --				(delete from downlevels)
+	+ Up|down
+=====
+6822:
+-----
+* teach MVC
+* mk Model for data
+* link w/ view in QTable in gui.py

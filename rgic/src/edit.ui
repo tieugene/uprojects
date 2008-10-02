@@ -1,0 +1,531 @@
+<ui version="4.0" >
+ <class>Dialog</class>
+ <widget class="QDialog" name="Dialog" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>754</width>
+    <height>529</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>Dialog</string>
+  </property>
+  <layout class="QGridLayout" >
+   <property name="margin" >
+    <number>9</number>
+   </property>
+   <property name="spacing" >
+    <number>6</number>
+   </property>
+   <item row="2" column="0" >
+    <layout class="QHBoxLayout" >
+     <property name="margin" >
+      <number>0</number>
+     </property>
+     <property name="spacing" >
+      <number>6</number>
+     </property>
+     <item>
+      <widget class="QLabel" name="lAddress" >
+       <property name="text" >
+        <string>Address</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="leAddress" />
+     </item>
+     <item>
+      <widget class="QLabel" name="lPhone" >
+       <property name="text" >
+        <string>Phone</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="lePhone" />
+     </item>
+    </layout>
+   </item>
+   <item row="3" column="0" >
+    <layout class="QHBoxLayout" >
+     <property name="margin" >
+      <number>0</number>
+     </property>
+     <property name="spacing" >
+      <number>6</number>
+     </property>
+     <item>
+      <widget class="QLabel" name="lDateBegin" >
+       <property name="text" >
+        <string>Effective date</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QDateEdit" name="deDateBegin" />
+     </item>
+     <item>
+      <widget class="QLabel" name="lDateEnd" >
+       <property name="text" >
+        <string>Expiry date</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QDateEdit" name="deDateEnd" />
+     </item>
+     <item>
+      <widget class="QLabel" name="lDays" >
+       <property name="text" >
+        <string>Number of days</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="leDays" />
+     </item>
+     <item>
+      <spacer>
+       <property name="orientation" >
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" >
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+    </layout>
+   </item>
+   <item row="8" column="0" >
+    <layout class="QHBoxLayout" >
+     <property name="margin" >
+      <number>0</number>
+     </property>
+     <property name="spacing" >
+      <number>6</number>
+     </property>
+     <item>
+      <widget class="QLabel" name="lDateIssue" >
+       <property name="text" >
+        <string>Issue date</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QDateEdit" name="deDateIssue" />
+     </item>
+     <item>
+      <widget class="QLabel" name="lPlaceIssue" >
+       <property name="text" >
+        <string>Issue place</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="lePlaceIssue" />
+     </item>
+    </layout>
+   </item>
+   <item row="4" column="0" >
+    <layout class="QHBoxLayout" >
+     <property name="margin" >
+      <number>0</number>
+     </property>
+     <property name="spacing" >
+      <number>6</number>
+     </property>
+     <item>
+      <widget class="QLabel" name="lInsuredPer" >
+       <property name="text" >
+        <string>Sum Insured per insured person</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QComboBox" name="cbInsuredPer" />
+     </item>
+     <item>
+      <widget class="QLabel" name="lCurrency" >
+       <property name="text" >
+        <string>Currency</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QComboBox" name="cbCurrency" />
+     </item>
+     <item>
+      <widget class="QLabel" name="lCourse" >
+       <property name="text" >
+        <string>Course</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="leCourse" />
+     </item>
+     <item>
+      <spacer>
+       <property name="orientation" >
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" >
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+    </layout>
+   </item>
+   <item row="6" column="0" >
+    <layout class="QHBoxLayout" >
+     <property name="margin" >
+      <number>0</number>
+     </property>
+     <property name="spacing" >
+      <number>6</number>
+     </property>
+     <item>
+      <widget class="QLabel" name="lSpecTerms" >
+       <property name="text" >
+        <string>Special terms</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="leSpecTerms" />
+     </item>
+    </layout>
+   </item>
+   <item row="7" column="0" >
+    <layout class="QHBoxLayout" >
+     <property name="margin" >
+      <number>0</number>
+     </property>
+     <property name="spacing" >
+      <number>6</number>
+     </property>
+     <item>
+      <widget class="QLabel" name="lTerritory" >
+       <property name="text" >
+        <string>Territory of Coverage</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="leTerritory" />
+     </item>
+    </layout>
+   </item>
+   <item row="11" column="0" >
+    <widget class="QTableWidget" name="twInsured" >
+     <column>
+      <property name="text" >
+       <string>No</string>
+      </property>
+     </column>
+     <column>
+      <property name="text" >
+       <string>Surname</string>
+      </property>
+     </column>
+     <column>
+      <property name="text" >
+       <string>Name</string>
+      </property>
+     </column>
+     <column>
+      <property name="text" >
+       <string>DateBirth</string>
+      </property>
+     </column>
+     <column>
+      <property name="text" >
+       <string>Address</string>
+      </property>
+     </column>
+     <column>
+      <property name="text" >
+       <string>Ratios</string>
+      </property>
+     </column>
+    </widget>
+   </item>
+   <item row="10" column="0" >
+    <widget class="QLabel" name="lInsured" >
+     <property name="text" >
+      <string>Insured:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="9" column="0" >
+    <layout class="QHBoxLayout" >
+     <property name="margin" >
+      <number>0</number>
+     </property>
+     <property name="spacing" >
+      <number>6</number>
+     </property>
+     <item>
+      <widget class="QLabel" name="lContractNo" >
+       <property name="text" >
+        <string>Contract №</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="leContractNo" />
+     </item>
+     <item>
+      <widget class="QLabel" name="lContractDate" >
+       <property name="text" >
+        <string>from</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QDateEdit" name="deContractDate" />
+     </item>
+     <item>
+      <widget class="QLabel" name="lAttorneyNo" >
+       <property name="text" >
+        <string>Attorney №</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="leAttorneyNo" />
+     </item>
+     <item>
+      <widget class="QLabel" name="lAttorneyDate" >
+       <property name="text" >
+        <string>from</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QDateEdit" name="deAttorneyDate" />
+     </item>
+    </layout>
+   </item>
+   <item row="12" column="0" >
+    <layout class="QHBoxLayout" >
+     <property name="margin" >
+      <number>0</number>
+     </property>
+     <property name="spacing" >
+      <number>6</number>
+     </property>
+     <item>
+      <widget class="QCheckBox" name="cbClosed" >
+       <property name="text" >
+        <string>Closed</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="lInsuredQty" >
+       <property name="text" >
+        <string>Number insured persons</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="leInsuredQty" />
+     </item>
+     <item>
+      <widget class="QLabel" name="lTotal" >
+       <property name="text" >
+        <string>Insurance premium (Total)</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="leTotal" />
+     </item>
+     <item>
+      <widget class="QDialogButtonBox" name="buttonBox" >
+       <property name="orientation" >
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="standardButtons" >
+        <set>QDialogButtonBox::Cancel|QDialogButtonBox::NoButton|QDialogButtonBox::Ok</set>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item row="0" column="0" >
+    <layout class="QHBoxLayout" >
+     <property name="margin" >
+      <number>0</number>
+     </property>
+     <property name="spacing" >
+      <number>6</number>
+     </property>
+     <item>
+      <widget class="QLabel" name="lID" >
+       <property name="text" >
+        <string>Policy №</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="leID" />
+     </item>
+     <item>
+      <widget class="QLabel" name="lDatePolicy" >
+       <property name="text" >
+        <string>Policy date</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QDateEdit" name="deDatePolicy" />
+     </item>
+     <item>
+      <widget class="QLabel" name="lProgram" >
+       <property name="text" >
+        <string>Insurance program</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QComboBox" name="cbProgram" />
+     </item>
+    </layout>
+   </item>
+   <item row="1" column="0" >
+    <layout class="QHBoxLayout" >
+     <property name="margin" >
+      <number>0</number>
+     </property>
+     <property name="spacing" >
+      <number>6</number>
+     </property>
+     <item>
+      <widget class="QLabel" name="lInsurantType" >
+       <property name="text" >
+        <string>Insurant type</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pbInsurantType" >
+       <property name="text" >
+        <string>Insurante type</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="lInsurant" >
+       <property name="text" >
+        <string>Insurant</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="leInsurant" />
+     </item>
+     <item>
+      <widget class="QLabel" name="lDateBirth" >
+       <property name="text" >
+        <string>Date of birth</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QDateEdit" name="deDateBirth" />
+     </item>
+    </layout>
+   </item>
+   <item row="5" column="0" >
+    <layout class="QHBoxLayout" >
+     <property name="margin" >
+      <number>0</number>
+     </property>
+     <property name="spacing" >
+      <number>6</number>
+     </property>
+     <item>
+      <widget class="QLabel" name="lRateType" >
+       <property name="text" >
+        <string>Rate type</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pbRateType" >
+       <property name="text" >
+        <string>PushButton</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="lRate" >
+       <property name="text" >
+        <string>Rate</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="leRate" />
+     </item>
+     <item>
+      <widget class="QLabel" name="lCommonRatio" >
+       <property name="text" >
+        <string>Common ratios:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="leCommonRatio" />
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>accepted()</signal>
+   <receiver>Dialog</receiver>
+   <slot>accept()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>248</x>
+     <y>254</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>157</x>
+     <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>rejected()</signal>
+   <receiver>Dialog</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>316</x>
+     <y>260</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>286</x>
+     <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>
