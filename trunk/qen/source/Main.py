@@ -51,14 +51,6 @@ dSettings		= QtGui.QDialog()
 uiSettings		= Ui_Settings()
 uiSettings.setupUi( dSettings )
 
-# System tray icon
-stiMain			= QtGui.QSystemTrayIcon()
-
-# Timer
-tmRestart		= QtCore.QTimer()
-tmReconnect		= QtCore.QTimer()
-tmUpdate			= QtCore.QTimer()
-
 
 ### Slots
 

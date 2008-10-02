@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE Project SYSTEM "Project-3.8.dtd">
+<!-- Project file for project JobRu -->
+<!-- Saved: 2006-04-18, 18:24:42 -->
+<!-- Copyright (C) 2006 ,  -->
+<Project version="3.8">
+  <ProgLanguage mixed="0">Python</ProgLanguage>
+  <UIType>Qt</UIType>
+  <Description></Description>
+  <Version>0.1</Version>
+  <Author></Author>
+  <Email></Email>
+  <Sources>
+    <Source>
+      <Name>main.py</Name>
+    </Source>
+    <Source>
+      <Name>data.py</Name>
+    </Source>
+    <Source>
+      <Name>parser.py</Name>
+    </Source>
+    <Source>
+      <Name>db.py</Name>
+    </Source>
+    <Source>
+      <Name>gui.py</Name>
+    </Source>
+    <Source>
+      <Name>utility.py</Name>
+    </Source>
+    <Source>
+      <Name>backup.py</Name>
+    </Source>
+  </Sources>
+  <Forms>
+    <Form>
+      <Name>z_form.ui</Name>
+    </Form>
+  </Forms>
+  <Translations>
+  </Translations>
+  <Interfaces>
+  </Interfaces>
+  <Others>
+    <Other>
+      <Dir>docs</Dir>
+      <Name>create.my.sql</Name>
+    </Other>
+    <Other>
+      <Dir>docs</Dir>
+      <Name>create.sql</Name>
+    </Other>
+    <Other>
+      <Dir>docs</Dir>
+      <Name>README</Name>
+    </Other>
+    <Other>
+      <Dir>docs</Dir>
+      <Name>readme.ods</Name>
+    </Other>
+    <Other>
+      <Dir>docs</Dir>
+      <Name>TODO</Name>
+    </Other>
+    <Other>
+      <Dir>docs</Dir>
+      <Name>ChangeLog</Name>
+    </Other>
+    <Other>
+      <Name>jobru.dtd</Name>
+    </Other>
+  </Others>
+  <MainScript>
+    <Name>main.py</Name>
+  </MainScript>
+  <Vcs>
+    <VcsType>None</VcsType>
+  </Vcs>
+  <FiletypeAssociations>
+    <FiletypeAssociation pattern="*.ui.h" type="FORMS" />
+    <FiletypeAssociation pattern="*.ptl" type="SOURCES" />
+    <FiletypeAssociation pattern="*.idl" type="INTERFACES" />
+    <FiletypeAssociation pattern="*.ui" type="FORMS" />
+    <FiletypeAssociation pattern="*.py" type="SOURCES" />
+  </FiletypeAssociations>
+</Project>

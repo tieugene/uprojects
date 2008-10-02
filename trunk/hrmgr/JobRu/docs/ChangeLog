@@ -1,0 +1,17 @@
+# -*- coding: utf-8 -*-
+
+* processing any qty of files - into one DB
+* all data - into 'list'
+
+20060418:
+	* hadling text in utf-8 (after parser)
+	* DB - utf-8
+	* Buttons (8)
+	* DBBackup, DBRestore, XMLBackup
+	* Update
+	* check str len
+	* remade DB structure
+20060419:
+	* Sort dialog (raw)
+	* Filter dialog (raw)
+	* XML import (cp1251)

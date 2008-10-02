@@ -1,0 +1,310 @@
+<!DOCTYPE UI><UI version="3.3" stdsetdef="1">
+<class>Form</class>
+<widget class="QDialog">
+    <property name="name">
+        <cstring>Form</cstring>
+    </property>
+    <property name="geometry">
+        <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>475</width>
+            <height>570</height>
+        </rect>
+    </property>
+    <property name="caption">
+        <string>Form</string>
+    </property>
+    <grid>
+        <property name="name">
+            <cstring>unnamed</cstring>
+        </property>
+        <widget class="QSplitter" row="1" column="0" rowspan="1" colspan="2">
+            <property name="name">
+                <cstring>BHSplitter</cstring>
+            </property>
+            <property name="orientation">
+                <enum>Vertical</enum>
+            </property>
+            <widget class="QTable">
+                <column>
+                    <property name="text">
+                        <string>New</string>
+                    </property>
+                </column>
+                <column>
+                    <property name="text">
+                        <string>Priority</string>
+                    </property>
+                </column>
+                <column>
+                    <property name="text">
+                        <string>ID</string>
+                    </property>
+                </column>
+                <column>
+                    <property name="text">
+                        <string>DateTime</string>
+                    </property>
+                </column>
+                <column>
+                    <property name="text">
+                        <string>Title</string>
+                    </property>
+                </column>
+                <column>
+                    <property name="text">
+                        <string>EType</string>
+                    </property>
+                </column>
+                <column>
+                    <property name="text">
+                        <string>Employer</string>
+                    </property>
+                </column>
+                <column>
+                    <property name="text">
+                        <string>Sex</string>
+                    </property>
+                </column>
+                <column>
+                    <property name="text">
+                        <string>Age</string>
+                    </property>
+                </column>
+                <column>
+                    <property name="text">
+                        <string>Employment</string>
+                    </property>
+                </column>
+                <column>
+                    <property name="text">
+                        <string>Salary</string>
+                    </property>
+                </column>
+                <property name="name">
+                    <cstring>DataTable</cstring>
+                </property>
+                <property name="numRows">
+                    <number>0</number>
+                </property>
+                <property name="numCols">
+                    <number>11</number>
+                </property>
+            </widget>
+            <widget class="QSplitter">
+                <property name="name">
+                    <cstring>BTVSplitter</cstring>
+                </property>
+                <property name="sizePolicy">
+                    <sizepolicy>
+                        <hsizetype>7</hsizetype>
+                        <vsizetype>0</vsizetype>
+                        <horstretch>0</horstretch>
+                        <verstretch>0</verstretch>
+                    </sizepolicy>
+                </property>
+                <property name="orientation">
+                    <enum>Horizontal</enum>
+                </property>
+                <widget class="QLayoutWidget">
+                    <property name="name">
+                        <cstring>BottomTLLayout</cstring>
+                    </property>
+                    <grid>
+                        <property name="name">
+                            <cstring>unnamed</cstring>
+                        </property>
+                        <widget class="QLineEdit" row="5" column="1">
+                            <property name="name">
+                                <cstring>EmailValue</cstring>
+                            </property>
+                        </widget>
+                        <widget class="QLineEdit" row="0" column="1">
+                            <property name="name">
+                                <cstring>CityValue</cstring>
+                            </property>
+                        </widget>
+                        <widget class="QLabel" row="5" column="0">
+                            <property name="name">
+                                <cstring>EmailLabel</cstring>
+                            </property>
+                            <property name="text">
+                                <string>Experience</string>
+                            </property>
+                        </widget>
+                        <widget class="QLabel" row="3" column="0">
+                            <property name="name">
+                                <cstring>ContactLabel</cstring>
+                            </property>
+                            <property name="text">
+                                <string>Contact</string>
+                            </property>
+                        </widget>
+                        <widget class="QLabel" row="1" column="0">
+                            <property name="name">
+                                <cstring>EducationLabel</cstring>
+                            </property>
+                            <property name="text">
+                                <string>Education</string>
+                            </property>
+                        </widget>
+                        <widget class="QLabel" row="0" column="0">
+                            <property name="name">
+                                <cstring>CityLabel</cstring>
+                            </property>
+                            <property name="text">
+                                <string>City</string>
+                            </property>
+                        </widget>
+                        <widget class="QLabel" row="4" column="0">
+                            <property name="name">
+                                <cstring>PhoneLabel</cstring>
+                            </property>
+                            <property name="text">
+                                <string>Phone</string>
+                            </property>
+                        </widget>
+                        <widget class="QLineEdit" row="4" column="1">
+                            <property name="name">
+                                <cstring>PhoneValue</cstring>
+                            </property>
+                        </widget>
+                        <widget class="QLineEdit" row="2" column="1">
+                            <property name="name">
+                                <cstring>ExperienceValue</cstring>
+                            </property>
+                        </widget>
+                        <widget class="QLabel" row="2" column="0">
+                            <property name="name">
+                                <cstring>ExperiaenceLabel</cstring>
+                            </property>
+                            <property name="text">
+                                <string>Experience</string>
+                            </property>
+                        </widget>
+                        <widget class="QLineEdit" row="3" column="1">
+                            <property name="name">
+                                <cstring>ContactValue</cstring>
+                            </property>
+                        </widget>
+                        <widget class="QLineEdit" row="1" column="1">
+                            <property name="name">
+                                <cstring>EducationValue</cstring>
+                            </property>
+                        </widget>
+                    </grid>
+                </widget>
+                <widget class="QLayoutWidget">
+                    <property name="name">
+                        <cstring>BottomTRLayout</cstring>
+                    </property>
+                    <vbox>
+                        <property name="name">
+                            <cstring>unnamed</cstring>
+                        </property>
+                        <widget class="QLabel">
+                            <property name="name">
+                                <cstring>RequirementsLabel</cstring>
+                            </property>
+                            <property name="text">
+                                <string>Requirements</string>
+                            </property>
+                        </widget>
+                        <widget class="QTextEdit">
+                            <property name="name">
+                                <cstring>RequirementsValue</cstring>
+                            </property>
+                        </widget>
+                    </vbox>
+                </widget>
+            </widget>
+            <widget class="QSplitter">
+                <property name="name">
+                    <cstring>BBVSplitter</cstring>
+                </property>
+                <property name="orientation">
+                    <enum>Horizontal</enum>
+                </property>
+                <widget class="QLayoutWidget">
+                    <property name="name">
+                        <cstring>BottomBLLayout</cstring>
+                    </property>
+                    <vbox>
+                        <property name="name">
+                            <cstring>unnamed</cstring>
+                        </property>
+                        <widget class="QLabel">
+                            <property name="name">
+                                <cstring>DutyLabel</cstring>
+                            </property>
+                            <property name="text">
+                                <string>Duty</string>
+                            </property>
+                        </widget>
+                        <widget class="QTextEdit">
+                            <property name="name">
+                                <cstring>DutyValue</cstring>
+                            </property>
+                        </widget>
+                    </vbox>
+                </widget>
+                <widget class="QLayoutWidget">
+                    <property name="name">
+                        <cstring>BottomBRLayout</cstring>
+                    </property>
+                    <vbox>
+                        <property name="name">
+                            <cstring>unnamed</cstring>
+                        </property>
+                        <widget class="QLabel">
+                            <property name="name">
+                                <cstring>ConditionsLabel</cstring>
+                            </property>
+                            <property name="text">
+                                <string>Conditions</string>
+                            </property>
+                        </widget>
+                        <widget class="QTextEdit">
+                            <property name="name">
+                                <cstring>ConditionsValue</cstring>
+                            </property>
+                        </widget>
+                    </vbox>
+                </widget>
+            </widget>
+        </widget>
+        <widget class="QPushButton" row="0" column="0">
+            <property name="name">
+                <cstring>pushButton1</cstring>
+            </property>
+            <property name="text">
+                <string>pushButton1</string>
+            </property>
+        </widget>
+        <widget class="QPushButton" row="0" column="1">
+            <property name="name">
+                <cstring>pushButton1_2</cstring>
+            </property>
+            <property name="text">
+                <string>pushButton1</string>
+            </property>
+        </widget>
+    </grid>
+</widget>
+<connections>
+    <connection>
+        <sender>CityValue</sender>
+        <signal>textChanged(const QString&amp;)</signal>
+        <receiver>Form</receiver>
+        <slot>MySlot()</slot>
+    </connection>
+</connections>
+<includes>
+    <include location="local" impldecl="in implementation">z_form.ui.h</include>
+</includes>
+<slots>
+    <slot>MySlot()</slot>
+</slots>
+<layoutdefaults spacing="6" margin="6"/>
+</UI>

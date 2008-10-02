@@ -1,0 +1,27 @@
+<!-- v.0.0.1 -->
+<!ELEMENT	db			(rec)*>
+ <!ELEMENT	rec			(r?, d?, c?)>	<!-- record -->
+  <!ELEMENT	r			(#PCDATA)>	<!-- Requirements -->
+  <!ELEMENT	d			(#PCDATA)>	<!-- Duty -->
+  <!ELEMENT	c			(#PCDATA)>	<!-- Conditions -->
+
+<!ATTLIST	rec
+	id	NMTOKEN		#REQUIRED
+	dt	NMTOKENS	#REQUIRED
+	tit	CDATA		#REQUIRED
+	et	(0|1)		#IMPLIED
+	epl	CDATA		#IMPLIED
+	cit	CDATA		#IMPLIED
+	sex	(0|1|2)		#IMPLIED
+	af	NMTOKEN		#IMPLIED
+	at	NMTOKEN		#IMPLIED
+	edu	(0|1|2|3|4|5)	#IMPLIED
+	exp	(0|1|2|3|4|5|6)	#IMPLIED
+	emp	(0|1|2)		#IMPLIED
+	sal	NMTOKEN		#IMPLIED
+	cnt	CDATA		#REQUIRED
+	ph	CDATA	 	#REQUIRED
+	eml	CDATA	 	#IMPLIED
+	new	(0|1)	 	#IMPLIED
+	pri	NMTOKEN 	#IMPLIED
+>

@@ -1,0 +1,47 @@
+# -*- coding: utf-8 -*-
+
+Icons:
+	et	2
+	sex	3
+	emp	3
+	new	
+	prio	editable
+
+def	Import1(widget, mod, fileName):
+	# 2. open file
+	file = QtCore.QFile(fileName)
+	if not file.open(QtCore.QFile.ReadOnly | QtCore.QFile.Text):
+		QtGui.QMessageBox.warning(widget, widget.tr("HTML file"),
+					widget.tr("Cannot read file %1:\n%2.")
+						.arg(fileName)
+						.arg(file.errorString()))
+	doc = QtGui.QTextDocument()
+	# 3. load
+	doc.setHtml(unicode(QtCore.QString(file.readAll()), "cp1251"))
+	# 4. prepare regex'
+	rx_date = QtCore.QRegExp("^(\\d\\d\\.\\d\\d\\.\\d{4,4}) (\\d\\d\\.\\d\\d\\.\\d\\d) | *")	# required
+##	= QtCore.RegExp("")
+##	= QtCore.RegExp("")
+	# 5. process
+	state = 0	# wait for datetime - start
+	currentBlock = doc.begin()	# QTextBlock
+	while (currentBlock.isValid()):
+##		print "<block bf=\"%d\" cf=\"%d\">" % (currentBlock.blockFormat().type(), currentBlock.charFormat().type())
+##		print currentBlock.text().toUtf8()
+		# inside block
+		#for (it = currentBlock.begin(); !(it.atEnd()); ++it):
+		it = currentBlock.begin()
+		while not it.atEnd():
+			currentFragment = it.fragment()
+			if (currentFragment.isValid()):
+				s = currentFragment.text()
+				if (state == 0):
+					if rx_date.exactMatch(s):
+						print s.toUtf8()
+##				print "<fragmen cf=\"%d\">%s</fragmen>"  % (currentFragment.charFormat().type(), currentFragment.text().toUtf8())
+		#		processFragment(currentFragment)
+				it += 1		# next fragment
+		# next block
+##		print "</block>"
+		currentBlock = currentBlock.next()
+	return True

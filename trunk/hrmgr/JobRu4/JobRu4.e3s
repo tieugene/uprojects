@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE Session SYSTEM "Session-3.8.dtd">
+<!-- eric3 session file for project JobRu4 -->
+<!-- This file was generated automatically, do not edit. -->
+<!-- Saved: 2006-09-01, 00:16:49 -->
+<Session version="3.8">
+  <Filenames>
+    <Filename cline="132" cindex="0">/mnt/shares/data/eugene/Projects/JobRu4/Contrib/saxbookmarks.py</Filename>
+    <Filename cline="137" cindex="0">/mnt/shares/data/eugene/Projects/JobRu4/xmlimpex.py</Filename>
+  </Filenames>
+  <ActiveWindow cline="132" cindex="0">/mnt/shares/data/eugene/Projects/JobRu4/Contrib/saxbookmarks.py</ActiveWindow>
+  <Breakpoints>
+  </Breakpoints>
+  <Watchpoints>
+  </Watchpoints>
+  <DebugInfo>
+    <CommandLine></CommandLine>
+    <WorkingDirectory></WorkingDirectory>
+    <Environment></Environment>
+    <ReportExceptions value="1" />
+    <Exceptions>
+    </Exceptions>
+    <TracePython value="0" />
+    <CovexcPattern></CovexcPattern>
+  </DebugInfo>
+  <Bookmarks>
+  </Bookmarks>
+</Session>
