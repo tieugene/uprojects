@@ -103,4 +103,4 @@
 Нам понадобятся объекты Candidate, PositionOpening, Resume и NewHire из кинофильма [http://ns.hr-xml.org/schemas/org_hr-xml/3_0/Documentation/indexes/index.php HR-XML 3.0].
 
 = Анализ сайтов =
-[HrmgrJobRu Job.Ru]
+[HrmgrJobru Job.Ru]
