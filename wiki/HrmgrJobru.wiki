@@ -10,11 +10,11 @@
 Note: Бесплатный account дает возможность публиковать 5 бесплатных вакансий за 30 дней.
 
 || Mandatory || Name || Field || Type || Default || Comments ||
-|| * || E-Mail || Email || email || NULL ||  ||
-|| * || Пароль || Password || string || NULL ||  ||
+|| v || E-Mail || Email || email || NULL ||  ||
+|| + || Пароль || Password || string || NULL ||  ||
 |||||||||||| Contact ||
 || * || Имя || FirstName || string || NULL ||  ||
-||   || Отчество || MidName || string || NULL ||  ||
+|| - || Отчество || MidName || string || NULL ||  ||
 || * || Фамилия || LastName || string || NULL ||  ||
 || * || Должность || JobRole || enum:[HrmgrJobruEnumJobrole jobrole] || NULL ||  ||
 |||||||||||| Company ||
@@ -26,7 +26,7 @@ Note: Бесплатный account дает возможность публик�
 || * || Регион || Region || enum:[HrmgrJobruEnumRegion region] || NULL || dep. on Country ||
 || ... || Город/район || Place || enum:[HrmgrJobruEnumPlace place] || NULL || dep. on Region ||
 || * || Адрес || Address || string || NULL ||  ||
-||   || Индекс || Index || int || NULL ||  ||
+|| x || Индекс || Index || int || NULL ||  ||
 || * || Телефон || Phone || phone || NULL ||  ||
 ||   || Телефон 2 || Phone2 || phone || NULL ||  ||
 ||   || Факс || Fax || phone || NULL ||  ||
