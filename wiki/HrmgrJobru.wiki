@@ -10,36 +10,36 @@
 Note: Бесплатный account дает возможность публиковать 5 бесплатных вакансий за 30 дней.
 
 || Mandatory || Name || Field || Type || Default || Comments ||
-|| v || E-Mail || Email || email || NULL ||  ||
+|| + || E-Mail || Email || email || NULL ||  ||
 || + || Пароль || Password || string || NULL ||  ||
 |||||||||||| Contact ||
-|| * || Имя || FirstName || string || NULL ||  ||
-|| - || Отчество || MidName || string || NULL ||  ||
-|| * || Фамилия || LastName || string || NULL ||  ||
-|| * || Должность || JobRole || enum:[HrmgrJobruEnumJobrole jobrole] || NULL ||  ||
+|| + || Имя || FirstName || string || NULL ||  ||
+||   || Отчество || MidName || string || NULL ||  ||
+|| + || Фамилия || LastName || string || NULL ||  ||
+|| + || Должность || JobRole || enum:[HrmgrJobruEnumJobrole jobrole] || NULL ||  ||
 |||||||||||| Company ||
-|| * || Название || Name || string || NULL ||  ||
-|| * || Тип || EmployerType || enum:[HrmgrJobruEnumEmployertype employertype] || NULL ||  ||
-|| * || Отрасль || Branch || enum:[HrmgrJobruEnumBranch branch] || NULL ||  ||
-|| * || Кол-во сотрудников || EmployersQty || [HrmgrJobruEnumEmpqty empqty] || NULL ||  ||
-|| * || Страна || Country || enum:[HrmgrJobruEnumCountry country] || NULL ||  ||
-|| * || Регион || Region || enum:[HrmgrJobruEnumRegion region] || NULL || dep. on Country ||
+|| + || Название || Name || string || NULL ||  ||
+|| + || Тип || EmployerType || enum:[HrmgrJobruEnumEmployertype employertype] || NULL ||  ||
+|| + || Отрасль || Branch || enum:[HrmgrJobruEnumBranch branch] || NULL ||  ||
+|| + || Кол-во сотрудников || EmployersQty || [HrmgrJobruEnumEmpqty empqty] || NULL ||  ||
+|| + || Страна || Country || enum:[HrmgrJobruEnumCountry country] || NULL ||  ||
+|| + || Регион || Region || enum:[HrmgrJobruEnumRegion region] || NULL || dep. on Country ||
 || ... || Город/район || Place || enum:[HrmgrJobruEnumPlace place] || NULL || dep. on Region ||
-|| * || Адрес || Address || string || NULL ||  ||
-|| x || Индекс || Index || int || NULL ||  ||
-|| * || Телефон || Phone || phone || NULL ||  ||
+|| + || Адрес || Address || string || NULL ||  ||
+||   || Индекс || Index || int || NULL ||  ||
+|| + || Телефон || Phone || phone || NULL ||  ||
 ||   || Телефон 2 || Phone2 || phone || NULL ||  ||
 ||   || Факс || Fax || phone || NULL ||  ||
 ||   || E-mail для соискателей || CandidateEmail || email || NULL ||  ||
 ||   || Корпоративный сайт || WWW || www || NULL ||  ||
 ||   || Год основания || YearFounded || enum:[HrmgrJobruEnumYearfound yearfound] || NULL ||  ||
 ||   || Логотип || Logo || image || NULL || gif, jpg, bmp, png ||
-|| * || Профиль компании || CompanyProfile || text || NULL ||  ||
+|| + || Профиль компании || CompanyProfile || text || NULL ||  ||
 ||   || История компании || CompanyHistory || text || NULL ||  ||
 ||   || Руководство компании || CompanyAdm || text ||  ||  ||
 ||   || Структура компании || CompanyStructure || text || NULL ||  ||
 ||   || Филиалы || Company || CompanyOffices || text || NULL ||
-|| * || Предпочтительный способ связи || PreferedCommunication || enum:[HrmgrJobruEnumPrefcommunication prefcommunication] || NULL ||  ||
+|| + || Предпочтительный способ связи || PreferedCommunication || enum:[HrmgrJobruEnumPrefcommunication prefcommunication] || NULL ||  ||
 ||  ||  ||  ||  ||  ||  ||
 
 = Вакансия =
@@ -48,23 +48,23 @@ Note: Бесплатный account дает возможность публик�
 Для анонимных юзверей.
 
 || Mandatory || Name || Field || Type || Default || Comments ||
-|| * || Наименование || Name || string || NULL ||  ||
+|| + || Наименование || Name || string || NULL ||  ||
 ||   || Код || ID || ? || NULL ||  ||
-|| * || Текст || Description || text || NULL ||  ||
+|| + || Текст || Description || text || NULL ||  ||
 ||   || Зарплата.От || PayMin || int || NULL ||  ||
 ||   || Зарплата.До || PayMax || int || NULL ||  ||
 ||   || Зарплата.Валюта || PayCurrency || enum:[HrmgrJobruEnumCurrency currency] || NULL ||   ||
 ||   || Зарплата.За || PayFreq || enum:[HrmgrJobruEnumFreq freq] || NULL ||  ||
 ||   || Занятость || Duration || enum:[HrmgrJobruEnumFreq freq] || NULL ||  ||
 ||   || Уровень позиции || PosLevel || enum:[HrmgrJobruEnumPoslevel poslevel] || NULL ||  ||
-|| * || Отрасль || Branch || enum:[HrmgrJobruEnumBranch branch] || NULL ||  ||
-|| * || Специализация || Spec || enum:[HrmgrJobruEnumSpec spec] || NULL ||  ||
-|| * || Страна || Country || enum:[HrmgrJobruEnumCountry country] || NULL ||  ||
-|| * || Регион || Region || enum:[HrmgrJobruEnumRegion region] || NULL || dep. on Country ||
+|| + || Отрасль || Branch || enum:[HrmgrJobruEnumBranch branch] || NULL ||  ||
+|| + || Специализация || Spec || enum:[HrmgrJobruEnumSpec spec] || NULL ||  ||
+|| + || Страна || Country || enum:[HrmgrJobruEnumCountry country] || NULL ||  ||
+|| + || Регион || Region || enum:[HrmgrJobruEnumRegion region] || NULL || dep. on Country ||
 || ... || Город/район || Place || enum:[HrmgrJobruEnumPlace place] || NULL || dep. on Region ||
 |||||||||||| Контактное лицо ||
-|| * || Должность || ContactRole || enum:[HrmgrJobruEnumRole role] || NULL ||  ||
-|| * || Имя || ContactFirstName || string || NULL ||  ||
-|| * || Фамилия || ContactLastName || string || NULL ||  ||
-|| * || E-mail || ContactEmail || email || NULL ||  ||
-|| * || Телефон || ContactPhone || phone || NULL ||  ||
+|| + || Должность || ContactRole || enum:[HrmgrJobruEnumRole role] || NULL ||  ||
+|| + || Имя || ContactFirstName || string || NULL ||  ||
+|| + || Фамилия || ContactLastName || string || NULL ||  ||
+|| + || E-mail || ContactEmail || email || NULL ||  ||
+|| + || Телефон || ContactPhone || phone || NULL ||  ||
