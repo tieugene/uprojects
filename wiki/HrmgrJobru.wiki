@@ -48,3 +48,12 @@ Note: Бесплатный account дает возможность публик�
 Для анонимных юзверей.
 
 || Mandatory || Name || Field || Type || Default || Comments ||
+|| * || Наименование || Name || string || NULL ||  ||
+||   || Код || ID || ? || NULL ||  ||
+|| * || Текст || Description || text || NULL ||  ||
+||   || Зарплата.От || PayMin || int || NULL ||  ||
+||   || Зарплата.До || PayMax || int || NULL ||  ||
+||   || Зарплата.Валюта || PayCurrency || enum:[HrmgrJobruEnumCurrency currency] || NULL ||   ||
+||   || Зарплата.За || PayFreq || enum:[HrmgrJobruEnumFreq freq] || NULL ||  ||
+||   || Занятость || Duration || enum:[HrmgrJobruEnumFreq freq] || NULL ||  ||
+||  ||  ||  ||  ||  ||  ||
