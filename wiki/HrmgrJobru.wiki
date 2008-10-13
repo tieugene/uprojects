@@ -56,4 +56,15 @@ Note: Бесплатный account дает возможность публик�
 ||   || Зарплата.Валюта || PayCurrency || enum:[HrmgrJobruEnumCurrency currency] || NULL ||   ||
 ||   || Зарплата.За || PayFreq || enum:[HrmgrJobruEnumFreq freq] || NULL ||  ||
 ||   || Занятость || Duration || enum:[HrmgrJobruEnumFreq freq] || NULL ||  ||
-||  ||  ||  ||  ||  ||  ||
+||   || Уровень позиции || PosLevel || enum:[HrmgrJobruEnumPoslevel poslevel] || NULL ||  ||
+|| * || Отрасль || Branch || enum:[HrmgrJobruEnumBranch branch] || NULL ||  ||
+|| * || Специализация || Spec || enum:[HrmgrJobruEnumSpec spec] || NULL ||  ||
+|| * || Страна || Country || enum:[HrmgrJobruEnumCountry country] || NULL ||  ||
+|| * || Регион || Region || enum:[HrmgrJobruEnumRegion region] || NULL || dep. on Country ||
+|| ... || Город/район || Place || enum:[HrmgrJobruEnumPlace place] || NULL || dep. on Region ||
+|||||||||||| Контактное лицо ||
+|| * || Должность || ContactRole || enum:[HrmgrJobruEnumRole role] || NULL ||  ||
+|| * || Имя || ContactFirstName || string || NULL ||  ||
+|| * || Фамилия || ContactLastName || string || NULL ||  ||
+|| * || E-mail || ContactEmail || email || NULL ||  ||
+|| * || Телефон || ContactPhone || phone || NULL ||  ||
