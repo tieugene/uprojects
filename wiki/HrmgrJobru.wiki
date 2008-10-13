@@ -107,4 +107,7 @@ RegFull.Acquirement
 || Mandatory || Name || Field || Type || Default || Comments ||
 || * || Язык || Lang || enum:[lang] ||  ||  ||
 || * || Минимальный уровень || LangLevel || enum:[langlevel] ||  ||  ||
+
+
+|| Mandatory || Name || Field || Type || Default || Comments ||
 ||  ||  ||  ||  ||  ||  ||
