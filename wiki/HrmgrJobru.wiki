@@ -6,40 +6,58 @@
 = Объекты =
 
 == Employer ==
-
-Note: Бесплатный account дает возможность публиковать 5 бесплатных вакансий за 30 дней.
-
+=== CommonEmployer ===
 || Mandatory || Name || Field || Type || Default || Comments ||
-|| + || E-Mail || Email || email || NULL ||  ||
-|| + || Пароль || Password || string || NULL ||  ||
-|||||||||||| Contact ||
-|| + || Имя || FirstName || string || NULL ||  ||
-||   || Отчество || MidName || string || NULL ||  ||
-|| + || Фамилия || LastName || string || NULL ||  ||
-|| + || Должность || JobRole || enum:[HrmgrJobruEnumJobrole jobrole] || NULL ||  ||
 |||||||||||| Company ||
 || + || Название || Name || string || NULL ||  ||
 || + || Тип || EmployerType || enum:[HrmgrJobruEnumEmployertype employertype] || NULL ||  ||
 || + || Отрасль || Branch || enum:[HrmgrJobruEnumBranch branch] || NULL ||  ||
-|| + || Кол-во сотрудников || EmployersQty || [HrmgrJobruEnumEmpqty empqty] || NULL ||  ||
 || + || Страна || Country || enum:[HrmgrJobruEnumCountry country] || NULL ||  ||
 || + || Регион || Region || enum:[HrmgrJobruEnumRegion region] || NULL || dep. on Country ||
 || ... || Город/район || Place || enum:[HrmgrJobruEnumPlace place] || NULL || dep. on Region ||
-|| + || Адрес || Address || string || NULL ||  ||
 ||   || Индекс || Index || int || NULL ||  ||
+||   || Адрес || Address || string || NULL ||  ||
 || + || Телефон || Phone || phone || NULL ||  ||
 ||   || Телефон 2 || Phone2 || phone || NULL ||  ||
 ||   || Факс || Fax || phone || NULL ||  ||
-||   || E-mail для соискателей || CandidateEmail || email || NULL ||  ||
+||   || Общий E-mail || CandidateEmail || email || NULL ||  ||
 ||   || Корпоративный сайт || WWW || www || NULL ||  ||
-||   || Год основания || YearFounded || enum:[HrmgrJobruEnumYearfound yearfound] || NULL ||  ||
 ||   || Логотип || Logo || image || NULL || gif, jpg, bmp, png ||
-|| + || Профиль компании || CompanyProfile || text || NULL ||  ||
+||   || Кол-во сотрудников || EmployersQty || [HrmgrJobruEnumEmpqty empqty] || NULL ||  ||
+||   || Год основания || YearFounded || enum:[HrmgrJobruEnumYearfound yearfound] || NULL ||  ||
+||   || Краткое описание компании || CompanyProfile || text || NULL ||  ||
 ||   || История компании || CompanyHistory || text || NULL ||  ||
 ||   || Руководство компании || CompanyAdm || text ||  ||  ||
-||   || Структура компании || CompanyStructure || text || NULL ||  ||
 ||   || Филиалы || Company || CompanyOffices || text || NULL ||
+||   || Структура компании || CompanyStructure || text || NULL ||  ||
+|||||||||||| Auth ||
+|| + || E-Mail || Email || email || NULL ||  ||
+|| + || Пароль || Password || string || NULL ||  ||
+|||||||||||| Contact ||
+|| + || Имя || FirstName || string || NULL ||  ||
+|| + || Фамилия || LastName || string || NULL ||  ||
+||   || Должность || JobRole || enum:[HrmgrJobruEnumJobrole jobrole] || NULL ||  ||
+||   || Телефон || Phone || phone || NULL ||  ||
 || + || Предпочтительный способ связи || PreferedCommunication || enum:[HrmgrJobruEnumPrefcommunication prefcommunication] || NULL ||  ||
+
+== AnonEmployer ==
+|| Mandatory || Name || Field || Type || Default || Comments ||
+|||||||||||| <AnonEmployer> ||
+|| + || Юр.Адрес || Address || string || NULL ||  ||
+
+== RegisteredEmployer ==
+
+Note: Бесплатный account дает возможность публиковать 5 бесплатных вакансий за 30 дней.
+
+|| Mandatory || Name || Field || Type || Default || Comments ||
+|||||||||||| <AnonEmployer> ||
+||   || Отчество || MidName || string || NULL ||  ||
+|| + || Должность || JobRole || enum:[HrmgrJobruEnumJobrole jobrole] || NULL ||  ||
+|||||||||||| Company ||
+|| + || Кол-во сотрудников || EmployersQty || [HrmgrJobruEnumEmpqty empqty] || NULL ||  ||
+|| + || Адрес || Address || string || NULL ||  ||
+||   || E-mail для соискателей || CandidateEmail || email || NULL ||  ||
+|| + || Профиль компании || CompanyProfile || text || NULL ||  ||
 
 = Вакансия =
 == Mini ==
@@ -77,6 +95,9 @@ Note: Бесплатный account дает возможность публик�
 ||   || E-mail для откликов || FakeEmail || email || NULL || if VacAnon = True ||
 || +if || Компания || FakeCompany || string || NULL || if VacAnon = True ||
 || +if || Комментарии к вакансии || Comments || text || NULL ||  ||
+
+После заполнения - надо указать свой логина/пароль - или надо заполнить информацию о компании AnonEmployer.
+В последнем случае - указать контакт
 
 == RegMini ==
 
