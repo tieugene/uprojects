@@ -111,3 +111,7 @@ RegFull.Acquirement
 
 || Mandatory || Name || Field || Type || Default || Comments ||
 ||  ||  ||  ||  ||  ||  ||
+
+и тут:
+ это - блоквота
+ и это - блоквота
