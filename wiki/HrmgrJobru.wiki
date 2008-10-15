@@ -47,26 +47,36 @@ Note: Бесплатный account дает возможность публик�
 Для анонимных юзверей.
 
 || Mandatory || Name || Field || Type || Default || Comments ||
+|||||||||||| Описание вакансии ||
 || + || Наименование || Name || string || NULL ||  ||
-||   || Код || ID || ? || NULL ||  ||
+||   || Код || ID || string || NULL ||  ||
 || + || Текст || Description || text || NULL ||  ||
 ||   || Зарплата.От || PayMin || int || NULL ||  ||
 ||   || Зарплата.До || PayMax || int || NULL ||  ||
-||   || Зарплата.Валюта || PayCurrency || enum:[HrmgrJobruEnumCurrency currency] || NULL ||   ||
-||   || Зарплата.За || PayFreq || enum:[HrmgrJobruEnumFreq freq] || NULL ||  ||
+|| +if || Зарплата.Валюта || PayCurrency || enum:[HrmgrJobruEnumCurrency currency] || NULL || Need if PayMin or PayMax ||
+|| +if || Зарплата.За || PayFreq || enum:[HrmgrJobruEnumFreq freq] || NULL || Need if PayMin or PayMax ||
 ||   || Занятость || Duration || enum:[HrmgrJobruEnumFreq freq] || NULL ||  ||
 ||   || Уровень позиции || PosLevel || enum:[HrmgrJobruEnumPoslevel poslevel] || NULL ||  ||
+|||||||||||| Месторасположение, проф. область ||
 || + || Отрасль || Branch || enum:[HrmgrJobruEnumBranch branch] || NULL ||  ||
-|| + || Специализация || Spec || enum:[HrmgrJobruEnumSpec spec] || NULL ||  ||
+|| + || Специализация || Spec || enum:[HrmgrJobruEnumSpec spec] || NULL || Sub of Branch ||
 || + || Страна || Country || enum:[HrmgrJobruEnumCountry country] || NULL ||  ||
-|| + || Регион || Region || enum:[HrmgrJobruEnumRegion region] || NULL || dep. on Country ||
-|| ... || Город/район || Place || enum:[HrmgrJobruEnumPlace place] || NULL || dep. on Region ||
+|| + || Регион || Region || enum:[HrmgrJobruEnumRegion region] || NULL || Sub of Country ||
+|| +if || Город/район || Place || enum:[HrmgrJobruEnumPlace place] || NULL || Sub of Region ||
 |||||||||||| Контактное лицо ||
-|| + || Должность || ContactRole || enum:[HrmgrJobruEnumRole role] || NULL ||  ||
-|| + || Имя || ContactFirstName || string || NULL ||  ||
-|| + || Фамилия || ContactLastName || string || NULL ||  ||
-|| + || E-mail || ContactEmail || email || NULL ||  ||
-|| + || Телефон || ContactPhone || phone || NULL ||  ||
+||   || Должность || ContactRole || enum:[HrmgrJobruEnumRole role] || NULL ||  ||
+||   || Имя || ContactFirstName || string || NULL ||  ||
+||   || Фамилия || ContactLastName || string || NULL ||  ||
+||   || E-mail || ContactEmail || email || NULL ||  ||
+||   || Телефон || ContactPhone || phone || NULL ||  ||
+|||||||||||| "Видимость" вакансии ||
+|| + || Вакансия будет видна всем || Visible || bool || Всем посетителям сайта ||  ||
+|| +if || Опубликовать вакансию || PubDate || date || NOW() || need if Всем  ||
+|||||||||||| Создать анонимную вакансию ||
+|| + || Создать анонимную вакансию || VacAnon || bool || False ||  ||
+||   || E-mail для откликов || FakeEmail || email || NULL || if VacAnon = True ||
+|| +if || Компания || FakeCompany || string || NULL || if VacAnon = True ||
+|| +if || Комментарии к вакансии || Comments || text || NULL ||  ||
 
 == RegMini ==
 
@@ -74,15 +84,9 @@ Note: Бесплатный account дает возможность публик�
 
 || Mandatory || Name || Field || Type || Default || Comments ||
 |||||||||||| <Mini> ||
-|| * || Вакансия будет видна всем || Visible || bool ||  ||  ||
-|| * || Опубликовать вакансию || PubDate || date || NOW() ||  ||
 || * || Я хочу разместить эту вакансию в разделе "Вакансии дня" || VacOfDay || bool ||  ||  ||
-|| * || Создать анонимную вакансию || VacAnon || bool ||  ||  ||
-||  || E-mail для откликов || FakeEmail || email || NULL ||  ||
-||  || Компания || FakeCompany || string ||  ||  ||
 ||  || Да, я хочу опубликовать эту вакансию в газете "Работа Сегодня" || PubDayJob || bool ||  ||  ||
 ||  || Логотип компании в результатах поиска || LogoInSearch || bool ||  ||  ||
-||  || Комментарии к вакансии || Comments || text || NULL ||  ||
 
 == RegFull ==
 
