@@ -1,6 +1,6 @@
 #summary HRmgr - recruiting handler
 
 = Этапы =
-[hrmgr0 mini]
-[hrmgr1 midi]
-[hrmgr2 maxi]
+== [hrmgr0 mini] ==
+== [hrmgr1 midi] ==
+== [hrmgr2 maxi] ==
