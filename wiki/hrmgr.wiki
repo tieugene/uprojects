@@ -1,6 +1,23 @@
 #summary HRmgr - recruiting handler
 
-= Этапы =
-== [hrmgr0 mini] ==
-== [hrmgr1 midi] ==
-== [hrmgr2 maxi] ==
+Вся работа разбита на 3 этапа - чтобы каждый этап удовлетворил текущие потребности и стоил соответственно этим самым потребностям.
+
+Этапы:
+
+= [hrmgr0 mini] =
+Цель:
+Key features:
+Средства:
+Цена:
+
+= [hrmgr1 midi] =
+Цель:
+Key features:
+Средства:
+Цена:
+
+= [hrmgr2 maxi] =
+Цель:
+Key features:
+Средства:
+Цена:
