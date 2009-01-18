@@ -1,0 +1,37 @@
+$def with (items, message = "")
+
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<body>
+<center>
+<h1>Users:</h1>
+</center>
+<table border="1">
+	<tr> <th> ID </th> <th> Login </th> <th> Password </th> <th> Comments </th> <th> Actions </th> </tr>
+$for item in items:
+	<tr>
+		<td> $item.id </td>
+		<td> $item.login </td>
+		<td> $item.password </td>
+		<td> $item.comments </td>
+		<td>
+			<a href="/useredit/$item.id"><img src="/static/edit.gif" title="Edit"> </a>
+			<a href="/userdel/$item.id"><img src="/static/del.gif" title="Delete"> </a>
+		</td>
+	</tr>
+<form method="post" action="useradd">
+	<tr>
+		<td/>
+		<td> <input type="text" name="login"/> </td>
+		<td> <input type="text" name="password"/> </td>
+		<td> <input type="text" name="comments"/> </td>
+		<td> <input type="submit" value="Add" /> </td>
+	</tr>
+<form>
+</table>
+$if message:
+	<p>$message</p>
+</body>
+</html>

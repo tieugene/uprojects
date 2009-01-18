@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE Project SYSTEM "Project-4.4.dtd">
+<!-- eric4 project file for project run1s -->
+<!-- Saved: 2009-01-12, 22:05:51 -->
+<!-- Copyright (C) 2009 TI_Eugene, ti.eugene@gmail.com -->
+<Project version="4.4">
+  <ProgLanguage mixed="0">Python</ProgLanguage>
+  <ProjectType>Console</ProjectType>
+  <Description></Description>
+  <Version>0.1</Version>
+  <Author>TI_Eugene</Author>
+  <Email>ti.eugene@gmail.com</Email>
+  <Sources>
+    <Source>code.py</Source>
+  </Sources>
+  <Forms>
+  </Forms>
+  <Translations>
+  </Translations>
+  <Resources>
+  </Resources>
+  <Interfaces>
+  </Interfaces>
+  <Others>
+    <Other>TODO</Other>
+    <Other>AUTHORS</Other>
+    <Other>README</Other>
+  </Others>
+  <MainScript>code.py</MainScript>
+  <Vcs>
+    <VcsType>None</VcsType>
+  </Vcs>
+  <FiletypeAssociations>
+    <FiletypeAssociation pattern="*.pyw" type="SOURCES" />
+    <FiletypeAssociation pattern="*.idl" type="INTERFACES" />
+    <FiletypeAssociation pattern="*.py" type="SOURCES" />
+    <FiletypeAssociation pattern="*.ptl" type="SOURCES" />
+  </FiletypeAssociations>
+</Project>
