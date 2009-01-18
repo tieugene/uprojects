@@ -1,0 +1,35 @@
+$def with (items, id, dbname, argdict, subform, message = "")
+
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<body>
+<center>
+<h1>$argdict["title"]</h1>
+</center>
+<table border="1">
+	<tr>
+$for item in argdict["th"]:
+	<th> $item </th>
+<th colspan="2"> Actions </th>
+	</tr>
+$for item in items:
+	<tr>
+	$if (item.id <> id):
+		$for i in argdict["td"]:
+			<td> $(item[i]) </td>
+		<td> &nbsp; </td>
+	$else:
+		<form method="post" action="/$dbname/edit/$item.id">
+		<td> $item.id </td>
+		$:subform
+		<td> <input type="submit" value="Apply" /> </td>
+		</form>
+		<td><form method="get" action="/$dbname/list/"> <input type="submit" value="Cancel"/></form></td>
+	</tr>
+</table>
+$if message:
+	<p>$message</p>
+</body>
+</html>
