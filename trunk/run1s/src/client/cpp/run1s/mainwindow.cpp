@@ -1,100 +1,65 @@
-#include <QtCore/QXmlStreamReader>
-#include <QtCore/QProcess>
-#include <QtGui/QLabel>
-#include <QtGui/QMessageBox>
-#include <QtGui/QTableWidgetItem>
+#include <QLabel>
+#include <QMessageBox>
+#include <QProcess>
+#include <QXmlStreamReader>
+#include <QUrl>
+#include <QNetworkRequest>
 
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "settingsdialog.h"
-#include "aboutdialog.h"
 #include "appsettings.h"
 
-class	Interior {
-public:
-	Interior(QWidget* parent) :
-		toolBar(0),
-		panelsMenu(0),
-		toolbarsMenu(0) {
-
-		settingsDlg = new SettingsDialog(parent);
-		aboutDlg = new AboutDialog(parent);
-	}
-	~Interior() {
-		delete settingsDlg;
-		delete aboutDlg;
-	}
-
-	SettingsDialog* settingsDlg;
-	AboutDialog* aboutDlg;
-
-	QLabel* fileNameL;
-	QToolBar* toolBar;
-	QMap<QString, QMenu*> mainMenuItems;
-	QMenu* panelsMenu;
-	QMenu* toolbarsMenu;
-	QRect geometry;
-};
-
-
-MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent), ui(new Ui::MainWindowClass)
+MainWindow::MainWindow(QWidget *parent) :
+	QMainWindow(parent),
+	ui(new Ui::MainWindowClass)
 {
 	ui->setupUi(this);
-	interior = new Interior(this);
-	http = new QHttp();
+	settingsDlg = new SettingsDialog(this);
+	aboutDlg = new AboutDialog(this);
+	netmgr = new QNetworkAccessManager(this);
+	createTrayIcon();
 	setSlots();
+	fullsize = true;
 }
 
 MainWindow::~MainWindow()
 {
-    delete ui;
+	delete ui;
+	delete settingsDlg;
+	delete aboutDlg;
+	delete netmgr;
+	delete tray;
+}
+
+void MainWindow::createTrayIcon() {
+	trayMenu = new QMenu(this);
+	actionHideRestore = new QAction(tr("&Hide"), this);
+	trayMenu->addAction(actionHideRestore);
+	trayMenu->addSeparator();
+	trayMenu->addAction(ui->actionExit);
+
+	tray = new QSystemTrayIcon(this);
+	tray->setContextMenu(trayMenu);
+	tray->setIcon(QIcon(QIcon(":/icons/1c_16x16.png")));
+	tray->setToolTip(tr("Run1s client"));
 }
 
 void MainWindow::setSlots(void) {
-	connect(ui->actionExit, SIGNAL(triggered()), SLOT(exit()));
-	connect(ui->actionEnterprise, SIGNAL(triggered()), SLOT(runEnterprise()));
-	connect(ui->actionSettings, SIGNAL(triggered()), SLOT(settings()));
-	connect(ui->actionAbout, SIGNAL(triggered()), SLOT(about()));
-	connect(ui->actionAboutQt, SIGNAL(triggered()), SLOT(aboutQt()));
-
-
-	connect(http, SIGNAL(readyRead(const QHttpResponseHeader &)), SLOT(slReadyRead(const QHttpResponseHeader &)));
+	connect(ui->actionExit, SIGNAL(triggered()), SLOT(slExit()));
+	connect(ui->actionEnterprise, SIGNAL(triggered()), SLOT(slRunEnterprise()));
+	connect(ui->actionSettings, SIGNAL(triggered()), SLOT(slSettings()));
+	connect(ui->actionAbout, SIGNAL(triggered()), SLOT(slAbout()));
+	connect(ui->actionAboutQt, SIGNAL(triggered()), SLOT(slAboutQt()));
 	connect(ui->tableWidget, SIGNAL(currentItemChanged (QTableWidgetItem *, QTableWidgetItem *)), SLOT(slItemChanged(QTableWidgetItem *, QTableWidgetItem *)));
+	connect(tray, SIGNAL(activated ( QSystemTrayIcon::ActivationReason)), SLOT(slTray(QSystemTrayIcon::ActivationReason)));
+	connect(actionHideRestore, SIGNAL(triggered()), SLOT(slHideRestore()));
+	connect(netmgr, SIGNAL(finished(QNetworkReply *)), SLOT(slNetReplyFinished(QNetworkReply *)));
 }
 
-void MainWindow::Update() {
-	http->setHost(AppSettings::getServer(), 80);
-	http->get("/baselist");		// put something into /var/www/html/baselist file
-}
-
-void MainWindow::exit() {
-	close();
-}
-
-void MainWindow::runEnterprise() {
-	// check 1C executable and path
-	//QProcess *process = new QProcess(); process->execute("juffed");
-	QProcess::startDetached("juffed");
-}
-
-void MainWindow::about() {
-	interior->aboutDlg->exec();
-}
-
-void MainWindow::aboutQt() {
-	QMessageBox::aboutQt(this, tr("About Qt"));
-}
-
-void MainWindow::settings() {
-	interior->settingsDlg->exec();
-}
-
-void MainWindow::slReadyRead(const QHttpResponseHeader &resp) {
+void MainWindow::processReply(const QByteArray &resp) {
 	QString token, ver, host, share, path, type, org, comments;
 
-	printf("Status: %d", resp.statusCode());
-	QXmlStreamReader xml(http->readAll());
+	QXmlStreamReader xml(resp);
 	while (!xml.atEnd()) {
 		xml.readNext();
 		if (xml.isStartElement ()) {
@@ -122,8 +87,68 @@ void MainWindow::slReadyRead(const QHttpResponseHeader &resp) {
 	}
 }
 
-void MainWindow::slItemChanged(QTableWidgetItem *curr, QTableWidgetItem *prev) {
-	if ((!prev) or (curr->row() != prev->row())) {
-		statusBar()->showMessage(baselist[curr->row()]);
+void MainWindow::slUpdate() {
+	if (AppSettings::getTrayEnabled()) {
+		if (!tray->isVisible())
+			tray->show();
+	} else {
+		if (tray->isVisible())
+			tray->hide();
 	}
+	ui->tableWidget->setRowCount(0);
+	netmgr->get(QNetworkRequest(QUrl(AppSettings::getServer() + "/baselist")));
+}
+
+void MainWindow::slExit() {
+	close();
+}
+
+void MainWindow::slRunEnterprise() {
+	// check 1C executable and path
+	//QProcess *process = new QProcess(); process->execute("juffed");
+	QProcess::startDetached("juffed");
+}
+
+void MainWindow::slAbout() {
+	aboutDlg->exec();
+}
+
+void MainWindow::slAboutQt() {
+	QMessageBox::aboutQt(this, tr("About Qt"));
+}
+
+void MainWindow::slSettings() {
+	if (settingsDlg->exec())
+		slUpdate();
+}
+
+void MainWindow::slItemChanged(QTableWidgetItem *curr, QTableWidgetItem *prev) {
+	if (ui->tableWidget->rowCount())
+		if ((curr) and ((!prev) or (curr->row() != prev->row())))
+			statusBar()->showMessage(baselist[curr->row()]);
+}
+
+void MainWindow::slTray(QSystemTrayIcon::ActivationReason reason) {
+	if (reason == QSystemTrayIcon::Trigger)
+		slHideRestore();
+}
+
+void MainWindow::slHideRestore() {
+	if (fullsize) {
+		hide();
+		actionHideRestore->setText(tr("&Restore"));
+	} else {
+		show();
+		actionHideRestore->setText(tr("&Hide"));
+		slUpdate();
+	}
+	fullsize = not fullsize;
+}
+
+void MainWindow::slNetReplyFinished(QNetworkReply *reply) {
+	QNetworkReply::NetworkError err = reply->error();
+	if (err)
+		statusBar()->showMessage(tr("Network error: ") + reply->errorString(), 3000);
+	else
+		processReply(reply->readAll());
 }

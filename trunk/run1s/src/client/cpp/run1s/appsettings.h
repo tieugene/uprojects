@@ -1,7 +1,7 @@
 #ifndef APPSETTINGS_H
 #define APPSETTINGS_H
 
-#include <QtCore/QString>
+#include <QString>
 
 #include "settings.h"
 
@@ -9,6 +9,7 @@ class AppSettings : public Settings
 {
 public:
 	static QString getServer(void);	// ? QURL
+	static int getPort(void);	// ? QURL
 	static QString getLogin(void);
 	static QString getPassword(void);
 	static QString getPath1C(void);
@@ -17,6 +18,7 @@ public:
 	static bool getStartHidden(void);
 	static bool getMinToTray(void);
 	static void setServer(const QString&);	// ? QURL
+	static void setPort(const int);	// ? QURL
 	static void setLogin(const QString&);
 	static void setPassword(const QString&);
 	static void setPath1C(const QString&);

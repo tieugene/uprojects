@@ -42,47 +42,47 @@
     <message>
         <location filename="../mainwindow.ui" line="22"/>
         <source>Type</source>
-        <translation type="unfinished"></translation>
+        <translation>Тип</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="27"/>
         <source>Org</source>
-        <translation type="unfinished"></translation>
+        <translation>Организация</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="32"/>
         <source>Comments</source>
-        <translation type="unfinished"></translation>
+        <translation>Коментарии</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="50"/>
         <source>File</source>
-        <translation type="unfinished"></translation>
+        <translation>Файл</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="56"/>
         <source>Options</source>
-        <translation type="unfinished"></translation>
+        <translation>Параметры</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="136"/>
         <source>Help</source>
-        <translation type="unfinished"></translation>
+        <translation>Помощь</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="70"/>
         <source>Action</source>
-        <translation type="unfinished"></translation>
+        <translation>Действие</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="109"/>
         <source>toolBar</source>
-        <translation type="unfinished"></translation>
+        <translation>Панель инструментов</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="128"/>
         <source>Exit</source>
-        <translation type="unfinished"></translation>
+        <translation>Выход</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="131"/>
@@ -97,37 +97,37 @@
     <message>
         <location filename="../mainwindow.ui" line="144"/>
         <source>About</source>
-        <translation type="unfinished"></translation>
+        <translation>О программе</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="153"/>
         <source>About Qt</source>
-        <translation type="unfinished"></translation>
+        <translation>О Qt</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="162"/>
         <source>Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Настройки</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="171"/>
         <source>Enterprise</source>
-        <translation type="unfinished"></translation>
+        <translation>Предприятие</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="180"/>
         <source>Enterprise (singleuser)</source>
-        <translation type="unfinished"></translation>
+        <translation>Предприятие (монопольно)</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="189"/>
         <source>Configurer</source>
-        <translation type="unfinished"></translation>
+        <translation>Конфигуратор</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="198"/>
         <source>Monitor</source>
-        <translation type="unfinished"></translation>
+        <translation>Монитор</translation>
     </message>
     <message>
         <location filename="../mainwindow.ui" line="201"/>

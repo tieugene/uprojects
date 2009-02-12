@@ -1,17 +1,23 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include <QtCore/QList>
-#include <QtGui/QMainWindow>
-#include <QtGui/QTableWidgetItem>
-#include <QtNetwork/QHttp>
+#include <QAction>
+//#include <QHttp>
+#include <QList>
+#include <QMainWindow>
+#include <QNetworkAccessManager>
+#include <QNetworkReply>
+#include <QMenu>
+#include <QSystemTrayIcon>
+#include <QTableWidgetItem>
+
+#include "settingsdialog.h"
+#include "aboutdialog.h"
 
 namespace Ui
 {
 	class MainWindowClass;
 }
-
-class	Interior;
 
 class MainWindow : public QMainWindow
 {
@@ -20,24 +26,35 @@ class MainWindow : public QMainWindow
 public:
 	MainWindow(QWidget *parent = 0);
 	~MainWindow();
-	void	Update(void);
+
+public slots:
+	void	slUpdate();
 
 private slots:
-	void exit();
-	void runEnterprise();
-	void settings();
-	void about();
-	void aboutQt();
-	void slReadyRead(const QHttpResponseHeader &);
-	void slItemChanged(QTableWidgetItem *, QTableWidgetItem *);
+	void	slExit();
+	void	slRunEnterprise();
+	void	slSettings();
+	void	slAbout();
+	void	slAboutQt();
+	void	slNetReplyFinished(QNetworkReply *);
+	void	slItemChanged(QTableWidgetItem *, QTableWidgetItem *);
+	void	slTray(QSystemTrayIcon::ActivationReason);
+	void	slHideRestore();
 
 private:
 	Ui::MainWindowClass *ui;
-	void    setSlots(void);
+	void	setSlots(void);
+	void	createTrayIcon();
+	void	processReply(const QByteArray &);
 
-	Interior	*interior;
-	QHttp		*http;
-	QList<QString>	baselist;
+	SettingsDialog			*settingsDlg;
+	AboutDialog			*aboutDlg;
+	QSystemTrayIcon			*tray;
+	QMenu				*trayMenu;
+	QAction				*actionHideRestore;
+	QNetworkAccessManager		*netmgr;
+	bool				fullsize;
+	QList<QString>			baselist;
 };
 
 #endif // MAINWINDOW_H
