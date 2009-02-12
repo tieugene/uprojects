@@ -1,29 +1,36 @@
 #include "appsettings.h"
 
-static char mainsection[] = "main";
-static char serverkey[] = "server";
-static char loginkey[] = "login";
-static char passwordkey[] = "password";
-static char path1skey[] = "path1s";
-static char minonrunkey[] = "minonrun";
-static char usetraykey[] = "usetray";
-static char starthiddenkey[] = "starthidden";
-static char mintotraykey[] = "mintotray";
+QString \
+	mainsection("main"),\
+	serverkey("server"),\
+	portkey("port"),\
+	loginkey("login"),\
+	passwordkey("password"),\
+	path1skey("path1s"),\
+	minonrunkey("minonrun"),\
+	usetraykey("usetray"),\
+	starthiddenkey("starthidden"),\
+	mintotraykey("mintotray");
+
 
 QString AppSettings::getServer(void) {
-	return Settings::value(mainsection, serverkey).toString();
+	return Settings::stringValue(mainsection, serverkey);
+}
+
+int AppSettings::getPort(void) {
+	return Settings::intValue(mainsection, portkey, 80);
 }
 
 QString AppSettings::getLogin(void) {
-	return Settings::value(mainsection, loginkey).toString();
+	return Settings::stringValue(mainsection, loginkey);
 }
 
 QString AppSettings::getPassword(void) {
-	return Settings::value(mainsection, passwordkey).toString();
+	return Settings::stringValue(mainsection, passwordkey);
 }
 
 QString AppSettings::getPath1C(void) {
-	return Settings::value(mainsection, path1skey).toString();
+	return Settings::stringValue(mainsection, path1skey);
 }
 
 bool AppSettings::getMinOnRun(void) {
@@ -46,6 +53,10 @@ bool AppSettings::getMinToTray(void) {
 
 void AppSettings::setServer(const QString& value) {
 	Settings::setValue(mainsection, serverkey, value);
+}
+
+void AppSettings::setPort(const int value) {
+	Settings::setValue(mainsection, portkey, value);
 }
 
 void AppSettings::setLogin(const QString& value) {

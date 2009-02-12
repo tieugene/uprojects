@@ -18,9 +18,9 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #ifndef SETTINGS_H
 #define SETTINGS_H
 
-#include <QtCore/QStringList>
-#include <QtCore/QVariant>
-#include <QtCore/QString>
+#include <QStringList>
+#include <QVariant>
+#include <QString>
 
 typedef QMap<QString, QVariant> Section;
 typedef QMap<QString, Section> SettingsMap;

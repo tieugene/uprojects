@@ -1,8 +1,7 @@
 #ifndef APPINFO_H
 #define APPINFO_H
 
-#include <QtCore/QCoreApplication>
-#include <QtCore/QString>
+#include <QString>
 
 class AppInfo
 {

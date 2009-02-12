@@ -1,17 +1,18 @@
 /*
 TODO:
+* tune http
+* Win
+In Process:
 * icons
 * translations
-* tune http
-* systray (QSystemTrayIcon)
-* Win
-* use QStyle::StandardPixmap
+* systray (QSystemTrayIcon) 
 */
 
-#include <QtCore/QTranslator>
-#include <QtCore/QLocale>
-#include <QtCore/QLibraryInfo>
-#include <QtGui/QApplication>
+#include <QTranslator>
+#include <QLocale>
+#include <QLibraryInfo>
+#include <QApplication>
+#include <QMessageBox>
 
 #include "mainwindow.h"
 #include "appinfo.h"
@@ -21,16 +22,16 @@ int main(int argc, char *argv[])
 {
 	QApplication a(argc, argv);
 
-	// Translation
+	// Translation: /usr/share/qt4/translations
 	QTranslator appTranslator;
-	printf("%s\n", QLibraryInfo::location(QLibraryInfo::TranslationsPath)); 
-	appTranslator.load("l10n/juffed_" + QLocale::system().name().left(2));
+	QString trpath = QLibraryInfo::location(QLibraryInfo::TranslationsPath);
+	appTranslator.load("l10n/run1s_" + QLocale::system().name().left(2));
 	a.installTranslator(&appTranslator);
 
 	AppInfo::setQCore();
 	Settings::read();
 	MainWindow w;
 	w.show();
-	w.Update();	// FIXME:
+	w.slUpdate();	// FIXME:
 	return a.exec();
 }
