@@ -21,3 +21,4 @@ TRANSLATIONS += l10n/run1s_ru.ts
 QT += core network gui
 CONFIG += warn_on
 RESOURCES += run1s.qrc
+VERSION = 0.1
