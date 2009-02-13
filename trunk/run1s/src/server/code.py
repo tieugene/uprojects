@@ -19,6 +19,8 @@ urls = (
 	'/', 'index',
 	'/menu', 'menu',
 	'/acl', 'acl',
+	'/serial', 'serial',
+	'/baselist&login=(\w+)&password=(.*)', 'baselist',
 	'/(\w+)/list/', 'list',
 	'/(\w+)/add/', 'add',
 	'/(\w+)/del/(\d+)', 'delete',
@@ -80,7 +82,7 @@ class	acl:
 		# 3. and square marix
 		for aclitem in mydb.select('acl'):
 			if aclitem.visible:
-				print dbdict[aclitem.dbid], userdict[aclitem.userid]
+				#print dbdict[aclitem.dbid], userdict[aclitem.userid]
 				dxu[dbdict[aclitem.dbid]][userdict[aclitem.userid]] = True
 		return render.acl(userlist, dblist, dxu)
 	def	POST(self):
@@ -254,6 +256,23 @@ class	edit:
 			n = mydb.update('db', where="id = %d" % id, shareid = int(i.shareid), dbtypeid = int(i.dbtypeid), orgid = int(i.orgid), path = i.path, comments = i.comments)
 			message = "%d %s[s] edited ok" % (n, mydict[dbname]["entry"])
 		raise web.seeother("/%s/%s/" % (dbname, nextform))
+
+class	serial:
+	def	GET(self):
+		return mydb.select('var', where="name='serial'")[0].value
+
+class	baselist:
+	def	GET(self, login, password):
+		count = mydb.query('SELECT COUNT (*) AS total FROM user WHERE login="%s"' % login)[0].total
+		if (count == 0):
+			return "Error: user not found"
+		a = mydb.select('user', where="login='%s'" % login)[0]
+		if (a.password != password):
+			return "Error: wrong password"
+		else:
+			b = mydb.select('baselist', where="userid='%s'" % a.id)
+			web.header('Content-Type', 'text/xml')
+			return render.baselist(b)
 
 if __name__ == "__main__":
 	web.application(urls, globals()).run()

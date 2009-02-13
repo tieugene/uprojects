@@ -96,7 +96,7 @@ void MainWindow::slUpdate() {
 			tray->hide();
 	}
 	ui->tableWidget->setRowCount(0);
-	netmgr->get(QNetworkRequest(QUrl(AppSettings::getServer() + "/baselist")));
+	netmgr->get(QNetworkRequest(QUrl(AppSettings::getServer() + "/baselist&login=" + AppSettings::getLogin() + "&password=" + AppSettings::getPassword())));
 }
 
 void MainWindow::slExit() {
