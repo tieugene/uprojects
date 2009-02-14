@@ -17,13 +17,19 @@
 Клиентская часть - Qt4-приложение на C++.
 
 Слайды:
-== Сервер ==
-  * Users: [http://uprojects.googlecode.com/files/run1s_s1.png]
-  * Database types: [http://uprojects.googlecode.com/files/run1s_s2.png]
-  * Organizations: [http://uprojects.googlecode.com/files/run1s_s3.png]
-  * Databases: [http://uprojects.googlecode.com/files/run1s_s4.png]
-  * ACL: [http://uprojects.googlecode.com/files/run1s_s5.png]
-
+== Сервер: ==
+  * Users:
+[http://uprojects.googlecode.com/files/run1s_s1.png]
+  * Database types:
+[http://uprojects.googlecode.com/files/run1s_s2.png]
+  * Organizations:
+[http://uprojects.googlecode.com/files/run1s_s3.png]
+  * Databases:
+[http://uprojects.googlecode.com/files/run1s_s4.png]
+  * ACL:
+[http://uprojects.googlecode.com/files/run1s_s5.png]
 == Клиент ==
-  * Configuring: [http://uprojects.googlecode.com/files/run1s_c1.png]
-  * Base list: [http://uprojects.googlecode.com/files/run1s_c2.png]
+  * Configuring:
+[http://uprojects.googlecode.com/files/run1s_c1.png]
+  * Base list:
+[http://uprojects.googlecode.com/files/run1s_c2.png]
