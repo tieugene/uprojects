@@ -1,8 +1,10 @@
-$def with (baselist)
+$def with (sn, baselist = [], error= None)
 $ hostname = None
 $ sharename = None
 <?xml version="1.0" encoding="UTF-8"?>
-<run1s ver="0.1">
+<run1s ver="0.1" sn="$sn">
+$if (error):
+	<error text="$error"/>
 $for base in baselist:
 	$if (hostname != base.hostname):
 		$if (hostname):

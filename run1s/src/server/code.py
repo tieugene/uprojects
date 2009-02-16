@@ -5,7 +5,7 @@ TODO: transactions, triggers
 import web, re, pprint
 
 web.config.debug = False
-render = web.template.render('templates/', cache=True)
+render = web.template.render('templates/', cache=False)	#"templates/"
 mydb = web.database(dbn='sqlite', db='run1s.db')
 message = ""
 fullpathre = re.compile(r'^\\\\(\w+)\\(\w+)\\(.*)')
@@ -57,6 +57,7 @@ mydict = {
 class	index:
 	def	GET(self):
 		return render.index()
+		#web.render('index.html')
 
 class	menu:
 	def	GET(self):
@@ -259,20 +260,24 @@ class	edit:
 
 class	serial:
 	def	GET(self):
-		return mydb.select('var', where="name='serial'")[0].value
+		return render.baselist(mydb.select('var', where="name='serial'")[0].value)
 
 class	baselist:
 	def	GET(self, login, password):
+		sn = mydb.select('var', where="name='serial'")[0].value
 		count = mydb.query('SELECT COUNT (*) AS total FROM user WHERE login="%s"' % login)[0].total
 		if (count == 0):
-			return "Error: user not found"
+			return render.baselist(sn, error = "user not found")
 		a = mydb.select('user', where="login='%s'" % login)[0]
 		if (a.password != password):
-			return "Error: wrong password"
+			return render.baselist(sn, error = "wrong password")
 		else:
 			b = mydb.select('baselist', where="userid='%s'" % a.id)
 			web.header('Content-Type', 'text/xml')
-			return render.baselist(b)
+			return render.baselist(sn, b)
+
+application = web.application(urls, globals()).wsgifunc()
 
 if __name__ == "__main__":
 	web.application(urls, globals()).run()
+
