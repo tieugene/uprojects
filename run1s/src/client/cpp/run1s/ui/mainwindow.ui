@@ -20,6 +20,15 @@
    <layout class="QGridLayout" name="gridLayout" >
     <item row="0" column="0" >
      <widget class="QTableWidget" name="tableWidget" >
+      <property name="editTriggers" >
+       <set>QAbstractItemView::NoEditTriggers</set>
+      </property>
+      <property name="alternatingRowColors" >
+       <bool>false</bool>
+      </property>
+      <property name="sortingEnabled" >
+       <bool>false</bool>
+      </property>
       <column>
        <property name="text" >
         <string>Type</string>
@@ -124,8 +133,8 @@
   </widget>
   <action name="actionExit" >
    <property name="icon" >
-    <iconset>
-     <normaloff>icons/exit_32x32.png</normaloff>icons/exit_32x32.png</iconset>
+    <iconset resource="../run1s.qrc" >
+     <normaloff>:/icons/exit_32x32.png</normaloff>:/icons/exit_32x32.png</iconset>
    </property>
    <property name="text" >
     <string>&amp;Exit</string>
@@ -136,8 +145,8 @@
   </action>
   <action name="actionHelp" >
    <property name="icon" >
-    <iconset>
-     <normaloff>icons/help_32x32.png</normaloff>icons/help_32x32.png</iconset>
+    <iconset resource="../run1s.qrc" >
+     <normaloff>:/icons/help_32x32.png</normaloff>:/icons/help_32x32.png</iconset>
    </property>
    <property name="text" >
     <string>Help</string>
@@ -148,8 +157,8 @@
   </action>
   <action name="actionAbout" >
    <property name="icon" >
-    <iconset>
-     <normaloff>icons/1c_32x32.png</normaloff>icons/1c_32x32.png</iconset>
+    <iconset resource="../run1s.qrc" >
+     <normaloff>:/icons/1c_32x32.png</normaloff>:/icons/1c_32x32.png</iconset>
    </property>
    <property name="text" >
     <string>About</string>
@@ -157,8 +166,8 @@
   </action>
   <action name="actionAboutQt" >
    <property name="icon" >
-    <iconset>
-     <normaloff>icons/qt_32x32.png</normaloff>icons/qt_32x32.png</iconset>
+    <iconset resource="../run1s.qrc" >
+     <normaloff>:/icons/qt_32x32.png</normaloff>:/icons/qt_32x32.png</iconset>
    </property>
    <property name="text" >
     <string>About Qt</string>
@@ -166,8 +175,8 @@
   </action>
   <action name="actionSettings" >
    <property name="icon" >
-    <iconset>
-     <normaloff>icons/settings_32x32.png</normaloff>icons/settings_32x32.png</iconset>
+    <iconset resource="../run1s.qrc" >
+     <normaloff>:/icons/settings_32x32.png</normaloff>:/icons/settings_32x32.png</iconset>
    </property>
    <property name="text" >
     <string>Settings</string>
@@ -175,8 +184,8 @@
   </action>
   <action name="actionEnterprise" >
    <property name="icon" >
-    <iconset>
-     <normaloff>icons/1cv7_ent_32x32.png</normaloff>icons/1cv7_ent_32x32.png</iconset>
+    <iconset resource="../run1s.qrc" >
+     <normaloff>:/icons/1cv7_ent_32x32.png</normaloff>:/icons/1cv7_ent_32x32.png</iconset>
    </property>
    <property name="text" >
     <string>Enterprise</string>
@@ -184,8 +193,8 @@
   </action>
   <action name="actionEnterprise_singleuser" >
    <property name="icon" >
-    <iconset>
-     <normaloff>icons/1cv7_rep_32x32.png</normaloff>icons/1cv7_rep_32x32.png</iconset>
+    <iconset resource="../run1s.qrc" >
+     <normaloff>:/icons/1cv7_rep_32x32.png</normaloff>:/icons/1cv7_rep_32x32.png</iconset>
    </property>
    <property name="text" >
     <string>Enterprise (singleuser)</string>
@@ -193,8 +202,8 @@
   </action>
   <action name="actionConfigurer" >
    <property name="icon" >
-    <iconset>
-     <normaloff>icons/1cv7_cfg_32x32.png</normaloff>icons/1cv7_cfg_32x32.png</iconset>
+    <iconset resource="../run1s.qrc" >
+     <normaloff>:/icons/1cv7_cfg_32x32.png</normaloff>:/icons/1cv7_cfg_32x32.png</iconset>
    </property>
    <property name="text" >
     <string>Configurer</string>
@@ -202,8 +211,8 @@
   </action>
   <action name="actionMonitor" >
    <property name="icon" >
-    <iconset>
-     <normaloff>icons/1cv7_mon_32x32.png</normaloff>icons/1cv7_mon_32x32.png</iconset>
+    <iconset resource="../run1s.qrc" >
+     <normaloff>:/icons/1cv7_mon_32x32.png</normaloff>:/icons/1cv7_mon_32x32.png</iconset>
    </property>
    <property name="text" >
     <string>Monitor</string>
@@ -213,6 +222,8 @@
    </property>
   </action>
  </widget>
- <resources/>
+ <resources>
+  <include location="../run1s.qrc" />
+ </resources>
  <connections/>
 </ui>

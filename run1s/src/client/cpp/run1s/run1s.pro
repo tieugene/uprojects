@@ -1,6 +1,6 @@
 TEMPLATE = app
 TARGET =
-DEPENDPATH += . l10n qtc-gdbmacros
+DEPENDPATH += . translations
 INCLUDEPATH += .
 HEADERS += aboutdialog.h \
  appinfo.h \
@@ -8,17 +8,16 @@ HEADERS += aboutdialog.h \
  mainwindow.h \
  settings.h \
  settingsdialog.h
-FORMS += aboutdialog.ui mainwindow.ui settingsdialog.ui
+FORMS += ui/aboutdialog.ui ui/mainwindow.ui ui/settingsdialog.ui
 SOURCES += aboutdialog.cpp \
  appinfo.cpp \
  appsettings.cpp \
  main.cpp \
  mainwindow.cpp \
  settings.cpp \
- settingsdialog.cpp \
- qtc-gdbmacros/gdbmacros.cpp
-TRANSLATIONS += l10n/run1s_ru.ts
-QT += core network gui
+ settingsdialog.cpp
+TRANSLATIONS += translations/run1s_ru.ts
+QT += core network gui xml
 CONFIG += warn_on
 RESOURCES += run1s.qrc
-VERSION = 0.1
+VERSION = 0.0.1
