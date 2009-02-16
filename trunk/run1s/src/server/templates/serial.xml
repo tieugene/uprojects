@@ -1,0 +1,5 @@
+$def with (sn)
+<?xml version="1.0" encoding="UTF-8"?>
+<run1s ver="0.1">
+<serial val="$sn"/>
+</run1s>
