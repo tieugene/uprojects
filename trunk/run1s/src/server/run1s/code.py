@@ -1,16 +1,25 @@
 #!/bin/env python
-'''
-TODO: transactions, triggers
-'''
-import web, re, pprint
+# -*- coding: utf-8 -*-
+import sys, os, re
+abspath = os.path.dirname(__file__)
+sys.path.append(abspath)
+os.chdir(abspath)
+import web
 
 web.config.debug = False
-render = web.template.render('templates/', cache=False)	#"templates/"
-mydb = web.database(dbn='sqlite', db='run1s.db')
+render = web.template.render('templates/', cache=False)
 message = ""
 fullpathre = re.compile(r'^\\\\(\w+)\\(\w+)\\(.*)')
 userlist = []
 dblist = []
+root = ""
+if os.path.exists('run1s.db'):
+	mydb = web.database(dbn='sqlite', db='run1s.db')
+else:
+	mydb = web.database(dbn='sqlite', db='run1s.db')
+	f = open('run1s.sql')
+	for i in f:
+		mydb.query(i)
 
 # <db>/<action>/[<id>]
 # db := user, dbtype, org, db, acl
@@ -57,7 +66,6 @@ mydict = {
 class	index:
 	def	GET(self):
 		return render.index()
-		#web.render('index.html')
 
 class	menu:
 	def	GET(self):
@@ -67,32 +75,32 @@ class	acl:
 	def	GET(self):
 		global userlist, dblist
 		# 1. prepare top - users
-		userlist = []
-		userdict = {}	# id-to-userlist_no mapping
+		userlist = []	# users list: {No: (id, login, password), ...}
+		userdict = {}	# id-to-userlist_no mapping: {user.id: userlist.No, ...}
 		for i, user in enumerate(mydb.select('user')):
 			userlist.append((user.id, user.login, user.comments))
 			userdict[user.id] = i
 		# 2. prepare left = databases
-		dblist = []
-		dbdict = {}	# id-to-dblist_no mapping
-		dxu = []
+		dblist = []	# database list: {No: (id, path, type, org, comments), ...}
+		dbdict = {}	# id-to-dblist_no mapping: {db.id: dblist.No, ...}
+		dxu = []	# cross-table
 		for i, db in enumerate(mydb.select('dblist')):
 			dblist.append((db.id, db.path, db.dbtypename, db.orgname, db.comments))
 			dbdict[db.id] = i
 			dxu.append([False] * len(userlist))
 		# 3. and square marix
+		#mydb.delete('acl', where="1=1")
 		for aclitem in mydb.select('acl'):
 			if aclitem.visible:
-				#print dbdict[aclitem.dbid], userdict[aclitem.userid]
-				dxu[dbdict[aclitem.dbid]][userdict[aclitem.userid]] = True
-		return render.acl(userlist, dblist, dxu)
+				dxu[dbdict[aclitem.dbid]][userdict[aclitem.userid]] = True	# dxu[i][j] = True, where i = dblist.No, j = userlist.no
+		return render.acl(root, userlist, dblist, dxu)
 	def	POST(self):
 		global userlist, dblist
 		i = web.input()
 		mydb.delete('acl', where="1=1")
 		for k in i.keys():
 			i, j = k.split('.')
-			mydb.insert('acl', userid=userlist[int(j)][0], dbid=dblist[int(i)][0], visible=True)
+			mydb.insert('acl', dbid=int(i), userid=int(j), visible=True)
 		raise web.seeother("/acl")
 
 class	list:
@@ -117,8 +125,8 @@ class	list:
 			orgs = mydb.select('org')
 			subform = render.dbadd(dbtypes, orgs)
 		else:
-			print "Bad page"
-		return render.list(items, dbname, mydict[dbname], subform, msg)
+			print >> sys.stderr, "Bad page"
+		return render.list(root, items, dbname, mydict[dbname], subform, msg)
 class	add:
 	def	POST(self, dbname):
 		'''
@@ -143,7 +151,6 @@ class	add:
 			if (i.name == ""):
 				message = "Name can't be empty."
 			else:
-				#print 'SELECT COUNT (*) AS total FROM %s WHERE name="%s"' % (dbname, i.name)
 				count = mydb.query('SELECT COUNT (*) AS total FROM %s WHERE name="%s"' % (dbname, i.name))[0].total
 				if (count > 0):
 					message = "Same name already exists."
@@ -216,10 +223,10 @@ class	edit:
 			shares = mydb.select('sharelist')
 			dbtypes = mydb.select('dbtype')
 			orgs = mydb.select('org')
-			return render.dbedit(items, id, shares, dbtypes, orgs, message)
+			return render.dbedit(root, items, id, shares, dbtypes, orgs, message)
 		else:
-			print "Bad page"
-		return render.edit(items, id, dbname, mydict[dbname], subform, message)
+			print >> sys.stderr, "Bad page"
+		return render.edit(root, items, id, dbname, mydict[dbname], subform, message)
 	def	POST(self, dbname, id):
 		global message, mydict
 		id = int(id)
@@ -276,8 +283,8 @@ class	baselist:
 			web.header('Content-Type', 'text/xml')
 			return render.baselist(sn, b)
 
-application = web.application(urls, globals()).wsgifunc()
-
 if __name__ == "__main__":
 	web.application(urls, globals()).run()
-
+else:
+	root = "/run1s"
+	application = web.application(urls, globals()).wsgifunc()
