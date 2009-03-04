@@ -1,0 +1,24 @@
+$def with (root, items)
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<body>
+<center><h1>Programm</h1></center>
+<table border="1">
+	<tr> <th>Id</th> <th>Platform</th> <th>Vendor</th> <th>Name</th> <th>Version</th> <th>Distrib</th> <th> Size </th> <th>Comments</th> <th colspan="2"> Actions </th> </tr>
+$for item in items:
+	<tr>
+		<td> $(item.id) </td> <td> $(item.platform) </td> <td> $(item.vendor) </td> <td> $(item.name) </td> <td> $(item.distrib) </td> <td/> <td> $(item.ver) </td> <td/>
+		<td><form method="get" action="$root/programms/edit/$item.id"><input type="submit" value="Edit"/></form></td>
+		<td><form method="get" action="$root/programms/del/$item.id"><input type="submit" value="Del" onclick="return confirm('Are you sure you want to delete this item?')"></form></td>
+	</tr>
+<form method="post" enctype="multipart/form-data" action="">
+	<tr>
+		<td colspan="7"> <input type="file" name="myfile" /> </td>
+		<td colspan="2"> <input type="submit" /> </td>
+	</tr>
+</form>
+</table>
+</body>
+</html>
