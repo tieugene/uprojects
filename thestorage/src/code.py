@@ -5,50 +5,54 @@
 '''
 
 from __future__ import with_statement
-import sys, os, re
+import sys, os
 abspath = os.path.dirname(__file__)
 sys.path.append(abspath)
 os.chdir(abspath)
 import web
-import config
+import config, var, soft
 
 web.config.debug = False
-render = web.template.render('templates/', cache=False)
-root = ""
+var.render = web.template.render('templates/', cache=False)
+var.root = ""
 if os.path.exists(config.dbfn):
-	mydb = web.database(dbn='sqlite', db=config.dbfn)
+	var.mydb = web.database(dbn='sqlite', db=config.dbfn)
 else:
-	mydb = web.database(dbn='sqlite', db=config.dbfn)
+	var.mydb = web.database(dbn='sqlite', db=config.dbfn)
 	f = open('sqlite.sql')
 	for i in f:
-		mydb.query(i)
+		var.mydb.query(i)
 
 urls = (
 	'/', 'index',
 	'/menu', 'menu',
-	'/programm', 'programm'
+	'/soft/menu', 'soft.menu',
+	'/soft/main/(\w+)', 'soft.main',
+	'/soft/vendor/(\w+)', 'soft.vendor',
+	'/soft/distrib/(\w+)', 'soft.distrib',
+	'/soft/platform/(\w+)', 'soft.platform',
+	'/soft/settings', 'soft.settings',
+	'/audio', 'audio'
 )
 
 class	index:
 	def	GET(self):
-		return render.index()
+		return var.render.index()
 
 class	menu:
 	def	GET(self):
-		return render.menu()
+		return var.render.menu()
 
-class	programm:
+class	audio:
 	def	GET(self):
-		items = mydb.select('programm')
-		return render.programm(root, items)
-	def	POST(self):
-		x = web.input(myfile={})['myfile']
-		with open(config.filepath + "/" + x.filename, "wb") as f:
-			f.write(x.value)
-		raise web.seeother('/programm')
+		f = open(os.path.join(config.filepath, "qsvn.desktop"), "rb")
+		web.header("Content-type", "application/octet-stream")
+		web.header("Content-Disposition", "inline; filename=\"tratata.desktop\"")
+		return f.read()
+
 
 if __name__ == "__main__":
 	web.application(urls, globals()).run()
 else:
-	root = "/run1s"
+	var.root = "/thestorage"
 	application = web.application(urls, globals()).wsgifunc()
