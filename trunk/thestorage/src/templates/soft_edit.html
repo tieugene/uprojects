@@ -11,28 +11,28 @@ $def with (root, item, platform, vendor, distrib, message = None)
 	<tr> <td> Id </td>		<td> $item.id </td> </tr>
 	<tr> <td> Platform </td>	<td>
 		<select name="platform">
-			$ selected = "selected=\"selected\"" if (item.platform_id) else ""
-			<option label="label" value="0" $selected> === NONE ===
+			$ selected = "" if (item.platform_id) else "selected"
+			<option value="0" $selected> === NONE ===
 		$for i in platform:
-			$ selected = "selected=\"selected\"" if ((item.platform_id) and (item.platform_id == i.id)) else ""
-			<option label="$i.name" value="$i.id" $selected> $i.name ($i.comments)
+			$ selected = "selected" if ((item.platform_id) and (item.platform_id == i.id)) else ""
+			<option value="$i.id" $selected> $i.name ($i.comments)
 		</select>
 	</td> </tr>
 	<tr> <td> Vendor </td>	<td>
 		<select name="vendor">
-			$ selected = "selected=\"selected\"" if (item.vendor_id) else ""
-			<option label="label" value="0" $selected> === NONE ===
+			$ selected = "" if (item.vendor_id) else "selected"
+			<option value="0" $selected> === NONE ===
 		$for i in vendor:
-			$ selected = "selected=\"selected\"" if ((item.vendor_id) and (item.vendor_id == i.id)) else ""
-			<option label="$i.name" value="$i.id" $selected> $i.name ($i.comments)
+			$ selected = "selected" if ((item.vendor_id) and (item.vendor_id == i.id)) else ""
+			<option value="$i.id" $selected> $i.name ($i.comments)
 		</select>
 	<tr> <td> Distrib </td>	<td>
 		<select name="distrib">
-			$ selected = "selected=\"selected\"" if (item.distrib_id) else ""
-			<option label="label" value="0" $selected> === NONE ===
+			$ selected = "" if (item.distrib_id) else "selected"
+			<option value="0" $selected> === NONE ===
 		$for i in distrib:
-			$ selected = "selected=\"selected\"" if ((item.platform_id) and (item.platform_id == i.id)) else ""
-			<option label="$i.name" value="$i.id" $selected> $i.name ($i.comments)
+			$ selected = "selected" if ((item.distrib_id) and (item.distrib_id == i.id)) else ""
+			<option value="$i.id" $selected> $i.name ($i.comments)
 		</select>
 	<tr> <td> Name </td>		<td> <input type="text" id="name" name="name" value="$item.name" /> </td> </tr>
 	<tr> <td> Ver </td>		<td> <input type="text" id="name" name="ver" value="$item.ver" /> </td> </tr>

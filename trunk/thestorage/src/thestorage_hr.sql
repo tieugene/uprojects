@@ -73,7 +73,7 @@ FROM object INNER JOIN (
 					platform.name AS platform_name,
 					platform.comments AS platform_comments
 				FROM programm INNER JOIN platform ON programm.platform = platform.id
-			) AS soft_platform ON vendor.id = soft_platform.distrib_id
+			) AS soft_platform ON vendor.id = soft_platform.vendor_id
 		) AS soft_vendor ON distrib.id = soft_vendor.distrib_id
 	) AS soft_distrib ON file.id = soft_distrib.id
 ) AS soft_file ON object.id = soft_file.id
