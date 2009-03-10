@@ -66,10 +66,36 @@ class	main:
 			var.message = 'Unknown action'
 			raise web.seeother(self.mainlistname)
 	def	POST(self, view, id = None):
-		x = web.input(myfile={})['myfile']
-		with open(os.path.join(config.filepath, x.filename), "wb") as f:
-			f.write(x.value)
-			print hashlib.md5(x.value).hexdigest()
+		'''
+		list, None
+		edit, <id>
+		'''
+		if (view == 'list'):
+			x = web.input(myfile={})['myfile']
+			with open(os.path.join(config.filepath, x.filename), "wb") as f:
+				f.write(x.value)
+				print hashlib.md5(x.value).hexdigest()
+		elif (view == 'edit'):
+			i = web.input()
+			print i
+			t = var.mydb.transaction()
+			try:
+				var.mydb.update(self.dbname, where="id=%s" % id,
+					platform=int(i.platform),
+					vendor=int(i.vendor),
+					distrib=int(i.distrib),
+					name=i.name,
+					ver=i.ver)
+				var.mydb.update('file', where="id=%s" % id,
+					mimetype=i.mimetype,
+					origfn=i.origfn)
+				var.mydb.update('object', where="id=%s" % id,
+					comments=i.comments)
+			except:
+				t.rollback()
+				var.message = 'Error updating programm'
+			else:
+				t.commit()
 		raise web.seeother(self.mainlistname)
 
 class	ref:
