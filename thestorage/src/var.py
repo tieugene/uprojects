@@ -7,3 +7,4 @@ render = None
 root = None
 mydb = None
 urls = None
+message = None

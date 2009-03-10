@@ -1,0 +1,29 @@
+$def with (root, item)
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<body>
+<center><h1>Software</h1></center>
+<table border="1">
+	<tr> <th> Name </th>		<th> Value </th> </tr>
+	<tr> <td> Id </td>		<td> $item.id </td> </tr>
+	<tr> <td> Platform </td>	<td> $item.platform_name ($item.platform_comments) </td> </tr>
+	<tr> <td> Vendor </td>		<td> $item.vendor_name ($item.vendor_comments) </td> </tr>
+	<tr> <td> Distrib </td>		<td> $item.distrib_name ($item.distrib_comments) </td> </tr>
+	<tr> <td> Name </td>		<td> $item.name </td> </tr>
+	<tr> <td> Ver </td>		<td> $item.ver </td> </tr>
+	<tr> <td> Size </td>		<td> $item.file_size </td> </tr>
+	<tr> <td> Datetime </td>	<td> $item.datetime </td> </tr>
+	<tr> <td> MD5 </td>		<td> $item.md5 </td> </tr>
+	<tr> <td> Mime type </td>	<td> $item.mimetype </td> </tr>
+	<tr> <td> Orig. filename </td>	<td> $item.origfn </td> </tr>
+	<tr> <td> Comments </td>	<td> $item.comments </td> </tr>
+	<tr> <td> X-links </td>		<td>  </td> </tr>
+</table>
+<p>
+	<a href="$root/soft/main/edit/$item.id"> <img src="$root/static/32x32/document-edit.png"/> </a>
+	<a href="$root/soft/main/del/$item.id" onclick="return confirm('Are you sure you want to delete this item?')"> <img src="$root/static/32x32/list-remove.png"/> </a>
+</p>
+</body>
+</html>

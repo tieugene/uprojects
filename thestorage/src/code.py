@@ -27,10 +27,10 @@ urls = (
 	'/', 'index',
 	'/menu', 'menu',
 	'/soft/menu', 'soft.menu',
-	'/soft/main/(\w+)', 'soft.main',
-	'/soft/vendor/(\w+)', 'soft.vendor',
-	'/soft/distrib/(\w+)', 'soft.distrib',
-	'/soft/platform/(\w+)', 'soft.platform',
+	'/soft/main/(\w+)/(\d*)', 'soft.main',
+	'/soft/vendor/(\w+)/(\d*)', 'soft.vendor',
+	'/soft/distrib/(\w+)/(\d*)', 'soft.distrib',
+	'/soft/platform/(\w+)/(\d*)', 'soft.platform',
 	'/soft/settings', 'soft.settings',
 	'/audio', 'audio'
 )
