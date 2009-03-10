@@ -1,0 +1,50 @@
+$def with (root, item, platform, vendor, distrib, message = None)
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<body>
+<center><h1>Software.Edit</h1></center>
+<form method="post" enctype="multipart/form-data" action="">
+<table border="1">
+	<tr> <th> Name </th>		<th> Value </th> </tr>
+	<tr> <td> Id </td>		<td> $item.id </td> </tr>
+	<tr> <td> Platform </td>	<td>
+		<select name="platform">
+			$ selected = "selected=\"selected\"" if (item.platform_id) else ""
+			<option label="label" value="0" $selected> === NONE ===
+		$for i in platform:
+			$ selected = "selected=\"selected\"" if ((item.platform_id) and (item.platform_id == i.id)) else ""
+			<option label="$i.name" value="$i.id" $selected> $i.name ($i.comments)
+		</select>
+	</td> </tr>
+	<tr> <td> Vendor </td>	<td>
+		<select name="vendor">
+			$ selected = "selected=\"selected\"" if (item.vendor_id) else ""
+			<option label="label" value="0" $selected> === NONE ===
+		$for i in vendor:
+			$ selected = "selected=\"selected\"" if ((item.vendor_id) and (item.vendor_id == i.id)) else ""
+			<option label="$i.name" value="$i.id" $selected> $i.name ($i.comments)
+		</select>
+	<tr> <td> Distrib </td>	<td>
+		<select name="distrib">
+			$ selected = "selected=\"selected\"" if (item.distrib_id) else ""
+			<option label="label" value="0" $selected> === NONE ===
+		$for i in distrib:
+			$ selected = "selected=\"selected\"" if ((item.platform_id) and (item.platform_id == i.id)) else ""
+			<option label="$i.name" value="$i.id" $selected> $i.name ($i.comments)
+		</select>
+	<tr> <td> Name </td>		<td> <input type="text" id="name" name="name" value="$item.name" /> </td> </tr>
+	<tr> <td> Ver </td>		<td> <input type="text" id="name" name="ver" value="$item.ver" /> </td> </tr>
+	<tr> <td> Size </td>		<td> $item.file_size </td> </tr>
+	<tr> <td> Datetime </td>	<td> $item.datetime </td> </tr>
+	<tr> <td> MD5 </td>		<td> $item.md5 </td> </tr>
+	<tr> <td> Mime type </td>	<td> <input type="text" id="mimetype" name="mimetype" value="$item.mimetype" /> </td> </tr>
+	<tr> <td> Orig. filename </td>	<td> <input type="text" id="origfn" name="origfn" value="$item.origfn" /> </td> </tr>
+	<tr> <td> Comments </td>	<td> <input type="text" id="comments" name="comments" value="$item.comments" />  </td> </tr>
+	<tr> <td> X-links </td>		<td>  </td> </tr>
+</table>
+	<p> <input type="submit" value="OK" /> <input type="button" value="Cancel" onclick="javascript:window.location='/soft/main/list/'"/> </p>
+</form>
+</body>
+</html>
