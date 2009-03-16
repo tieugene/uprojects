@@ -16,8 +16,9 @@ SELECT
 	soft_file.md5 AS md5,
 	soft_file.mimetype AS mimetype,
 	soft_file.origfn AS origfn,
+	soft_file.ext AS ext,
 	object.comments AS comments
-FROM object INNER JOIN (
+FROM object LEFT JOIN (
 	SELECT
 		soft_distrib.id AS id,
 		soft_distrib.name AS name,
@@ -35,8 +36,9 @@ FROM object INNER JOIN (
 		file.datetime AS datetime,
 		file.md5 AS md5,
 		file.mimetype AS mimetype,
-		file.origfn AS origfn
-	FROM file INNER JOIN (
+		file.origfn AS origfn,
+		file.ext AS ext
+	FROM file LEFT JOIN (
 		SELECT
 			soft_vendor.id AS id,
 			soft_vendor.name AS name,
@@ -50,7 +52,7 @@ FROM object INNER JOIN (
 			distrib.id AS distrib_id,
 			distrib.name AS distrib_name,
 			distrib.comments AS distrib_comments
-		FROM distrib INNER JOIN (
+		FROM distrib LEFT JOIN (
 			SELECT
 				soft_platform.id AS id,
 				soft_platform.distrib_id AS distrib_id,
@@ -62,7 +64,7 @@ FROM object INNER JOIN (
 				vendor.id AS vendor_id,
 				vendor.name AS vendor_name,
 				vendor.comments AS vendor_comments
-			FROM vendor INNER JOIN (
+			FROM vendor LEFT JOIN (
 				SELECT
 					programm.id AS id,
 					programm.vendor AS vendor_id,
@@ -72,7 +74,7 @@ FROM object INNER JOIN (
 					platform.id AS platform_id,
 					platform.name AS platform_name,
 					platform.comments AS platform_comments
-				FROM programm INNER JOIN platform ON programm.platform = platform.id
+				FROM programm LEFT JOIN platform ON programm.platform = platform.id
 			) AS soft_platform ON vendor.id = soft_platform.vendor_id
 		) AS soft_vendor ON distrib.id = soft_vendor.distrib_id
 	) AS soft_distrib ON file.id = soft_distrib.id

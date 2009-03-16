@@ -3,3 +3,4 @@
 
 dbfn = 'thestorage.db'
 filepath = '/mnt/shares/tmp/thestorage'
+tmppath = '/mnt/shares/tmp/tmp'

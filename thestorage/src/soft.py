@@ -2,15 +2,47 @@
 '''
 Software
 from xdg import Mime
-Mime.get_type(<filename>)
+import mimetypes
+Mime.get_type(<filename>)	# > .media, .subtype
 a = Mime.lookup('application/vnd.ms-excel')
 a.get_comments()
+? Mime.exts
 '''
 
 from __future__ import with_statement
-import sys, os, re, hashlib
+from xdg import Mime
+import sys, os, re, hashlib, tempfile
 import web
-import var
+import var, config
+
+class	MimeHelper:
+	'''
+	Class to help process mimetypes.
+	MIMEtype: .media, .subtype, ._comments (need load)
+	'''
+	def	__init__(self):
+		self.type2ext = {}
+		self.loaded = False
+	def	gettype(self, f):
+		'''
+		@param f:file - file
+		@return Mime.MIMEtype
+		'''
+		return Mime.get_type(f)
+	def	getext(self, mime):
+		'''
+		@param mime:MIMEtype
+		@return list of exts
+		'''
+		if (not self.loaded):		# fill dict after first call of get_*
+			for e in Mime.exts.keys():	# e = extension:str
+				t = Mime.exts[e]	# t = MIMEtype
+				if not t in self.type2ext:
+					self.type2ext[t] = []
+				self.type2ext[t].append(e)
+		return self.type2ext[mime]
+
+mimehelper	= MimeHelper()
 
 def	CheckUniq(db, wh):
 		count = False
@@ -57,6 +89,7 @@ class	main:
 			item = var.mydb.select('softview', where='id=%s' % id)[0]
 			return self.viewform(var.root, item)
 		elif (view == 'edit'):
+			print id
 			item = var.mydb.select('softview', where='id=%s' % id)[0]
 			platform = var.mydb.select('platform')
 			vendor = var.mydb.select('vendor')
@@ -67,14 +100,55 @@ class	main:
 			raise web.seeother(self.mainlistname)
 	def	POST(self, view, id = None):
 		'''
-		list, None
-		edit, <id>
+		list, None: adding
+		edit, <id>: editing
+		To add:
+			1. get file
+			2. get tmp ext (or none => unknown file type?)
+			3. try write tmp file
 		'''
 		if (view == 'list'):
+			# 1. get file, get hash
 			x = web.input(myfile={})['myfile']
-			with open(os.path.join(config.filepath, x.filename), "wb") as f:
+			newmd5 = hashlib.md5(x.value).hexdigest()
+			# 3. write temporary as is
+			#f = tmpfile.NamedTemporaryFile(mode="wb", suffix=tmpext[0], dir=config.filepath, delete=False)
+			tmpfn = os.path.join(config.tmppath, x.filename)
+			with open(tmpfn, "wb") as f:
 				f.write(x.value)
-				print hashlib.md5(x.value).hexdigest()
+			# 4. get mime, extension, hash
+			newmimetype = Mime.get_type(tmpfn)
+			tmpext = mimehelper.getext(newmimetype)
+			newext = tmpext[0] if tmpext else ""
+			# 5. try add record to object => id
+			t = var.mydb.transaction()
+			try:
+				newid = var.mydb.insert('object')
+				# 6. mk filename ("%08X" % id)
+				newfn = "%08X" % newid
+				var.mydb.insert('file',
+					id = newid,
+					size = os.path.getsize(tmpfn),
+					md5 = newmd5,
+					mimetype = "%s/%s" % (newmimetype.media, newmimetype.subtype),
+					origfn = x.filename,
+					ext = newext)
+				var.mydb.insert(self.dbname,
+					id = newid)
+			except:
+				t.rollback()
+				var.message = 'Error inserting programm'
+				success = True
+			else:
+				t.commit()
+				success = False
+			# 7. try rename file
+			if (success):
+				os.rename(tmpfn, os.path.join(config.filepath, newfn + "." + newext))
+			else:
+				os.remove(tmpfn)
+			# 9. goto edit
+			#raise web.seeother(self.mainlistname)
 		elif (view == 'edit'):
 			i = web.input()
 			print i
