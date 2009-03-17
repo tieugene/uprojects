@@ -11,36 +11,37 @@ $def with (root, item, platform, vendor, distrib, message = None)
 	<tr> <td> Id </td>		<td> $item.id </td> </tr>
 	<tr> <td> Platform </td>	<td>
 		<select name="platform">
-			$ selected = "" if (item.platform_id) else "selected"
+			$ selected = "" if (item.platform) else "selected"
 			<option value="0" $selected> === NONE ===
 		$for i in platform:
-			$ selected = "selected" if ((item.platform_id) and (item.platform_id == i.id)) else ""
+			$ selected = "selected" if ((item.platform) and (item.platform == i.id)) else ""
 			<option value="$i.id" $selected> $i.name ($i.comments)
 		</select>
 	</td> </tr>
 	<tr> <td> Vendor </td>	<td>
 		<select name="vendor">
-			$ selected = "" if (item.vendor_id) else "selected"
+			$ selected = "" if (item.vendor) else "selected"
 			<option value="0" $selected> === NONE ===
 		$for i in vendor:
-			$ selected = "selected" if ((item.vendor_id) and (item.vendor_id == i.id)) else ""
+			$ selected = "selected" if ((item.vendor) and (item.vendor == i.id)) else ""
 			<option value="$i.id" $selected> $i.name ($i.comments)
 		</select>
 	<tr> <td> Distrib </td>	<td>
 		<select name="distrib">
-			$ selected = "" if (item.distrib_id) else "selected"
+			$ selected = "" if (item.distrib) else "selected"
 			<option value="0" $selected> === NONE ===
 		$for i in distrib:
-			$ selected = "selected" if ((item.distrib_id) and (item.distrib_id == i.id)) else ""
+			$ selected = "selected" if ((item.distrib) and (item.distrib == i.id)) else ""
 			<option value="$i.id" $selected> $i.name ($i.comments)
 		</select>
 	<tr> <td> Name </td>		<td> <input type="text" id="name" name="name" value="$item.name" /> </td> </tr>
 	<tr> <td> Ver </td>		<td> <input type="text" id="name" name="ver" value="$item.ver" /> </td> </tr>
-	<tr> <td> Size </td>		<td> $item.file_size </td> </tr>
+	<tr> <td> Size </td>		<td> $item.size </td> </tr>
 	<tr> <td> Datetime </td>	<td> $item.datetime </td> </tr>
 	<tr> <td> MD5 </td>		<td> $item.md5 </td> </tr>
 	<tr> <td> Mime type </td>	<td> <input type="text" id="mimetype" name="mimetype" value="$item.mimetype" /> </td> </tr>
 	<tr> <td> Orig. filename </td>	<td> <input type="text" id="origfn" name="origfn" value="$item.origfn" /> </td> </tr>
+	<tr> <td> Extension </td>	<td> $item.ext </td> </tr>
 	<tr> <td> Comments </td>	<td> <input type="text" id="comments" name="comments" value="$item.comments" />  </td> </tr>
 	<tr> <td> X-links </td>		<td>  </td> </tr>
 </table>
