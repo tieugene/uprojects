@@ -75,21 +75,26 @@ class	main:
 			items = var.mydb.select('softview')
 			return self.listform(var.root, items)
 		elif (view == 'del'):
+			ext = var.mydb.select('file', where='id=%s' % id)[0].ext
 			t = var.mydb.transaction()
 			try:
-				n = var.mydb.delete(self.dbname, where='id=%s' % id)
+				n = var.mydb.delete('object', where='id=%s' % id)
 			except:
 				t.rollback()
 				var.message = 'Error deleting programm'
+				success = False
 			else:
 				t.commit()
 				var.message = '%d programm deleted ok' % n
+				success = True
+			if (success):
+				filename = os.path.join(config.filepath, "%08X.%s" % (int(id), ext))
+				os.remove(filename)
 			raise web.seeother(self.mainlistname)
 		elif (view == 'view'):
 			item = var.mydb.select('softview', where='id=%s' % id)[0]
 			return self.viewform(var.root, item)
 		elif (view == 'edit'):
-			print id
 			item = var.mydb.select('softview', where='id=%s' % id)[0]
 			platform = var.mydb.select('platform')
 			vendor = var.mydb.select('vendor')
@@ -107,6 +112,7 @@ class	main:
 			2. get tmp ext (or none => unknown file type?)
 			3. try write tmp file
 		'''
+		raiseform = self.mainlistname
 		if (view == 'list'):
 			# 1. get file, get hash
 			x = web.input(myfile={})['myfile']
@@ -135,23 +141,17 @@ class	main:
 					ext = newext)
 				var.mydb.insert(self.dbname,
 					id = newid)
+				# 7. try rename file
+				os.rename(tmpfn, os.path.join(config.filepath, newfn + "." + newext))
 			except:
 				t.rollback()
+				os.remove(tmpfn)
 				var.message = 'Error inserting programm'
-				success = True
 			else:
 				t.commit()
-				success = False
-			# 7. try rename file
-			if (success):
-				os.rename(tmpfn, os.path.join(config.filepath, newfn + "." + newext))
-			else:
-				os.remove(tmpfn)
-			# 9. goto edit
-			#raise web.seeother(self.mainlistname)
+				raiseform = "/soft/main/edit/%d" % newid
 		elif (view == 'edit'):
 			i = web.input()
-			print i
 			t = var.mydb.transaction()
 			try:
 				var.mydb.update(self.dbname, where="id=%s" % id,
@@ -170,7 +170,7 @@ class	main:
 				var.message = 'Error updating programm'
 			else:
 				t.commit()
-		raise web.seeother(self.mainlistname)
+		raise web.seeother(raiseform)
 
 class	ref:
 	'''
