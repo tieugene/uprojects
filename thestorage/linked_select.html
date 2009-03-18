@@ -1,0 +1,65 @@
+<html>
+  <head>
+  <title>Связанные селекты</title>
+  
+  <!-- Подключаем javascript-библиотеку функций -->
+  <script type="text/javascript" src="linkedselect.js"></script>
+</head>
+
+<body>
+
+<!-- Первый (главный) список (изначально заполнен вручную) -->
+  <select size="4" id="List1">
+    <option value="ie"> Internet Explorer </option>
+    <option value="safari"> Safari </option>
+  </select>
+  
+<!-- Подчиненный список 1 (изначально пуст) -->
+  <select size="4" id="List2"></select>
+  
+<!-- Подчиненный список 2 (изначально пуст) -->
+  <select size="4" id="List3"></select>
+  
+<script type="text/javascript">
+// Создаем новый объект связанных списков
+var syncList1 = new syncList;
+
+// Определяем значения подчиненных списков (2 и 3 селектов)
+syncList1.dataList = {
+
+/* Определяем элементы второго списка в зависимости 
+от выбранного значения в первом списке */
+
+  'ie':{
+      'ie_win':'Windows',
+      'ie_mac':'Mac'
+  },
+  
+  'safari':{
+      'safari_mac':'Mac'
+  },
+
+/* Определяем элементы третьего списка в зависимости 
+от выбранного значения во втором списке */
+
+  'ie_win':{
+      'ie_win_5':'версия 5',
+      'ie_win_6':'версия 6'
+  },
+  
+  'ie_mac':{
+      'ie_mac_5':'версия 5'
+  },
+  
+  'safari_mac':{
+      'safari_mac_1':'версия 1',
+      'safari_mac_2':'версия 2'
+  }
+};
+
+// Включаем синхронизацию связанных списков
+syncList1.sync("List1","List2","List3");
+</script>
+
+</body>
+</html>
