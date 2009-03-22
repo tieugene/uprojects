@@ -1,4 +1,4 @@
-$def with (root, item, platform, vendor, distrib, message = None)
+$def with (root, item, db, dt, message = None)
 <!doctype html public "-//w3c//dtd html 4.0 transitional//en">
 <html>
 <head>
@@ -7,13 +7,14 @@ $def with (root, item, platform, vendor, distrib, message = None)
 <center><h1>Software.Edit</h1></center>
 <form method="post" enctype="multipart/form-data" action="">
 <table border="1">
-	<tr> <th> Name </th>		<th> Value </th> </tr>
+	<thead>	<tr> <th> Name </th>		<th> Value </th> </tr> </thead>
+	<tbody>
 	<tr> <td> Id </td>		<td> $item.id </td> </tr>
 	<tr> <td> Platform </td>	<td>
 		<select name="platform">
 			$ selected = "" if (item.platform) else "selected"
 			<option value="0" $selected> === NONE ===
-		$for i in platform:
+		$for i in db.select('platform'):
 			$ selected = "selected" if ((item.platform) and (item.platform == i.id)) else ""
 			<option value="$i.id" $selected> $i.name ($i.comments)
 		</select>
@@ -22,7 +23,7 @@ $def with (root, item, platform, vendor, distrib, message = None)
 		<select name="vendor">
 			$ selected = "" if (item.vendor) else "selected"
 			<option value="0" $selected> === NONE ===
-		$for i in vendor:
+		$for i in db.select('vendor'):
 			$ selected = "selected" if ((item.vendor) and (item.vendor == i.id)) else ""
 			<option value="$i.id" $selected> $i.name ($i.comments)
 		</select>
@@ -30,20 +31,65 @@ $def with (root, item, platform, vendor, distrib, message = None)
 		<select name="distrib">
 			$ selected = "" if (item.distrib) else "selected"
 			<option value="0" $selected> === NONE ===
-		$for i in distrib:
+		$for i in db.select('distrib'):
 			$ selected = "selected" if ((item.distrib) and (item.distrib == i.id)) else ""
 			<option value="$i.id" $selected> $i.name ($i.comments)
 		</select>
 	<tr> <td> Name </td>		<td> <input type="text" id="name" name="name" value="$item.name" /> </td> </tr>
 	<tr> <td> Ver </td>		<td> <input type="text" id="name" name="ver" value="$item.ver" /> </td> </tr>
 	<tr> <td> Size </td>		<td> $item.size </td> </tr>
-	<tr> <td> Datetime </td>	<td> $item.datetime </td> </tr>
+	<tr> <td> Datetime </td>	<td>
+		<select name="year">
+			$ selected = "selected" if (dt[0] == None) else ""
+			<option value="-1" $selected> x
+		$for i in xrange(1970, 2010):
+			$ selected = "selected" if ((dt[0] != None) and (i == dt[0])) else ""
+			<option value=$("%04d" % i) $selected> $("%04d" % i)
+		<select name="month">
+			$ selected = "selected" if (dt[1] == None) else ""
+			<option value="-1"> x
+		$for i in xrange(01, 13):
+			$ selected = "selected" if ((dt[1] != None) and (i == dt[1])) else ""
+			<option value=$("%02d" % i) $selected> $("%02d" % i)
+		<select name="day">
+			$ selected = "selected" if (dt[2] == None) else ""
+			<option value="-1"> x
+		$for i in xrange(01, 32):
+			$ selected = "selected" if ((dt[2] != None) and (i == dt[2])) else ""
+			<option value=$("%02d" % i) $selected> $("%02d" % i)
+		<select name="hour">
+			$ selected = "selected" if (dt[3] == None) else ""
+			<option value="-1"> x
+		$for i in xrange(00, 24):
+			$ selected = "selected" if ((dt[3] != None) and (i == dt[3])) else ""
+			<option value=$("%02d" % i) $selected> $("%02d" % i)
+		<select name="minute">
+			$ selected = "selected" if (dt[4] == None) else ""
+			<option value="-1"> x
+		$for i in xrange(00, 60):
+			$ selected = "selected" if ((dt[4] != None) and (i == dt[4])) else ""
+			<option value=$("%02d" % i) $selected> $("%02d" % i)
+		<select name="second">
+			$ selected = "selected" if (dt[5] == None) else ""
+			<option value="-1"> x
+		$for i in xrange(00, 60):
+			$ selected = "selected" if ((dt[5] != None) and (i == dt[5])) else ""
+			<option value=$("%02d" % i) $selected> $("%02d" % i)
+	</td> </tr>
 	<tr> <td> MD5 </td>		<td> $item.md5 </td> </tr>
-	<tr> <td> Mime type </td>	<td> <input type="text" id="mimetype" name="mimetype" value="$item.mimetype" /> </td> </tr>
+	<tr> <td> Mime type </td>	<td>
+		<select name="mime">
+		$for i in db.select('mimemedia', order='name'):
+			<option value="$i.id" disabled> $i.name:
+			$for j in db.select('mimesubtype', where="mediaid=%s" % i.id, order='name'):
+				$ selected = "selected" if ((item.mime) and (item.mime == j.id)) else ""
+				<option value="$j.id" $selected> $i.name/$j.name ($j.comments)
+		</select>
+	</td> </tr>
 	<tr> <td> Orig. filename </td>	<td> <input type="text" id="origfn" name="origfn" value="$item.origfn" /> </td> </tr>
-	<tr> <td> Extension </td>	<td> $item.ext </td> </tr>
 	<tr> <td> Comments </td>	<td> <input type="text" id="comments" name="comments" value="$item.comments" />  </td> </tr>
 	<tr> <td> X-links </td>		<td>  </td> </tr>
+	<tbody>
 </table>
 	<p> <input type="submit" value="OK" /> <input type="button" value="Cancel" onclick="javascript:window.location='/soft/main/list/'"/> </p>
 </form>
