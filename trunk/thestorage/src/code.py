@@ -10,7 +10,7 @@ abspath = os.path.dirname(__file__)
 sys.path.append(abspath)
 os.chdir(abspath)
 import web
-import config, var, soft
+import config, var, common, soft
 
 web.config.debug = False
 var.render = web.template.render('templates/', cache=False)
@@ -25,8 +25,7 @@ else:
 
 urls = (
 	'/', 'index',
-	'/menu', 'menu',
-	'/soft/menu', 'soft.menu',
+	'/soft', 'soft.main',
 	'/soft/main/(\w+)/(\d*)', 'soft.main',
 	'/soft/vendor/(\w+)/(\d*)', 'soft.vendor',
 	'/soft/distrib/(\w+)/(\d*)', 'soft.distrib',
@@ -39,17 +38,12 @@ class	index:
 	def	GET(self):
 		return var.render.index()
 
-class	menu:
-	def	GET(self):
-		return var.render.menu()
-
 class	audio:
 	def	GET(self):
 		f = open(os.path.join(config.filepath, "qsvn.desktop"), "rb")
 		web.header("Content-type", "application/octet-stream")
 		web.header("Content-Disposition", "inline; filename=\"tratata.desktop\"")
 		return f.read()
-
 
 if __name__ == "__main__":
 	web.application(urls, globals()).run()

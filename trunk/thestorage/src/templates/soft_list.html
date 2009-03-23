@@ -4,7 +4,15 @@ $def with (root, items)
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <body>
-<center><h1>Software</h1></center>
+<center> <h1> <a href="$root/"> TheStorage </a> > Software </a> </h1> </center>
+<table width="100%" border="1">
+	<tr>
+		<td><a href="$root/soft/vendor/list/">Vendor</a></td>
+		<td><a href="$root/soft/distrib/list/">Distrib</a></td>
+		<td><a href="$root/soft/platform/list/">Platform</a></td>
+		<td><a href="$root/soft/settings">Settings</a></td>
+	</tr>
+</table>
 <table border="1">
 	<tr> <th>Id</th> <th>Platform</th> <th>Vendor</th> <th>Name</th> <th>Version</th> <th> Size </th> <th>Comments</th> <th> Actions </th> </tr>
 $for item in items:
