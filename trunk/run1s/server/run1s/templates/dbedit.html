@@ -1,57 +1,55 @@
-$def with (root, items, id, shares, dbtypes, orgs, message = "")
+$def with (root, db, item, menu)
 <!doctype html public "-//w3c//dtd html 4.0 transitional//en">
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
 <body>
+$:menu
 <center>
-<h1>Databases:</h1>
+<h1>Edit database:</h1>
 </center>
-<table border="1">
-	<tr> <th> ID </th> <th> Host </th> <th> Share </th> <th> Path </th> <th> Type </th> <th> Organization </th> <th> Comments </th> <th> Actions </th> </tr>
-$for item in items:
-	<tr>
-	$if (item.id <> id):
-		<td> $item.id </td>
-		<td> $item.hostname </td>
-		<td> $item.sharename </td>
-		<td> $item.path </td>
-		<td> $item.dbtypename </td>
-		<td> $item.orgname </td>
-		<td> $item.comments </td>
-		<td colspan="2"> &nbsp; </td>
-	$else:
-		<form method="post" action="$root/db/edit/$item.id">
-		<td> $item.id </td>
-		<td colspan="2"> <select size="1" name="shareid">
-		$for i in shares:
-			<option value="$i.id"
-			$if (i.id == item.shareid):
-				selected
-			>$i.hostname \ $i.name</option>
-		</select> </td>
-		<td> <input type="text" name="path" value="$item.path"/> </td>
-		<td> <select size="1" name="dbtypeid">
-		$for i in dbtypes:
-			<option value="$i.id"
-			$if (i.id == item.dbtypeid):
-				selected
-			>$i.name</option>
-		</select> </td>
+<form method="post">
+<table>
+<thead><tr><th>Field</th><th>Value</th></tr>
+<tbody>
+	<tr> <td> Id: </td> <td> $item.id </td> </tr>
+	<tr> <td> <label for="orid"> Organization: </label> </td> 
 		<td> <select size="1" name="orgid">
-		$for i in orgs:
+		$for i in db.select('org'):
 			<option value="$i.id"
 			$if (i.id == item.orgid):
 				selected
 			>$i.name</option>
 		</select> </td>
-		<td> <input type="text" name="comments" value="$item.comments"/> </td>
-		<td> <input type="submit" value="Apply" /> </td>
-		</form>
-		<td><form method="get" action="$root/db/list/"> <input type="submit" value="Cancel"/></form></td>
 	</tr>
+	<tr> <td> <label for="dbtypeid"> Database type: </label> </td> 
+		<td> <select size="1" name="dbtypeid">
+		$for i in db.select('dbtype'):
+			<option value="$i.id"
+			$if (i.id == item.dbtypeid):
+				selected
+			>$i.name</option>
+		</select> </td>
+	</tr>
+	<tr>
+	<tr> <td> <label for="shareid"> Host/Share: </label> </td> 
+		<td> <select size="1" name="shareid">
+		$for i in db.select('sharelist'):
+			<option value="$i.id"
+			$if (i.id == item.shareid):
+				selected
+			>$i.hostname \ $i.name</option>
+		</select> </td>
+	</tr>
+	<tr> <td> <label for="path"> Path: </label> </td> 
+		<td> <input type="text" name="path" value="$item.path"/> </td>
+	</tr>
+	<tr> <td> <label for="comments"> Comments: </label> </td> 
+		<td> <input type="text" name="comments" value="$item.comments"/> </td>
+</tbody>
 </table>
-$if message:
-	<p>$message</p>
+<p> <input type="submit" value="OK" /> <input type="button" value="Cancel" onclick="javascript:window.location='$root/db/list/'"/> </p>
+<form>
 </body>
 </html>

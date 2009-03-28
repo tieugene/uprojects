@@ -1,3 +1,24 @@
-$def with (item)
-		<td> <input type="text" name="name" value="$item.name"/> </td>
-		<td> <input type="text" name="comments" value="$item.comments"/> </td>
+$def with (root, dbname, dbtitle, item, menu)
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+$:menu
+<center>
+<h1>Edit $dbtitle</h1>
+</center>
+<form method="post">
+<table>
+<thead><tr><th>Field</th><th>Value</th></tr>
+<tbody>
+	<tr> <td> Id: </td> <td> $item.id </td> </tr>
+	<tr> <td> <label for="name"> Name: </label> </td> <td> <input type="text" name="name" value="$item.name"/> </td> </tr>
+	<tr> <td> <label for="comments"> Comments: </label> </td> <td> <input type="text" name="comments" value="$item.comments"/> </td> </tr>
+</tbody>
+</table>
+<p> <input type="submit" value="OK" /> <input type="button" value="Cancel" onclick="javascript:window.location='$root/$dbname/list/'"/> </p>
+<form>
+</body>
+</html>

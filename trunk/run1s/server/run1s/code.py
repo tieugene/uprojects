@@ -1,5 +1,6 @@
 #!/bin/env python
 # -*- coding: utf-8 -*-
+
 import sys, os, re
 abspath = os.path.dirname(__file__)
 sys.path.append(abspath)
@@ -13,6 +14,7 @@ fullpathre = re.compile(r'^\\\\(\w+)\\(\w+)\\(.*)')
 userlist = []
 dblist = []
 root = ""
+mainmenu = render.menu(root)
 if os.path.exists('run1s.db'):
 	mydb = web.database(dbn='sqlite', db='run1s.db')
 else:
@@ -25,15 +27,14 @@ else:
 # db := user, dbtype, org, db, acl
 # action := list, add, del, edit, apply
 urls = (
-	'/', 'index',
-	'/menu', 'menu',
-	'/acl', 'acl',
 	'/serial', 'serial',
 	'/baselist&login=(\w+)&password=(.*)', 'baselist',
+	'/', 'index',
 	'/(\w+)/list/', 'list',
 	'/(\w+)/add/', 'add',
 	'/(\w+)/del/(\d+)', 'delete',
-	'/(\w+)/edit/(\d+)', 'edit'
+	'/(\w+)/edit/(\d+)', 'edit',
+	'/(\w+)/acl/(\d+)', 'acl'
 )
 
 mydict = {
@@ -58,50 +59,49 @@ mydict = {
 	'db' : {
 		"title": "Databases:",
 		"entry": "Database",
-		"th": ["Id", "Host", "Share", "Path", "Type", "Organization", "Comments"],
-		"td": ["id", "hostname", "sharename", "path", "dbtypename", "orgname", "comments"]
+		"th": ["Id", "Organization", "Type", "Comments", "Host", "Share", "Path"],
+		"td": ["id", "orgname", "dbtypename", "comments", "hostname", "sharename", "path"]
 	}
 }
 
+def	countexists(t, w):
+	'''
+	Search for value in table
+	@param
+	@return bool
+	'''
+	return (mydb.query('SELECT COUNT (*) AS total FROM %s WHERE %s' % (t, w))[0].total)
+
+def	exists(t, w):
+	'''
+	Search for value in table
+	@param
+	@return bool
+	'''
+	return (countexists(t, w) > 0)
+
+class	serial:
+	def	GET(self):
+		return render.baselist(mydb.select('var', where="name='serial'")[0].value)
+
+class	baselist:
+	def	GET(self, login, password):
+		sn = mydb.select('var', where="name='serial'")[0].value
+		if (exists("user", "login=\"%s\"" % login)):
+			retvalue = render.baselist(sn, error = "user not found")
+		else:
+			a = mydb.select('user', where="login='%s'" % login)[0]
+			if (a.password != password):
+				retvalue = render.baselist(sn, error = "wrong password")
+			else:
+				b = mydb.select('baselist', where="userid='%s'" % a.id)
+				web.header('Content-Type', 'text/xml')
+				retvalue = render.baselist(sn, b)
+		return retvalue
+
 class	index:
 	def	GET(self):
-		return render.index()
-
-class	menu:
-	def	GET(self):
-		return render.menu()
-
-class	acl:
-	def	GET(self):
-		global userlist, dblist
-		# 1. prepare top - users
-		userlist = []	# users list: {No: (id, login, password), ...}
-		userdict = {}	# id-to-userlist_no mapping: {user.id: userlist.No, ...}
-		for i, user in enumerate(mydb.select('user')):
-			userlist.append((user.id, user.login, user.comments))
-			userdict[user.id] = i
-		# 2. prepare left = databases
-		dblist = []	# database list: {No: (id, path, type, org, comments), ...}
-		dbdict = {}	# id-to-dblist_no mapping: {db.id: dblist.No, ...}
-		dxu = []	# cross-table
-		for i, db in enumerate(mydb.select('dblist')):
-			dblist.append((db.id, db.path, db.dbtypename, db.orgname, db.comments))
-			dbdict[db.id] = i
-			dxu.append([False] * len(userlist))
-		# 3. and square marix
-		#mydb.delete('acl', where="1=1")
-		for aclitem in mydb.select('acl'):
-			if aclitem.visible:
-				dxu[dbdict[aclitem.dbid]][userdict[aclitem.userid]] = True	# dxu[i][j] = True, where i = dblist.No, j = userlist.no
-		return render.acl(root, userlist, dblist, dxu)
-	def	POST(self):
-		global userlist, dblist
-		i = web.input()
-		mydb.delete('acl', where="1=1")
-		for k in i.keys():
-			i, j = k.split('.')
-			mydb.insert('acl', dbid=int(i), userid=int(j), visible=True)
-		raise web.seeother("/acl")
+		return render.index(mainmenu)
 
 class	list:
 	'''
@@ -114,19 +114,22 @@ class	list:
 			message = ""
 		else:
 			msg = ""
-		items = mydb.select(dbname)
 		if (dbname == 'user'):
+			items = mydb.select(dbname, order="login")
 			subform = render.useradd()
+			acl = True
 		elif (dbname in ("dbtype", "org")):
+			items = mydb.select(dbname, order="name")
 			subform = render.otheradd()
+			acl = False
 		elif (dbname == 'db'):	# db
-			items = mydb.select('dblist')
-			dbtypes = mydb.select('dbtype')
-			orgs = mydb.select('org')
-			subform = render.dbadd(dbtypes, orgs)
+			items = mydb.select('dblist', order="orgname, dbtypename, path")
+			subform = render.dbadd(mydb)
+			acl = True
 		else:
 			print >> sys.stderr, "Bad page"
-		return render.list(root, items, dbname, mydict[dbname], subform, msg)
+		return render.list(root, items, dbname, mydict[dbname], subform, mainmenu, acl, msg)
+
 class	add:
 	def	POST(self, dbname):
 		'''
@@ -140,51 +143,66 @@ class	add:
 			if (i.login == ""):
 				message = "Login can't be empty."
 			else:
-				count = mydb.query('SELECT COUNT (*) AS total FROM user WHERE login="%s"' % (i.login))[0].total
-				if (count > 0):
+				if (exists("user", "login=\"%s\"" % i.login)):
 					message = "Same login already exists."
 				else:
-					n = mydb.insert(dbname, login=i.login, password=i.password, comments=i.comments)
-					message = "%s %d added ok" % (mydict[dbname]["entry"], n)
+					t = mydb.transaction()
+					try:
+						mydb.insert(dbname, login=i.login, password=i.password, comments=i.comments)
+					except:
+						t.rollback()
+						message = 'Error adding. Call sysadmin'
+					else:
+						t.commit()
 		elif (dbname in ("dbtype", "org")):
 			i.name = i.name.strip()
 			if (i.name == ""):
 				message = "Name can't be empty."
 			else:
-				count = mydb.query('SELECT COUNT (*) AS total FROM %s WHERE name="%s"' % (dbname, i.name))[0].total
-				if (count > 0):
+				if (exists(dbname, "name=\"%s\"" % i.name)):
 					message = "Same name already exists."
 				else:
-					n = mydb.insert(dbname, name=i.name, comments=i.comments)
-					message = "%s %d added ok" % (mydict[dbname]["entry"], n)
+					t = mydb.transaction()
+					try:
+						mydb.insert(dbname, name=i.name, comments=i.comments)
+					except:
+						t.rollback()
+						message = 'Error adding. Call sysadmin'
+					else:
+						t.commit()
 		else:	# db
 			if not fullpathre.match(i.fullpath):
 				message = "Path must be in form: \\\\<host>\\<share>\\<path>"
 			else:
 				host, share, path = fullpathre.split(i.fullpath.lower())[1:4]
 				# cascade insert.
-				# 1. Host
-				count = mydb.query('SELECT COUNT (*) AS total FROM host WHERE name="%s"' % host)[0].total
-				if (count == 0):
-					hostid = mydb.insert('host', name=host)
-					message = 'Host "%s" added ok.' % host
+				t = mydb.transaction()
+				try:
+					# 1. Host
+					count = exists("host", "name=\"%s\"" % host)
+					if (not count):
+						hostid = mydb.insert("host", name=host)
+					else:
+						hostid = int(mydb.select('host', where='name="%s"' % host)[0].id)
+						count = exists("share", "hostid=\"%d\" AND name=\"%s\"" % (hostid, share))
+					# 2. Share
+					if (not count):
+						shareid = mydb.insert('share', name=share, hostid=hostid)
+					else:
+						shareid = int(mydb.select('share', where='hostid="%d" AND name="%s"' % (hostid, share))[0].id)
+						count = exists("db", "shareid=\"%d\" AND path=\"%s\"" % (shareid, path))
+					# 3. DB
+					if (not count):
+						id = mydb.insert('db', path=path, shareid=shareid, dbtypeid=int(i.dbtype), orgid=int(i.org), comments=i.comments)
+					else:
+						message = "Database already exists"
+				except:
+					t.rollback()
+					message = 'Error db. Call sysadmin'
 				else:
-					hostid = int(mydb.select('host', where='name="%s"' % host)[0].id)
-					count = mydb.query('SELECT COUNT (*) AS total FROM share WHERE hostid="%d" AND name="%s"' % (hostid, share))[0].total
-				# 2. Share
-				if (count == 0):
-					shareid = mydb.insert('share', name=share, hostid=hostid)
-					message += '\nShare "%s" added ok.' % share
-				else:
-					shareid = int(mydb.select('share', where='hostid="%d" AND name="%s"' % (hostid, share))[0].id)
-					count = mydb.query('SELECT COUNT (*) AS total FROM db WHERE shareid="%d" AND path="%s"' % (shareid, path))[0].total
-				# 3. DB
-				if (count == 0):
-					id = mydb.insert('db', path=path, shareid=shareid, dbtypeid=int(i.dbtype), orgid=int(i.org), comments=i.comments)
-					message += '\nDatabase "%d" added ok.' % id
-				else:
-					message = "Database already exists"
+					t.commit()
 		raise web.seeother("/%s/list/" % dbname)
+
 class	delete:
 	def	GET(self, dbname, id):
 		global message, fullpathre
@@ -192,41 +210,48 @@ class	delete:
 			id = int(id)
 			item = mydb.select(dbname, where="id=%d" % id)[0]
 			shareid = int(item.shareid)
-			count = mydb.query('SELECT COUNT (*) AS total FROM db WHERE shareid=%d' % shareid)[0].total
-			n = mydb.delete(dbname, where="id=%d" % id)	# option
-			message = "%d database deleted ok." % n
-			if (count == 1):	# check on orphan share
-				item = mydb.select('share', where="id=%d" % shareid)[0]
-				hostid = int(item.hostid)
-				count = mydb.query('SELECT COUNT (*) AS total FROM share WHERE hostid=%d' % hostid)[0].total
-				n = mydb.delete('share', where="id=%d" % shareid)	# option
-				message += "\n%d share deleted ok." % n
-				if (count == 1):	# check on orphan server
-					n = mydb.delete('host', where="id=%d" % hostid)
-					message += "\n%d host deleted ok." % n
+			count = countexists("db", "shareid=%d" % shareid)
+			t = mydb.transaction()
+			try:
+				mydb.delete(dbname, where="id=%d" % id)	# option
+				if (count == 1):	# check on orphan share
+					item = mydb.select('share', where="id=%d" % shareid)[0]
+					hostid = int(item.hostid)
+					count = countexists("share", "hostid=%d" % hostid)
+					mydb.delete('share', where="id=%d" % shareid)	# option
+					if (count == 1):	# check on orphan server
+						mydb.delete('host', where="id=%d" % hostid)
+			except:
+				t.rollback()
+				message = "Error deleting %s. Call sysadmin" % dbname
+			else:
+				t.commit()
 		else:
-			n = mydb.delete(dbname, where="id=%d" % int(id))
-			message = "%d %s[s] deleted ok" % (n, mydict[dbname]["entry"])
+			t = mydb.transaction()
+			try:
+				mydb.delete(dbname, where="id=%d" % int(id))
+			except:
+				t.rollback()
+				message = "Error deleting %s. Call sysadmin" % dbname
+			else:
+				t.commit()
 		raise web.seeother("/%s/list/" % dbname)
+
 class	edit:
 	def	GET(self, dbname, id):
 		global message, mydict
 		id = int(id)
-		items = mydb.select(dbname)
 		item = mydb.select(dbname, where="id = %d" % id)[0]
 		if (dbname == 'user'):
-			subform = render.useredit(item)
+			retvalue = render.useredit(root, item, mainmenu)
 		elif (dbname in ("dbtype", "org")):
-			subform = render.otheredit(item)
+			retvalue = render.otheredit(root, dbname, mydict[dbname]['entry'], item, mainmenu)
 		elif (dbname == 'db'):	# db
-			items = mydb.select('dblist')
-			shares = mydb.select('sharelist')
-			dbtypes = mydb.select('dbtype')
-			orgs = mydb.select('org')
-			return render.dbedit(root, items, id, shares, dbtypes, orgs, message)
+			retvalue = render.dbedit(root, mydb, item, mainmenu)
 		else:
 			print >> sys.stderr, "Bad page"
-		return render.edit(root, items, id, dbname, mydict[dbname], subform, message)
+			retvalue = render.index(root)
+		return retvalue
 	def	POST(self, dbname, id):
 		global message, mydict
 		id = int(id)
@@ -238,53 +263,83 @@ class	edit:
 				message = "Login can't be empty."
 				nextform = "edit"
 			else:
-				count = mydb.query('SELECT COUNT (*) AS total FROM user WHERE id<>%d AND login="%s"' % (id, i.login))[0].total
-				if (count > 0):
+				if exists("user", "id<>%d AND login=\"%s\"" % (id, i.login)):
 					message = "Same login already exists."
 					nextform = "edit"
 				else:
-					n = mydb.update(dbname, where="id = %d" % id, login = i.login, password = i.password, comments = i.comments)
-					message = "%d %s[s] edited ok" % (n, mydict[dbname]["entry"])
+					t = mydb.transaction()
+					try:
+						mydb.update(dbname, where="id = %d" % id, login = i.login, password = i.password, comments = i.comments)
+					except:
+						t.rollback()
+						message = "Error deleting %s. Call sysadmin" % dbname
+					else:
+						t.commit()
 		elif (dbname in ("dbtype", "org")):
 			i.name = i.name.strip()
 			if (i.name == ""):
 				message = "Name can't be empty."
 				nextform = "edit"
 			else:
-				count = mydb.query('SELECT COUNT (*) AS total FROM %s WHERE id<>%d AND name="%s"' % (dbname, id, i.name))[0].total
-				if (count > 0):
+				if exists(dbname, "id<>%d AND name=\"%s\"" % (id, i.name)):
 					message = "Same name already exists."
 					nextform = "edit"
 				else:
-					n = mydb.update(dbname, where="id = %d" % id, name = i.name, comments = i.comments)
-					message = "%d %s[s] edited ok" % (n, mydict[dbname]["entry"])
+					t = mydb.transaction()
+					try:
+						mydb.update(dbname, where="id = %d" % id, name = i.name, comments = i.comments)
+					except:
+						t.rollback()
+						message = "Error deleting %s. Call sysadmin" % dbname
+					else:
+						t.commit()
 		else:	# db
 			i.path = i.path.strip()
 			i.path = i.path.strip('/')
-			n = mydb.update('db', where="id = %d" % id, shareid = int(i.shareid), dbtypeid = int(i.dbtypeid), orgid = int(i.orgid), path = i.path, comments = i.comments)
-			message = "%d %s[s] edited ok" % (n, mydict[dbname]["entry"])
+			t = mydb.transaction()
+			try:
+				mydb.update('db', where="id = %d" % id, shareid = int(i.shareid), dbtypeid = int(i.dbtypeid), orgid = int(i.orgid), path = i.path, comments = i.comments)
+			except:
+				t.rollback()
+				message = "Error deleting %s. Call sysadmin" % dbname
+			else:
+				t.commit()
 		raise web.seeother("/%s/%s/" % (dbname, nextform))
 
-class	serial:
-	def	GET(self):
-		return render.baselist(mydb.select('var', where="name='serial'")[0].value)
-
-class	baselist:
-	def	GET(self, login, password):
-		sn = mydb.select('var', where="name='serial'")[0].value
-		count = mydb.query('SELECT COUNT (*) AS total FROM user WHERE login="%s"' % login)[0].total
-		if (count == 0):
-			return render.baselist(sn, error = "user not found")
-		a = mydb.select('user', where="login='%s'" % login)[0]
-		if (a.password != password):
-			return render.baselist(sn, error = "wrong password")
+class	acl:
+	def	GET(self, dbname, id):
+		global userlist, dblist
+		id = int(id)
+		if (dbname == "user"):
+			item = mydb.select(dbname, where="id = %d" % id)[0]
+			retvalue = render.useracl(root, item, mydb, mainmenu)
+		else:	# db
+			item = mydb.select("dblist", where="id = %d" % id)[0]
+			retvalue = render.dbacl(root, item, mydb, mainmenu)
+		return retvalue
+	def	POST(self, dbname, id):
+		global userlist, dblist
+		i = web.input()
+		t = mydb.transaction()
+		try:
+			if (dbname == "user"):
+				mydb.delete('acl', where="userid=%d" % int(id))
+				for k in i.keys():
+					mydb.insert('acl', dbid=int(k), userid=int(id), visible=True)
+			else:	# db
+				mydb.delete('acl', where="dbid=%d" % int(id))
+				for k in i.keys():
+					mydb.insert('acl', dbid=int(id), userid=int(k), visible=True)
+		except:
+			t.rollback()
+			message = "Error refreshing ACL. Call sysadmin"
 		else:
-			b = mydb.select('baselist', where="userid='%s'" % a.id)
-			web.header('Content-Type', 'text/xml')
-			return render.baselist(sn, b)
+			t.commit()
+		raise web.seeother("/%s/list/" % dbname)
 
 if __name__ == "__main__":
 	web.application(urls, globals()).run()
 else:
 	root = "/run1s"
+	mainmenu = render.menu(root)
 	application = web.application(urls, globals()).wsgifunc()
