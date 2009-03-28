@@ -1,3 +1,7 @@
+9328:
+	* removed frames
+	* transactions
+	* user acl, db acl
 9115:
 	* errors in xml
 9117:

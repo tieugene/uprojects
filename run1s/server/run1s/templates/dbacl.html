@@ -1,0 +1,32 @@
+$def with (root, item, db, menu)
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+$:menu
+<center>
+<h1>Database ACL</h1>
+</center>
+<p>Database: $("%s, %s (%s, \\\\%s\\%s\\%s)" % (item.orgname, item.dbtypename, item.comments, item.hostname, item.sharename, item.path)) </p>
+<form method="post">
+<table border="0">
+<thead> <tr> <th> Use </th> <th> Login </th> <th> Comments </th> </tr> </thead>
+<tbody>
+$ bgflag = False
+$for i in db.query("SELECT user.id AS id, user.login AS login, user.comments AS comments, acl.visible AS visible FROM user LEFT JOIN (SELECT userid, visible FROM acl WHERE acl.dbid = %d) AS acl ON acl.userid = user.id ORDER BY login" % int(item.id))
+	$ bgflag = not bgflag
+	$ bg = "#eeeeee" if (bgflag) else "#ffffff"
+	<tr bgcolor="$bg">
+		$ ch = "checked" if i.visible else ""
+		<td> <input type="checkbox" name="$i.id" $ch> </td>
+		<td> $i.login </td>
+		<td> $i.comments </td>
+	</tr>
+</tbody>
+</table>
+<p> <input type="submit" value="OK" /> <input type="button" value="Cancel" onclick="javascript:window.location='$root/db/list/'"/> </p>
+</form>
+</body>
+</html>
