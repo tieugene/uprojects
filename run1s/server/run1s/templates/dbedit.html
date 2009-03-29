@@ -16,7 +16,7 @@ $:menu
 	<tr> <td> Id: </td> <td> $item.id </td> </tr>
 	<tr> <td> <label for="orid"> Organization: </label> </td> 
 		<td> <select size="1" name="orgid">
-		$for i in db.select('org'):
+		$for i in db.select('org', order='name'):
 			<option value="$i.id"
 			$if (i.id == item.orgid):
 				selected
@@ -25,7 +25,7 @@ $:menu
 	</tr>
 	<tr> <td> <label for="dbtypeid"> Database type: </label> </td> 
 		<td> <select size="1" name="dbtypeid">
-		$for i in db.select('dbtype'):
+		$for i in db.select('dbtype', order='name'):
 			<option value="$i.id"
 			$if (i.id == item.dbtypeid):
 				selected
@@ -35,11 +35,11 @@ $:menu
 	<tr>
 	<tr> <td> <label for="shareid"> Host/Share: </label> </td> 
 		<td> <select size="1" name="shareid">
-		$for i in db.select('sharelist'):
+		$for i in db.select('sharelist', order='hostname, sharename'):
 			<option value="$i.id"
 			$if (i.id == item.shareid):
 				selected
-			>$i.hostname \ $i.name</option>
+			>$i.hostname \ $i.sharename</option>
 		</select> </td>
 	</tr>
 	<tr> <td> <label for="path"> Path: </label> </td> 
