@@ -1,0 +1,34 @@
+Album:
+	Id: idref (obj.id)
+	Name: str
+	Artist: enum
+	Year: year
+	Publisher: enum
+	FaceImage: image
+	BackImage: image
+Song:
+	Id: idref (obj.id)
+	bps: int?/enum
+	bpp: int?/enum
+	time: time
+	name: str
+	artist: enum, mult
+	album: idref, opt
+	trackno: int, opt
+	year: year
+	genre: enum
+	Artist: Id
+	Group: bool
+	Name Comments
+Publisher:
+	Id
+	Name
+	Comments
+Genre:
+	Id
+	Name
+	Comments
+Feat:
+	Id: id
+	ArtisttId: idref
+	Objid: idref
