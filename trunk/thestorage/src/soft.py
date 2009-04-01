@@ -237,5 +237,5 @@ class	platform(common.ref):
 		return ref.POST(self, view, id)
 
 class	settings:
-	def	GET(self, action):
-		return var.render.soft_settings()
+	def	GET(self):
+		return var.render.soft_settings(var.root)
