@@ -17,4 +17,6 @@ def	dbacl(request, db_id):
 	#return render_to_response('run1s/db_acl.html', {''})
 
 def	useracl(request, user_id):
-	return render_to_response('run1s/user_acl.html', {})
+	user = User.objects.get(pk=user_id)
+	dbs = Db.objects.all()
+	return render_to_response('run1s/user_acl.html', {'user': user, 'dbs': dbs})
