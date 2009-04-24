@@ -29,7 +29,7 @@ public:
 	static QString getLogin(void);
 	static QString getPassword(void);
 	static QString getPath1C(void);
-	static bool getMinOnRun(void);
+	static bool getMinOnRun(void);	// minimize on running 1C
 	static bool getTrayEnabled(void);
 	static bool getStartHidden(void);
 	static bool getMinToTray(void);

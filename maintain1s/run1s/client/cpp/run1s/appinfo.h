@@ -24,7 +24,7 @@ class AppInfo
 {
 public:
 	static QString getAppName() { return "Run1s"; }
-	static QString getAppVersion() { return "0.1"; }
+	static QString getAppVersion() { return "0.2"; }
 	static QString getAppRelease() { return "0"; }
 	static QString getOrgDomain() { return "eap.su"; }
 	static QString getAuthorName() { return "TI_Eugene"; }

@@ -15,6 +15,7 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 
+#include <iostream>
 #include <QDir>
 #include <QFile>
 #include <QLabel>
@@ -29,10 +30,10 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "appsettings.h"
 
 const char *modekey[4] = {
-	"/enterprise",
-	"/enterprise /M",
-	"/config",
-	"/monitor"
+	"enterprise",
+	"enterprise /M",
+	"config",
+	"monitor"
 };
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -45,7 +46,6 @@ MainWindow::MainWindow(QWidget *parent) :
 	netmgr = new QNetworkAccessManager(this);
 	createTrayIcon();
 	setSlots();
-	fullsize = true;
 	serial = 0;
 }
 
@@ -70,6 +70,8 @@ void MainWindow::go(void) {
 	if (not warning.isEmpty())
 		QMessageBox::warning(this, tr("Run1s"), warning + tr("Check Options->Settings."));
 	slUpdate();	// FIXME:
+	if (AppSettings::getStartHidden())
+		setWindowState(Qt::WindowMinimized);
 }
 
 void MainWindow::createTrayIcon(void) {
@@ -94,13 +96,14 @@ void MainWindow::setSlots(void) {
 	connect(ui->actionSettings, SIGNAL(triggered()), SLOT(slSettings()));
 	connect(ui->actionAbout, SIGNAL(triggered()), SLOT(slAbout()));
 	connect(ui->actionAboutQt, SIGNAL(triggered()), SLOT(slAboutQt()));
-	connect(ui->tableWidget, SIGNAL(currentItemChanged (QTableWidgetItem *, QTableWidgetItem *)), SLOT(slItemChanged(QTableWidgetItem *, QTableWidgetItem *)));
+	connect(ui->listWidget, SIGNAL(currentRowChanged (int)), SLOT(slRowChanged(int)));
+	connect(ui->listWidget, SIGNAL(itemDoubleClicked (QListWidgetItem *)), SLOT(slItemDClicked(QListWidgetItem *)));
 	connect(tray, SIGNAL(activated ( QSystemTrayIcon::ActivationReason)), SLOT(slTray(QSystemTrayIcon::ActivationReason)));
 	connect(actionHideRestore, SIGNAL(triggered()), SLOT(slHideRestore()));
 	connect(netmgr, SIGNAL(finished(QNetworkReply *)), SLOT(slNetReplyFinished(QNetworkReply *)));
 }
 
-void MainWindow::processReply(QByteArray resp) {
+void MainWindow::processXmlReply(QByteArray resp) {
 	QString token, ver, host, share, path, type, org, comments, error;
 	int	sn;
 
@@ -112,50 +115,70 @@ void MainWindow::processReply(QByteArray resp) {
 			if (token == "run1s") {
 				ver = xml.attributes().value("", "ver").toString();
 				sn = xml.attributes().value("", "sn").toString().toInt();
-			} else if (token == "host") {
-				host = xml.attributes().value("", "name").toString();
-			} else if (token == "share") {
-				share = xml.attributes().value("", "name").toString();
 			} else if (token == "base") {
+				host	= xml.attributes().value("", "host").toString();
+				share	= xml.attributes().value("", "share").toString();
 				path	= xml.attributes().value("", "path").toString();
-				type	= xml.attributes().value("", "type").toString();
 				org	= xml.attributes().value("", "org").toString();
+				type	= xml.attributes().value("", "type").toString();
 				comments= xml.attributes().value("", "comments").toString();
-				int r = ui->tableWidget->rowCount();
-				ui->tableWidget->setRowCount(r + 1);
-				ui->tableWidget->setItem(r, 0, new QTableWidgetItem(type));
-				ui->tableWidget->setItem(r, 1, new QTableWidgetItem(org));
-				ui->tableWidget->setItem(r, 2, new QTableWidgetItem(comments));
+				ui->listWidget->addItem(mkTitle(org, type, comments));
 				baselist.append("\\\\" + host + "\\" + share + "\\" + path);
 			} else if (token == "error") {
 				error += xml.attributes().value("", "text").toString();
 			}
 		}
 	}
-	ui->tableWidget->resizeColumnsToContents();
+	//ui->tableWidget->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
+	//ui->tableWidget->resizeColumnsToContents();
+	//ui->tableWidget->resizeRowsToContents();
 	if (not error.isEmpty())
 		QMessageBox::critical(this, tr("Run1s"), error);
 }
 
+void MainWindow::processTxtReply(QByteArray resp) {
+	QString s(resp), sn("sn"), error("error"), db("db");
+	QStringList sl = s.split("\n");
+
+	for (int i = 0; i < sl.size(); ++i) {
+		QStringList line = sl.at(i).split("\t");
+		if (line.at(0) == sn) {
+		} else if (line.at(0) == error) {
+		} else if (line.at(0) == db) {
+			ui->listWidget->addItem(mkTitle(line.at(4), line.at(5), line.at(6)));
+			baselist.append("\\\\" + line.at(1) + "\\" + line.at(2) + "\\" + line.at(3));
+		}
+	}
+}
 void MainWindow::run1Cexe(const Mode1C mode) {
 	QString _1s(AppSettings::getPath1C()), base;
 
-	if (ui->tableWidget->rowCount() == 0)
+	if (ui->listWidget->count() == 0)
 		QMessageBox::critical(this, tr("Run1s"), tr("Database list is empty."));
-	else if (ui->tableWidget->currentRow() < 0)
+	else if (ui->listWidget->currentRow() < 0)
 		QMessageBox::critical(this, tr("Run1s"), tr("No database selected."));
 	else if (_1s.isEmpty())
 		QMessageBox::critical(this, tr("Run1s"), tr("1C executable not defined.\nCheck Options->Settings."));
 	else if (not QFile::exists(_1s))
 		QMessageBox::critical(this, tr("Run1s"), tr("1C executable not found.\nCheck Options->Settings."));
 	else {
-		base = baselist[ui->tableWidget->currentRow()];
+		base = baselist[ui->listWidget->currentRow()];
 		//if (not QDir::exists(base))	// error: некорректный вызов элемента-функции ‘bool QDir::exists(const QString&) const’ без объекта
 		//	QMessageBox::critical(this, tr("Run1s"), tr("Selected directory not exists."));
 		//else
-			QProcess::startDetached(_1s + " " + mode + " /D" + baselist[ui->tableWidget->currentRow()]);
-			//QMessageBox::information(this, tr("Run1s"), _1s + " " + modekey[mode] + " /D" + base);
+		//	QMessageBox::information(this, tr("Run1s"), "\"" + _1s + "\" " + modekey[mode] + " /D" + base);
+		QProcess::startDetached("\"" + _1s + "\" " + modekey[mode] + " /D" + base);
+		if (AppSettings::getMinOnRun())
+			setWindowState(Qt::WindowMinimized);
 	}
+}
+
+QString MainWindow::mkTitle(QString org, QString type, QString comments) {
+	// make title string
+	QString retvalue(org + ": " + type);
+	if (not comments.isEmpty())
+		retvalue += (QString(" (") + comments + ")");
+	return retvalue;
 }
 
 void MainWindow::slUpdate(void) {
@@ -166,9 +189,9 @@ void MainWindow::slUpdate(void) {
 		if (tray->isVisible())
 			tray->hide();
 	}
-	ui->tableWidget->setRowCount(0);
+	ui->listWidget->clear();
 	if (not (AppSettings::getServer().isEmpty() or AppSettings::getLogin().isEmpty()))  
-		netmgr->get(QNetworkRequest(QUrl(AppSettings::getServer() + "/baselist&login=" + AppSettings::getLogin() + "&password=" + AppSettings::getPassword())));
+		netmgr->get(QNetworkRequest(QUrl(AppSettings::getServer() + "/listxml/" + AppSettings::getLogin() + "/" + AppSettings::getPassword() + "/")));
 }
 
 void MainWindow::slExit(void) {
@@ -204,10 +227,15 @@ void MainWindow::slSettings(void) {
 		slUpdate();
 }
 
-void MainWindow::slItemChanged(QTableWidgetItem *curr, QTableWidgetItem *prev) {
-	if (ui->tableWidget->rowCount())
-		if ((curr) and ((!prev) or (curr->row() != prev->row())))
-			statusBar()->showMessage(baselist[curr->row()]);
+void MainWindow::slRowChanged(int row) {
+	if (ui->listWidget->count())
+		if (row >= 0)
+			statusBar()->showMessage(baselist[row]);
+}
+
+void MainWindow::slItemDClicked(QListWidgetItem *curr) {
+	if (ui->listWidget->count())
+		slRunEnterprise();
 }
 
 void MainWindow::slTray(const QSystemTrayIcon::ActivationReason reason) {
@@ -216,15 +244,14 @@ void MainWindow::slTray(const QSystemTrayIcon::ActivationReason reason) {
 }
 
 void MainWindow::slHideRestore(void) {
-	if (fullsize) {
+	if (isVisible()) {
 		hide();
 		actionHideRestore->setText(tr("&Restore"));
 	} else {
-		show();
+		showNormal();
 		actionHideRestore->setText(tr("&Hide"));
 		slUpdate();
 	}
-	fullsize = not fullsize;
 }
 
 void MainWindow::slNetReplyFinished(QNetworkReply *reply) {
@@ -232,5 +259,10 @@ void MainWindow::slNetReplyFinished(QNetworkReply *reply) {
 	if (err)
 		statusBar()->showMessage(tr("Network error: ") + reply->errorString(), 5000);
 	else
-		processReply(reply->readAll());
+		processXmlReply(reply->readAll());
+}
+
+void MainWindow::hideEvent ( QHideEvent *event ) {
+	if (AppSettings::getTrayEnabled() and AppSettings::getMinToTray())
+		setVisible(false);
 }

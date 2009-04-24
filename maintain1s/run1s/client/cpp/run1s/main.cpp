@@ -21,6 +21,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include <QLocale>
 #include <QTranslator>
 
+#include "dsingleapplication.h"
 #include "mainwindow.h"
 #include "appinfo.h"
 #include "settings.h"
@@ -28,6 +29,12 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 int main(int argc, char *argv[])
 {
 	QApplication a(argc, argv);
+
+	DSingleApplication instance("Run1s");
+	if (instance.isRunning()) {
+		instance.sendMessage("Run1s is already running.");
+		return 0;
+	}
 
 	QTranslator appTranslator;
 	QString trpath = QLibraryInfo::location(QLibraryInfo::TranslationsPath);	// /usr/share/qt4/translations

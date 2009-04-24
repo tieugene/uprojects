@@ -25,7 +25,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include <QNetworkReply>
 #include <QMenu>
 #include <QSystemTrayIcon>
-#include <QTableWidgetItem>
+#include <QListWidgetItem>
 
 #include "settingsdialog.h"
 #include "aboutdialog.h"
@@ -64,7 +64,8 @@ private slots:
 	void	slAbout(void);
 	void	slAboutQt(void);
 	void	slNetReplyFinished(QNetworkReply *);
-	void	slItemChanged(QTableWidgetItem *, QTableWidgetItem *);
+	void	slRowChanged(int);
+	void	slItemDClicked(QListWidgetItem *);
 	void	slTray(const QSystemTrayIcon::ActivationReason);
 	void	slHideRestore(void);
 
@@ -72,8 +73,10 @@ private:
 	Ui::MainWindowClass *ui;
 	void	setSlots(void);
 	void	createTrayIcon(void);
-	void	processReply(QByteArray);
+	void	processXmlReply(QByteArray);
+	void	processTxtReply(QByteArray);
 	void	run1Cexe(const Mode1C);
+	QString	mkTitle(QString, QString, QString);
 
 	SettingsDialog		*settingsDlg;
 	AboutDialog		*aboutDlg;
@@ -81,9 +84,11 @@ private:
 	QMenu			*trayMenu;
 	QAction			*actionHideRestore;
 	QNetworkAccessManager	*netmgr;
-	bool			fullsize;
 	QList<QString>		baselist;
 	int			serial;
+
+protected:
+	void	hideEvent ( QHideEvent *);
 };
 
 #endif // MAINWINDOW_H
