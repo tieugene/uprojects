@@ -1,16 +1,16 @@
 #summary Программа печати бланков РГС.
 
 = Идеи для следующей версии =
-* rss
-* стандарт на схему тарифов
-* стандарт на формы
-* не только РГС
-* Web-form
-* digital sign
-* async (gae/syncml)
-* Server: gae/django/web.py
-* pdf generation (w/ sn)
-* maybe crypted/signed/copyrighted
-* W/o stamp
-* check by web
-* Maybe: pdf form
+  * rss
+  * стандарт на схему тарифов
+  * стандарт на формы
+  * не только РГС
+  * Web-form
+  * digital sign
+  * async (gae/syncml)
+  * Server: gae/django/web.py
+  * pdf generation (w/ sn)
+  * maybe crypted/signed/copyrighted
+  * W/o stamp
+  * check by web
+  * Maybe: pdf form
