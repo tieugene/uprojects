@@ -1,0 +1,431 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created by diasvg.py -->
+<svg width="29.250cm" height="51.500cm" viewBox="0.950 0.950 30.200 52.450"
+ xmlns="http://www.w3.org/2000/svg"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+<polyline fill="none" stroke="#000000" stroke-width="0.100"  points="8.500,33.500 10.725,33.500 10.725,26.700 12.950,26.700 "/>
+<text x="8.700" y="33.360"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
+1</text>
+<text x="12.750" y="26.560"  fill="#000000" text-anchor="end" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
+*</text>
+<rect x="1.000" y="22.000" width="7.500" height="1.400" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="1.000" y="22.000" width="7.500" height="1.400" fill="none" stroke="#000000" stroke-width="0.100" />
+<text x="4.750" y="23.000"  fill="#000000" text-anchor="middle" font-size="1.00" font-family="sans" font-style="normal" font-weight="700">
+Organization</text>
+<rect x="1.000" y="23.400" width="7.500" height="14.600" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="1.000" y="23.400" width="7.500" height="14.600" fill="none" stroke="#000000" stroke-width="0.100" />
+<text x="1.150" y="24.300"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
++name: str</text>
+<text x="1.150" y="25.100"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
++fullname: str</text>
+<text x="1.150" y="25.900"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
++regdate: date</text>
+<text x="1.150" y="26.700"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
++inn: int</text>
+<text x="1.150" y="27.500"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
++kpp: int</text>
+<text x="1.150" y="28.300"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
++ogrn: int</text>
+<text x="1.150" y="29.100"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
++laddress: str</text>
+<text x="1.150" y="29.900"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
++raddress: str</text>
+<text x="1.150" y="30.700"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
++sroregdate: date</text>
+<text x="1.150" y="31.500"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
++licno: str = NULL</text>
+<text x="1.150" y="32.300"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
++licdue: date = NULL</text>
+<text x="1.150" y="33.100"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
++licokdps: OKDP[]</text>
+<text x="1.150" y="33.900"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
++srookdps: OKDP[]</text>
+<text x="1.150" y="34.700"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
++okopf: OKOPF</text>
+<text x="1.150" y="35.500"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
++okveds: OKVED[]</text>
+<text x="1.150" y="36.300"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
++meetings: Meeting[]</text>
+<text x="1.150" y="37.100"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
++phones: Phone[]</text>
+<text x="1.150" y="37.900"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
++emails: Email[]</text>
+<rect x="12.000" y="39.000" width="4.700" height="1.400" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="12.000" y="39.000" width="4.700" height="1.400" fill="none" stroke="#000000" stroke-width="0.100" />
+<text x="14.350" y="40.000"  fill="#000000" text-anchor="middle" font-size="1.00" font-family="sans" font-style="normal" font-weight="700">
+Meeting</text>
+<rect x="12.000" y="40.400" width="4.700" height="2.600" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="12.000" y="40.400" width="4.700" height="2.600" fill="none" stroke="#000000" stroke-width="0.100" />
+<text x="12.150" y="41.300"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
++date: date</text>
+<text x="12.150" y="42.100"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
++agenda: str</text>
+<text x="12.150" y="42.900"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
++log: txt</text>
+<rect x="11.000" y="13.000" width="6.100" height="1.400" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="11.000" y="13.000" width="6.100" height="1.400" fill="none" stroke="#000000" stroke-width="0.100" />
+<text x="14.050" y="14.000"  fill="#000000" text-anchor="middle" font-size="1.00" font-family="sans" font-style="normal" font-weight="700">
+OrgEvent</text>
+<rect x="11.000" y="14.400" width="6.100" height="4.200" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="11.000" y="14.400" width="6.100" height="4.200" fill="none" stroke="#000000" stroke-width="0.100" />
+<text x="11.150" y="15.300"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
++org: Org</text>
+<text x="11.150" y="16.100"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
++type: EventType</text>
+<text x="11.150" y="16.900"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
++okdp: Okdp</text>
+<text x="11.150" y="17.700"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
++date: date</text>
+<text x="11.150" y="18.500"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
++comments: str</text>
+<rect x="1.000" y="12.000" width="6.100" height="1.400" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="1.000" y="12.000" width="6.100" height="1.400" fill="none" stroke="#000000" stroke-width="0.100" />
+<text x="4.050" y="13.000"  fill="#000000" text-anchor="middle" font-size="1.00" font-family="sans" font-style="normal" font-weight="700">
+File</text>
+<rect x="1.000" y="13.400" width="6.100" height="3.400" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="1.000" y="13.400" width="6.100" height="3.400" fill="none" stroke="#000000" stroke-width="0.100" />
+<text x="1.150" y="14.300"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
++name: str</text>
+<text x="1.150" y="15.100"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
++mime: str</text>
+<text x="1.150" y="15.900"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
++saved: datetime</text>
+<text x="1.150" y="16.700"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
++comments: str</text>
+<rect x="23.000" y="39.000" width="6.450" height="1.400" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="23.000" y="39.000" width="6.450" height="1.400" fill="none" stroke="#000000" stroke-width="0.100" />
+<text x="26.225" y="40.000"  fill="#000000" text-anchor="middle" font-size="1.00" font-family="sans" font-style="normal" font-weight="700">
+User</text>
+<rect x="23.000" y="40.400" width="6.450" height="3.400" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="23.000" y="40.400" width="6.450" height="3.400" fill="none" stroke="#000000" stroke-width="0.100" />
+<text x="23.150" y="41.300"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
++profileid: IDREF</text>
+<text x="23.150" y="42.100"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
++login: str</text>
+<text x="23.150" y="42.900"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
++password: str</text>
+<text x="23.150" y="43.700"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
++comments</text>
+<rect x="23.000" y="33.000" width="5.400" height="1.400" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="23.000" y="33.000" width="5.400" height="1.400" fill="none" stroke="#000000" stroke-width="0.100" />
+<text x="25.700" y="34.000"  fill="#000000" text-anchor="middle" font-size="1.00" font-family="sans" font-style="normal" font-weight="700">
+Profile</text>
+<rect x="23.000" y="34.400" width="5.400" height="2.600" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="23.000" y="34.400" width="5.400" height="2.600" fill="none" stroke="#000000" stroke-width="0.100" />
+<text x="23.150" y="35.300"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
++name: str</text>
+<text x="23.150" y="36.100"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
++comments: str</text>
+<text x="23.150" y="36.900"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
++acl</text>
+<rect x="19.000" y="9.000" width="5.400" height="1.400" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="19.000" y="9.000" width="5.400" height="1.400" fill="none" stroke="#000000" stroke-width="0.100" />
+<text x="21.700" y="10.000"  fill="#000000" text-anchor="middle" font-size="1.00" font-family="sans" font-style="normal" font-weight="700">
+Role</text>
+<rect x="19.000" y="10.400" width="5.400" height="1.800" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="19.000" y="10.400" width="5.400" height="1.800" fill="none" stroke="#000000" stroke-width="0.100" />
+<text x="19.150" y="11.300"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
++name: str</text>
+<text x="19.150" y="12.100"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
++comments: str</text>
+<rect x="19.000" y="14.000" width="5.400" height="1.400" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="19.000" y="14.000" width="5.400" height="1.400" fill="none" stroke="#000000" stroke-width="0.100" />
+<text x="21.700" y="15.000"  fill="#000000" text-anchor="middle" font-size="1.00" font-family="sans" font-style="normal" font-weight="700">
+EventType</text>
+<rect x="19.000" y="15.400" width="5.400" height="1.800" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="19.000" y="15.400" width="5.400" height="1.800" fill="none" stroke="#000000" stroke-width="0.100" />
+<text x="19.150" y="16.300"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
++name: str</text>
+<text x="19.150" y="17.100"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
++comments: str</text>
+<rect x="12.000" y="21.000" width="4.000" height="1.400" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="12.000" y="21.000" width="4.000" height="1.400" fill="none" stroke="#000000" stroke-width="0.100" />
+<text x="14.000" y="22.000"  fill="#000000" text-anchor="middle" font-size="1.00" font-family="sans" font-style="normal" font-weight="700">
+OKDP</text>
+<rect x="12.000" y="22.400" width="4.000" height="1.800" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="12.000" y="22.400" width="4.000" height="1.800" fill="none" stroke="#000000" stroke-width="0.100" />
+<text x="12.150" y="23.300"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
++id: int</text>
+<text x="12.150" y="24.100"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
++name: str</text>
+<rect x="14.000" y="28.000" width="5.750" height="1.400" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="14.000" y="28.000" width="5.750" height="1.400" fill="none" stroke="#000000" stroke-width="0.100" />
+<text x="16.875" y="29.000"  fill="#000000" text-anchor="middle" font-size="1.00" font-family="sans" font-style="normal" font-weight="700">
+OKOPF</text>
+<rect x="14.000" y="29.400" width="5.750" height="3.400" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="14.000" y="29.400" width="5.750" height="3.400" fill="none" stroke="#000000" stroke-width="0.100" />
+<text x="14.150" y="30.300"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
++id: int</text>
+<text x="14.150" y="31.100"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
++name: str</text>
+<text x="14.150" y="31.900"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
++shortname: str</text>
+<text x="14.150" y="32.700"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
++disabled: bool</text>
+<rect x="14.000" y="34.000" width="5.750" height="1.400" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="14.000" y="34.000" width="5.750" height="1.400" fill="none" stroke="#000000" stroke-width="0.100" />
+<text x="16.875" y="35.000"  fill="#000000" text-anchor="middle" font-size="1.00" font-family="sans" font-style="normal" font-weight="700">
+OKVED</text>
+<rect x="14.000" y="35.400" width="5.750" height="2.600" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="14.000" y="35.400" width="5.750" height="2.600" fill="none" stroke="#000000" stroke-width="0.100" />
+<text x="14.150" y="36.300"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
++id: int</text>
+<text x="14.150" y="37.100"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
++name: str</text>
+<text x="14.150" y="37.900"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
++disabled: bool</text>
+<rect x="1.000" y="1.000" width="7.500" height="1.400" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="1.000" y="1.000" width="7.500" height="1.400" fill="none" stroke="#000000" stroke-width="0.100" />
+<text x="4.750" y="2.000"  fill="#000000" text-anchor="middle" font-size="1.00" font-family="sans" font-style="normal" font-weight="700">
+Person</text>
+<rect x="1.000" y="2.400" width="7.500" height="3.400" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="1.000" y="2.400" width="7.500" height="3.400" fill="none" stroke="#000000" stroke-width="0.100" />
+<text x="1.150" y="3.300"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
++firstname: str</text>
+<text x="1.150" y="4.100"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
++midname: str</text>
+<text x="1.150" y="4.900"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
++lastname: str</text>
+<text x="1.150" y="5.700"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
++quals: Qualificat[]</text>
+<rect x="11.000" y="7.000" width="5.750" height="1.400" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="11.000" y="7.000" width="5.750" height="1.400" fill="none" stroke="#000000" stroke-width="0.100" />
+<text x="13.875" y="8.000"  fill="#000000" text-anchor="middle" font-size="1.00" font-family="sans" font-style="normal" font-weight="700">
+OrgStuff</text>
+<rect x="11.000" y="8.400" width="5.750" height="3.400" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="11.000" y="8.400" width="5.750" height="3.400" fill="none" stroke="#000000" stroke-width="0.100" />
+<text x="11.150" y="9.300"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
++person: Person</text>
+<text x="11.150" y="10.100"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
++org: Org</text>
+<text x="11.150" y="10.900"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
++role: Role</text>
+<text x="11.150" y="11.700"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
++leader: bool</text>
+<polyline fill="none" stroke="#000000" stroke-width="0.100"  points="8.500,34.300 11.225,34.300 11.225,30.400 13.950,30.400 "/>
+<text x="8.700" y="34.160"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
+*</text>
+<text x="13.750" y="30.260"  fill="#000000" text-anchor="end" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
+*</text>
+<polyline fill="none" stroke="#000000" stroke-width="0.100"  points="8.550,30.000 9.775,30.000 9.775,9.700 11.000,9.700 "/>
+<text x="8.750" y="29.860"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
+1</text>
+<text x="10.800" y="9.560"  fill="#000000" text-anchor="end" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
+*</text>
+<polyline fill="none" stroke="#000000" stroke-width="0.100"  points="17.150,15.800 18.050,15.800 18.050,15.600 18.950,15.600 "/>
+<text x="17.350" y="15.660"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
+*</text>
+<text x="18.750" y="15.460"  fill="#000000" text-anchor="end" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
+1</text>
+<polyline fill="none" stroke="#000000" stroke-width="0.100"  points="16.750,10.500 17.850,10.500 17.850,10.600 18.950,10.600 "/>
+<text x="16.950" y="10.360"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
+*</text>
+<text x="18.750" y="10.460"  fill="#000000" text-anchor="end" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
+1</text>
+<polyline fill="none" stroke="#000000" stroke-width="0.100"  points="11.000,8.900 9.775,8.900 9.775,3.400 8.550,3.400 "/>
+<text x="10.800" y="8.760"  fill="#000000" text-anchor="end" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
+*</text>
+<text x="8.750" y="3.260"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
+1</text>
+<polyline fill="none" stroke="#000000" stroke-width="0.100"  points="25.700,37.050 25.700,38.000 26.225,38.000 26.225,38.950 "/>
+<text x="25.900" y="37.593"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
+1</text>
+<text x="26.425" y="38.692"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
+*</text>
+<rect x="18.000" y="47.000" width="2.803" height="1.400" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="18.000" y="47.000" width="2.803" height="1.400" fill="none" stroke="#000000" stroke-width="0.100" />
+<text x="19.401" y="48.000"  fill="#000000" text-anchor="middle" font-size="1.00" font-family="sans" font-style="normal" font-weight="700">
+Trunk</text>
+<rect x="11.000" y="44.000" width="5.050" height="1.400" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="11.000" y="44.000" width="5.050" height="1.400" fill="none" stroke="#000000" stroke-width="0.100" />
+<text x="13.525" y="45.000"  fill="#000000" text-anchor="middle" font-size="1.00" font-family="sans" font-style="normal" font-weight="700">
+Phone</text>
+<rect x="11.000" y="45.400" width="5.050" height="3.400" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="11.000" y="45.400" width="5.050" height="3.400" fill="none" stroke="#000000" stroke-width="0.100" />
+<text x="11.150" y="46.300"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
++country: int</text>
+<text x="11.150" y="47.100"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
++trunc: int</text>
+<text x="11.150" y="47.900"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
++phone: int</text>
+<text x="11.150" y="48.700"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
++ext: int</text>
+<polyline fill="none" stroke="#000000" stroke-width="0.100"  points="8.500,35.100 11.225,35.100 11.225,36.000 13.950,36.000 "/>
+<text x="8.700" y="34.960"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
+*</text>
+<text x="13.750" y="35.860"  fill="#000000" text-anchor="end" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
+*</text>
+<polyline fill="none" stroke="#000000" stroke-width="0.100"  points="8.500,36.700 9.725,36.700 9.725,46.400 10.950,46.400 "/>
+<text x="8.700" y="36.560"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
+*</text>
+<text x="10.750" y="46.260"  fill="#000000" text-anchor="end" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
+*</text>
+<polyline fill="none" stroke="#000000" stroke-width="0.100"  points="8.550,30.000 9.775,30.000 9.775,14.900 11.000,14.900 "/>
+<text x="8.750" y="29.860"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
+1</text>
+<text x="10.800" y="14.760"  fill="#000000" text-anchor="end" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
+*</text>
+<polyline fill="none" stroke="#000000" stroke-width="0.100"  points="16.050,46.700 17.000,46.700 17.000,47.700 17.950,47.700 "/>
+<text x="16.250" y="46.560"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
+*</text>
+<text x="17.750" y="47.560"  fill="#000000" text-anchor="end" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
+1</text>
+<polyline fill="none" stroke="#000000" stroke-width="0.100"  points="8.500,35.900 10.225,35.900 10.225,41.000 11.950,41.000 "/>
+<text x="8.700" y="35.760"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
+*</text>
+<text x="11.750" y="40.860"  fill="#000000" text-anchor="end" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
+*</text>
+<polyline fill="none" stroke="#000000" stroke-width="0.100"  points="14.050,18.650 14.050,19.800 14.000,19.800 14.000,20.950 "/>
+<text x="14.250" y="19.193"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
+*</text>
+<text x="14.200" y="20.692"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
+1</text>
+<rect x="23.000" y="23.000" width="5.690" height="1.400" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="23.000" y="23.000" width="5.690" height="1.400" fill="none" stroke="#000000" stroke-width="0.100" />
+<text x="25.845" y="24.000"  fill="#000000" text-anchor="middle" font-size="1.00" font-family="sans" font-style="normal" font-weight="700">
+OKDP_Group</text>
+<rect x="23.000" y="24.400" width="5.690" height="5.800" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="23.000" y="24.400" width="5.690" height="5.800" fill="none" stroke="#000000" stroke-width="0.100" />
+<text x="23.150" y="25.300"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
++id: int</text>
+<text x="23.150" y="26.100"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
++name: str</text>
+<text x="23.150" y="26.900"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
++hq: int</text>
+<text x="23.150" y="27.700"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
++hs: int</text>
+<text x="23.150" y="28.500"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
++mq: int</text>
+<text x="23.150" y="29.300"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
++ms: int</text>
+<text x="23.150" y="30.100"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
++oksos: OKSO[]</text>
+<polyline fill="none" stroke="#000000" stroke-width="0.100"  points="18.090,26.700 20.520,26.700 20.520,26.600 22.950,26.600 "/>
+<text x="18.290" y="26.560"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
+*</text>
+<text x="22.750" y="26.460"  fill="#000000" text-anchor="end" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
+1</text>
+<rect x="23.000" y="1.000" width="5.750" height="1.400" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="23.000" y="1.000" width="5.750" height="1.400" fill="none" stroke="#000000" stroke-width="0.100" />
+<text x="25.875" y="2.000"  fill="#000000" text-anchor="middle" font-size="1.00" font-family="sans" font-style="normal" font-weight="700">
+OKSO</text>
+<rect x="23.000" y="2.400" width="5.750" height="2.600" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="23.000" y="2.400" width="5.750" height="2.600" fill="none" stroke="#000000" stroke-width="0.100" />
+<text x="23.150" y="3.300"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
++id: ID</text>
+<text x="23.150" y="4.100"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
++name: str</text>
+<text x="23.150" y="4.900"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
++disabled: bool</text>
+<rect x="13.000" y="1.000" width="5.715" height="1.400" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="13.000" y="1.000" width="5.715" height="1.400" fill="none" stroke="#000000" stroke-width="0.100" />
+<text x="15.857" y="2.000"  fill="#000000" text-anchor="middle" font-size="1.00" font-family="sans" font-style="normal" font-weight="700">
+Qualification</text>
+<rect x="13.000" y="2.400" width="5.715" height="3.400" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="13.000" y="2.400" width="5.715" height="3.400" fill="none" stroke="#000000" stroke-width="0.100" />
+<text x="13.150" y="3.300"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
++id: int</text>
+<text x="13.150" y="4.100"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
++okso: IDREF</text>
+<text x="13.150" y="4.900"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
++qid: int</text>
+<text x="13.150" y="5.700"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
++name: str</text>
+<polyline fill="none" stroke="#000000" stroke-width="0.100"  points="22.950,3.000 20.857,3.000 20.857,3.400 18.765,3.400 "/>
+<text x="22.750" y="2.860"  fill="#000000" text-anchor="end" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
+1</text>
+<text x="18.965" y="3.260"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
+*</text>
+<polyline fill="none" stroke="#000000" stroke-width="0.100"  points="8.500,5.300 10.725,5.300 10.725,3.400 12.950,3.400 "/>
+<text x="8.700" y="5.160"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
+*</text>
+<text x="12.750" y="3.260"  fill="#000000" text-anchor="end" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
+*</text>
+<polyline fill="none" stroke="#000000" stroke-width="0.100"  points="25.845,22.950 25.845,14.000 25.875,14.000 25.875,5.050 "/>
+<text x="26.045" y="22.692"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
+*</text>
+<text x="26.075" y="5.593"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
+*</text>
+<rect x="23.000" y="46.000" width="7.150" height="1.400" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="23.000" y="46.000" width="7.150" height="1.400" fill="none" stroke="#000000" stroke-width="0.100" />
+<text x="26.575" y="47.000"  fill="#000000" text-anchor="middle" font-size="1.00" font-family="sans" font-style="normal" font-weight="700">
+log</text>
+<rect x="23.000" y="47.400" width="7.150" height="5.000" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="23.000" y="47.400" width="7.150" height="5.000" fill="none" stroke="#000000" stroke-width="0.100" />
+<text x="23.150" y="48.300"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
++user: IDREF</text>
+<text x="23.150" y="49.100"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
++datetime: datetime</text>
+<text x="23.150" y="49.900"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
++obj_type: IDREF</text>
+<text x="23.150" y="50.700"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
++obj_id: IDREF</text>
+<text x="23.150" y="51.500"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
++event_id: IDREF</text>
+<text x="23.150" y="52.300"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
++comments: str</text>
+<polyline fill="none" stroke="#000000" stroke-width="0.100"  points="8.500,32.700 10.225,32.700 10.225,22.600 11.950,22.600 "/>
+<text x="8.700" y="32.560"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
+*</text>
+<text x="11.750" y="22.460"  fill="#000000" text-anchor="end" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
+*</text>
+<rect x="18.000" y="44.000" width="3.758" height="1.400" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="18.000" y="44.000" width="3.758" height="1.400" fill="none" stroke="#000000" stroke-width="0.100" />
+<text x="19.879" y="45.000"  fill="#000000" text-anchor="middle" font-size="1.00" font-family="sans" font-style="normal" font-weight="700">
+Country</text>
+<polyline fill="none" stroke="#000000" stroke-width="0.100"  points="16.050,45.900 17.000,45.900 17.000,44.700 17.950,44.700 "/>
+<text x="16.250" y="45.760"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
+*</text>
+<text x="17.750" y="44.560"  fill="#000000" text-anchor="end" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
+1</text>
+<rect x="13.000" y="26.000" width="5.040" height="1.400" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="13.000" y="26.000" width="5.040" height="1.400" fill="none" stroke="#000000" stroke-width="0.100" />
+<text x="15.520" y="27.000"  fill="#000000" text-anchor="middle" font-size="1.00" font-family="sans" font-style="normal" font-weight="700">
+OKDP4SRO</text>
+<polyline fill="none" stroke="#000000" stroke-width="0.100"  points="14.000,24.250 14.000,25.100 15.520,25.100 15.520,25.950 "/>
+<text x="14.200" y="24.793"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
+1</text>
+<text x="15.720" y="25.692"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
+?</text>
+<rect x="10.000" y="50.000" width="3.650" height="1.400" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="10.000" y="50.000" width="3.650" height="1.400" fill="none" stroke="#000000" stroke-width="0.100" />
+<text x="11.825" y="51.000"  fill="#000000" text-anchor="middle" font-size="1.00" font-family="sans" font-style="normal" font-weight="700">
+Email</text>
+<rect x="10.000" y="51.400" width="3.650" height="1.000" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="10.000" y="51.400" width="3.650" height="1.000" fill="none" stroke="#000000" stroke-width="0.100" />
+<text x="10.150" y="52.300"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
++URL: URL</text>
+<polyline fill="none" stroke="#000000" stroke-width="0.100"  points="8.500,37.500 9.225,37.500 9.225,51.200 9.950,51.200 "/>
+<text x="8.700" y="37.360"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
+*</text>
+<text x="9.750" y="51.060"  fill="#000000" text-anchor="end" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
+*</text>
+<rect x="2.000" y="8.000" width="4.838" height="1.400" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="2.000" y="8.000" width="4.838" height="1.400" fill="none" stroke="#000000" stroke-width="0.100" />
+<text x="4.419" y="9.000"  fill="#000000" text-anchor="middle" font-size="1.00" font-family="sans" font-style="normal" font-weight="700">
+PersonFile</text>
+<polyline fill="none" stroke="#000000" stroke-width="0.100"  points="4.419,7.950 4.419,6.900 4.750,6.900 4.750,5.850 "/>
+<text x="4.619" y="7.692"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
+*</text>
+<text x="4.950" y="6.393"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
+1</text>
+<polyline fill="none" stroke="#000000" stroke-width="0.100"  points="4.050,11.950 4.050,10.700 4.419,10.700 4.419,9.450 "/>
+<text x="4.250" y="11.692"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
+1</text>
+<text x="4.619" y="9.993"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
+?</text>
+<rect x="3.000" y="19.000" width="3.495" height="1.400" fill="#FFFFFF" stroke="none" stroke-width="0"/>
+<rect x="3.000" y="19.000" width="3.495" height="1.400" fill="none" stroke="#000000" stroke-width="0.100" />
+<text x="4.748" y="20.000"  fill="#000000" text-anchor="middle" font-size="1.00" font-family="sans" font-style="normal" font-weight="700">
+OrgFile</text>
+<polyline fill="none" stroke="#000000" stroke-width="0.100"  points="4.748,18.950 4.748,17.900 4.050,17.900 4.050,16.850 "/>
+<text x="4.948" y="18.692"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
+?</text>
+<text x="4.250" y="17.393"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
+1</text>
+<polyline fill="none" stroke="#000000" stroke-width="0.100"  points="4.750,21.950 4.750,21.200 4.748,21.200 4.748,20.450 "/>
+<text x="4.950" y="21.692"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
+1</text>
+<text x="4.948" y="20.993"  fill="#000000" text-anchor="start" font-size="0.80" font-family="monospace" font-style="normal" font-weight="400">
+*</text>
+</svg>

@@ -1,0 +1,418 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/PR-SVG-20010719/DTD/svg10.dtd">
+<svg width="52cm" height="33cm" viewBox="19 39 1025 658" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <g>
+    <rect style="fill: #ffffff" x="20" y="120" width="150" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="20" y="120" width="150" height="28"/>
+    <text style="fill: #000000; font-size: 20 cm; length: 106 cm; font-family: sans; font-style: normal; font-weight: 700" x="42" y="140">Organization</text>
+    <rect style="fill: #ffffff" x="20" y="148" width="150" height="196"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="20" y="148" width="150" height="196"/>
+    <text style="fill: #000000; font-size: 16 cm; length: 105 cm; font-family: monospace; font-style: normal; font-weight: normal" x="23" y="166">+shortname: str</text>
+    <text style="fill: #000000; font-size: 16 cm; length: 98 cm; font-family: monospace; font-style: normal; font-weight: normal" x="23" y="182">+fullname: str</text>
+    <text style="fill: #000000; font-size: 16 cm; length: 112 cm; font-family: monospace; font-style: normal; font-weight: normal" x="23" y="198">+okopf_id: IDREF</text>
+    <text style="fill: #000000; font-size: 16 cm; length: 98 cm; font-family: monospace; font-style: normal; font-weight: normal" x="23" y="214">+regdate: date</text>
+    <text style="fill: #000000; font-size: 16 cm; length: 63 cm; font-family: monospace; font-style: normal; font-weight: normal" x="23" y="230">+inn: int</text>
+    <text style="fill: #000000; font-size: 16 cm; length: 63 cm; font-family: monospace; font-style: normal; font-weight: normal" x="23" y="246">+kpp: int</text>
+    <text style="fill: #000000; font-size: 16 cm; length: 70 cm; font-family: monospace; font-style: normal; font-weight: normal" x="23" y="262">+ogrn: int</text>
+    <text style="fill: #000000; font-size: 16 cm; length: 98 cm; font-family: monospace; font-style: normal; font-weight: normal" x="23" y="278">+laddress: str</text>
+    <text style="fill: #000000; font-size: 16 cm; length: 98 cm; font-family: monospace; font-style: normal; font-weight: normal" x="23" y="294">+raddress: str</text>
+    <text style="fill: #000000; font-size: 16 cm; length: 126 cm; font-family: monospace; font-style: normal; font-weight: normal" x="23" y="310">+licno: str = NULL</text>
+    <text style="fill: #000000; font-size: 16 cm; length: 140 cm; font-family: monospace; font-style: normal; font-weight: normal" x="23" y="326">+licdue: date = NULL</text>
+    <text style="fill: #000000; font-size: 16 cm; length: 119 cm; font-family: monospace; font-style: normal; font-weight: normal" x="23" y="342">+sroregdate: date</text>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="420" y="400" width="94" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="420" y="400" width="94" height="28"/>
+    <text style="fill: #000000; font-size: 20 cm; length: 67.1 cm; font-family: sans; font-style: normal; font-weight: 700" x="433.45" y="420">Meeting</text>
+    <rect style="fill: #ffffff" x="420" y="428" width="94" height="52"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="420" y="428" width="94" height="52"/>
+    <text style="fill: #000000; font-size: 16 cm; length: 77 cm; font-family: monospace; font-style: normal; font-weight: normal" x="423" y="446">+date: date</text>
+    <text style="fill: #000000; font-size: 16 cm; length: 84 cm; font-family: monospace; font-style: normal; font-weight: normal" x="423" y="462">+agenda: str</text>
+    <text style="fill: #000000; font-size: 16 cm; length: 63 cm; font-family: monospace; font-style: normal; font-weight: normal" x="423" y="478">+log: txt</text>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="240" y="280" width="108" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="240" y="280" width="108" height="28"/>
+    <text style="fill: #000000; font-size: 20 cm; length: 81.6 cm; font-family: sans; font-style: normal; font-weight: 700" x="253.2" y="300">org_event</text>
+    <rect style="fill: #ffffff" x="240" y="308" width="108" height="68"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="240" y="308" width="108" height="68"/>
+    <text style="fill: #000000; font-size: 16 cm; length: 77 cm; font-family: monospace; font-style: normal; font-weight: normal" x="243" y="326">+date: date</text>
+    <text style="fill: #000000; font-size: 16 cm; length: 98 cm; font-family: monospace; font-style: normal; font-weight: normal" x="243" y="342">+comments: str</text>
+    <text style="fill: #000000; font-size: 16 cm; length: 35 cm; font-family: monospace; font-style: normal; font-weight: normal" x="243" y="358">+user</text>
+    <text style="fill: #000000; font-size: 16 cm; length: 56 cm; font-family: monospace; font-style: normal; font-weight: normal" x="243" y="374">+created</text>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="420" y="600" width="80" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="420" y="600" width="80" height="28"/>
+    <text style="fill: #000000; font-size: 20 cm; length: 29.85 cm; font-family: sans; font-style: normal; font-weight: 700" x="445.075" y="620">File</text>
+    <rect style="fill: #ffffff" x="420" y="628" width="80" height="36"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="420" y="628" width="80" height="36"/>
+    <text style="fill: #000000; font-size: 16 cm; length: 70 cm; font-family: monospace; font-style: normal; font-weight: normal" x="423" y="646">+name: str</text>
+    <text style="fill: #000000; font-size: 16 cm; length: 35 cm; font-family: monospace; font-style: normal; font-weight: normal" x="423" y="662">+mime</text>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="740" y="60" width="129" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="740" y="60" width="129" height="28"/>
+    <text style="fill: #000000; font-size: 20 cm; length: 37.65 cm; font-family: sans; font-style: normal; font-weight: 700" x="785.675" y="80">User</text>
+    <rect style="fill: #ffffff" x="740" y="88" width="129" height="68"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="740" y="88" width="129" height="68"/>
+    <text style="fill: #000000; font-size: 16 cm; length: 119 cm; font-family: monospace; font-style: normal; font-weight: normal" x="743" y="106">+profileid: IDREF</text>
+    <text style="fill: #000000; font-size: 16 cm; length: 77 cm; font-family: monospace; font-style: normal; font-weight: normal" x="743" y="122">+login: str</text>
+    <text style="fill: #000000; font-size: 16 cm; length: 98 cm; font-family: monospace; font-style: normal; font-weight: normal" x="743" y="138">+password: str</text>
+    <text style="fill: #000000; font-size: 16 cm; length: 63 cm; font-family: monospace; font-style: normal; font-weight: normal" x="743" y="154">+comments</text>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="580" y="60" width="108" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="580" y="60" width="108" height="28"/>
+    <text style="fill: #000000; font-size: 20 cm; length: 53.6 cm; font-family: sans; font-style: normal; font-weight: 700" x="607.2" y="80">Profile</text>
+    <rect style="fill: #ffffff" x="580" y="88" width="108" height="52"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="580" y="88" width="108" height="52"/>
+    <text style="fill: #000000; font-size: 16 cm; length: 70 cm; font-family: monospace; font-style: normal; font-weight: normal" x="583" y="106">+name: str</text>
+    <text style="fill: #000000; font-size: 16 cm; length: 98 cm; font-family: monospace; font-style: normal; font-weight: normal" x="583" y="122">+comments: str</text>
+    <text style="fill: #000000; font-size: 16 cm; length: 28 cm; font-family: monospace; font-style: normal; font-weight: normal" x="583" y="138">+acl</text>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="420" y="500" width="108" height="42"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="420" y="500" width="108" height="42"/>
+    <text style="fill: #000000; font-size: 20 cm; length: 36.15 cm; font-family: sans; font-style: normal; font-weight: 700" x="455.925" y="520">Role</text>
+    <text style="fill: #000000; font-size: 14 cm; length: 48.8 cm; font-family: sans; font-style: italic; font-weight: normal" x="449.6" y="534">ОКПДТР?</text>
+    <rect style="fill: #ffffff" x="420" y="542" width="108" height="36"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="420" y="542" width="108" height="36"/>
+    <text style="fill: #000000; font-size: 16 cm; length: 70 cm; font-family: monospace; font-style: normal; font-weight: normal" x="423" y="560">+name: str</text>
+    <text style="fill: #000000; font-size: 16 cm; length: 98 cm; font-family: monospace; font-style: normal; font-weight: normal" x="423" y="576">+comments: str</text>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="420" y="320" width="108" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="420" y="320" width="108" height="28"/>
+    <text style="fill: #000000; font-size: 20 cm; length: 46.7 cm; font-family: sans; font-style: normal; font-weight: 700" x="450.65" y="340">Event</text>
+    <rect style="fill: #ffffff" x="420" y="348" width="108" height="36"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="420" y="348" width="108" height="36"/>
+    <text style="fill: #000000; font-size: 16 cm; length: 70 cm; font-family: monospace; font-style: normal; font-weight: normal" x="423" y="366">+name: str</text>
+    <text style="fill: #000000; font-size: 16 cm; length: 98 cm; font-family: monospace; font-style: normal; font-weight: normal" x="423" y="382">+comments: str</text>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="420" y="220" width="129" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="420" y="220" width="129" height="28"/>
+    <text style="fill: #000000; font-size: 20 cm; length: 46.5 cm; font-family: sans; font-style: normal; font-weight: 700" x="461.25" y="240">OKDP</text>
+    <rect style="fill: #ffffff" x="420" y="248" width="129" height="52"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="420" y="248" width="129" height="52"/>
+    <text style="fill: #000000; font-size: 16 cm; length: 63 cm; font-family: monospace; font-style: normal; font-weight: normal" x="423" y="266">+code: ID</text>
+    <text style="fill: #000000; font-size: 16 cm; length: 70 cm; font-family: monospace; font-style: normal; font-weight: normal" x="423" y="282">+desk: str</text>
+    <text style="fill: #000000; font-size: 16 cm; length: 119 cm; font-family: monospace; font-style: normal; font-weight: normal" x="423" y="298">+selectable: bool</text>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="20" y="40" width="115" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="20" y="40" width="115" height="28"/>
+    <text style="fill: #000000; font-size: 20 cm; length: 56.1 cm; font-family: sans; font-style: normal; font-weight: 700" x="49.45" y="60">OKOPF</text>
+    <rect style="fill: #ffffff" x="20" y="68" width="115" height="36"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="20" y="68" width="115" height="36"/>
+    <text style="fill: #000000; font-size: 16 cm; length: 105 cm; font-family: monospace; font-style: normal; font-weight: normal" x="23" y="86">+shortname: str</text>
+    <text style="fill: #000000; font-size: 16 cm; length: 98 cm; font-family: monospace; font-style: normal; font-weight: normal" x="23" y="102">+fullbane: str</text>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="420" y="60" width="129" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="420" y="60" width="129" height="28"/>
+    <text style="fill: #000000; font-size: 20 cm; length: 57.05 cm; font-family: sans; font-style: normal; font-weight: 700" x="455.975" y="80">OKVED</text>
+    <rect style="fill: #ffffff" x="420" y="88" width="129" height="52"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="420" y="88" width="129" height="52"/>
+    <text style="fill: #000000; font-size: 16 cm; length: 77 cm; font-family: monospace; font-style: normal; font-weight: normal" x="423" y="106">+code: int?</text>
+    <text style="fill: #000000; font-size: 16 cm; length: 77 cm; font-family: monospace; font-style: normal; font-weight: normal" x="423" y="122">+descr: str</text>
+    <text style="fill: #000000; font-size: 16 cm; length: 119 cm; font-family: monospace; font-style: normal; font-weight: normal" x="423" y="138">+selectable: bool</text>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="20" y="540" width="115" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="20" y="540" width="115" height="28"/>
+    <text style="fill: #000000; font-size: 20 cm; length: 56.9 cm; font-family: sans; font-style: normal; font-weight: 700" x="49.05" y="560">Person</text>
+    <rect style="fill: #ffffff" x="20" y="568" width="115" height="52"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="20" y="568" width="115" height="52"/>
+    <text style="fill: #000000; font-size: 16 cm; length: 105 cm; font-family: monospace; font-style: normal; font-weight: normal" x="23" y="586">+firstname: str</text>
+    <text style="fill: #000000; font-size: 16 cm; length: 91 cm; font-family: monospace; font-style: normal; font-weight: normal" x="23" y="602">+midname: str</text>
+    <text style="fill: #000000; font-size: 16 cm; length: 98 cm; font-family: monospace; font-style: normal; font-weight: normal" x="23" y="618">+lastname: str</text>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="240" y="480" width="101" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="240" y="480" width="101" height="28"/>
+    <text style="fill: #000000; font-size: 20 cm; length: 72.8 cm; font-family: sans; font-style: normal; font-weight: 700" x="254.1" y="500">org_stuff</text>
+    <rect style="fill: #ffffff" x="240" y="508" width="101" height="20"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="240" y="508" width="101" height="20"/>
+    <text style="fill: #000000; font-size: 16 cm; length: 91 cm; font-family: monospace; font-style: normal; font-weight: normal" x="243" y="526">+leader: bool</text>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="170,190 190,190 190,72 136.007,72 "/>
+    <text style="fill: #000000; font-size: 16 cm; length: 0 cm; font-family: monospace; font-style: normal; font-weight: normal" x="192" y="123"></text>
+    <text style="fill: #000000; font-size: 16 cm; length: 7 cm; font-family: monospace; font-style: normal; font-weight: normal" x="174" y="187.2">*</text>
+    <text style="fill: #000000; font-size: 16 cm; length: 7 cm; font-family: monospace; font-style: normal; font-weight: normal" x="140.007" y="69.2">1</text>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="335.506,78 377.248,78 377.248,100 418.992,100 "/>
+    <text style="fill: #000000; font-size: 16 cm; length: 0 cm; font-family: monospace; font-style: normal; font-weight: normal" x="379.248" y="81"></text>
+    <text style="fill: #000000; font-size: 16 cm; length: 7 cm; font-family: monospace; font-style: normal; font-weight: normal" x="339.506" y="75.2">*</text>
+    <text style="fill: #000000; font-size: 16 cm; length: 7 cm; font-family: monospace; font-style: normal; font-weight: normal" x="407.992" y="97.2">1</text>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="171.009,232 205.001,232 205.001,504 238.994,504 "/>
+    <text style="fill: #000000; font-size: 16 cm; length: 0 cm; font-family: monospace; font-style: normal; font-weight: normal" x="207.001" y="360"></text>
+    <text style="fill: #000000; font-size: 16 cm; length: 7 cm; font-family: monospace; font-style: normal; font-weight: normal" x="175.009" y="229.2">1</text>
+    <text style="fill: #000000; font-size: 16 cm; length: 7 cm; font-family: monospace; font-style: normal; font-weight: normal" x="227.994" y="501.2">*</text>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="353.757,438 386.376,438 386.376,440 418.994,440 "/>
+    <text style="fill: #000000; font-size: 16 cm; length: 0 cm; font-family: monospace; font-style: normal; font-weight: normal" x="388.376" y="431"></text>
+    <text style="fill: #000000; font-size: 16 cm; length: 7 cm; font-family: monospace; font-style: normal; font-weight: normal" x="357.757" y="435.2">*</text>
+    <text style="fill: #000000; font-size: 16 cm; length: 7 cm; font-family: monospace; font-style: normal; font-weight: normal" x="407.994" y="437.2">1</text>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="311.659,558 365.327,558 365.327,632 418.995,632 "/>
+    <text style="fill: #000000; font-size: 16 cm; length: 0 cm; font-family: monospace; font-style: normal; font-weight: normal" x="367.327" y="587"></text>
+    <text style="fill: #000000; font-size: 16 cm; length: 7 cm; font-family: monospace; font-style: normal; font-weight: normal" x="315.659" y="555.2">1</text>
+    <text style="fill: #000000; font-size: 16 cm; length: 7 cm; font-family: monospace; font-style: normal; font-weight: normal" x="407.995" y="629.2">1</text>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="320.26,618 369.627,618 369.627,632 418.995,632 "/>
+    <text style="fill: #000000; font-size: 16 cm; length: 0 cm; font-family: monospace; font-style: normal; font-weight: normal" x="371.627" y="617"></text>
+    <text style="fill: #000000; font-size: 16 cm; length: 7 cm; font-family: monospace; font-style: normal; font-weight: normal" x="324.26" y="615.2">1</text>
+    <text style="fill: #000000; font-size: 16 cm; length: 7 cm; font-family: monospace; font-style: normal; font-weight: normal" x="407.995" y="629.2">1</text>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="349.007,328 384,328 384,352 418.993,352 "/>
+    <text style="fill: #000000; font-size: 16 cm; length: 0 cm; font-family: monospace; font-style: normal; font-weight: normal" x="386" y="332"></text>
+    <text style="fill: #000000; font-size: 16 cm; length: 7 cm; font-family: monospace; font-style: normal; font-weight: normal" x="353.007" y="325.2">*</text>
+    <text style="fill: #000000; font-size: 16 cm; length: 7 cm; font-family: monospace; font-style: normal; font-weight: normal" x="407.993" y="349.2">1</text>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="342.006,504 380.5,504 380.5,539 418.993,539 "/>
+    <text style="fill: #000000; font-size: 16 cm; length: 0 cm; font-family: monospace; font-style: normal; font-weight: normal" x="382.5" y="513.5"></text>
+    <text style="fill: #000000; font-size: 16 cm; length: 7 cm; font-family: monospace; font-style: normal; font-weight: normal" x="346.006" y="501.2">*</text>
+    <text style="fill: #000000; font-size: 16 cm; length: 7 cm; font-family: monospace; font-style: normal; font-weight: normal" x="407.993" y="536.2">1</text>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="238.994,504 187.5,504 187.5,580 136.007,580 "/>
+    <text style="fill: #000000; font-size: 16 cm; length: 0 cm; font-family: monospace; font-style: normal; font-weight: normal" x="189.5" y="534"></text>
+    <text style="fill: #000000; font-size: 16 cm; length: 7 cm; font-family: monospace; font-style: normal; font-weight: normal" x="227.994" y="501.2">*</text>
+    <text style="fill: #000000; font-size: 16 cm; length: 7 cm; font-family: monospace; font-style: normal; font-weight: normal" x="140.007" y="577.2">1</text>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="689.006,100 714,100 714,108 738.992,108 "/>
+    <text style="fill: #000000; font-size: 16 cm; length: 0 cm; font-family: monospace; font-style: normal; font-weight: normal" x="716" y="96"></text>
+    <text style="fill: #000000; font-size: 16 cm; length: 7 cm; font-family: monospace; font-style: normal; font-weight: normal" x="693.006" y="97.2">1</text>
+    <text style="fill: #000000; font-size: 16 cm; length: 7 cm; font-family: monospace; font-style: normal; font-weight: normal" x="727.992" y="105.2">*</text>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="420" y="160" width="56.05" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="420" y="160" width="56.05" height="28"/>
+    <text style="fill: #000000; font-size: 20 cm; length: 46.05 cm; font-family: sans; font-style: normal; font-weight: 700" x="425" y="180">Trunk</text>
+    <rect style="fill: #ffffff" x="420" y="188" width="56.05" height="8"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="420" y="188" width="56.05" height="8"/>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="240" y="60" width="94.5" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="240" y="60" width="94.5" height="28"/>
+    <text style="fill: #000000; font-size: 20 cm; length: 84.5 cm; font-family: sans; font-style: normal; font-weight: 700" x="245" y="80">org_okved</text>
+    <rect style="fill: #ffffff" x="240" y="88" width="94.5" height="8"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="240" y="88" width="94.5" height="8"/>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="240" y="120" width="136" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="240" y="120" width="136" height="28"/>
+    <text style="fill: #000000; font-size: 20 cm; length: 86.1 cm; font-family: sans; font-style: normal; font-weight: 700" x="264.95" y="140">org_phone</text>
+    <rect style="fill: #ffffff" x="240" y="148" width="136" height="52"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="240" y="148" width="136" height="52"/>
+    <text style="fill: #000000; font-size: 16 cm; length: 126 cm; font-family: monospace; font-style: normal; font-weight: normal" x="243" y="166">+country_id: IDREF</text>
+    <text style="fill: #000000; font-size: 16 cm; length: 112 cm; font-family: monospace; font-style: normal; font-weight: normal" x="243" y="182">+trunc_id: IDREF</text>
+    <text style="fill: #000000; font-size: 16 cm; length: 77 cm; font-family: monospace; font-style: normal; font-weight: normal" x="243" y="198">+phone: int</text>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="240" y="420" width="112.75" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="240" y="420" width="112.75" height="28"/>
+    <text style="fill: #000000; font-size: 20 cm; length: 102.75 cm; font-family: sans; font-style: normal; font-weight: 700" x="245" y="440">org_meeting</text>
+    <rect style="fill: #ffffff" x="240" y="448" width="112.75" height="8"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="240" y="448" width="112.75" height="8"/>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="240" y="540" width="70.65" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="240" y="540" width="70.65" height="28"/>
+    <text style="fill: #000000; font-size: 20 cm; length: 60.65 cm; font-family: sans; font-style: normal; font-weight: 700" x="245" y="560">org_file</text>
+    <rect style="fill: #ffffff" x="240" y="568" width="70.65" height="8"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="240" y="568" width="70.65" height="8"/>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="171.009,232 205.002,232 205.002,78 238.994,78 "/>
+    <text style="fill: #000000; font-size: 16 cm; length: 0 cm; font-family: monospace; font-style: normal; font-weight: normal" x="207.002" y="147"></text>
+    <text style="fill: #000000; font-size: 16 cm; length: 7 cm; font-family: monospace; font-style: normal; font-weight: normal" x="175.009" y="229.2">1</text>
+    <text style="fill: #000000; font-size: 16 cm; length: 7 cm; font-family: monospace; font-style: normal; font-weight: normal" x="227.994" y="75.2">*</text>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="171.009,232 205,232 205,160 238.992,160 "/>
+    <text style="fill: #000000; font-size: 16 cm; length: 0 cm; font-family: monospace; font-style: normal; font-weight: normal" x="207" y="188"></text>
+    <text style="fill: #000000; font-size: 16 cm; length: 7 cm; font-family: monospace; font-style: normal; font-weight: normal" x="175.009" y="229.2">1</text>
+    <text style="fill: #000000; font-size: 16 cm; length: 7 cm; font-family: monospace; font-style: normal; font-weight: normal" x="227.992" y="157.2">*</text>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="240" y="220" width="85.55" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="240" y="220" width="85.55" height="28"/>
+    <text style="fill: #000000; font-size: 20 cm; length: 75.55 cm; font-family: sans; font-style: normal; font-weight: 700" x="245" y="240">org_okdp</text>
+    <rect style="fill: #ffffff" x="240" y="248" width="85.55" height="20"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="240" y="248" width="85.55" height="20"/>
+    <text style="fill: #000000; font-size: 16 cm; length: 70 cm; font-family: monospace; font-style: normal; font-weight: normal" x="243" y="266">+sro: bool</text>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="171.009,232 205.002,232 205.002,244 238.995,244 "/>
+    <text style="fill: #000000; font-size: 16 cm; length: 0 cm; font-family: monospace; font-style: normal; font-weight: normal" x="207.002" y="230"></text>
+    <text style="fill: #000000; font-size: 16 cm; length: 7 cm; font-family: monospace; font-style: normal; font-weight: normal" x="175.009" y="229.2">1</text>
+    <text style="fill: #000000; font-size: 16 cm; length: 7 cm; font-family: monospace; font-style: normal; font-weight: normal" x="227.995" y="241.2">*</text>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="171.009,232 205.001,232 205.001,328 238.993,328 "/>
+    <text style="fill: #000000; font-size: 16 cm; length: 0 cm; font-family: monospace; font-style: normal; font-weight: normal" x="207.001" y="272"></text>
+    <text style="fill: #000000; font-size: 16 cm; length: 7 cm; font-family: monospace; font-style: normal; font-weight: normal" x="175.009" y="229.2">1</text>
+    <text style="fill: #000000; font-size: 16 cm; length: 7 cm; font-family: monospace; font-style: normal; font-weight: normal" x="227.993" y="325.2">*</text>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="171.009,232 205,232 205,558 238.991,558 "/>
+    <text style="fill: #000000; font-size: 16 cm; length: 0 cm; font-family: monospace; font-style: normal; font-weight: normal" x="207" y="387"></text>
+    <text style="fill: #000000; font-size: 16 cm; length: 7 cm; font-family: monospace; font-style: normal; font-weight: normal" x="175.009" y="229.2">1</text>
+    <text style="fill: #000000; font-size: 16 cm; length: 7 cm; font-family: monospace; font-style: normal; font-weight: normal" x="227.991" y="555.2">*</text>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="326.555,244 372.774,244 372.774,260 418.992,260 "/>
+    <text style="fill: #000000; font-size: 16 cm; length: 0 cm; font-family: monospace; font-style: normal; font-weight: normal" x="374.774" y="244"></text>
+    <text style="fill: #000000; font-size: 16 cm; length: 7 cm; font-family: monospace; font-style: normal; font-weight: normal" x="330.555" y="241.2">*</text>
+    <text style="fill: #000000; font-size: 16 cm; length: 7 cm; font-family: monospace; font-style: normal; font-weight: normal" x="407.992" y="257.2">1</text>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="240" y="600" width="79.25" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="240" y="600" width="79.25" height="28"/>
+    <text style="fill: #000000; font-size: 20 cm; length: 69.25 cm; font-family: sans; font-style: normal; font-weight: 700" x="245" y="620">pers_file</text>
+    <rect style="fill: #ffffff" x="240" y="628" width="79.25" height="8"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="240" y="628" width="79.25" height="8"/>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="136.007,580 187.499,580 187.499,618 238.99,618 "/>
+    <text style="fill: #000000; font-size: 16 cm; length: 0 cm; font-family: monospace; font-style: normal; font-weight: normal" x="189.499" y="591"></text>
+    <text style="fill: #000000; font-size: 16 cm; length: 7 cm; font-family: monospace; font-style: normal; font-weight: normal" x="140.007" y="577.2">1</text>
+    <text style="fill: #000000; font-size: 16 cm; length: 7 cm; font-family: monospace; font-style: normal; font-weight: normal" x="227.99" y="615.2">*</text>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="376,174 397.496,174 397.496,178 418.993,178 "/>
+    <text style="fill: #000000; font-size: 16 cm; length: 0 cm; font-family: monospace; font-style: normal; font-weight: normal" x="399.496" y="168"></text>
+    <text style="fill: #000000; font-size: 16 cm; length: 7 cm; font-family: monospace; font-style: normal; font-weight: normal" x="380" y="171.2">1</text>
+    <text style="fill: #000000; font-size: 16 cm; length: 7 cm; font-family: monospace; font-style: normal; font-weight: normal" x="407.993" y="175.2">*</text>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="171.009,232 205.001,232 205.001,438 238.993,438 "/>
+    <text style="fill: #000000; font-size: 16 cm; length: 0 cm; font-family: monospace; font-style: normal; font-weight: normal" x="207.001" y="327"></text>
+    <text style="fill: #000000; font-size: 16 cm; length: 7 cm; font-family: monospace; font-style: normal; font-weight: normal" x="175.009" y="229.2">1</text>
+    <text style="fill: #000000; font-size: 16 cm; length: 7 cm; font-family: monospace; font-style: normal; font-weight: normal" x="227.993" y="435.2">*</text>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="349.007,328 383.999,328 383.999,260 418.992,260 "/>
+    <text style="fill: #000000; font-size: 16 cm; length: 0 cm; font-family: monospace; font-style: normal; font-weight: normal" x="385.999" y="286"></text>
+    <text style="fill: #000000; font-size: 16 cm; length: 7 cm; font-family: monospace; font-style: normal; font-weight: normal" x="353.007" y="325.2">*</text>
+    <text style="fill: #000000; font-size: 16 cm; length: 7 cm; font-family: monospace; font-style: normal; font-weight: normal" x="407.992" y="257.2">1</text>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="580" y="220" width="113.8" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="580" y="220" width="113.8" height="28"/>
+    <text style="fill: #000000; font-size: 20 cm; length: 103.8 cm; font-family: sans; font-style: normal; font-weight: 700" x="585" y="240">OKDP_Group</text>
+    <rect style="fill: #ffffff" x="580" y="248" width="113.8" height="84"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="580" y="248" width="113.8" height="84"/>
+    <text style="fill: #000000; font-size: 16 cm; length: 70 cm; font-family: monospace; font-style: normal; font-weight: normal" x="583" y="266">+desk: str</text>
+    <text style="fill: #000000; font-size: 16 cm; length: 56 cm; font-family: monospace; font-style: normal; font-weight: normal" x="583" y="282">+hq: int</text>
+    <text style="fill: #000000; font-size: 16 cm; length: 56 cm; font-family: monospace; font-style: normal; font-weight: normal" x="583" y="298">+hs: int</text>
+    <text style="fill: #000000; font-size: 16 cm; length: 56 cm; font-family: monospace; font-style: normal; font-weight: normal" x="583" y="314">+mq: int</text>
+    <text style="fill: #000000; font-size: 16 cm; length: 56 cm; font-family: monospace; font-style: normal; font-weight: normal" x="583" y="330">+ms: int</text>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="550.008,260 564.5,260 564.5,276 578.993,276 "/>
+    <text style="fill: #000000; font-size: 16 cm; length: 0 cm; font-family: monospace; font-style: normal; font-weight: normal" x="566.5" y="260"></text>
+    <text style="fill: #000000; font-size: 16 cm; length: 7 cm; font-family: monospace; font-style: normal; font-weight: normal" x="554.008" y="257.2">*</text>
+    <text style="fill: #000000; font-size: 16 cm; length: 7 cm; font-family: monospace; font-style: normal; font-weight: normal" x="567.993" y="273.2">1</text>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="860" y="620" width="80" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="860" y="620" width="80" height="28"/>
+    <text style="fill: #000000; font-size: 20 cm; length: 46.6 cm; font-family: sans; font-style: normal; font-weight: 700" x="876.7" y="640">OKSO</text>
+    <rect style="fill: #ffffff" x="860" y="648" width="80" height="36"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="860" y="648" width="80" height="36"/>
+    <text style="fill: #000000; font-size: 16 cm; length: 63 cm; font-family: monospace; font-style: normal; font-weight: normal" x="863" y="666">+code: ID</text>
+    <text style="fill: #000000; font-size: 16 cm; length: 70 cm; font-family: monospace; font-style: normal; font-weight: normal" x="863" y="682">+name: str</text>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="700" y="620" width="114.3" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="700" y="620" width="114.3" height="28"/>
+    <text style="fill: #000000; font-size: 20 cm; length: 104.3 cm; font-family: sans; font-style: normal; font-weight: 700" x="705" y="640">Qualification</text>
+    <rect style="fill: #ffffff" x="700" y="648" width="114.3" height="36"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="700" y="648" width="114.3" height="36"/>
+    <text style="fill: #000000; font-size: 16 cm; length: 70 cm; font-family: monospace; font-style: normal; font-weight: normal" x="703" y="666">+code: int</text>
+    <text style="fill: #000000; font-size: 16 cm; length: 70 cm; font-family: monospace; font-style: normal; font-weight: normal" x="703" y="682">+name: str</text>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="858.995,652 858.995,652 815.307,652 815.307,652 "/>
+    <text style="fill: #000000; font-size: 16 cm; length: 0 cm; font-family: monospace; font-style: normal; font-weight: normal" x="837.151" y="644"></text>
+    <text style="fill: #000000; font-size: 16 cm; length: 7 cm; font-family: monospace; font-style: normal; font-weight: normal" x="847.995" y="649.2">1</text>
+    <text style="fill: #000000; font-size: 16 cm; length: 7 cm; font-family: monospace; font-style: normal; font-weight: normal" x="819.307" y="649.2">*</text>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="240" y="640" width="89.25" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="240" y="640" width="89.25" height="28"/>
+    <text style="fill: #000000; font-size: 20 cm; length: 79.25 cm; font-family: sans; font-style: normal; font-weight: 700" x="245" y="660">pers_qual</text>
+    <rect style="fill: #ffffff" x="240" y="668" width="89.25" height="20"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="240" y="668" width="89.25" height="20"/>
+    <text style="fill: #000000; font-size: 16 cm; length: 77 cm; font-family: monospace; font-style: normal; font-weight: normal" x="243" y="686">+qid: IDREF</text>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="136.007,580 187.501,580 187.501,664 238.994,664 "/>
+    <text style="fill: #000000; font-size: 16 cm; length: 0 cm; font-family: monospace; font-style: normal; font-weight: normal" x="189.501" y="614"></text>
+    <text style="fill: #000000; font-size: 16 cm; length: 7 cm; font-family: monospace; font-style: normal; font-weight: normal" x="140.007" y="577.2">1</text>
+    <text style="fill: #000000; font-size: 16 cm; length: 7 cm; font-family: monospace; font-style: normal; font-weight: normal" x="227.994" y="661.2">*</text>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="329.25,678 514.121,678 514.121,652 698.993,652 "/>
+    <text style="fill: #000000; font-size: 16 cm; length: 0 cm; font-family: monospace; font-style: normal; font-weight: normal" x="516.121" y="657"></text>
+    <text style="fill: #000000; font-size: 16 cm; length: 7 cm; font-family: monospace; font-style: normal; font-weight: normal" x="333.25" y="675.2">*</text>
+    <text style="fill: #000000; font-size: 16 cm; length: 7 cm; font-family: monospace; font-style: normal; font-weight: normal" x="687.993" y="649.2">1</text>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="860" y="260" width="76.15" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="860" y="260" width="76.15" height="28"/>
+    <text style="fill: #000000; font-size: 20 cm; length: 66.15 cm; font-family: sans; font-style: normal; font-weight: 700" x="865" y="280">og_okso</text>
+    <rect style="fill: #ffffff" x="860" y="288" width="76.15" height="8"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="860" y="288" width="76.15" height="8"/>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="720" y="320" width="73.45" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="720" y="320" width="73.45" height="28"/>
+    <text style="fill: #000000; font-size: 20 cm; length: 63.45 cm; font-family: sans; font-style: normal; font-weight: 700" x="725" y="340">og_qual</text>
+    <rect style="fill: #ffffff" x="720" y="348" width="73.45" height="8"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="720" y="348" width="73.45" height="8"/>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="694.807,276 756.725,276 756.725,318.991 "/>
+    <text style="fill: #000000; font-size: 16 cm; length: 0 cm; font-family: monospace; font-style: normal; font-weight: normal" x="725.766" y="268"></text>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="756.725,357.009 756.725,488.001 757.15,488.001 757.15,618.992 "/>
+    <text style="fill: #000000; font-size: 16 cm; length: 0 cm; font-family: monospace; font-style: normal; font-weight: normal" x="756.938" y="480.001"></text>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="694.807,276 776.899,276 776.899,278 858.99,278 "/>
+    <text style="fill: #000000; font-size: 16 cm; length: 0 cm; font-family: monospace; font-style: normal; font-weight: normal" x="778.899" y="269"></text>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="898.075,297.009 898.075,458.001 900,458.001 900,618.992 "/>
+    <text style="fill: #000000; font-size: 16 cm; length: 0 cm; font-family: monospace; font-style: normal; font-weight: normal" x="899.038" y="450.001"></text>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="900" y="60" width="143" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="900" y="60" width="143" height="28"/>
+    <text style="fill: #000000; font-size: 20 cm; length: 25.45 cm; font-family: sans; font-style: normal; font-weight: 700" x="958.775" y="80">log</text>
+    <rect style="fill: #ffffff" x="900" y="88" width="143" height="100"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="900" y="88" width="143" height="100"/>
+    <text style="fill: #000000; font-size: 16 cm; length: 84 cm; font-family: monospace; font-style: normal; font-weight: normal" x="903" y="106">+user: IDREF</text>
+    <text style="fill: #000000; font-size: 16 cm; length: 133 cm; font-family: monospace; font-style: normal; font-weight: normal" x="903" y="122">+datetime: datetime</text>
+    <text style="fill: #000000; font-size: 16 cm; length: 112 cm; font-family: monospace; font-style: normal; font-weight: normal" x="903" y="138">+obj_type: IDREF</text>
+    <text style="fill: #000000; font-size: 16 cm; length: 98 cm; font-family: monospace; font-style: normal; font-weight: normal" x="903" y="154">+obj_id: IDREF</text>
+    <text style="fill: #000000; font-size: 16 cm; length: 112 cm; font-family: monospace; font-style: normal; font-weight: normal" x="903" y="170">+event_id: IDREF</text>
+    <text style="fill: #000000; font-size: 16 cm; length: 98 cm; font-family: monospace; font-style: normal; font-weight: normal" x="903" y="186">+comments: str</text>
+  </g>
+</svg>
