@@ -1,0 +1,10 @@
+ОКОПФ
+ОКВЭД
+ОКДП
+ОКДП_group
+ОКПДТР
+SpecialityDir
+Speciality
+Qualification
+Country
+Trunk
