@@ -30,19 +30,6 @@ class	Okved(models.Model):
 	class Meta:
 		ordering = ['id']
 
-class	Okdp(models.Model):
-	'''
-	id - by OKDP, int
-	'''
-	id		= models.PositiveIntegerField(primary_key=True)
-	name		= models.CharField(max_length=255, blank=False, unique=True)
-
-	def	__unicode__(self):
-		return self.descr
-
-	class Meta:
-		ordering = ['id']
-
 class	Okso(models.Model):
 	'''
 	id - by OKSO, int
@@ -68,6 +55,19 @@ class	Qualification(models.Model):
 
 	def	__unicode__(self):
 		return self.name
+
+	class Meta:
+		ordering = ['id']
+
+class	Okdp(models.Model):
+	'''
+	id - by OKDP, int
+	'''
+	id		= models.PositiveIntegerField(primary_key=True)
+	name		= models.CharField(max_length=255, blank=False, unique=True)
+
+	def	__unicode__(self):
+		return self.descr
 
 	class Meta:
 		ordering = ['id']
@@ -125,11 +125,6 @@ class	EventType(models.Model):
 	name		= models.CharField(max_length=40, blank=False, unique=True)
 	comments	= models.CharField(max_length=100, blank=True)
 
-class	Meeting(models.Model):
-	date		= models.DateField(blank=False)
-	agenda		= models.CharField(max_length=100, blank=False)
-	log		= models.TextField(blank=True)
-
 class	Role(models.Model):
 	name		= models.CharField(max_length=40, blank=False, unique=True)
 	comments	= models.CharField(max_length=100, blank=True)
@@ -158,9 +153,8 @@ class	Org(models.Model):
 	licdue		= models.DateField(blank=True)
 	okopf		= models.ForeignKey(Okopf)
 	okveds		= models.ManyToManyField(Okved, blank=True)
-	licokdps	= models.ManyToManyField(Okdp, blank=True, related_name='lokdp')
-	srookdps	= models.ManyToManyField(Okdp, blank=True, related_name='sokdp')
-	meetings	= models.ManyToManyField(Meeting, blank=True)
+	licokdps	= models.ManyToManyField(Okdp, blank=True)
+	srookdps	= models.ManyToManyField(Okdp4SRO, blank=True)
 	phones		= models.ManyToManyField(Phone, blank=True)
 	emails		= models.ManyToManyField(Email, blank=True)
 
@@ -198,3 +192,9 @@ class	OrgFile(models.Model):
 
 	class Meta:
 		ordering = ['id']
+
+class	Meeting(models.Model):
+	date		= models.DateField(blank=False)
+	agenda		= models.CharField(max_length=100, blank=False)
+	log		= models.TextField(blank=True)
+	orgs		= models.ManyToManyField(Org, blank=True)
