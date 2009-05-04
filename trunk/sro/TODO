@@ -1,0 +1,6 @@
+TODO:
+	* m2m replacing: multiselect => table + 1select
+	* File: uniqname
+FIXME:
+	* очень долго грузится okdp. Надо раздеребенить на части
+	* учесть diabled

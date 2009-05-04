@@ -1,5 +1,29 @@
-Телефоны:
-ABC - коды оператора по географическому признаку
-DEF - по негеографическому
-DEF - зависит от региона и даты, но - возможно, DEF+XXX[-YYY] - уникален
-Т.е. субъект федерации + оператор = DEF + диапазон
+Phone:
+	ABC - коды оператора по географическому признаку
+	DEF - по негеографическому
+	DEF - зависит от региона и даты, но - возможно, DEF+XXX[-YYY] - уникален
+	Т.е. субъект федерации + оператор = DEF + диапазон
+
+Forms:
+	* Qual:		admin
+	* OKSO:		admin+Qual
+	* OKOPF:	admin
+	* OKDP_Group:	admin+m2m(OKDP[4SRO])
+	* OKDP4SRO:	admin (??? maybe OKDP_Group.m2m=>OKDP?)
+	* OKDP:		admin
+	* OKVED:	admin
+	* Role:		admin
+	* EventType:	admin
+	* User:		admin
+	* Profile:	admin
+Indirect:
+	* Phone
+	* Email
+	* PersonFile
+	* OrgStuff
+	* OrgEvent
+	* OrgFile
+Special:
+	* Org: simple + ...
+	* Person: simple + m2m (OKSO->Qual)
+	* Meeting: simple : m2m (Org)
