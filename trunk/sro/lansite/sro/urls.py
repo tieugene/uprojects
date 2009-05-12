@@ -5,6 +5,8 @@ from django.conf.urls.defaults import *
 urlpatterns = patterns('lansite.sro.views',
 	(r'^$', 'index'),
 	(r'^export/$', 'exportxml'),
-	(r'^delete/$', 'deleteall'),
 	(r'^import/$', 'importxml'),
+	(r'^myexport/$', 'exml'),
+	(r'^myimport/$', 'ixml'),
+	(r'^delete/$', 'deleteall'),
 )

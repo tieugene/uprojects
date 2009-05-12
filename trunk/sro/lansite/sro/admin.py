@@ -3,6 +3,11 @@ from django.contrib import admin
 from models import *
 
 # 1. inlines
+class	OkopfInLine(admin.TabularInline):
+	model = Okopf
+	extra = 0
+#	inlines		= [OkopfInLine,]
+
 class	SkillInLine(admin.TabularInline):
 	model = Skill
 	extra = 1
@@ -18,31 +23,31 @@ class	StageOksoInLine(admin.TabularInline):
 class	PersonSkillInLine(admin.TabularInline):
 	model = PersonSkill
 	extra = 1
-	
+
 class	PersonFileInLine(admin.TabularInline):
 	model = PersonFile
 	extra = 1
-	
+
 class	OrgOkvedInLine(admin.TabularInline):
 	model = OrgOkved
 	extra = 1
-	
+
 class	OrgLOkdpInLine(admin.TabularInline):
 	model = OrgLOkdp
 	extra = 1
-	
+
 class	OrgSOkdpInLine(admin.TabularInline):
 	model = OrgSOkdp
 	extra = 1
-	
+
 class	OrgPhoneInLine(admin.TabularInline):
 	model = OrgPhone
 	extra = 1
-	
+
 class	OrgEmailInLine(admin.TabularInline):
 	model = OrgEmail
 	extra = 1
-	
+
 class	OrgEventInLine(admin.TabularInline):
 	model = OrgEvent
 	extra = 1
@@ -50,11 +55,11 @@ class	OrgEventInLine(admin.TabularInline):
 class	OrgStuffInLine(admin.TabularInline):
 	model = OrgStuff
 	extra = 1
-	
+
 class	OrgFileInLine(admin.TabularInline):
 	model = OrgFile
 	extra = 1
-	
+
 class	MeetingOrgInLine(admin.TabularInline):
 	model = MeetingOrg
 	extra = 1
@@ -65,6 +70,7 @@ class	OkopfAdmin(admin.ModelAdmin):
 	list_display	= ('id', 'name', 'shortname', 'disabled')
 	ordering	= ('id',)
 	search_fields	= ('shorname',)
+	inlines		= [OkopfInLine,]
 
 class	OkvedAdmin(admin.ModelAdmin):
 	list_display	= ['id', 'name', 'disabled']
@@ -80,7 +86,7 @@ class	OkdpAdmin(admin.ModelAdmin):
 
 class	StageAdmin(admin.ModelAdmin):
 	list_display = ['id', 'name', 'hq', 'hs', 'mq', 'ms']
-	inlines = [StageOkdpInLine, StageOksoInLine,]
+	inlines = [StageOksoInLine,]
 
 class	StageOkdpAdmin(admin.ModelAdmin):
 	list_display = ['stage', 'okdp']
@@ -112,7 +118,7 @@ class	PersonFileAdmin(admin.ModelAdmin):
 
 class	OrgAdmin(admin.ModelAdmin):
 	list_display = ['name', 'fullname']
-	inlines = (OrgOkvedInLine, OrgLOkdpInLine, OrgSOkdpInLine, OrgPhoneInLine, OrgEmailInLine, OrgStuffInLine, OrgFileInLine)
+	inlines = (OrgOkvedInLine, OrgPhoneInLine, OrgEmailInLine, OrgStuffInLine, OrgFileInLine)
 
 class	OrgEventAdmin(admin.ModelAdmin):
 	list_display = ['org', 'type']
