@@ -4,3 +4,11 @@ TODO:
 FIXME:
 	* очень долго грузится okdp. Надо раздеребенить на части
 	* учесть diabled
+	* Справочники с parent - cascade selection
+	* uniq pairs in m2m
+
+WISHES:
+	* own export/import
+
+= Done =
+	* Нормальные имена в Admin (field: verbose_name; model: verbose_name, verbose_name_plural)

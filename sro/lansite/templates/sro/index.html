@@ -9,14 +9,17 @@
 <center>
 	<h1> <a href="..">LanSite</a>.СРО </h1>
 	<p><a href="../admin/sro/"> Админка </a></p>
-	<p><a href="export/"> Экспорт </a></p>
+	<p><form enctype="multipart/form-data" method="POST" action="import/">
+		Django:	
+		<a href="export/"> Экспорт </a> /
+		<input type="file" name="file" /><input type="submit" value="Import" />
+	</form></p>
+	<p><form enctype="multipart/form-data" method="POST" action="myimport/">
+		My:
+		<a href="myexport/"> Экспорт </a> /
+		<input type="file" name="file" /><input type="submit" value="Import" />
+	</form></p>
 	<p><a href="delete/"> Удалить всё </a></p>
-	<p>
-		<form enctype="multipart/form-data" method="POST" action="import/">
-			<input type="file" name="file" />
-			<input type="submit" value="Import" />
-		</form>
-	</p>
 </center>
 </body>
 </html>
