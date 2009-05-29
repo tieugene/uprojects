@@ -1,9 +1,10 @@
 TODO:
 	* m2m replacing: multiselect => table + 1select
 	* File: uniqname
+	* refs parents
 FIXME:
 	* очень долго грузится okdp. Надо раздеребенить на части
-	* учесть diabled
+	* учесть disabled
 	* Справочники с parent - cascade selection
 	* uniq pairs in m2m
 
@@ -12,3 +13,38 @@ WISHES:
 
 = Done =
 	* Нормальные имена в Admin (field: verbose_name; model: verbose_name, verbose_name_plural)
+
+9527: Тестирование
+	= OK =
+		* Адреса электропочты
+		* Группы работ - Виды работ (или select, но только add - или raw_id, но editable=False)
+		* Должности
+		* Заседания
+		* Квалификации
+		* Коды ОКВЭД (future: set disabled, set parent)
+		* Коды ОКДП (future: set disabled, set parent)
+		* Коды ОКОПФ (future: set disabled, set parent)
+		* Коды ОКСО (future: set disabled, set parent)
+		* Номера телефонов (future: countries, auto id)
+		* Типы событий
+	= Коекак =
+		* Организации
+		* Организация.События
+		* Организация.ГруппыРабот
+		* Файлы: FileAdmin + Org + Person
+		* Файлы: django.db.models.signals.pre_save, ...post_save
+	= FIXME =
+		* *: exim - speedup
+		* Телефоны: fixed (?) decimal (or fixed)
+		* autoinit (manage.py dumpdata --format <xml/json/yaml/python> / loaddata
+* "По международным требованиям ITUT номер может быть представлен в local формате - 6-7 знаков, в national формате - 11 знаков и в international формате - 14 знаков
+* Международный номер - Полный номер абонента, содержащий код страны, код города и местный номер. Согласно ограничению ITU-T, может иметь длину до 15 цифр (при этом код страны - не более 3-х цифр, а остальная часть номера - не более 14). На практике, длина международного номера бывает от 8 до 12 цифр.
+
+Получается:
+	* template отображает поля - как те скажут; только template знает - какое поле в какой позиции (редактировать или добавить)
+	* поля сами знают, как отображаться
+	* они не знают - в какой они позиции
+Вывод:
+	* делать как есть
+	* где критично - raw_id
+	* и готовить ручной интерфейс

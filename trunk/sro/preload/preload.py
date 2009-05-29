@@ -70,14 +70,6 @@ def	load_stage(c):
 	for s in __get_reader('stage.txt'):
 		c.execute('INSERT INTO sro_stage (id, name, hq, hs, mq, ms) VALUES (?, ?, ?, ?, ?, ?)', (__get_str(s[0]), __get_str(s[1]), __get_int(s[2]), __get_int(s[3]), __get_int(s[4]), __get_int(s[5])))
 
-def	load_stageokdp(c):
-	print 'Loading Stage OKDPs'
-	c.execute('DELETE FROM sro_stageokdp')
-	for s in __get_reader('stageokdp.txt'):
-		stage	= __get_int(s[0])
-		okdp	= __get_str(s[1])
-		c.execute('INSERT INTO sro_stageokdp (id, stage_id, okdp_id) VALUES (?, ?, ?)', (int('%d%s' % (stage, okdp)), stage, okdp))
-
 def	load_stageokso(c):
 	print 'Loading Stage OKSOs'
 	c.execute('DELETE FROM sro_stageokso')
@@ -85,6 +77,14 @@ def	load_stageokso(c):
 		stage	= __get_int(s[0])
 		okso	= __get_int(s[1])
 		c.execute('INSERT INTO sro_stageokso (id, stage_id, okso_id) VALUES (?, ?, ?)', (int('%d%d' % (stage, okso)), stage, okso))
+
+def	load_job(c):
+	print 'Loading Jobs'
+	c.execute('DELETE FROM sro_job')
+	for s in __get_reader('job.txt'):
+		stage	= __get_int(s[0])
+		okdp	= __get_str(s[1])
+		c.execute('INSERT INTO sro_job (id, stage_id, okdp_id) VALUES (?, ?, ?)', (int('%d%s' % (stage, okdp)), stage, okdp))
 
 def	main():
 	conn = sqlite3.connect('../lansite/lansite.db')
@@ -95,8 +95,8 @@ def	main():
 	load_skill(c)
 	load_okdp(c)
 	load_stage(c)
-	load_stageokdp(c)
 	load_stageokso(c)
+	load_job(c)
 	c.execute('VACUUM')
 	conn.close()
 
