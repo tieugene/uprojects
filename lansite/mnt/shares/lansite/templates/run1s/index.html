@@ -1,0 +1,52 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+	<title>Run1s</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<link rel="stylesheet" href="base.css" type="text/css" />
+	<script type="text/javascript" src="stripetable.js"></script>
+</head>
+<body>
+<center>
+	<h1> Run1s </h1>
+	<p> <a href="../admin/run1s/"> (Administer) </a> </p>
+</center>
+<table border="0">
+<thead> <tr> <th> Databases: </th> <th> Users: </th> </tr> </thead>
+<tbody>
+<tr>
+<td valign="top">
+	<table id="tab1" border="1" onload="makeStripe(document.getElementById('tab1'));">
+	<thead> <tr> <th> Org </th> <th> Type </th> <th> Path </th> <th> Comments </th> <th> ACL </th> </tr> </thead>
+	<tbody>
+	{% for db in db_list %}
+		<tr>
+			<td>{{ db.org.name }}</td>
+			<td>{{ db.type.name }}</td>
+			<td>{{ db }}</td>
+			<td>{{ db.comments }}</td>
+			<td> <a href="dbacl/{{ db.id }}/">ACL</a> </td>
+		<tr>
+	{% endfor %}
+	</tbody>
+	</table>
+</td>
+<td valign="top">
+	<table id="tab2" border="1" onload="makeStripe(document.getElementById('tab2'));">
+	<thead> <tr> <th> Login </th> <th> <th> Comments </th> <th> ACL </th> </tr> </thead>
+	<tbody>
+	{% for user in user_list %}
+		<tr>
+			<td>{{ user.login }}</td>
+			<td>{{ user.comments }}</td>
+			<td> <a href="useracl/{{ user.id }}/">ACL</a> </td>
+		<tr>
+	{% endfor %}
+	</tbody>
+	</table>
+</td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>
