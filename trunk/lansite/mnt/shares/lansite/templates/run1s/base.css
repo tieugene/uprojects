@@ -1,0 +1,40 @@
+body {
+	margin: 0 auto;
+	text-align: center;
+}
+
+table {
+	border: 1px solid #777;
+	border-collapse: collapse ;
+	border-spacing: 0;
+	table-layout: fixed;
+	width: 80%;
+	margin: 0 auto;
+}
+
+td, th {
+	border: 1px solid #777;
+	padding: 3px 6px;
+}
+
+th {
+	font-weight: bold;
+	text-align: center;
+	color: #000;
+	background-color: #fee;
+	font-size: 1.2em;
+}
+
+tbody .odd {
+	color: #000;
+	background-color: #efe;
+}
+
+tbody .even {
+	color: #000;
+	background-color: #eef;
+}
+
+p {
+	margin: 1em 0;
+}
