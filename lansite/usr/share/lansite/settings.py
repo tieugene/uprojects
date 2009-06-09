@@ -86,4 +86,5 @@ INSTALLED_APPS = (
 	'django.contrib.sites',
 	'lansite.run1s',
 	'lansite.sro',
+	'lansite.insupol',
 )
