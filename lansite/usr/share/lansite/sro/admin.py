@@ -8,14 +8,17 @@ TODO:
 
 from django.contrib import admin
 from models import *
-#from addons.autocomplete.widgets import *
+from addons.autocomplete.widgets import *
 from rfm import ReadOnlyAdminFields
 
-# 1. inlines
+# 1. Inlines
 class	OkopfInLine(admin.TabularInline):
 	model		= Okopf
-	extra		= 0
-#	inlines		= [OkopfInLine,]
+	extra		= 1
+
+class	OkvedInLine(admin.TabularInline):
+	model		= Okved
+	extra		= 1
 
 class	SkillInLine(admin.TabularInline):
 	model		= Skill
@@ -30,7 +33,7 @@ class	StageOksoInLine(admin.TabularInline):
 class	JobInLine(admin.TabularInline):
 	model		= Job
 	extra		= 1
-	raw_id_fields	= ('okdp',)
+	#raw_id_fields	= ('okdp',)
 
 class	PersonSkillInLine(admin.TabularInline):
 	model		= PersonSkill
@@ -46,22 +49,26 @@ class	OrgOkvedInLine(admin.TabularInline):
 	extra		= 1
 	raw_id_fields	= ('okved',)
 
-class	OrgLOkdpInLine(admin.TabularInline):
-	model	= OrgLOkdp
-	extra	= 1
-	raw_id_fields	= ('okdp',)
-
-class	OrgStageInLine(admin.TabularInline):
-	model = OrgStage
+class	PermitInLine(admin.TabularInline):
+	list_display	= ('id', 'date')
+	model = Permit
 	extra = 1
 
-class	OrgJobInLine(admin.TabularInline):
-	model = OrgJob
+class	PermitStageInLine(admin.TabularInline):
+	model = PermitStage
+	extra = 1
+
+class	PermitStageJobInLine(admin.TabularInline):
+	model = PermitStageJob
 	extra = 1
 
 class	OrgPhoneInLine(admin.TabularInline):
 	model = OrgPhone
 	extra = 1
+
+	def	save_model(self, request, obj, form, change):
+		obj.id = int(request.POST['country'] + request.POST['trunk'] + request.POST['phone'])
+		obj.save()
 
 class	OrgEmailInLine(admin.TabularInline):
 	model = OrgEmail
@@ -73,10 +80,6 @@ class	OrgEventInLine(admin.TabularInline):
 	
 class	OrgEventStageInLine(admin.TabularInline):
 	model = OrgEventStage
-	extra = 1
-	
-class	OrgEventJobInLine(admin.TabularInline):
-	model = OrgEventJob
 	extra = 1
 	
 class	OrgStuffInLine(admin.TabularInline):
@@ -93,7 +96,6 @@ class	MeetingOrgInLine(admin.TabularInline):
 	extra = 1
 	
 # 2. Odmins
-
 class	OkopfAdmin(admin.ModelAdmin):
 	list_display	= ('id', 'name', 'shortname', 'disabled')
 	ordering	= ('id',)
@@ -103,9 +105,12 @@ class	OkopfAdmin(admin.ModelAdmin):
 
 class	OkvedAdmin(admin.ModelAdmin):
 	list_display	= ('id', 'name', 'disabled')
+	ordering	= ('id',)
+	search_fields	= ('name',)
+	inlines		= (OkvedInLine,)
 
 class	OksoAdmin(admin.ModelAdmin):
-	list_display	= ('id', 'name', 'disabled')
+	list_display	= ('id', 'name')
 	ordering	= ('id',)
 	search_fields	= ('name',)
 	inlines		= (SkillInLine,)
@@ -114,23 +119,9 @@ class	SkillAdmin(admin.ModelAdmin):
 	list_display = ('id', 'okso', 'skill', 'name')
 	raw_id_fields	= ('okso',)
 
-class	OkdpAdmin(admin.ModelAdmin):
-	list_display = ('id', 'name')
-
 class	StageAdmin(admin.ModelAdmin):
 	list_display = ('id', 'name', 'hq', 'hs', 'mq', 'ms')
-	inlines = (JobInLine,)
-
-class	PhoneAdmin(admin.ModelAdmin):
-	list_display = ('id', 'country', 'trunk', 'phone', 'ext')
-	fields = ('country', 'trunk', 'phone', 'ext')
-
-	def	save_model(self, request, obj, form, change):
-		obj.id = int(request.POST['country'] + request.POST['trunk'] + request.POST['phone'])
-		obj.save()
-
-class	EmailAdmin(admin.ModelAdmin):
-	list_display = ('URL',)
+	inlines = (StageOksoInLine, JobInLine,)
 
 class	EventTypeAdmin(admin.ModelAdmin):
 	list_display = ('name', 'comments')
@@ -138,58 +129,39 @@ class	EventTypeAdmin(admin.ModelAdmin):
 class	RoleAdmin(admin.ModelAdmin):
 	list_display = ('name', 'comments')
 
+#class	PersonAdmin(AutocompleteModelAdmin):
 class	PersonAdmin(admin.ModelAdmin):
 	list_display = ('firstname', 'midname', 'lastname')
 	inlines = (PersonSkillInLine, OrgStuffInLine, PersonFileInLine,)
-	#fields = ('firstname', 'midname', 'lastname', 'skills', 'files')
-	#filter_horizontal = ('firstname',), filter_vertical
-	#fieldsets = (
-	#	(None, {
-	#		'fields': ('firstname', 'midname', 'lastname')
-	#	}),
-	#	(u'Разное', {
-	#		'classes': ('collapse',),
-	#		'fields': ('skills', 'files',)
-	#	}),
-	#)
+	raw_id_fields	= ('skills',)
+	#related_search_fields = {
+	#	'skills': ('^id', 'name'),
+	#}
 
-#class	PersonAdmin(AutocompleteModelAdmin):
-#	list_display = ('firstname', 'midname', 'lastname')
-#	inlines = (OrgStuffInLine, PersonFileInLine,)
-#	related_search_fields = { 
-#		'skill': ('skill',),
-#       }
-	
-#class	PersonSkillAdmin(admin.ModelAdmin):
-#	list_display = ('person', 'skill')
-
-#class	PersonFileAdmin(admin.ModelAdmin):
-#	list_display = ('person', 'file')
-
+#class	OrgAdmin(AutocompleteModelAdmin):
 class	OrgAdmin(admin.ModelAdmin):
 	list_display = ('name', 'fullname')
-	inlines = (OrgOkvedInLine, OrgLOkdpInLine, OrgStageInLine, OrgPhoneInLine, OrgEmailInLine, OrgStuffInLine, OrgFileInLine, OrgEventInLine)
-	#raw_id_fields	= ('okopf',)
+	inlines = (OrgOkvedInLine, OrgPhoneInLine, OrgEmailInLine, OrgStuffInLine, OrgEventInLine, PermitInLine, OrgFileInLine)
+	raw_id_fields	= ('okveds',)
+	#related_search_fields = {
+	#	'okveds': ('^id',),
+	#}
 
-class	OrgStageAdmin(admin.ModelAdmin):
-	list_display = ('org', 'stage')
-	list_filter = ('org',)
-	#prepopulated_fields = {"org": ("org",)}
-	#fields = (,)
-	filter_horizontal = ('jobs',)
-	inlines = (OrgJobInLine,)
+class	PermitAdmin(admin.ModelAdmin):
+	list_display	= ('id', 'date', 'org')
+	list_filter	= ('org',)
+	inlines		= (PermitStageInLine,)
+
+class	PermitStageAdmin(admin.ModelAdmin):
+	list_display = ('permit', 'stage')
+	#list_filter = ('org',)
+	#filter_horizontal = ('jobs',)
+	inlines = (PermitStageJobInLine,)
 
 class	OrgEventAdmin(admin.ModelAdmin):
 	list_display = ('org', 'type')
 	list_filter = ('org',)
 	inlines = (OrgEventStageInLine,)
-
-#class	OrgStuffAdmin(admin.ModelAdmin):
-#	list_display = ('org', 'role')
-
-#class	OrgFileAdmin(admin.ModelAdmin):
-#	list_display = ('org', 'file')
-#	inlines = (OrgFileInLine, PersonFileInLine)
 
 class	FileAdmin(ReadOnlyAdminFields, admin.ModelAdmin):
 	list_display = ('name', 'comments', 'saved', 'mime')
@@ -205,19 +177,13 @@ admin.site.register(Okopf,		OkopfAdmin)
 admin.site.register(Okved,		OkvedAdmin)
 admin.site.register(Okso,		OksoAdmin)
 admin.site.register(Skill,		SkillAdmin)
-admin.site.register(Okdp,		OkdpAdmin)
 admin.site.register(Stage,		StageAdmin)
-admin.site.register(Phone,		PhoneAdmin)
-admin.site.register(Email,		EmailAdmin)
 admin.site.register(EventType,		EventTypeAdmin)
 admin.site.register(Role,		RoleAdmin)
 admin.site.register(Person,		PersonAdmin)
-#admin.site.register(PersonSkill,	PersonSkillAdmin)
-#admin.site.register(PersonFile,		PersonFileAdmin)
 admin.site.register(Org,		OrgAdmin)
-admin.site.register(OrgStage,		OrgStageAdmin)
+admin.site.register(Permit,		PermitAdmin)
+admin.site.register(PermitStage,	PermitStageAdmin)
 admin.site.register(OrgEvent,		OrgEventAdmin)
-#admin.site.register(OrgStuff,		OrgStuffAdmin)
-#admin.site.register(OrgFile,		OrgFileAdmin)
 admin.site.register(File,		FileAdmin)
 admin.site.register(Meeting,		MeetingAdmin)

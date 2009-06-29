@@ -1,0 +1,30 @@
+{% extends "sro/org_main_base.html" %}
+{% block body_main %}
+	<form action="." method="post">
+	<tr>	<td> Рег. №: </td>			<td> <input type="input" value="{{ org.id }}"/>  </td>	</tr>
+	<div class="fieldWrapper">
+		<tr>	<td>
+		{{ org.name.errors }}
+		<label for="id_name"> Кратко: </label>
+		</td>	<td>
+		{{ org.name }}
+	</div>
+	<!-- <tr>	<td> Кратко: </td>			<td> <input type="input" value="{{ org.name }}"/> </td>	</tr> -->
+	<tr>	<td> Полно: </td>			<td> <input type="input" value="{{ org.fullname }}"/> </td>	</tr>
+	<tr>	<td> ОКОПФ: </td>			<td> <select>
+		{% for i in okopf %}
+			<option value="{{ i.id }}" {% ifequal i.id org.okopf.id %} selected="selected" {% endifequal %}> {{ i.name }} </option>
+		{% endfor %}
+	</select> </td>	</tr>
+	<tr>	<td> Дата регистрации в ЕГРЮЛ: </td>	<td> <input type="input" value="{{ org.regdate }}"/> </td> </tr>
+	<tr>	<td> ИНН: </td>				<td> <input type="input" value="{{ org.inn }}"/> </td>	</tr>
+	<tr>	<td> КПП: </td>				<td> <input type="input" value="{{ org.kpp }}"/> </td>	</tr>
+	<tr>	<td> ОГРН: </td>			<td> <input type="input" value="{{ org.ogrn }}"/> </td>	</tr>
+	<tr>	<td> Адрес юридический: </td>		<td> <input type="input" value="{{ org.laddress }}"/> </td>	</tr>
+	<tr>	<td> Адрес фактический: </td>		<td> <input type="input" value="{{ org.raddress }}"/> </td>	</tr>
+	<tr>	<td> Лицензия.Номер: </td>		<td> <input type="input" value="{{ org.licno }}"/> </td>	</tr>
+	<tr>	<td> Лицензия.Действует до: </td>	<td> <input type="input" value="{{ org.licdue }}"/> </td>	</tr>
+	<tr>	<td> Дата регистрации в СРО: </td>	<td> <input type="input" value="{{ org.sroregdate }}"/> </td>	</tr>
+	{% block body_main_button %} <tr>	<td colspan="2"> <input type="submit" value="Save" /> <input type="button" value="Cancel" /> </td> </tr> {% endblock %}
+	</form>
+{% endblock %}

@@ -1,26 +1,29 @@
-<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-	<title>LanSite</title>
+	<title>LanSite.СРО</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<link rel="stylesheet" href="base.css" type="text/css" />
 </head>
 <body>
 <center>
-	<h1> <a href="..">LanSite</a>.СРО </h1>
-	<p><a href="../admin/sro/"> Админка </a></p>
-	<p><a href="databrowse"> ДатаБраузер </a></p>
-	<p><form enctype="multipart/form-data" method="POST" action="import/">
-		Django:	
-		<a href="export/"> Экспорт </a> /
-		<input type="file" name="file" /><input type="submit" value="Import" />
-	</form></p>
-	<p><form enctype="multipart/form-data" method="POST" action="myimport/">
-		My:
-		<a href="myexport/"> Экспорт </a> /
-		<input type="file" name="file" /><input type="submit" value="Import" />
-	</form></p>
-	<p><a href="delete/"> Удалить всё </a></p>
+	<h1> <a href="../">LanSite</a> &gt; СРО </h1>
+	<table width="100%" border="0">
+		<tr align="center" bgcolor="lightgrey">
+			<td> <a href="org/"> Организации </a> </td>
+			<td> <a href="person/"> Люди </a> </td>
+			<td> <a href="meeting/"> Заседания </a> </td>
+		</tr>
+	</table>
 </center>
+	<h2> Сервисные операции: </h2>
+	<ul>
+		<li> <a href="../admin/sro/"> Админка </a> </li>
+		<li> <a href="databrowse"> Просмотр данных </a> </li>
+		<li> <a href="export/"> Django.Экспорт </a> </li>
+		<li> <form enctype="multipart/form-data" method="POST" action="import/"> <input type="submit" value="Django.Import" /> <input type="file" name="file" /> </form> </li>
+		<li> <a href="myexport/"> My.Экспорт </a> </li>
+		<li> <form enctype="multipart/form-data" method="POST" action="myimport/"> <input type="submit" value="Import" /> <input type="file" name="file" /> </form> </li>
+		<li> <a href="delete/"> Удалить всё </a> </li>
 </body>
 </html>

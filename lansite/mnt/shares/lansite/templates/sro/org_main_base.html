@@ -1,0 +1,52 @@
+{% extends "sro/org_base.html" %}
+{% block body %}
+	{% block body_main %}
+		<tr>	<td> Рег. №: </td>			<td> {{ org.id }} </td>	</tr>
+		<tr>	<td> Кратко: </td>			<td> {{ org.name }} </td>	</tr>
+		<tr>	<td> Полно: </td>			<td> {{ org.fullname }} </td>	</tr>
+		<tr>	<td> ОКОПФ: </td>			<td> {{ org.okopf }} </td>	</tr>
+		<tr>	<td> Дата регистрации в ЕГРЮЛ: </td>	<td> {{ org.regdate }} </td>	</tr>
+		<tr>	<td> ИНН: </td>				<td> {{ org.inn }} </td>	</tr>
+		<tr>	<td> КПП: </td>				<td> {{ org.kpp }} </td>	</tr>
+		<tr>	<td> ОГРН: </td>			<td> {{ org.ogrn }} </td>	</tr>
+		<tr>	<td> Адрес юридический: </td>		<td> {{ org.laddress }} </td>	</tr>
+		<tr>	<td> Адрес фактический: </td>		<td> {{ org.raddress }} </td>	</tr>
+		<tr>	<td> Лицензия.Номер: </td>		<td> {{ org.licno }} </td>	</tr>
+		<tr>	<td> Лицензия.Действует до: </td>	<td> {% ifnotequal org.licdue None %} {{ org.licdue }} {% endifnotequal %} </td>	</tr>
+		<tr>	<td> Дата регистрации в СРО: </td>	<td> {% ifnotequal org.sroregdate None %} {{ org.sroregdate }} {% endifnotequal %} </td>	</tr>
+		{% block body_main_button %}  {% endblock %}
+	{% endblock %}
+		<tr>	<td colspan="2"> <hr/> </td> </tr>
+	{% block body_okved %}
+		<tr>	<td valign="top"> ОКВЭД: </td>		<td>
+			<ul>
+			{% for i in org.okveds.all %}
+				<li> {{ i.asstr }} </li>
+			{% endfor %}
+			</ul>
+		</td>	</tr>
+		{% block body_okved_button %}  {% endblock %}
+	{% endblock %}
+		<tr>	<td colspan="2"> <hr/> </td> </tr>
+	{% block body_phone %}
+		<tr>	<td valign="top"> Телефоны: </td>	<td>
+			<ul>
+			{% for i in org.phones.all %}
+				<li> {{ i.asstr }} </li>
+			{% endfor %}
+			</ul>
+		</td>	</tr>
+		{% block body_phone_button %}  {% endblock %}
+	{% endblock %}
+		<tr>	<td colspan="2"> <hr/> </td> </tr>
+	{% block body_email %}
+		<tr>	<td> Электропочта: </td>		<td>
+			<ul>
+			{% for i in org.emails.all %}
+				<li> <a href="mailto:{{ i.asstr }}"> {{ i.asstr }} </a> </li>
+			{% endfor %}
+			</ul>
+		</td>	</tr>
+		{% block body_email_button %}  {% endblock %}
+	{% endblock %}
+{% endblock %}

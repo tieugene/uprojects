@@ -1,0 +1,26 @@
+<link rel="stylesheet" type="text/css" href="org.css" />
+<h1> <a href="/">LanSite</a> &gt; <a href="/sro/"> СРО </a> &gt; <a href="/sro/org/"> Организации </a> &gt; {{ org.name }} </h1>
+<h2> СРО </h2>
+<table border="0" width="100%">
+	<thead>
+	<tr>
+		<th bgcolor="grey"> <a href="/sro/org/{{ org.id }}/view/main/"> Основные данные </a> </th>
+		<th bgcolor="grey"> <a href="/sro/org/{{ org.id }}/view/license/"> Лицензия </a> </th>
+		<th bgcolor="lightgrey"> <a href="/sro/org/{{ org.id }}/view/sro/"> Допуски </a> </th>
+		<th bgcolor="grey"> <a href="/sro/org/{{ org.id }}/view/stuff/"> Персонал </a> </th>
+		<th bgcolor="grey"> <a href="/sro/org/{{ org.id }}/view/files/"> Файлы </a> </th>
+		<th bgcolor="grey"> <a href="/sro/org/{{ org.id }}/view/events/"> События </a> </th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+		<td bgcolor="lightgrey" colspan=6>
+			<table border="0">
+			<tbody>
+				<tr>	<td> Дата регистрации в СРО: </td>	<td> {{ org.sroregdate }} </td>	</tr>
+			</tbody>
+			</table>
+		</td>
+	</tr>
+	</tbody>
+</table>
