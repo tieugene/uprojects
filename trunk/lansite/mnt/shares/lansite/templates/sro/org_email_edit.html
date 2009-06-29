@@ -1,0 +1,18 @@
+{% extends "sro/org_main_base.html" %}
+{% block body_email %}
+	<form action="." method="post">
+				<tr>	<td valign="top"> Электропочта: </td>	<td> <table>
+					{% for i in org.emails.all %}
+						<tr>
+							<td> <a href="mailt:{{ i.URL }}"> {{ i.URL }} </a> </td>
+							<td> <a href=""> X </a> </td>
+						</tr>
+					{% endfor %}
+						<tr>
+							<td> <input type="input" /> </td>
+							<td> <input type="button" value="+">  </td>
+						</tr>
+				</table> </td>	</tr>
+	{% block body_email_button %} <tr>	<td colspan="2"> <input type="button" value="Finish" /> </td> </tr> {% endblock %}
+	</form>
+{% endblock %}

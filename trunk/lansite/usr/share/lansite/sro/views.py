@@ -14,17 +14,10 @@ import pprint
 
 from models import *
 from forms import *
+from impex import *
 
 def	index(request):
 	return render_to_response('sro/index.html')
-
-class	timer:
-	def	__init__(self):
-		self.set()
-	def	set(self):
-		self.start = datetime.now()
-	def	get(self):
-		return (datetime.now() - self.start).seconds
 
 def	dl_file(request, file_id, file_name):
 	'''
@@ -44,113 +37,59 @@ def	dl_file(request, file_id, file_name):
 	response.write(open(file.file.path).read())
 	return response
 
-def	exportxml(request):
-	response = HttpResponse(mimetype='text/xml; charset=utf-8')
-	response['Content-Disposition'] = 'attachment; filename=sro.xml'
-	xml_serializer = serializers.get_serializer("xml")()
-	data = ''
-	l = list()
-	#t = timer()
-	for i in modellist:			# 3''
-		l += list(i.objects.all())
-	#print t.get()
-	data += xml_serializer.serialize(l)	# 50''
-	response.write(data)
-	#print t.get()
-	return response
+def	org(request):
+	org_list = Org.objects.all().order_by('id')
+	return render_to_response('sro/org_list.html', {'org_list': org_list})
 
-def	exml(request):
-	'''
-	9''
-	'''
-	response = HttpResponse(mimetype='text/xml; charset=utf-8')
-	response['Content-Disposition'] = 'attachment; filename=sro.xml'
-	response.write('<?xml version="1.0" encoding="utf-8"?>\n')
-	response.write('<sroxml version="1.0">\n')
-	#t = timer()
-	for m in modellist:
-		response.write(u'<%ss>\n' % m._xmlname)
-		for i in m.objects.all():
-			response.write(i.exml())
-		response.write(u'</%ss>\n' % m._xmlname)
-	response.write('</sroxml>\n')
-	#print t.get()
-	return response
+def	org_main_view(request, org_id):
+	org = Org.objects.get(pk=org_id)
+	return render_to_response('sro/org_main_view.html', {'org': org})
 
-@transaction.commit_manually
-def	importxml(request):
-	if (request.method == 'POST'):
-		form = ImportForm(request.POST, request.FILES)
-		if form.is_valid():
-		#if (True):
-			file = request.FILES['file']
-			if (file):
-				try:
-					for obj in modellist:
-						obj.objects.all().delete()
-					for obj in serializers.deserialize("xml", file):
-						obj.save()
-				except:
-					transaction.rollback()
-					print "Error importing transaction"
-				else:
-					transaction.commit()
-			else:
-				print "Not file"
-		else:
-			print "Invalid form"
-	return HttpResponseRedirect('/sro/')
+def	org_main_edit(request, org_id):
+	org = Org.objects.get(pk=org_id)
+	okopf = Okopf.objects.all()
+	# 1. handmade
+	#return render_to_response('sro/org_main_edit.html', { 'org': org, 'okopf': okopf })
+	# 2. form
+	form = OrgMainForm(instance=org)
+	return render_to_response('sro/test.html', { 'form': form, })
 
-class	ImpHandler(handler.ContentHandler): 
-	def startElement(self, name, a):
-		if (name == 'okopf'):
-			Okopf(id=int(a['id']), name=a['name'], shortname=a.get('shortname', None), disabled=a.get('disabled', False), parent=a.get('parent', None)).save()
-	def endElement(self, name):
-		if name == 'okopfs':
-			pass
+def	org_okved_edit(request, org_id):
+	org = Org.objects.get(pk=org_id)
+	okved = Okved.objects.all()
+	return render_to_response('sro/org_okved_edit.html', { 'org': org, 'okved': okved })
 
-def	parsexml(file):
-	print 'trying parse'
-	handler = ImpHandler()
-	parser = make_parser()
-	parser.setContentHandler(handler)
-	parser.parse(file)
+def	org_phone_edit(request, org_id):
+	org = Org.objects.get(pk=org_id)
+	return render_to_response('sro/org_phone_edit.html', { 'org': org })
 
-@transaction.commit_manually
-def	ixml(request):
-	if (request.method == 'POST'):
-		form = ImportForm(request.POST, request.FILES)
-		if form.is_valid():
-		#if (True):
-			file = request.FILES['file']
-			if (file):
-				try:
-					print 'start deleting...'
-					for obj in modellist:
-						obj.objects.all().delete()
-					print 'end deleting...'
-					parsexml(file)
-				except:
-					transaction.rollback()
-					print "Error importing transaction"
-				else:
-					transaction.commit()
-			else:
-				print "Not file"
-		else:
-			print "Invalid form"
-	return HttpResponseRedirect('/sro/')
+def	org_email_edit(request, org_id):
+	org = Org.objects.get(pk=org_id)
+	return render_to_response('sro/org_email_edit.html', { 'org': org })
 
-@transaction.commit_manually
-def	deleteall(request):
-#	for obj in modellist:
-#		obj.objects.all().delete()
-	try:
-		for obj in modellist:
-			obj.objects.all().delete()
-	except:
-		transaction.rollback()
-		print "Error deleting all transaction"
-	else:
-		transaction.commit()
-	return HttpResponseRedirect('/sro/')
+def	org_sro_view(request, org_id):
+	org = Org.objects.get(pk=org_id)
+	return render_to_response('sro/org_view_sro.html', {'org': org})
+
+def	org_stuff_view(request, org_id):
+	pass
+
+def	org_files_view(request, org_id):
+	pass
+
+def	org_events_view(request, org_id):
+	pass
+
+def	org_del(request, org_id):
+	org = Org.objects.get(pk=org_id)
+	return render_to_response('sro/orgedit.html', {'org': org})
+
+def	org_add(request):
+	org = Org.objects.get()
+	return render_to_response('sro/orgedit.html', {'org': org})
+
+def	person(request):
+	return render_to_response('sro/dummy.html')
+
+def	meeting(request):
+	return render_to_response('sro/dummy.html')

@@ -1,0 +1,32 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<title>LanSite.СРО.Организации</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<link rel="stylesheet" href="base.css" type="text/css" />
+</head>
+<body>
+<center> <h1> <a href="../../">LanSite</a> &gt; <a href="../"> СРО </a> &gt; Организации </h1> </center>
+<hr/>
+{% if org_list %}
+	<table border="0">
+	<thead>
+		<tr> <th> <u>№</u> </th> <th> <u> Наименование </u> </th> <th/> </tr>
+	</thead>
+	<tbody>
+	{% for org in org_list %}
+		<tr>
+			<td> {{ org.id }} </td>
+			<td> <a href="{{ org.id }}/main/view/" title="{{ org.fullname }}">{{ org.name }} </td>
+			<td> [<a href="{{ org.id }}/del/" title="Удалить"> x </a>] </td>
+		</tr>
+	{% endfor %}
+	</tbody>
+	</table>
+{% else %}
+	<p>No orgs are available.</p>
+{% endif %}
+<hr/>
+[<a href="add/" title="Добавить"> + </a>]
+</body>
+</html>

@@ -1,0 +1,62 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<title>LanSite.СРО.Организации</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<link rel="stylesheet" href="org.css" type="text/css" />
+</head>
+<body>
+{% block sidebar %}
+	<center> <h1> <a href="../../../../../">LanSite</a> &gt; <a href="../../../../"> СРО </a> &gt; <a href="../../../"> Организации </a> &gt; {{ org.name }} </h1> </center>
+{% endblock %}
+	{% block tabs %}
+		<a href="../../main/view/"> Основные данные </a>
+		<a href="../../sro/view/"> Допуски </a>
+		<a href="../../stuff/view/"> Персонал </a>
+		<a href="../../files/view/"> Файлы </a>
+		<a href="../../events/view/"> События </a>
+	{% endblock %}
+<hr/>
+<h2> 1. Основные данные: {% block body_main_button %}  {% endblock %}</h2> 
+	<table border="1">
+		<tr>
+			<td> №: </td>				<td> {{ org.id }} </td>
+			<td> Кратко: </td>			<td> {{ org.name }} </td>
+			<td> Полно: </td>			<td colspan="5"> {{ org.fullname }} </td>
+		</tr>
+		<tr>
+			<td> ОКОПФ: </td>			<td colspan="9"> {{ org.okopf }} </td>
+		</tr>
+		<tr>
+			<td> ИНН: </td>				<td> {{ org.inn }} </td>
+			<td> КПП: </td>				<td> {{ org.kpp }} </td>
+			<td> ОГРН: </td>			<td> {{ org.ogrn }} </td>
+			<td> Дата регистрации: </td>		<td> {{ org.regdate }} </td>
+		</tr>
+		<tr>
+			<td> Адрес юридический: </td>		<td colspan="8"> {{ org.laddress }} </td>
+		</tr>
+		<tr>
+			<td> Адрес фактический: </td>		<td colspan="8"> {{ org.raddress }} </td>
+		</tr>
+		<tr>
+			<td> Лицензия.№: </td>			<td> {{ org.licno }} </td>
+			<td> до: </td>				<td> {% ifnotequal org.licdue None %} {{ org.licdue }} {% endifnotequal %} </td>
+			<td colspan="3"> Дата регистрации в СРО: </td>	<td> {% ifnotequal org.sroregdate None %} {{ org.sroregdate }} {% endifnotequal %} </td>
+		</tr>
+	</table>
+<hr/>
+<h3> 1.1. ОКВЭД: </h2>
+<hr/>
+<h3> 1.2. Телефоны: </h2>
+<hr/>
+<h3> 1.3. Адреса электропочты: </h2>
+<hr/>
+<h2> 2. Персонал: </h2>
+<hr/>
+<h2> 3. Допуски: </h2>
+<hr/>
+<h2> 4. События: </h2>
+<hr/>
+<h2> 5. Файлы: </h2>
+</body>
+</html>

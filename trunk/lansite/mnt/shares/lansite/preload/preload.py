@@ -21,11 +21,13 @@ def	__get_str(s):
 def	__get_reader(s):
 	return csv.reader(open('%s' % s), delimiter='\t')
 
-def	load_okdp(c):
-	print 'Loading OKDPs'
-	c.execute('DELETE FROM sro_okdp')
-	for s in __get_reader('okdp.txt'):
-		c.execute('INSERT INTO sro_okdp (id, name) VALUES (?, ?)', (__get_str(s[0]), __get_str(s[1])))
+def	load_job(c):
+	print 'Loading Jobs'
+	c.execute('DELETE FROM sro_job')
+	for s in __get_reader('job.txt'):
+		stage	= __get_int(s[0])
+		okdp	= __get_int(s[1])
+		c.execute('INSERT INTO sro_job (id, stage_id, okdp, name) VALUES (?, ?, ?, ?)', (int('%d%d' % (stage, okdp)), stage, okdp, __get_str(s[2])))
 
 def	load_okopf(c):
 	print 'Loading OKOPFs'
@@ -54,15 +56,7 @@ def	load_skill(c):
 	for s in __get_reader('skill.txt'):
 		oid	= __get_int(s[0])	# okso id
 		sid	= __get_int(s[1])	# skill id
-		name	= __get_str(s[2])
-		if ((curoid <> oid) or (curqid <> sid)):
-			curoid = oid
-			curqid = sid
-			counter = 0
-		else:
-			counter += 1
-		id = int('%d%d%d' % (curoid, curqid, counter))
-		c.execute('INSERT INTO sro_skill (id, okso_id, skill, name) VALUES (?, ?, ?, ?)', (id, oid, sid, name))
+		c.execute('INSERT INTO sro_skill (id, okso_id, skill, name) VALUES (?, ?, ?, ?)', (int('%d%d' % (oid, sid)), oid, sid, __get_str(s[2])))
 
 def	load_stage(c):
 	print 'Loading Stages'
@@ -78,25 +72,16 @@ def	load_stageokso(c):
 		okso	= __get_int(s[1])
 		c.execute('INSERT INTO sro_stageokso (id, stage_id, okso_id) VALUES (?, ?, ?)', (int('%d%d' % (stage, okso)), stage, okso))
 
-def	load_job(c):
-	print 'Loading Jobs'
-	c.execute('DELETE FROM sro_job')
-	for s in __get_reader('job.txt'):
-		stage	= __get_int(s[0])
-		okdp	= __get_str(s[1])
-		c.execute('INSERT INTO sro_job (id, stage_id, okdp_id) VALUES (?, ?, ?)', (int('%d%s' % (stage, okdp)), stage, okdp))
-
 def	main():
-	conn = sqlite3.connect('../lansite/lansite.db')
+	conn = sqlite3.connect('/mnt/shares/lansite/db/lansite.db')
 	c = conn.cursor()
+	load_job(c)
 	load_okopf(c)
-	load_okved(c)
 	load_okso(c)
+	load_okved(c)
 	load_skill(c)
-	load_okdp(c)
 	load_stage(c)
 	load_stageokso(c)
-	load_job(c)
 	c.execute('VACUUM')
 	conn.close()
 
