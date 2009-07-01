@@ -1,0 +1,21 @@
+{% extends "sro/org_main_base.html" %}
+{% block body_okved %}
+	<form action="." method="post">
+	<tr>	<td valign="top"> ОКВЭД: </td>	<td> <table>
+		{% for i in org.okveds.all %}
+			<tr> <td> {{ i.asstr|wordwrap:50|linebreaksbr }} </td> <td> <a href=""> X </a> </td> </tr>
+		{% endfor %}
+		<tr>
+			<td> <select>
+				{% for i in okved %}
+					<option value="{{ i.id }}" {% ifequal i.disabled True %} disabled="disabled" {% endifequal %}> {{ i.asstr|wordwrap:50|linebreaksbr }} </option>
+				{% endfor %}
+			</select> </td>
+			<td>
+				<input type="button" value="+">
+			</td>
+		</tr>
+	</table> </td>	</tr>
+	{% block body_okved_button %} <tr>	<td colspan="2"> <input type="button" value="Finish" /> </td> </tr> {% endblock %}
+	</form>
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends "sro/org_base.html" %}
+{% block body_stuff_button %} <a href="../../view"> OK </a> {% endblock %}
+{% block body_stuff %}
+	<!-- deletable -->
+	<table>
+		<tr bgcolor="lightgrey">
+			<th/>
+			<th> Фамилия </th>
+			<th> Имя </th>
+			<th> Отчество </th>
+			<th> Должность </th>
+			<th> Начальство </th>
+		</tr>
+	{% for i in stuff %}
+		<tr>
+			<td> <a href="{{ i.id }}/del/"> X </a> </td>
+			<td> {{ i.person.lastname }} </td>
+			<td> {{ i.person.firstname }} </td>
+			<td> {{ i.person.midname }} </td>
+			<td> {{ i.role.asstr }} </td>
+			<td> {% ifequal i.leader True %} V {% endifequal %} </td>
+		</tr>
+	{% endfor %}
+	</table>
+	<!-- add -->
+	<form action="." method="POST">
+	<table>
+	{{ form.as_table }}
+	</table>
+	<input type="submit" value="+" />
+	</form>
+{% endblock %}
