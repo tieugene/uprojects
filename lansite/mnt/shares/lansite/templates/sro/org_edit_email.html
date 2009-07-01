@@ -1,0 +1,15 @@
+{% extends "sro/org_base.html" %}
+{% block body_email_button %} <a href="../../view"> OK </a> {% endblock %}
+{% block body_email %}
+	<table border="0">
+	{% for i in email %}
+		<tr> <td> <a href="{{ i.id }}/del/"> X </a> </td> <td> {{ i.asstr }} </td> </tr>
+	{% endfor %}
+	</table>
+<form action="." method="POST">
+<table>
+{{ form.as_table }}
+</table>
+<input type="submit" value="+" />
+</form>
+{% endblock %}

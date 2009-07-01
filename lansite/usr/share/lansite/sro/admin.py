@@ -129,7 +129,6 @@ class	EventTypeAdmin(admin.ModelAdmin):
 class	RoleAdmin(admin.ModelAdmin):
 	list_display = ('name', 'comments')
 
-#class	PersonAdmin(AutocompleteModelAdmin):
 class	PersonAdmin(admin.ModelAdmin):
 	list_display = ('firstname', 'midname', 'lastname')
 	inlines = (PersonSkillInLine, OrgStuffInLine, PersonFileInLine,)
@@ -138,7 +137,6 @@ class	PersonAdmin(admin.ModelAdmin):
 	#	'skills': ('^id', 'name'),
 	#}
 
-#class	OrgAdmin(AutocompleteModelAdmin):
 class	OrgAdmin(admin.ModelAdmin):
 	list_display = ('name', 'fullname')
 	inlines = (OrgOkvedInLine, OrgPhoneInLine, OrgEmailInLine, OrgStuffInLine, OrgEventInLine, PermitInLine, OrgFileInLine)

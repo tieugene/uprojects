@@ -41,52 +41,155 @@ def	org(request):
 	org_list = Org.objects.all().order_by('id')
 	return render_to_response('sro/org_list.html', {'org_list': org_list})
 
-def	org_main_view(request, org_id):
+def	__load_org(org_id, org=None):
+	if (not org):
+		org	= Org.objects.get(pk=org_id)
+	return {
+		'org':		org,
+		'phone':	OrgPhone.objects.filter(org=org),
+		'email':	OrgEmail.objects.filter(org=org),
+		'stuff':	OrgStuff.objects.filter(org=org),
+		'permit':	Permit.objects.filter(org=org),
+		'event':	OrgEvent.objects.filter(org=org),
+		'file':		OrgFile.objects.filter(org=org),
+	}
+
+def	org_view(request, org_id):
+	return render_to_response('sro/org_view.html', __load_org(org_id))
+
+def	org_edit_main(request, org_id = None):
 	org = Org.objects.get(pk=org_id)
-	return render_to_response('sro/org_main_view.html', {'org': org})
+	if request.method == 'POST':
+		form = OrgMainForm(request.POST, instance=org)
+		if form.is_valid():
+			form.save()
+			#new_org = form.save(commit=False)
+                        #new_org.id = org.id
+                        #new_org.save()
+			return HttpResponseRedirect('../../view/')
+#		else:
+#			return render_to_response('sro/org_edit_main.html', { 'form': form, 'org': org})
+	else:
+		form = OrgMainForm(instance=org)
+		okopf = Okopf.objects.all()
+	formdict = __load_org(org_id, org)
+	formdict['form'] = form
+	return render_to_response('sro/org_edit_main.html', formdict)
 
-def	org_main_edit(request, org_id):
+def	org_edit_okved(request, org_id):
 	org = Org.objects.get(pk=org_id)
-	okopf = Okopf.objects.all()
-	# 1. handmade
-	#return render_to_response('sro/org_main_edit.html', { 'org': org, 'okopf': okopf })
-	# 2. form
-	form = OrgMainForm(instance=org)
-	return render_to_response('sro/test.html', { 'form': form, })
+	if request.method == 'POST':	# add
+		OrgOkved(org=org, okved=Okved.objects.get(pk=request.POST['okved'])).save()
+	formdict = __load_org(org_id, org)
+	formdict['okved'] = Okved.objects.all()
+	return render_to_response('sro/org_edit_okved.html', formdict)
 
-def	org_okved_edit(request, org_id):
+def	org_edit_okved_del(request, org_id, item_id):
+	OrgOkved.objects.get(org=Org.objects.get(pk=org_id), okved=Okved.objects.get(pk=item_id)).delete()
+	return HttpResponseRedirect('../../')
+
+def	org_edit_phone(request, org_id):
 	org = Org.objects.get(pk=org_id)
-	okved = Okved.objects.all()
-	return render_to_response('sro/org_okved_edit.html', { 'org': org, 'okved': okved })
+	if request.method == 'POST':
+		form = OrgPhoneForm(request.POST)
+		if form.is_valid():
+			new_item = form.save(commit=False)
+			sid = request.POST['country'] + request.POST['trunk'] + request.POST['phone']
+			if request.POST['ext']:
+				sid += request.POST['ext']
+			new_item.id = int(sid)
+			new_item.org = org
+			new_item.save()
+			form = OrgPhoneForm()
+	else:
+		form = OrgPhoneForm()
+	formdict = __load_org(org_id, org)
+	formdict['form'] = form
+	return render_to_response('sro/org_edit_phone.html', formdict)
 
-def	org_phone_edit(request, org_id):
+def	org_edit_phone_del(request, org_id, item_id):
+	OrgPhone.objects.get(pk=item_id).delete()
+	return HttpResponseRedirect('../../')
+
+def	org_edit_email(request, org_id):
 	org = Org.objects.get(pk=org_id)
-	return render_to_response('sro/org_phone_edit.html', { 'org': org })
+	if request.method == 'POST':
+		form = OrgEmailForm(request.POST)
+		if form.is_valid():
+			orgemail = OrgEmail(org=org, URL=form.cleaned_data['email'])
+			orgemail.save()
+			form = OrgEmailForm()
+	else:
+		form = OrgEmailForm()
+	formdict = __load_org(org_id, org)
+	formdict['form'] = form
+	return render_to_response('sro/org_edit_email.html', formdict)
 
-def	org_email_edit(request, org_id):
+def	org_edit_email_del(request, org_id, item_id):
+	OrgEmail.objects.get(pk=item_id).delete()
+	return HttpResponseRedirect('../../')
+
+def	org_edit_stuff(request, org_id = None):
 	org = Org.objects.get(pk=org_id)
-	return render_to_response('sro/org_email_edit.html', { 'org': org })
+	if request.method == 'POST':
+		form = OrgStuffForm(request.POST)
+		if form.is_valid():
+			new_item = form.save(commit=False)
+			new_item.org = org
+			new_item.save()
+			form = OrgStuffForm()
+	else:
+		form = OrgStuffForm()
+	formdict = __load_org(org_id, org)
+	formdict['form'] = form
+	return render_to_response('sro/org_edit_stuff.html', formdict)
 
-def	org_sro_view(request, org_id):
+def	org_edit_stuff_del(request, org_id, item_id):
+	OrgStuff.objects.get(pk=item_id).delete()
+	return HttpResponseRedirect('../../')
+
+def	org_view_permit(request, org_id, item_id):
+	#org = Org.objects.get(pk=org_id)
+	#return render_to_response('sro/org_view_permit.html', {'org': org})
+	return HttpResponseRedirect('../../')
+
+def	org_edit_permit(request, org_id):
 	org = Org.objects.get(pk=org_id)
-	return render_to_response('sro/org_view_sro.html', {'org': org})
+	if request.method == 'POST':
+		form = PermitForm(request.POST)
+		if form.is_valid():
+			new_item = form.save(commit=False)
+			new_item.org = org
+			new_item.save()
+			form = PermitForm()
+	else:
+		form = PermitForm()
+	formdict = __load_org(org_id, org)
+	formdict['form'] = form
+	return render_to_response('sro/org_edit_permit.html', formdict)
 
-def	org_stuff_view(request, org_id):
-	pass
+def	org_edit_permit_del(request, org_id, item_id):
+	Permit.objects.get(pk=item_id).delete()
+	return HttpResponseRedirect('../../')
 
-def	org_files_view(request, org_id):
-	pass
+def	org_edit_event(request, org_id):
+	return render_to_response('sro/dummy.html')
 
-def	org_events_view(request, org_id):
-	pass
+def	org_edit_event_del(request, org_id, item_id):
+	return HttpResponseRedirect('../../')
+
+def	org_edit_file(request, org_id):
+	return render_to_response('sro/dummy.html')
+
+def	org_edit_file_del(request, org_id, item_id):
+	return HttpResponseRedirect('../../')
 
 def	org_del(request, org_id):
 	org = Org.objects.get(pk=org_id)
-	return render_to_response('sro/orgedit.html', {'org': org})
+	return render_to_response('sro/dummy.html', {'org': org})
 
 def	org_add(request):
-	org = Org.objects.get()
-	return render_to_response('sro/orgedit.html', {'org': org})
+	return render_to_response('sro/dummy.html', {'org': org})
 
 def	person(request):
 	return render_to_response('sro/dummy.html')

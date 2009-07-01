@@ -1,0 +1,26 @@
+{% extends "sro/org_base.html" %}
+{% block body_permit_button %} <a href="../../view"> OK </a> {% endblock %}
+{% block body_permit %}
+	<!-- deletable -->
+	<table>
+		<tr bgcolor="lightgrey">
+			<th/>
+			<th> № </th>
+			<th> Дата </th>
+		</tr>
+	{% for i in permit %}
+		<tr>
+			<td> <a href="{{ i.id }}/del/"> X </a> </td>
+			<td> {{ i.id }} </td>
+			<td> {{ i.date }} </td>
+		</tr>
+	{% endfor %}
+	</table>
+	<!-- add -->
+	<form action="." method="POST">
+	<table>
+	{{ form.as_table }}
+	</table>
+	<input type="submit" value="+" />
+	</form>
+{% endblock %}
