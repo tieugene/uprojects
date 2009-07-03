@@ -1,4 +1,5 @@
-{% extends "sro/org_main_base.html" %}
+{% extends "sro/org_base.html" %}
+{% block body_phone_button %} <a href="../../view"> OK </a> {% endblock %}
 {% block body_phone %}
 	<form action="." method="post">
 	<tr>	<td valign="top"> Телефоны: </td>	<td> <table>
@@ -19,6 +20,5 @@
 				<td>  <input type="button" value="+">  </td>
 			</tr>
 	</table> </td>	</tr>
-	{% block body_phone_button %} <tr>	<td colspan="2"> <input type="button" value="Finish" /> </td> </tr> {% endblock %}
 	</form>
 {% endblock %}

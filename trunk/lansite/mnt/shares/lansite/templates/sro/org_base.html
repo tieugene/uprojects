@@ -12,6 +12,7 @@
 <h2> 1. Основные данные: {% block body_main_button %}  {% endblock %} </h2>
 {% block body_main %}
 	<table border="0">
+		<tr>	<td> Рег №: </td>			<td> {% ifnotequal org.regno None %} {{ org.regno }} {% endifnotequal %} </td>	</tr>
 		<tr>	<td> Кратко: </td>			<td> {{ org.name }} </td>	</tr>
 		<tr>	<td> Полно: </td>			<td> {{ org.fullname }} </td>	</tr>
 		<tr>	<td> ОКОПФ: </td>			<td> {{ org.okopf }} </td>	</tr>
@@ -29,11 +30,13 @@
 <hr/>
 <h3> 1.1. ОКВЭД: {% block body_okved_button %}  {% endblock %} </h3>
 {% block body_okved %}
+	{% ifnotequal org.id None %}
 	<ul>
 	{% for i in org.okveds.all %}
 		<li> {{ i.asstr }} </li>
 	{% endfor %}
 	</ul>
+	{% endifnotequal %}
 {% endblock %}
 <hr/>
 <h3> 1.2. Телефоны: {% block body_phone_button %}  {% endblock %} </h3>
@@ -85,7 +88,7 @@
 		</tr>
 	{% for i in permit %}
 		<tr>
-			<td> <a href="permit/{{ i.id }}/"> {{ i.id }} </a> </td>
+			<td> <a href="permit/{{ i.id }}/"> {{ i.regno }} </a> </td>
 			<td> {{ i.date }} </td>
 		</tr>
 	{% endfor %}
