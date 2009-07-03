@@ -8,7 +8,6 @@ TODO:
 
 from django.contrib import admin
 from models import *
-from addons.autocomplete.widgets import *
 from rfm import ReadOnlyAdminFields
 
 # 1. Inlines
@@ -66,9 +65,9 @@ class	OrgPhoneInLine(admin.TabularInline):
 	model = OrgPhone
 	extra = 1
 
-	def	save_model(self, request, obj, form, change):
-		obj.id = int(request.POST['country'] + request.POST['trunk'] + request.POST['phone'])
-		obj.save()
+	#def	save_model(self, request, obj, form, change):
+	#	obj.id = int(request.POST['country'] + request.POST['trunk'] + request.POST['phone'])
+	#	obj.save()
 
 class	OrgEmailInLine(admin.TabularInline):
 	model = OrgEmail
@@ -138,7 +137,7 @@ class	PersonAdmin(admin.ModelAdmin):
 	#}
 
 class	OrgAdmin(admin.ModelAdmin):
-	list_display = ('name', 'fullname')
+	list_display = ('regno', 'name', 'fullname')
 	inlines = (OrgOkvedInLine, OrgPhoneInLine, OrgEmailInLine, OrgStuffInLine, OrgEventInLine, PermitInLine, OrgFileInLine)
 	raw_id_fields	= ('okveds',)
 	#related_search_fields = {
@@ -146,7 +145,7 @@ class	OrgAdmin(admin.ModelAdmin):
 	#}
 
 class	PermitAdmin(admin.ModelAdmin):
-	list_display	= ('id', 'date', 'org')
+	list_display	= ('regno', 'date', 'org')
 	list_filter	= ('org',)
 	inlines		= (PermitStageInLine,)
 

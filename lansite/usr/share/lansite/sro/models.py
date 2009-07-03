@@ -355,13 +355,13 @@ class	PersonFile(models.Model):
 		return u'\t<%s id="%d" person="%d" file="%d"/>\n' % (self._xmlname, self.id, self.person.id, self.file.id)
 
 class	Org(models.Model):
-	id		= models.PositiveIntegerField(primary_key=True, verbose_name=u'Рег. №')
+	regno		= models.PositiveIntegerField(null=True, blank=True, unique=True, verbose_name=u'Рег. №')
 	name		= models.CharField(null=False, blank=False, max_length=40, unique=True, verbose_name=u'Наименование')
 	fullname	= models.CharField(null=False, blank=False, max_length=100, unique=False, verbose_name=u'Полное наименование')
 	regdate		= models.DateField(null=False, blank=False, verbose_name=u'Дата регистрации в ЕГРЮЛ')
-	inn		= models.PositiveIntegerField(null=False, blank=False, verbose_name=u'ИНН')
+	inn		= models.PositiveIntegerField(null=False, blank=False, unique=True, verbose_name=u'ИНН')
 	kpp		= models.PositiveIntegerField(null=False, blank=False, verbose_name=u'КПП')
-	ogrn		= models.PositiveIntegerField(null=False, blank=False, verbose_name=u'ОГРН')
+	ogrn		= models.PositiveIntegerField(null=False, blank=False, unique=True, verbose_name=u'ОГРН')
 	laddress	= models.CharField(null=False, blank=False, max_length=100, verbose_name=u'Адрес юридический')
 	raddress	= models.CharField(null=True, blank=True, max_length=100, verbose_name=u'Адрес почтовый')
 	sroregdate	= models.DateField(null=True, blank=True, verbose_name=u'Дата регистрации в СРО')
@@ -421,7 +421,7 @@ class	OrgOkved(models.Model):
 		return ''
 
 class	Permit(models.Model):
-	id		= models.PositiveIntegerField(primary_key=True, verbose_name=u'№')
+	regno		= models.PositiveIntegerField(null=False, unique=True, verbose_name=u'№')
 	org		= models.ForeignKey(Org, verbose_name=u'Организация')
 	date		= models.DateField(null=True, blank=True, verbose_name=u'Выдано')
 	stages		= models.ManyToManyField(Stage, through='PermitStage', verbose_name=u'Виды работ')

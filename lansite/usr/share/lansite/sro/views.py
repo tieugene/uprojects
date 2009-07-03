@@ -58,7 +58,10 @@ def	org_view(request, org_id):
 	return render_to_response('sro/org_view.html', __load_org(org_id))
 
 def	org_edit_main(request, org_id = None):
-	org = Org.objects.get(pk=org_id)
+	if (org_id):
+		org = Org.objects.get(pk=org_id)
+	else:
+		org = Org()
 	if request.method == 'POST':
 		form = OrgMainForm(request.POST, instance=org)
 		if form.is_valid():
@@ -94,10 +97,6 @@ def	org_edit_phone(request, org_id):
 		form = OrgPhoneForm(request.POST)
 		if form.is_valid():
 			new_item = form.save(commit=False)
-			sid = request.POST['country'] + request.POST['trunk'] + request.POST['phone']
-			if request.POST['ext']:
-				sid += request.POST['ext']
-			new_item.id = int(sid)
 			new_item.org = org
 			new_item.save()
 			form = OrgPhoneForm()
@@ -185,8 +184,8 @@ def	org_edit_file_del(request, org_id, item_id):
 	return HttpResponseRedirect('../../')
 
 def	org_del(request, org_id):
-	org = Org.objects.get(pk=org_id)
-	return render_to_response('sro/dummy.html', {'org': org})
+	Org.objects.get(pk=org_id).delete()
+	return HttpResponseRedirect('../../')
 
 def	org_add(request):
 	return render_to_response('sro/dummy.html', {'org': org})
