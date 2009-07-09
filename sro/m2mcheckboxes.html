@@ -1,0 +1,168 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>Displaying a many to many relationship using checkboxes...</title>
+  <link rel="stylesheet" href="main.css" media="screen">
+  <link rel="contents" href="index.html#50503">
+  <link rel="index" href="maillist.html#50503">
+  <link rel="prev" href="msg50502.html">
+  <link rel="next" href="msg50505.html">
+  <link rel="alternate" title="django-users RSS" href="http://www.mail-archive.com/django-users@googlegroups.com/maillist.xml" TYPE="application/rss+xml">
+</head>
+<body id="msg">
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<!--htdig_noindex-->
+<div id="msgcontainer">
+	<a id="mail-archive-logo" href="/"></a>
+<h1>
+	<span id="listlink">django-users</span> &nbsp;
+</h1>
+	<form action="/search" method=get>
+		<ul id="topLinks">
+			<li><span class="msglink"><a href="msg50502.html" accesskey="p" title="Earlier messages">&lt;--</a></span> <span class="threadlink"><a href="index.html#50503" title="Messages by Thread" accesskey="c">Thread</a></span> <span class="msglink"><a href="msg50505.html" accesskey="n" title="Later messages">--&gt;</a></span></li>
+			<li><span class="msglink"><a href="msg50502.html" accesskey="b" title="Earlier messages">&lt;--</a></span> <span class="chronologicallink"><a href="maillist.html#50503" title="Messages by Date" accesskey="i">Date</a></span> <span class="msglink"><a href="msg50504.html" accesskey="f" title="Later messages">--&gt;</a></span></li>
+			<li>
+				<label>
+<input type=text name="q" value="" size=25>
+<input type="hidden" name="l" value="django-users@googlegroups.com">
+<input type=submit value="Search">
+</label>
+			</li>
+		</ul>
+	</form>
+</div>
+
+<div id="msgcontainer2">
+	<div id="corner1"></div>
+	<div id="corner2"></div>
+	<div id="msgcontent">
+<!--/htdig_noindex-->
+
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+		<div class="msgHead">
+			<h1><span class="subject">Displaying a many to many relationship using checkboxes...</span></h1>
+			<p><span class="sender">Gabriel</span><br>
+			<span class="date">Thu, 15 May 2008 09:20:13 -0700</span></p>
+		</div>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<div class="msgBody">
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<pre>
+Hi all
+
+I have a model called Task and a model called User. Between them is a many to
+many relationship to simulate assigning tasks to users.
+
+Basically I want to list all tasks in an HTML page. Each task will then have a
+set of checkboxes representing every user, if that particular user is already
+linked to that particular task then the checkbox should be ticked.
+
+I have managed to do this, but using a really ugly hack, and I'm hoping for some
+advice on how to better go about it. What I did was create a template filter
+called is_assigned() using this code:
+@register.filter
+def is_assigned( user_id, task_id ):
+    &quot;&quot;&quot;We want to find out whether the given user ID is assigned to the given
+task.&quot;&quot;&quot;
+    task = Task.objects.filter( id = task_id ).get()
+    users = task.users.values( 'id' )
+    ids = []
+    for i in users: ids.append( i['id'] )
+    if user_id in ids: return True
+    else: return False
+
+The view passes the template variables containing all users called all_users,
+and all tasks called all_tasks. In the template I have the following code that
+will set the checkbox to checked depending on whether the user is linked to the
+task:
+{% for task in all_tasks %}
+    {% for user in all_users %}
+        &lt;input type=&quot;checkbox&quot; name=&quot;users&quot; value=&quot;{{user.id}}&quot;
+id=&quot;user{{user.id}}&quot;\
+{% if user.id|is_assigned:task.id%}checked{%endif%} /&gt;
+    {% endfor %}
+{% endfor %}
+
+How might I refactor all this code to make it more efficient and generally
+ better?
+
+Thanks
+
+Gabriel
+
+
+--~--~---------~--~----~------------~-------~--~----~
+You received this message because you are subscribed to the Google Groups 
+&quot;Django users&quot; group.
+To post to this group, send email to django-users@googlegroups.com
+To unsubscribe from this group, send email to [EMAIL PROTECTED]
+For more options, visit this group at 
+<a  rel="nofollow" href="http://groups.google.com/group/django-users?hl=en">http://groups.google.com/group/django-users?hl=en</a>
+-~----------~----~----~----~------~----~------~--~---
+
+</pre>
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+</div> <!-- end of msgBody class -->
+
+<!--htdig_noindex-->
+
+<div id="adbox">
+
+</div>
+
+<div class="tSliceList">
+<ul>
+<li>
+<div class="tSliceCur">
+<span class="subject">Displaying a many to many relationship using checkboxes...</span>
+<span class="sender">Gabriel</span>
+</div> <!-- end of tSliceCur class -->
+</ul>
+
+</div> <!-- end of tSliceList class -->
+<!--/htdig_noindex-->
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<!--htdig_noindex-->
+  <ul id="botLinks">
+  <li><div class="reply">
+<FORM METHOD="POST" ACTION="/mailto.php">
+
+
+<INPUT TYPE="HIDDEN" NAME="subject" VALUE="Displaying a many to many relationship using checkboxes...">
+<INPUT TYPE="HIDDEN" NAME="msgid" VALUE="loom.20080515T160906-741@post.gmane.org">
+Reply via email to<br>
+<INPUT TYPE="SUBMIT" VALUE=" Gabriel ">
+</FORM>
+</div>
+  </li>
+  </ul>
+<!--/htdig_noindex-->
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</div> <!-- end of msgcontent class -->
+</div> <!-- end of msgcontainer2 class -->
+
+<!-- These extra divs/spans may be used as catch-alls to add extra imagery. -->
+<div id="extraDiv1"><span></span></div><div id="extraDiv2"><span></span></div><div id="extraDiv3"><span></span></div>
+<div id="extraDiv4"><span></span></div><div id="extraDiv5"><span></span></div><div id="extraDiv6"><span></span></div>
+
+</body>
+</html>

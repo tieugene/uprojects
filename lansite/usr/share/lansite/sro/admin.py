@@ -19,25 +19,26 @@ class	OkvedInLine(admin.TabularInline):
 	model		= Okved
 	extra		= 1
 
+class	SpecialityInLine(admin.TabularInline):
+	model		= Speciality
+	extra		= 1
+
 class	SkillInLine(admin.TabularInline):
 	model		= Skill
 	extra		= 1
-	raw_id_fields	= ('okso',)
 
-class	StageOksoInLine(admin.TabularInline):
-	model		= StageOkso
+class	StageInLine(admin.TabularInline):
+	model		= Stage
 	extra		= 1
-	raw_id_fields	= ('stage', 'okso',)
 
 class	JobInLine(admin.TabularInline):
 	model		= Job
 	extra		= 1
-	#raw_id_fields	= ('okdp',)
 
 class	PersonSkillInLine(admin.TabularInline):
 	model		= PersonSkill
 	extra		= 1
-	raw_id_fields	= ('skill',)
+	#raw_id_fields	= ('skill',)
 
 class	PersonFileInLine(admin.TabularInline):
 	model		= PersonFile
@@ -64,7 +65,6 @@ class	PermitStageJobInLine(admin.TabularInline):
 class	OrgPhoneInLine(admin.TabularInline):
 	model = OrgPhone
 	extra = 1
-
 	#def	save_model(self, request, obj, form, change):
 	#	obj.id = int(request.POST['country'] + request.POST['trunk'] + request.POST['phone'])
 	#	obj.save()
@@ -75,10 +75,6 @@ class	OrgEmailInLine(admin.TabularInline):
 
 class	OrgEventInLine(admin.TabularInline):
 	model = OrgEvent
-	extra = 1
-	
-class	OrgEventStageInLine(admin.TabularInline):
-	model = OrgEventStage
 	extra = 1
 	
 class	OrgStuffInLine(admin.TabularInline):
@@ -108,57 +104,65 @@ class	OkvedAdmin(admin.ModelAdmin):
 	search_fields	= ('name',)
 	inlines		= (OkvedInLine,)
 
-class	OksoAdmin(admin.ModelAdmin):
-	list_display	= ('id', 'name')
-	ordering	= ('id',)
+class	SpecialityAdmin(admin.ModelAdmin):
+	list_display	= ('name',)
+	ordering	= ('name',)
 	search_fields	= ('name',)
-	inlines		= (SkillInLine,)
 
 class	SkillAdmin(admin.ModelAdmin):
-	list_display = ('id', 'okso', 'skill', 'name')
-	raw_id_fields	= ('okso',)
+	list_display	= ('name',)
+	ordering	= ('name',)
+	search_field	= ('name',)
+	#raw_id_fields	= ('okso',)
 
 class	StageAdmin(admin.ModelAdmin):
-	list_display = ('id', 'name', 'hq', 'hs', 'mq', 'ms')
-	inlines = (StageOksoInLine, JobInLine,)
+	list_display	= ('id', 'name', 'hq', 'hs', 'mq', 'ms')
+	ordering	= ('id', 'name')
+	inlines		= (JobInLine,)
 
 class	EventTypeAdmin(admin.ModelAdmin):
-	list_display = ('name', 'comments')
+	list_display	= ('name', 'comments')
+	ordering	= ('name',)
 
 class	RoleAdmin(admin.ModelAdmin):
-	list_display = ('name', 'comments')
+	list_display	= ('name', 'comments')
+	ordering	= ('name',)
 
 class	PersonAdmin(admin.ModelAdmin):
-	list_display = ('firstname', 'midname', 'lastname')
-	inlines = (PersonSkillInLine, OrgStuffInLine, PersonFileInLine,)
-	raw_id_fields	= ('skills',)
+	list_display	= ('firstname', 'midname', 'lastname')
+	ordering	= ('firstname', 'midname', 'lastname')
+	inlines		= (PersonSkillInLine, OrgStuffInLine, PersonFileInLine,)
+	#raw_id_fields	= ('skills',)
 	#related_search_fields = {
 	#	'skills': ('^id', 'name'),
 	#}
 
 class	OrgAdmin(admin.ModelAdmin):
-	list_display = ('regno', 'name', 'fullname')
-	inlines = (OrgOkvedInLine, OrgPhoneInLine, OrgEmailInLine, OrgStuffInLine, OrgEventInLine, PermitInLine, OrgFileInLine)
+	list_display	= ('name', 'fullname')
+	ordering	= ('name',)
+	inlines		= (OrgOkvedInLine, OrgPhoneInLine, OrgEmailInLine, OrgStuffInLine, OrgEventInLine, PermitInLine, OrgFileInLine)
 	raw_id_fields	= ('okveds',)
 	#related_search_fields = {
 	#	'okveds': ('^id',),
 	#}
 
 class	PermitAdmin(admin.ModelAdmin):
-	list_display	= ('regno', 'date', 'org')
+	list_display	= ('org', 'regno', 'date',)
 	list_filter	= ('org',)
+	ordering	= ('org', 'regno',)
 	inlines		= (PermitStageInLine,)
 
 class	PermitStageAdmin(admin.ModelAdmin):
-	list_display = ('permit', 'stage')
-	#list_filter = ('org',)
+	list_display	= ('permit', 'stage')
+	list_filter	= ('permit',)
+	ordering	= ('permit', 'stage',)
 	#filter_horizontal = ('jobs',)
 	inlines = (PermitStageJobInLine,)
 
 class	OrgEventAdmin(admin.ModelAdmin):
-	list_display = ('org', 'type')
-	list_filter = ('org',)
-	inlines = (OrgEventStageInLine,)
+	list_display	= ('org', 'type',)
+	list_filter	= ('org', 'type',)
+	ordering	= ('org', 'type',)
 
 class	FileAdmin(ReadOnlyAdminFields, admin.ModelAdmin):
 	list_display = ('name', 'comments', 'saved', 'mime')
@@ -172,7 +176,7 @@ class	MeetingAdmin(admin.ModelAdmin):
 
 admin.site.register(Okopf,		OkopfAdmin)
 admin.site.register(Okved,		OkvedAdmin)
-admin.site.register(Okso,		OksoAdmin)
+admin.site.register(Speciality,		SpecialityAdmin)
 admin.site.register(Skill,		SkillAdmin)
 admin.site.register(Stage,		StageAdmin)
 admin.site.register(EventType,		EventTypeAdmin)

@@ -10,7 +10,8 @@ class	ImportForm(forms.Form):
 class	OrgMainForm(forms.ModelForm):
 	class	Meta:
 		model = Org
-		fields = ('regno', 'name', 'fullname', 'regdate', 'inn', 'kpp', 'ogrn', 'laddress', 'raddress', 'sroregdate', 'licno', 'licdue', 'okopf')
+		#fields = ('regno', 'name', 'fullname', 'regdate', 'inn', 'kpp', 'ogrn', 'laddress', 'raddress', 'sroregdate', 'licno', 'licdue', 'okopf')
+		exclude = ('okveds', 'events', 'stuffs', 'files')
 
 class	OrgPhoneForm(forms.ModelForm):
 	class	Meta:
@@ -24,6 +25,16 @@ class	OrgStuffForm(forms.ModelForm):
 	class	Meta:
 		model = OrgStuff
 		fields = ('person', 'role', 'leader')
+
+class	OrgStuffAddPersonForm(forms.ModelForm):
+	class	Meta:
+		model = Person
+		fields = ('firstname', 'midname', 'lastname')
+
+class	OrgStuffAddRoleForm(forms.ModelForm):
+	class	Meta:
+		model = Role
+		#fields = ('firstname', 'midname', 'lastname')
 
 class	PermitForm(forms.ModelForm):
 	class	Meta:

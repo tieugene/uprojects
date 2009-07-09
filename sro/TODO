@@ -48,3 +48,9 @@ WISHES:
 	* делать как есть
 	* где критично - raw_id
 	* и готовить ручной интерфейс
+9628: 0.0.2
+    = Справочники =
+	* okdp - x
+	* okso - need only
+	* skill - need only
+	* job - +okdp.names
