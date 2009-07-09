@@ -1,9 +1,10 @@
 {% extends "sro/org_base.html" %}
+{% block body_main_button %} <a href="../../"> OK </a> {% endblock %}
 {% block body_main %}
 <form action="." method="POST">
 <table width="100%">
 {{ form.as_table }}
 </table>
-<input type="submit" value="Submit" />
+<input type="submit" value="Записать" />
 </form>
 {% endblock %}

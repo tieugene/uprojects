@@ -6,24 +6,24 @@
 </head>
 <body>
 {% block sidebar %}
-	<center> <h1> <a href="../../../../../">LanSite</a> &gt; <a href="../../../../"> СРО </a> &gt; <a href="../../../"> Организации </a> &gt; <a href="../../view/"> {{ org.name }} </a> </h1> </center>
+	<center> <h1> <a href="../../../">LanSite</a> &gt; <a href="../../"> СРО </a> &gt; <a href="../"> Организации </a> &gt; {{ org.name }} </h1> </center>
 {% endblock %}
 <hr/>
 <h2> 1. Основные данные: {% block body_main_button %}  {% endblock %} </h2>
 {% block body_main %}
 	<table border="0">
-		<tr>	<td> Рег №: </td>			<td> {% ifnotequal org.regno None %} {{ org.regno }} {% endifnotequal %} </td>	</tr>
 		<tr>	<td> Кратко: </td>			<td> {{ org.name }} </td>	</tr>
 		<tr>	<td> Полно: </td>			<td> {{ org.fullname }} </td>	</tr>
 		<tr>	<td> ОКОПФ: </td>			<td> {{ org.okopf }} </td>	</tr>
+		<tr>	<td> Дата регистрации: </td>		<td> {{ org.regdate }} </td>	</tr>
 		<tr>	<td> ИНН: </td>				<td> {{ org.inn }} </td>	</tr>
 		<tr>	<td> КПП: </td>				<td> {{ org.kpp }} </td>	</tr>
 		<tr>	<td> ОГРН: </td>			<td> {{ org.ogrn }} </td>	</tr>
-		<tr>	<td> Дата регистрации: </td>		<td> {{ org.regdate }} </td>	</tr>
 		<tr>	<td> Адрес юридический: </td>		<td> {{ org.laddress }} </td>	</tr>
 		<tr>	<td> Адрес фактический: </td>		<td> {{ org.raddress }} </td>	</tr>
 		<tr>	<td> Лицензия.№: </td>			<td> {{ org.licno }} </td>	</tr>
-		<tr>	<td> до: </td>				<td> {% ifnotequal org.licdue None %} {{ org.licdue }} {% endifnotequal %} </td>	</tr>
+		<tr>	<td> действительна до: </td>		<td> {% ifnotequal org.licdue None %} {{ org.licdue }} {% endifnotequal %} </td>	</tr>
+		<tr>	<td> Рег №: </td>			<td> {% ifnotequal org.regno None %} {{ org.regno }} {% endifnotequal %} </td>	</tr>
 		<tr>	<td> Дата регистрации в СРО: </td>	<td> {% ifnotequal org.sroregdate None %} {{ org.sroregdate }} {% endifnotequal %} </td>	</tr>
 	</table>
 {% endblock %}
@@ -61,19 +61,15 @@
 {% block body_stuff %}
 	<table>
 		<tr bgcolor="lightgrey">
-			<th> Фамилия </th>
-			<th> Имя </th>
-			<th> Отчество </th>
+			<th> ФИО </th>
 			<th> Должность </th>
 			<th> Начальство </th>
 		</tr>
 	{% for i in stuff %}
 		<tr>
-			<td> {{ i.person.lastname }} </td>
-			<td> {{ i.person.firstname }} </td>
-			<td> {{ i.person.midname }} </td>
+			<td> <a href="../../person/{{ i.person.id }}/"> {{ i.person.asstr }} </a> </td>
 			<td> {{ i.role.asstr }} </td>
-			<td> {% ifequal i.leader True %} V {% endifequal %} </td>
+			<td align="center"> {% ifequal i.leader 1 %} &radic; {% endifequal %} </td>
 		</tr>
 	{% endfor %}
 	</table>

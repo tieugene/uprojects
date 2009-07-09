@@ -57,21 +57,25 @@ def	__load_org(org_id, org=None):
 def	org_view(request, org_id):
 	return render_to_response('sro/org_view.html', __load_org(org_id))
 
-def	org_edit_main(request, org_id = None):
-	if (org_id):
-		org = Org.objects.get(pk=org_id)
+def	org_add(request):
+	org = Org()
+	if request.method == 'POST':
+		form = OrgMainForm(request.POST, instance=org)
+		if form.is_valid():
+			org = form.save()
+			return HttpResponseRedirect('../%d/' % org.id)
 	else:
-		org = Org()
+		form = OrgMainForm(instance=org)
+		okopf =  Okopf.objects.all()
+	return render_to_response('sro/org_edit_main.html', {'org': org, 'form': form})
+
+def	org_edit_main(request, org_id):
+	org = Org.objects.get(pk=org_id)
 	if request.method == 'POST':
 		form = OrgMainForm(request.POST, instance=org)
 		if form.is_valid():
 			form.save()
-			#new_org = form.save(commit=False)
-                        #new_org.id = org.id
-                        #new_org.save()
-			return HttpResponseRedirect('../../view/')
-#		else:
-#			return render_to_response('sro/org_edit_main.html', { 'form': form, 'org': org})
+			return HttpResponseRedirect('../../')
 	else:
 		form = OrgMainForm(instance=org)
 		okopf = Okopf.objects.all()
@@ -141,15 +145,26 @@ def	org_edit_stuff(request, org_id = None):
 		form = OrgStuffForm()
 	formdict = __load_org(org_id, org)
 	formdict['form'] = form
+	formdict['form_person'] = OrgStuffAddPersonForm()
+	formdict['form_role'] = OrgStuffAddRoleForm()
 	return render_to_response('sro/org_edit_stuff.html', formdict)
+
+def	org_edit_stuff_add_person(request, org_id):
+	if request.method == 'POST':
+		form = OrgStuffAddPersonForm(request.POST)
+		if form.is_valid():
+			form.save()
+	return HttpResponseRedirect('../')
+
+def	org_edit_stuff_add_role(request, org_id):
+	if request.method == 'POST':
+		form = OrgStuffAddRoleForm(request.POST)
+		if form.is_valid():
+			form.save()
+	return HttpResponseRedirect('../')
 
 def	org_edit_stuff_del(request, org_id, item_id):
 	OrgStuff.objects.get(pk=item_id).delete()
-	return HttpResponseRedirect('../../')
-
-def	org_view_permit(request, org_id, item_id):
-	#org = Org.objects.get(pk=org_id)
-	#return render_to_response('sro/org_view_permit.html', {'org': org})
 	return HttpResponseRedirect('../../')
 
 def	org_edit_permit(request, org_id):
@@ -183,14 +198,35 @@ def	org_edit_file(request, org_id):
 def	org_edit_file_del(request, org_id, item_id):
 	return HttpResponseRedirect('../../')
 
+def	org_permit(request, org_id, item_id):
+	perm = Permit.objects.get(pk=item_id)
+	# hack
+	mystages = {}
+	myjobs = {}
+	for s in PermitStage.objects.filter(permit=perm):
+		mystages[s.stage.id] = True
+		for j in PermitStageJob.objects.filter(permitstage=s):
+			myjobs[j.job.id] = True
+	pprint.pprint(mystages)
+	pprint.pprint(myjobs)
+	# /hack
+	matrix = []
+	for s in Stage.objects.all():
+		#print "Stage:", s.id, ", is: ", bool(PermitStage.objects.filter(permit=perm, stage=s).count())
+		matrixline = { 'stage': s, 'yes': mystages.has_key(s.id), 'jobs': [] }
+		for j in Job.objects.filter(stage=s):
+			matrixline['jobs'].append({'yes': myjobs.has_key(j.id), 'job': j})
+		matrix.append(matrixline)
+	return render_to_response('sro/org_permit.html', { 'permit': perm, 'matrix': matrix })
+
 def	org_del(request, org_id):
 	Org.objects.get(pk=org_id).delete()
 	return HttpResponseRedirect('../../')
 
-def	org_add(request):
-	return render_to_response('sro/dummy.html', {'org': org})
-
 def	person(request):
+	return render_to_response('sro/dummy.html')
+
+def	person_view(request, person_id):
 	return render_to_response('sro/dummy.html')
 
 def	meeting(request):

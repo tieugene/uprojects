@@ -1,32 +1,85 @@
 {% extends "sro/org_base.html" %}
-{% block body_stuff_button %} <a href="../../view"> OK </a> {% endblock %}
+{% block body_stuff_button %} <a href="../../"> OK </a> {% endblock %}
 {% block body_stuff %}
 	<!-- deletable -->
-	<table>
+	<table border="0">
 		<tr bgcolor="lightgrey">
 			<th/>
-			<th> Фамилия </th>
-			<th> Имя </th>
-			<th> Отчество </th>
+			<th> ФИО </th>
 			<th> Должность </th>
 			<th> Начальство </th>
 		</tr>
 	{% for i in stuff %}
 		<tr>
 			<td> <a href="{{ i.id }}/del/"> X </a> </td>
-			<td> {{ i.person.lastname }} </td>
-			<td> {{ i.person.firstname }} </td>
-			<td> {{ i.person.midname }} </td>
+			<td> {{ i.person.asstr }} </td>
 			<td> {{ i.role.asstr }} </td>
-			<td> {% ifequal i.leader True %} V {% endifequal %} </td>
+			<td align="center"> {% ifequal i.leader 1 %} V {% endifequal %} </td>
 		</tr>
 	{% endfor %}
-	</table>
 	<!-- add -->
-	<form action="." method="POST">
-	<table>
-	{{ form.as_table }}
+		<tr bgcolor="grey">
+			<form action="." method="POST">
+			<td>
+				<input type="submit" value="+" />
+			</td>
+			<td>
+				<div class="fieldWrapper">
+					{{ form.person.errors }}
+					{{ form.person }}
+				</div>
+			</td>
+			<td>
+				<div class="fieldWrapper">
+					{{ form.role.errors }}
+					{{ form.role }}
+				</div>
+			</td>
+			<td>
+				<div class="fieldWrapper">
+					{{ form.leader.errors }}
+					{{ form.leader }}
+				</div>
+			</td>
+			</form>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<form action="add_person/" method="POST">
+				<div class="fieldWrapper">
+					{{ form_person.lastname.errors }}
+					Ф
+					{{ form_person.lastname }}
+				</div>
+				<div class="fieldWrapper">
+					{{ form_person.firstname.errors }}
+					И
+					{{ form_person.firstname }}
+				</div>
+				<div class="fieldWrapper">
+					{{ form_person.midname.errors }}
+					О
+					{{ form_person.midname }}
+				</div>
+				<center><input type="submit" value="Добавить" title="Добавить нового человека"/></center>
+				</form>
+			</td>
+			<td valign="top" colspan="2">
+				<form action="add_role/" method="POST">
+				<div class="fieldWrapper">
+					{{ form_role.name.errors }}
+					{{ form_role.name }}
+					({{ form_role.name.label_tag }})
+				</div>
+				<div class="fieldWrapper">
+					{{ form_role.comments.errors }}
+					{{ form_role.comments }}
+					({{ form_role.comments.label_tag }})
+				</div>
+				<center><input type="submit" value="Добавить" title="Добавить новую должность"/></center>
+				</form>
+			</td>
+			<td/>
+		</tr>
 	</table>
-	<input type="submit" value="+" />
-	</form>
 {% endblock %}

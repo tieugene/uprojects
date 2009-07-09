@@ -1,0 +1,29 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<title>LanSite.СРО.Организации.Разрешение</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<link rel="stylesheet" href="org.css" type="text/css" />
+</head>
+<body>
+{% block sidebar %}
+	<center> <h1> <a href="../../../">LanSite</a> &gt; <a href="../../"> СРО </a> &gt; <a href="../"> Организации </a> &gt; Разрешение </h1> </center>
+{% endblock %}
+<hr/>
+<h1> Основные данные: </h1>
+<table border="0">
+	<tr> <td> Организация: </td>	<td> {{ permit.org.asstr }} </td> </tr>
+	<tr> <td> Рег. №: </td>		<td> {{ permit.regno }} </td> </tr>
+	<tr> <td> Дата: </td>		<td> {{ permit.date }} </td> </tr>
+</table>
+<hr/>
+<h1> Виды работ: </h1>
+<table border="0">
+{% for s in matrix %}
+	<tr> <td align="center"> {% ifequal s.yes 1 %} &radic; {% endifequal %} </td> <td> {{ s.stage.id }} </td> <td colspan="2"> {{ s.stage.name }} </td> <tr>
+	{% for j in s.jobs %}
+		<tr> <td/> <td align="center"> {% ifequal j.yes 1 %} &radic; {% endifequal %} </td> <td> {{ j.job.okdp }} </td> <td> {{ j.job.name }} </td> <tr>
+	{% endfor %}
+{% endfor %}
+</table>
+</body>
+</html>
