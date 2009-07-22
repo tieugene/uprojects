@@ -1,5 +1,5 @@
 {% extends "sro/org_base.html" %}
-{% block body_permit_button %} <a href="../../"> OK </a> {% endblock %}
+{% block body_permit_button %} <a href="{% url lansite.sro.views.org_view org.id %}"> OK </a> {% endblock %}
 {% block body_permit %}
 	<!-- deletable -->
 	<table>
@@ -10,7 +10,7 @@
 		</tr>
 	{% for i in permit %}
 		<tr>
-			<td> <a href="{{ i.id }}/del/#permit"> X </a> </td>
+			<td> <a href="{% url lansite.sro.views.org_edit_permit_del org.id, i.id %}#permit"> X </a> </td>
 			<td> {{ i.id }} </td>
 			<td> {{ i.date }} </td>
 		</tr>

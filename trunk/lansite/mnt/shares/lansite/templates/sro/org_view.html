@@ -1,9 +1,9 @@
 {% extends "sro/org_base.html" %}
-{% block body_main_button %} <a href="edit/main/#main"> Edit </a> {% endblock %}
-{% block body_okved_button %} <a href="edit/okved/#okved"> Edit </a> {% endblock %}
-{% block body_phone_button %} <a href="edit/phone/#phone"> Edit </a> {% endblock %}
-{% block body_email_button %} <a href="edit/email/#email"> Edit </a> {% endblock %}
-{% block body_stuff_button %} <a href="edit/stuff/#stuff"> Edit </a> {% endblock %}
-{% block body_permit_button %} <a href="edit/permit/#permit"> Edit </a> {% endblock %}
+{% block body_main_button %} <a href="{% url lansite.sro.views.org_edit_main org.id %}#main"> Edit </a> {% endblock %}
+{% block body_okved_button %} <a href="{% url lansite.sro.views.org_edit_okved org.id %}#okved"> Edit </a> {% endblock %}
+{% block body_phone_button %} <a href="{% url lansite.sro.views.org_edit_phone org.id %}#phone"> Edit </a> {% endblock %}
+{% block body_email_button %} <a href="{% url lansite.sro.views.org_edit_email org.id %}#email"> Edit </a> {% endblock %}
+{% block body_stuff_button %} <a href="{% url lansite.sro.views.org_edit_stuff org.id %}#stuff"> Edit </a> {% endblock %}
+{% block body_permit_button %} <a href="{% url lansite.sro.views.org_edit_permit org.id %}#permit"> Edit </a> {% endblock %}
 {% block body_event_button %} <!-- <a href="../edit/event/"> Edit </a> --> {% endblock %}
 {% block body_file_button %} <!-- <a href="../edit/file/"> Edit </a> --> {% endblock %}

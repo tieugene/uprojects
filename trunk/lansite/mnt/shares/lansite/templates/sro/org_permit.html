@@ -6,7 +6,12 @@
 </head>
 <body>
 {% block sidebar %}
-	<center> <h1> <a href="../../../">LanSite</a> &gt; <a href="../../"> СРО </a> &gt; <a href="../"> Организации </a> &gt; Разрешение </h1> </center>
+	<center> <h1>
+		<a href="{% url lansite.views.index %}">LanSite</a> &gt;
+		<a href="{% url lansite.sro.views.index %}"> СРО </a> &gt;
+		<a href="{% url lansite.sro.views.org %}"> Организации </a> &gt;
+		Разрешение
+	</h1> </center>
 {% endblock %}
 <hr/>
 <h1> Основные данные: </h1>
@@ -20,7 +25,7 @@
 <table border="0">
 {% for s, sflag in stages %}
 	<a name="{{ s.id }}"/>
-	<tr> <td> <a href="{{ s.id }}/"> {% ifequal s.id id %} - {%else%} + {% endifequal %} </a> </td> <td align="center"> {% ifequal sflag 1 %} &radic; {% endifequal %} </td> <td> {{ s.id }} </td> <td colspan="2"> {{ s.name }} </td> <tr>
+	<tr> <td> {% ifequal s.id id %} <a href="{% lansite.sro.views.permit s.id %}"> - </a> {%else%} <a href="{% lansite.sro.views.permit s.id, None %}"> + </a> {% endifequal %} </td> <td align="center"> {% ifequal sflag 1 %} &radic; {% endifequal %} </td> <td> {{ s.id }} </td> <td colspan="2"> {{ s.name }} </td> <tr>
 	{% ifequal s.id id %}
 		{% for j, jflag in jobs %}
 			<tr> <td/> <td align="center"> {% ifequal jflag 1 %} &radic; {% endifequal %} </td> <td colspan="2"> {{ j.id }} </td> <td> {{ j.name }} </td> <tr>
