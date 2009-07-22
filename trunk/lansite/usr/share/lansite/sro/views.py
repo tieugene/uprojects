@@ -198,26 +198,31 @@ def	org_edit_file(request, org_id):
 def	org_edit_file_del(request, org_id, item_id):
 	return HttpResponseRedirect('../../')
 
-def	org_permit(request, org_id, item_id):
-	perm = Permit.objects.get(pk=item_id)
+def	org_permit(request, perm_id, stage_id = None):
+	perm = Permit.objects.get(pk=perm_id)
 	# hack
-	mystages = {}
-	myjobs = {}
-	for s in PermitStage.objects.filter(permit=perm):
-		mystages[s.stage.id] = True
-		for j in PermitStageJob.objects.filter(permitstage=s):
-			myjobs[j.job.id] = True
-	pprint.pprint(mystages)
-	pprint.pprint(myjobs)
+	# 1. get wanted stages [and jobs]
+	mystages = {}	# stage.id => IsInThisPermit
+	myjobs = {}	# jobs of current stage
+	for ps in PermitStage.objects.filter(permit=perm):
+		mystages[ps.stage.id] = True
+		if (stage_id) and (ps.stage.id == int(stage_id)):	# fill our jobs if need
+			for j in PermitStageJob.objects.filter(permitstage=ps):
+				myjobs[j.job.id] = True
+	#pprint.pprint(mystages)
+	#pprint.pprint(myjobs)
 	# /hack
-	matrix = []
+	# 2. get all stages [and jobs] - marking my as True flag in tuple
+	stages = []
+	jobs = []
 	for s in Stage.objects.all():
-		#print "Stage:", s.id, ", is: ", bool(PermitStage.objects.filter(permit=perm, stage=s).count())
-		matrixline = { 'stage': s, 'yes': mystages.has_key(s.id), 'jobs': [] }
-		for j in Job.objects.filter(stage=s):
-			matrixline['jobs'].append({'yes': myjobs.has_key(j.id), 'job': j})
-		matrix.append(matrixline)
-	return render_to_response('sro/org_permit.html', { 'permit': perm, 'matrix': matrix })
+		stages.append((s, s.id in mystages))
+		if (stage_id) and (s.id == int(stage_id)):
+			for j in Job.objects.filter(stage=s):
+				jobs.append((j, j.id in myjobs))
+	#pprint.pprint(stages)
+	#pprint.pprint(jobs)
+	return render_to_response('sro/org_permit.html', { 'permit': perm, 'stages': stages, 'jobs': jobs, 'id': int(stage_id) })
 
 def	org_del(request, org_id):
 	Org.objects.get(pk=org_id).delete()
