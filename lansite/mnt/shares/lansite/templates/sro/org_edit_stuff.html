@@ -1,5 +1,5 @@
 {% extends "sro/org_base.html" %}
-{% block body_stuff_button %} <a href="../../"> OK </a> {% endblock %}
+{% block body_stuff_button %} <a href="{% url lansite.sro.views.org_view org.id %}"> OK </a> {% endblock %}
 {% block body_stuff %}
 	<!-- deletable -->
 	<table border="0">
@@ -11,7 +11,7 @@
 		</tr>
 	{% for i in stuff %}
 		<tr>
-			<td> <a href="{{ i.id }}/del/#stuff"> X </a> </td>
+			<td> <a href="{% url lansite.sro.views.org_edit_stuff_del org.id, i.id %}#stuff"> X </a> </td>
 			<td> {{ i.person.asstr }} </td>
 			<td> {{ i.role.asstr }} </td>
 			<td align="center"> {% ifequal i.leader 1 %} V {% endifequal %} </td>

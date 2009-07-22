@@ -6,7 +6,7 @@
 	<link rel="stylesheet" href="base.css" type="text/css" />
 </head>
 <body>
-<center> <h1> <a href="../../">LanSite</a> &gt; <a href="../"> СРО </a> &gt; Организации </h1> </center>
+<center> <h1> <a href="{% url lansite.views.index %}">LanSite</a> &gt; <a href="{% url lansite.sro.views.index %}"> СРО </a> &gt; Организации </h1> </center>
 <hr/>
 {% if org_list %}
 	<table border="0">
@@ -17,8 +17,8 @@
 	{% for org in org_list %}
 		<tr>
 			<td> {{ org.id }} </td>
-			<td> <a href="{{ org.id }}/" title="{{ org.fullname }}">{{ org.name }} </td>
-			<td> [<a href="{{ org.id }}/del/" title="Удалить"> x </a>] </td>
+			<td>  <a href="{% url lansite.sro.views.org_view org.id %}" title="{{ org.fullname }}">{{ org.name }} </td>
+			<td> [<a href="{% url lansite.sro.views.org_del org.id %}" title="Удалить"> x </a>] </td>
 		</tr>
 	{% endfor %}
 	</tbody>
@@ -27,6 +27,6 @@
 	<p>No orgs are available.</p>
 {% endif %}
 <hr/>
-[<a href="add/" title="Добавить"> + </a>]
+[<a href="{% url lansite.sro.views.org_add %}" title="Добавить"> + </a>]
 </body>
 </html>

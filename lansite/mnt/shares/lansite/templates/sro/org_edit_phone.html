@@ -1,9 +1,9 @@
 {% extends "sro/org_base.html" %}
-{% block body_phone_button %} <a href="../../"> OK </a> {% endblock %}
+{% block body_phone_button %} <a href="{% url lansite.sro.views.org_view org.id %}"> OK </a> {% endblock %}
 {% block body_phone %}
 	<table border="0">
 	{% for i in phone %}
-		<tr> <td> <a href="{{ i.id }}/del/#phone"> X </a> </td> <td> {{ i.asstr }} </td> </tr>
+		<tr> <td> <a href="{% url lansite.sro.views.org_edit_phone_del org.id, i.id %}#phone"> X </a> </td> <td> {{ i.asstr }} </td> </tr>
 	{% endfor %}
 	</table>
 <form action=".#phone" method="POST">

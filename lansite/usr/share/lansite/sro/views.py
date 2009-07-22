@@ -198,7 +198,7 @@ def	org_edit_file(request, org_id):
 def	org_edit_file_del(request, org_id, item_id):
 	return HttpResponseRedirect('../../')
 
-def	org_permit(request, perm_id, stage_id = None):
+def	permit(request, perm_id, stage_id = None):
 	perm = Permit.objects.get(pk=perm_id)
 	# hack
 	# 1. get wanted stages [and jobs]
@@ -222,7 +222,7 @@ def	org_permit(request, perm_id, stage_id = None):
 				jobs.append((j, j.id in myjobs))
 	#pprint.pprint(stages)
 	#pprint.pprint(jobs)
-	return render_to_response('sro/org_permit.html', { 'permit': perm, 'stages': stages, 'jobs': jobs, 'id': int(stage_id) })
+	return render_to_response('sro/org_permit.html', { 'permit': perm, 'stages': stages, 'jobs': jobs, 'id': int(stage_id) if stage_id else 0 })
 
 def	org_del(request, org_id):
 	Org.objects.get(pk=org_id).delete()

@@ -1,9 +1,9 @@
 {% extends "sro/org_base.html" %}
-{% block body_email_button %} <a href="../../"> OK </a> {% endblock %}
+{% block body_email_button %} <a href="{% url lansite.sro.views.org_view org.id %}"> OK </a> {% endblock %}
 {% block body_email %}
 	<table border="0">
 	{% for i in email %}
-		<tr> <td> <a href="{{ i.id }}/del/#email"> X </a> </td> <td> {{ i.asstr }} </td> </tr>
+		<tr> <td> <a href="{% url lansite.sro.views.org_edit_email_del org.id, i.id %}#email"> X </a> </td> <td> {{ i.asstr }} </td> </tr>
 	{% endfor %}
 	</table>
 <form action=".#email" method="POST">
