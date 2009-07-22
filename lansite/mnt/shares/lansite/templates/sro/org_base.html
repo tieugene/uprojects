@@ -9,6 +9,7 @@
 	<center> <h1> <a href="../../../">LanSite</a> &gt; <a href="../../"> СРО </a> &gt; <a href="../"> Организации </a> &gt; {{ org.name }} </h1> </center>
 {% endblock %}
 <hr/>
+<a name="main"/>
 <h2> 1. Основные данные: {% block body_main_button %}  {% endblock %} </h2>
 {% block body_main %}
 	<table border="0">
@@ -28,6 +29,7 @@
 	</table>
 {% endblock %}
 <hr/>
+<a name="okved"/>
 <h3> 1.1. ОКВЭД: {% block body_okved_button %}  {% endblock %} </h3>
 {% block body_okved %}
 	{% ifnotequal org.id None %}
@@ -39,6 +41,7 @@
 	{% endifnotequal %}
 {% endblock %}
 <hr/>
+<a name="phone"/>
 <h3> 1.2. Телефоны: {% block body_phone_button %}  {% endblock %} </h3>
 {% block body_phone %}
 	<ul>
@@ -48,6 +51,7 @@
 	</ul>
 {% endblock %}
 <hr/>
+<a name="email"/>
 <h3> 1.3. Адреса электропочты: {% block body_email_button %}  {% endblock %} </h3>
 {% block body_email %}
 	<ul>
@@ -57,6 +61,7 @@
 	</ul>
 {% endblock %}
 <hr/>
+<a name="stuff"/>
 <h2> 2. Персонал: {% block body_stuff_button %}  {% endblock %} </h2>
 {% block body_stuff %}
 	<table>
@@ -75,6 +80,7 @@
 	</table>
 {% endblock %}
 <hr/>
+<a name="permit"/>
 <h2> 3. Допуски: {% block body_permit_button %}  {% endblock %} </h2>
 {% block body_permit %}
 	<table>
@@ -91,6 +97,7 @@
 	</table>
 {% endblock %}
 <hr/>
+<a name="event"/>
 <h2> 4. События: {% block body_event_button %}  {% endblock %} </h2>
 {% block body_event %}
 	<table>
@@ -109,6 +116,7 @@
 	</table>
 {% endblock %}
 <hr/>
+<a name="file"/>
 <h2> 5. Файлы: {% block body_file_button %}  {% endblock %} </h2>
 {% block body_file %}
 	<ul>

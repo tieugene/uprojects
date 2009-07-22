@@ -3,10 +3,10 @@
 {% block body_phone %}
 	<table border="0">
 	{% for i in phone %}
-		<tr> <td> <a href="{{ i.id }}/del/"> X </a> </td> <td> {{ i.asstr }} </td> </tr>
+		<tr> <td> <a href="{{ i.id }}/del/#phone"> X </a> </td> <td> {{ i.asstr }} </td> </tr>
 	{% endfor %}
 	</table>
-<form action="." method="POST">
+<form action=".#phone" method="POST">
 <table>
 {{ form.as_table }}
 </table>

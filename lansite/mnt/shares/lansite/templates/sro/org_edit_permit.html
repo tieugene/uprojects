@@ -10,17 +10,18 @@
 		</tr>
 	{% for i in permit %}
 		<tr>
-			<td> <a href="{{ i.id }}/del/"> X </a> </td>
+			<td> <a href="{{ i.id }}/del/#permit"> X </a> </td>
 			<td> {{ i.id }} </td>
 			<td> {{ i.date }} </td>
 		</tr>
 	{% endfor %}
 	</table>
 	<!-- add -->
-	<form action="." method="POST">
+	<form action=".#permit" method="POST">
 	<table>
 	{{ form.as_table }}
 	</table>
 	<input type="submit" value="+" />
+	<!-- <a href="javascript:document.formname­ .submit()">+</a> -->
 	</form>
 {% endblock %}
