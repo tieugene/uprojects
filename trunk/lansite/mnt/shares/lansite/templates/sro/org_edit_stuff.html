@@ -11,7 +11,7 @@
 		</tr>
 	{% for i in stuff %}
 		<tr>
-			<td> <a href="{{ i.id }}/del/"> X </a> </td>
+			<td> <a href="{{ i.id }}/del/#stuff"> X </a> </td>
 			<td> {{ i.person.asstr }} </td>
 			<td> {{ i.role.asstr }} </td>
 			<td align="center"> {% ifequal i.leader 1 %} V {% endifequal %} </td>
@@ -19,7 +19,7 @@
 	{% endfor %}
 	<!-- add -->
 		<tr bgcolor="grey">
-			<form action="." method="POST">
+			<form action=".#stuff" method="POST">
 			<td>
 				<input type="submit" value="+" />
 			</td>
