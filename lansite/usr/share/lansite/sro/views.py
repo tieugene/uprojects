@@ -198,35 +198,58 @@ def	org_edit_file(request, org_id):
 def	org_edit_file_del(request, org_id, item_id):
 	return HttpResponseRedirect('../../')
 
-def	permit(request, perm_id, stage_id = None):
+def	org_del(request, org_id):
+	Org.objects.get(pk=org_id).delete()
+	return HttpResponseRedirect('../../')
+
+def	permit_list(request, perm_id):
 	perm = Permit.objects.get(pk=perm_id)
-	# hack
-	# 1. get wanted stages [and jobs]
+	mystages = {}
+	for ps in PermitStage.objects.filter(permit=perm):
+		mystages[ps.stage.id] = True
+	stages = []
+	for s in Stage.objects.all():
+		stages.append((s, s.id in mystages))
+	return render_to_response('sro/permit_list.html', { 'permit': perm, 'stages': stages })
+
+def	permit_view(request, perm_id, stage_id):
+	perm = Permit.objects.get(pk=perm_id)
 	mystages = {}	# stage.id => IsInThisPermit
 	myjobs = {}	# jobs of current stage
 	for ps in PermitStage.objects.filter(permit=perm):
 		mystages[ps.stage.id] = True
-		if (stage_id) and (ps.stage.id == int(stage_id)):	# fill our jobs if need
+		if (ps.stage.id == int(stage_id)):
 			for j in PermitStageJob.objects.filter(permitstage=ps):
 				myjobs[j.job.id] = True
-	#pprint.pprint(mystages)
-	#pprint.pprint(myjobs)
-	# /hack
-	# 2. get all stages [and jobs] - marking my as True flag in tuple
 	stages = []
 	jobs = []
 	for s in Stage.objects.all():
 		stages.append((s, s.id in mystages))
-		if (stage_id) and (s.id == int(stage_id)):
+		if (s.id == int(stage_id)):
 			for j in Job.objects.filter(stage=s):
 				jobs.append((j, j.id in myjobs))
-	#pprint.pprint(stages)
-	#pprint.pprint(jobs)
-	return render_to_response('sro/org_permit.html', { 'permit': perm, 'stages': stages, 'jobs': jobs, 'id': int(stage_id) if stage_id else 0 })
+	return render_to_response('sro/permit_view.html', { 'permit': perm, 'stages': stages, 'jobs': jobs, 'id': int(stage_id) })
 
-def	org_del(request, org_id):
-	Org.objects.get(pk=org_id).delete()
-	return HttpResponseRedirect('../../')
+def	permit_edit(request, perm_id, stage_id):
+	perm = Permit.objects.get(pk=perm_id)
+	mystages = {}	# stage.id => IsInThisPermit
+	myjobs = {}	# jobs of current stage
+	for ps in PermitStage.objects.filter(permit=perm):
+		mystages[ps.stage.id] = True
+		if (ps.stage.id == int(stage_id)):
+			for j in PermitStageJob.objects.filter(permitstage=ps):
+				myjobs[j.job.id] = True
+	stages = []
+	jobs = []
+	for s in Stage.objects.all():
+		stages.append((s, s.id in mystages))
+		if (s.id == int(stage_id)):
+			for j in Job.objects.filter(stage=s):
+				jobs.append((j, j.id in myjobs))
+	# <start>
+	form = PermitStageForm()
+	# <end>
+	return render_to_response('sro/permit_edit.html', { 'permit': perm, 'stages': stages, 'jobs': jobs, 'id': int(stage_id), 'form': form })
 
 def	person(request):
 	return render_to_response('sro/dummy.html')

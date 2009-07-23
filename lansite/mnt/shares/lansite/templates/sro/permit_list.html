@@ -1,0 +1,15 @@
+{% extends "sro/permit_base.html" %}
+{% block main %}
+<table border="0">
+{% for s, sflag in stages %}
+	<a name="{{ s.id }}"/>
+	<tr>
+		<td> <a href="{% url lansite.sro.views.permit_edit permit.id, s.id %}#{{ s.id }}"> E </a> </td>
+		<td> <a href="{% url lansite.sro.views.permit_view permit.id, s.id %}#{{ s.id }}"> + </a> </td>
+		<td align="center"> {% ifequal sflag 1 %} &radic; {% endifequal %} </td>
+		<td> {{ s.id }} </td>
+		<td colspan="2"> {{ s.name }} </td>
+	<tr>
+{% endfor %}
+</table>
+{% endblock %}
