@@ -84,7 +84,8 @@ INSTALLED_APPS = (
 	'django.contrib.databrowse',
 	'django.contrib.sessions',
 	'django.contrib.sites',
+#	'lansite.smart_selects',
 	'lansite.run1s',
 	'lansite.sro',
-	'lansite.insupol',
+	#'lansite.insupol',
 )

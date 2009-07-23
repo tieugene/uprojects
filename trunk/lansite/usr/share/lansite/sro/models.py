@@ -3,10 +3,13 @@
 models: 30 (w/o country & trunk)
 '''
 
-from django.db import models
-from rfm import RenameFilesModel
-from xdg import Mime
 import os
+
+from django.db import models
+from xdg import Mime
+
+from rfm import RenameFilesModel
+#from cbm2m import CheckBoxManyToMany
 
 def	my_upload_to(instance, filename):
 	"""Generates upload path for FileField"""
@@ -332,6 +335,7 @@ class	OrgOkved(models.Model):
 	class	Meta:
 		verbose_name		= u'Организация.ОКВЭД'
 		verbose_name_plural	= u'Организация.Коды ОКВЭД'
+		unique_together		= [('org', 'okved')]
 	def	exml(self):
 		return ''
 
@@ -340,6 +344,7 @@ class	Permit(models.Model):
 	regno		= models.PositiveIntegerField(null=False, unique=True, verbose_name=u'№')
 	date		= models.DateField(null=True, blank=True, verbose_name=u'Выдано')
 	stages		= models.ManyToManyField(Stage, through='PermitStage', verbose_name=u'Виды работ')
+	#stages		= CheckBoxManyToMany(Stage, through='PermitStage', verbose_name=u'Виды работ')
 	_xmlname	= u'permit'
 	def	asstr(self):
 		return u'%s: № %d' % (self.org.asstr(), self.id)
@@ -363,12 +368,13 @@ class	PermitStage(models.Model):
 	class	Meta:
 		verbose_name		= u'Разрешение.Вид работ'
 		verbose_name_plural	= u'Разрешение.Виды работ'
+		unique_together		= [('permit', 'stage')]
 	def	exml(self):
 		return ''
 
 class	PermitStageJob(models.Model):
 	permitstage	= models.ForeignKey(PermitStage, verbose_name=u'Разрешение.Вид работ')
-	job		= models.ForeignKey(Job, verbose_name=u'Работа')
+	job		= models.ForeignKey(Job, verbose_name=u'Работа')	#, limit_choices_to = { 'permit_stage__eq': self.permitstage.stage })
 	_xmlname	= u'permitstagejob'
 	def	asstr(self):
 		return u'%s: %s' % (self.permitstage.asstr(), self.job.asstr())
@@ -396,9 +402,10 @@ class	OrgPhone(models.Model):
 	def	__unicode__(self):
 		return self.asstr()
 	class	Meta:
-		ordering = ('id',)
-		verbose_name = u'Телефон'
-		verbose_name_plural = u'Телефоны'
+		ordering		= ('id',)
+		verbose_name		= u'Телефон'
+		verbose_name_plural	= u'Телефоны'
+		unique_together		= [('org', 'country', 'trunk', 'phone', 'ext')]
 	def	exml(self):
 		retvalue = u'\t<%s id="%d" country="%d" trunk="%d" phone="%d"' % (self._xmlname, self.id, self.country, self.trunk, self.phone)
 		if (self.ext):
@@ -449,6 +456,7 @@ class	OrgStuff(models.Model):
 	class	Meta:
 		verbose_name		= u'Организация.Должностное лицо'
 		verbose_name_plural	= u'Организация.Должностные лица'
+		unique_together		= [('org', 'role', 'person')]
 	def	exml(self):
 		return ''
 
@@ -463,6 +471,7 @@ class	OrgFile(models.Model):
 	class	Meta:
 		verbose_name		= u'Организация.Файл'
 		verbose_name_plural	= u'Организация.Файлы'
+		unique_together		= [('org', 'file')]
 	def	exml(self):
 		return ''
 
@@ -495,6 +504,7 @@ class	MeetingOrg(models.Model):
 		ordering = ('meeting',)
 		verbose_name		= u'Заседание.Организация'
 		verbose_name_plural	= u'Заседание.Организации'
+		unique_together		= [('meeting', 'org')]
 	def	exml(self):
 		return ''
 
