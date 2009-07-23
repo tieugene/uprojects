@@ -40,3 +40,7 @@ class	PermitForm(forms.ModelForm):
 	class	Meta:
 		model = Permit
 		fields = ('regno', 'date',)
+
+class	PermitStageForm(forms.Form):
+	stage	= forms.BooleanField()
+	jobs	= forms.MultipleChoiceField(widget=forms.CheckboxSelectMultiple)

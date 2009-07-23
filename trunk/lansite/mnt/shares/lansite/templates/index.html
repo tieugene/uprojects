@@ -1,5 +1,5 @@
-<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 	<title>LanSite</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -8,11 +8,12 @@
 <body>
 <center>
 	<h1> LanSite </h1>
-	<p>
-		<a href="sro"> СРО </a>
-		<a href="run1s"> Run1s </a>
-		<a href="admin"> Администрирование </a>
-	</p>
+	<table width="100%" border="0"> <tr align="center" bgcolor="lightgrey">
+		<!-- <td> <a href="run1s"> Run1s </a> </td> -->
+		<td> <a href="{% url lansite.sro.views.index %}"> СРО </a> </td>
+		<!-- <td> <a href="insupol"> InsuPol </a> </td> -->
+		<td> <a href="admin"> Администрирование </a> </td>
+	</tr> </table>
 </center>
 </body>
 </html>
