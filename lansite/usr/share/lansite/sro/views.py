@@ -5,16 +5,17 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader, Context
 from django.db import transaction
 from django.core import serializers
-from xml.sax import handler, make_parser
-from datetime import datetime
-
 from django.utils.encoding import StrAndUnicode, force_unicode, smart_unicode, smart_str
 
-import pprint
+from xml.sax import handler, make_parser
+from datetime import datetime
 
 from models import *
 from forms import *
 from impex import *
+
+import pprint
+
 
 def	index(request):
 	return render_to_response('sro/index.html')
