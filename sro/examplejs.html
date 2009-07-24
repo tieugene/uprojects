@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Checkbox Controls with JavaScript : Tools for Webmasters</title>
+</head>
+<body >
+<script type="text/javascript" language="JavaScript">
+<!--
+function UpdateChecks(which) {
+if     (which == 'all')    { AllIsChecked();  }
+else if(which == 'none')   { NoneIsChecked(); }
+else if(which == 'color')  { BoxesCheck();    }
+}
+
+function AllIsChecked() {
+if(document.F4.A.checked == false) { BoxesCheck(); }
+else {
+	document.F4.R.checked = false;
+	document.F4.G.checked = false;
+	document.F4.B.checked = false;
+	document.F4.N.checked = false;
+	}
+}
+
+function NoneIsChecked() {
+if(document.F4.N.checked == false) { BoxesCheck(); }
+else {
+	document.F4.R.checked = false;
+	document.F4.G.checked = false;
+	document.F4.B.checked = false;
+	document.F4.A.checked = false;
+	}
+}
+
+function BoxesCheck() {
+document.F4.A.checked = false;
+document.F4.N.checked = false;
+if((document.F4.R.checked == true) && (document.F4.G.checked == true) && (document.F4.B.checked == true)) {
+	document.F4.A.checked = true;
+	AllIsChecked();
+	}
+else if((document.F4.R.checked == false) && (document.F4.G.checked == false) && (document.F4.B.checked == false)) {
+	document.F4.N.checked = true;
+	NoneIsChecked();
+	}
+}
+//-->
+</script>
+
+<form name="F4">
+Check your favorites:<br />
+<input type="checkbox" name="R" value="red"   onClick="UpdateChecks('color')"        />Red   <br />
+<input type="checkbox" name="G" value="green" onClick="UpdateChecks('color')"        />Green <br />
+<input type="checkbox" name="B" value="blue"  onClick="UpdateChecks('color')"        />Blue  <br />
+<input type="checkbox" name="A" value="all"   onClick="UpdateChecks('all')"          />All   <br />
+
+<input type="checkbox" name="N" value="none"  onClick="UpdateChecks('none')" CHECKED />None  <br />
+<input type="button" value="Click" />
+</form>
+
+</body>
+</html>
