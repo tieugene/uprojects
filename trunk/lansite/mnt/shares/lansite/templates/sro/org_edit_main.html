@@ -1,10 +1,11 @@
 {% extends "sro/org_base.html" %}
-{% block body_main_button %} <a href="{% url lansite.sro.views.org_view org.id %}"> OK </a> {% endblock %}
 {% block body_main %}
 <form action=".#main" method="POST">
 <table width="100%">
 {{ form.as_table }}
 </table>
-<input type="submit" value="Записать" />
+<input type="submit" value="Записать и закрыть" />
+<input type="button" value="Отказаться" onClick="window.location.href='{% url lansite.sro.views.org_view org.id %}#main'"/>
 </form>
+
 {% endblock %}

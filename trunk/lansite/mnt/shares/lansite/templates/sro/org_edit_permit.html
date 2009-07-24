@@ -1,16 +1,15 @@
 {% extends "sro/org_base.html" %}
-{% block body_permit_button %} <a href="{% url lansite.sro.views.org_view org.id %}"> OK </a> {% endblock %}
 {% block body_permit %}
 	<!-- deletable -->
 	<table>
-		<tr bgcolor="lightgrey">
+		<tr>
 			<th/>
 			<th> № </th>
 			<th> Дата </th>
 		</tr>
 	{% for i in permit %}
 		<tr>
-			<td> <a href="{% url lansite.sro.views.org_edit_permit_del org.id, i.id %}#permit"> X </a> </td>
+			<td> <input type="button" value="X" onClick="window.location.href='{% url lansite.sro.views.org_edit_permit_del org.id, i.id %}#permit'"/> </td>
 			<td> {{ i.id }} </td>
 			<td> {{ i.date }} </td>
 		</tr>
@@ -24,4 +23,5 @@
 	<input type="submit" value="+" />
 	<!-- <a href="javascript:document.formname­ .submit()">+</a> -->
 	</form>
+	<input type="button" value="Закончить" onClick="window.location.href='{% url lansite.sro.views.org_view org.id %}#okved'"/>
 {% endblock %}

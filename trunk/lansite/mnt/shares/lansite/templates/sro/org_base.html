@@ -13,9 +13,8 @@
 		{{ org.name }}
 	</h1> </center>
 {% endblock %}
-<hr/>
 <a name="main"/>
-<h2> 1. Основные данные: {% block body_main_button %}  {% endblock %} </h2>
+<table width="100%" border="0" bgcolor="lightgrey"><tr><td><table><tr><td>{% block body_main_button %} {% endblock %}</td><td><h2> 1. Основные данные: </h2></td></tr></table></td></tr></table>
 {% block body_main %}
 	<table border="0">
 		<tr>	<td> Кратко: </td>			<td> {{ org.name }} </td>	</tr>
@@ -33,9 +32,8 @@
 		<tr>	<td> Дата регистрации в СРО: </td>	<td> {% ifnotequal org.sroregdate None %} {{ org.sroregdate }} {% endifnotequal %} </td>	</tr>
 	</table>
 {% endblock %}
-<hr/>
 <a name="okved"/>
-<h3> 1.1. ОКВЭД: {% block body_okved_button %}  {% endblock %} </h3>
+<table width="100%" border="0" bgcolor="lightgrey"><tr><td><table><tr><td> {% block body_okved_button %} {% endblock %} </td><td><h3> 1.1. ОКВЭД: </h3></td></tr></table></td></tr></table>
 {% block body_okved %}
 	{% ifnotequal org.id None %}
 	<ul>
@@ -45,9 +43,8 @@
 	</ul>
 	{% endifnotequal %}
 {% endblock %}
-<hr/>
 <a name="phone"/>
-<h3> 1.2. Телефоны: {% block body_phone_button %}  {% endblock %} </h3>
+<table width="100%" border="0" bgcolor="lightgrey"><tr><td><table><tr><td> {% block body_phone_button %} {% endblock %} </td><td><h3> 1.2. Телефоны: </h3></td></tr></table></td></tr></table>
 {% block body_phone %}
 	<ul>
 	{% for i in phone %}
@@ -55,9 +52,8 @@
 	{% endfor %}
 	</ul>
 {% endblock %}
-<hr/>
 <a name="email"/>
-<h3> 1.3. Адреса электропочты: {% block body_email_button %}  {% endblock %} </h3>
+<table width="100%" border="0" bgcolor="lightgrey"><tr><td><table><tr><td> {% block body_email_button %} {% endblock %} </td><td><h3> 1.3. Адреса электропочты: </h3></td></tr></table></td></tr></table>
 {% block body_email %}
 	<ul>
 	{% for i in email %}
@@ -65,15 +61,14 @@
 	{% endfor %}
 	</ul>
 {% endblock %}
-<hr/>
 <a name="stuff"/>
-<h2> 2. Персонал: {% block body_stuff_button %}  {% endblock %} </h2>
+<table width="100%" border="0" bgcolor="lightgrey"><tr><td><table><tr><td> {% block body_stuff_button %} {% endblock %} </td><td><h2> 2. Персонал: </h2></td></tr></table></td></tr></table>
 {% block body_stuff %}
 	<table>
-		<tr bgcolor="lightgrey">
+		<tr>
 			<th> ФИО </th>
 			<th> Должность </th>
-			<th> Начальство </th>
+			<th> Руководство </th>
 		</tr>
 	{% for i in stuff %}
 		<tr>
@@ -84,12 +79,11 @@
 	{% endfor %}
 	</table>
 {% endblock %}
-<hr/>
 <a name="permit"/>
-<h2> 3. Допуски: {% block body_permit_button %}  {% endblock %} </h2>
+<table width="100%" border="0" bgcolor="lightgrey"><tr><td><table><tr><td> {% block body_permit_button %} {% endblock %} </td><td><h2> 3. Допуски: </h2></td></tr></table></td></tr></table>
 {% block body_permit %}
 	<table>
-		<tr bgcolor="lightgrey">
+		<tr>
 			<th> № </th>
 			<th> Дата </th>
 		</tr>
@@ -101,12 +95,11 @@
 	{% endfor %}
 	</table>
 {% endblock %}
-<hr/>
 <a name="event"/>
-<h2> 4. События: {% block body_event_button %}  {% endblock %} </h2>
+<table width="100%" border="0" bgcolor="lightgrey"><tr><td><table><tr><td> {% block body_event_button %} {% endblock %} </td><td><h2> 4. События: </h2></td></tr></table></td></tr></table>
 {% block body_event %}
 	<table>
-		<tr bgcolor="lightgrey">
+		<tr>
 			<th> Дата </th>
 			<th> Тип </th>
 			<th> Комментарии </th>
@@ -120,9 +113,8 @@
 	{% endfor %}
 	</table>
 {% endblock %}
-<hr/>
 <a name="file"/>
-<h2> 5. Файлы: {% block body_file_button %}  {% endblock %} </h2>
+<table width="100%" border="0" bgcolor="lightgrey"><tr><td><table><tr><td> {% block body_file_button %} {% endblock %} </td><td><h2> 5. Файлы: </h2></td></tr></table></td></tr></table>
 {% block body_file %}
 	<ul>
 	{% for i in file %}
