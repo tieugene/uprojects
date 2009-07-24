@@ -5,17 +5,16 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader, Context
 from django.db import transaction
 from django.core import serializers
-from django.utils.encoding import StrAndUnicode, force_unicode, smart_unicode, smart_str
-
 from xml.sax import handler, make_parser
 from datetime import datetime
+
+from django.utils.encoding import StrAndUnicode, force_unicode, smart_unicode, smart_str
+
+import pprint
 
 from models import *
 from forms import *
 from impex import *
-
-import pprint
-
 
 def	index(request):
 	return render_to_response('sro/index.html')
@@ -231,26 +230,44 @@ def	permit_view(request, perm_id, stage_id):
 				jobs.append((j, j.id in myjobs))
 	return render_to_response('sro/permit_view.html', { 'permit': perm, 'stages': stages, 'jobs': jobs, 'id': int(stage_id) })
 
+#@transaction.commit_manually
 def	permit_edit(request, perm_id, stage_id):
 	perm = Permit.objects.get(pk=perm_id)
-	mystages = {}	# stage.id => IsInThisPermit
-	myjobs = {}	# jobs of current stage
-	for ps in PermitStage.objects.filter(permit=perm):
-		mystages[ps.stage.id] = True
-		if (ps.stage.id == int(stage_id)):
-			for j in PermitStageJob.objects.filter(permitstage=ps):
-				myjobs[j.job.id] = True
-	stages = []
-	jobs = []
-	for s in Stage.objects.all():
-		stages.append((s, s.id in mystages))
-		if (s.id == int(stage_id)):
-			for j in Job.objects.filter(stage=s):
-				jobs.append((j, j.id in myjobs))
-	# <start>
-	form = PermitStageForm()
-	# <end>
-	return render_to_response('sro/permit_edit.html', { 'permit': perm, 'stages': stages, 'jobs': jobs, 'id': int(stage_id), 'form': form })
+	if request.method == 'POST':	# no valid - just save
+		stage = Stage.objects.get(pk=stage_id)
+		# 1. delete all
+		#try:
+		if (True):
+			if (PermitStage.objects.filter(permit=perm, stage=stage)):
+				PermitStage.objects.filter(permit=perm, stage=stage).delete()
+			if (request.POST.get('g')):		# u'on' | None
+				# 2. create new PermitStage
+				ps = PermitStage(permit=perm, stage=stage)
+				ps.save()
+				for i in request.POST.getlist('id'):	# [u'<id>', ...]
+					# 2.1 add jobs
+					PermitStageJob(permitstage=ps, job=Job.objects.get(pk=i)).save()
+		#except:
+		#	transaction.rollback()
+		#else:
+		#	transaction.commit()
+		return HttpResponseRedirect('../')
+	else:
+		mystages = {}	# stage.id => IsInThisPermit
+		myjobs = {}	# jobs of current stage
+		for ps in PermitStage.objects.filter(permit=perm):
+			mystages[ps.stage.id] = True
+			if (ps.stage.id == int(stage_id)):
+				for j in PermitStageJob.objects.filter(permitstage=ps):
+					myjobs[j.job.id] = True
+		stages = []
+		jobs = []
+		for s in Stage.objects.all():
+			stages.append((s, s.id in mystages))
+			if (s.id == int(stage_id)):
+				for j in Job.objects.filter(stage=s):
+					jobs.append((j, j.id in myjobs))
+		return render_to_response('sro/permit_edit.html', { 'permit': perm, 'stages': stages, 'jobs': jobs, 'id': int(stage_id) })
 
 def	person(request):
 	return render_to_response('sro/dummy.html')
