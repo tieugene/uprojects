@@ -1,24 +1,24 @@
 {% extends "sro/org_base.html" %}
-{% block body_stuff_button %} <a href="{% url lansite.sro.views.org_view org.id %}"> OK </a> {% endblock %}
+{% block body_stuff_button %} {% endblock %}
 {% block body_stuff %}
 	<!-- deletable -->
 	<table border="0">
-		<tr bgcolor="lightgrey">
+		<tr>
 			<th/>
 			<th> ФИО </th>
 			<th> Должность </th>
-			<th> Начальство </th>
+			<th> Руководство </th>
 		</tr>
 	{% for i in stuff %}
 		<tr>
-			<td> <a href="{% url lansite.sro.views.org_edit_stuff_del org.id, i.id %}#stuff"> X </a> </td>
+			<td> <input type="button" value="X" onClick="window.location.href='{% url lansite.sro.views.org_edit_stuff_del org.id, i.id %}#stuff'"/> </td>
 			<td> {{ i.person.asstr }} </td>
 			<td> {{ i.role.asstr }} </td>
 			<td align="center"> {% ifequal i.leader 1 %} V {% endifequal %} </td>
 		</tr>
 	{% endfor %}
 	<!-- add -->
-		<tr bgcolor="grey">
+		<tr>
 			<form action=".#stuff" method="POST">
 			<td>
 				<input type="submit" value="+" />
@@ -42,6 +42,11 @@
 				</div>
 			</td>
 			</form>
+		</tr>
+		<tr bgcolor="lightgrey">
+			<th/>
+			<th> ФИО </th>
+			<th colspan="2"> Должность </th>
 		</tr>
 		<tr>
 			<td colspan="2">
@@ -82,4 +87,5 @@
 			<td/>
 		</tr>
 	</table>
+	<input type="button" value="Закончить" onClick="window.location.href='{% url lansite.sro.views.org_view org.id %}#stuff'"/>
 {% endblock %}

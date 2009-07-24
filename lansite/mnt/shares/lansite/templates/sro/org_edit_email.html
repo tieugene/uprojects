@@ -3,13 +3,17 @@
 {% block body_email %}
 	<table border="0">
 	{% for i in email %}
-		<tr> <td> <a href="{% url lansite.sro.views.org_edit_email_del org.id, i.id %}#email"> X </a> </td> <td> {{ i.asstr }} </td> </tr>
+		<tr>
+			<td> <input type="button" value="X" onClick="window.location.href='{% url lansite.sro.views.org_edit_email_del org.id, i.id %}#email'"/> </td>
+			<td> {{ i.asstr }} </td>
+		</tr>
 	{% endfor %}
 	</table>
 <form action=".#email" method="POST">
-<table>
-{{ form.as_table }}
-</table>
-<input type="submit" value="+" />
+<table border="0"> <tr>
+	<td> <input type="submit" value="+" /> </td>
+	<td> {{ form.as_p }} </td>
+</tr></table>
+<input type="button" value="Закончить" onClick="window.location.href='{% url lansite.sro.views.org_view org.id %}#email'"/>
 </form>
 {% endblock %}

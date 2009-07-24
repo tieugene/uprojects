@@ -389,7 +389,7 @@ class	PermitStageJob(models.Model):
 class	OrgPhone(models.Model):
 	org		= models.ForeignKey(Org, verbose_name=u'Организация')
 	country		= models.PositiveIntegerField(null=False, blank=False, default=7, verbose_name=u'Код страны')
-	trunk		= models.PositiveIntegerField(null=False, blank=False, default=812, verbose_name=u'Код магистрали')
+	trunk		= models.PositiveIntegerField(null=False, blank=False, default=812, verbose_name=u'Код города/оператора')
 	phone		= models.DecimalField(null=False, blank=False, max_digits=7, decimal_places=0, verbose_name=u'Номер')
 	ext		= models.DecimalField(null=True, blank=True, max_digits=4, decimal_places=0, verbose_name=u'Доб.')
 	_xmlname	= u'orgphone'
