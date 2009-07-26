@@ -1,3 +1,11 @@
+TODO_9726:
+	* export
+	* license
+	* insurance
+	* reverce urls
+	* events
+	* meetings
+	* files
 TODO:
 	* m2m replacing: multiselect => table + 1select
 	* File: uniqname
@@ -54,3 +62,8 @@ WISHES:
 	* okso - need only
 	* skill - need only
 	* job - +okdp.names
+9726:
+	* Permit tree
+	* www
+	* buttons to right side
+	* add org

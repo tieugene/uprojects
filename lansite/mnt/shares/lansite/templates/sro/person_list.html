@@ -1,0 +1,29 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<title>LanSite.СРО.Люди</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<link rel="stylesheet" href="base.css" type="text/css" />
+</head>
+<body>
+<center> <h1> <a href="{% url lansite.views.index %}">LanSite</a> &gt; <a href="{% url lansite.sro.views.index %}"> СРО </a> &gt; Люди </h1> </center>
+<hr/>
+{% if person_list %}
+	<table border="0">
+	<thead>
+		<tr> <th> <u>Фамилия</u> </th> <th> <u> Имя </u> </th> <th> <u> Отчество </u> </th> <th/> </tr>
+	</thead>
+	<tbody>
+	{% for person in person_list %}
+		<tr>
+			<td> <a href="{% url lansite.sro.views.person_view person.id %}"> {{ person.lastname }} </a> </td>
+			<td>  {{ person.firstname }} </td>
+			<td>  {{ person.midname }} </td>
+			<td> <input type="button" value="X" title="Удалить" onClick="window.location.href='{% url lansite.sro.views.person_del person.id %}'"/> </td>
+		</tr>
+	{% endfor %}
+	</tbody>
+	</table>
+{% endif %}
+</body>
+</html>

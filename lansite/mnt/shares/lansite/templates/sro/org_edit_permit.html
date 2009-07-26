@@ -3,25 +3,36 @@
 	<!-- deletable -->
 	<table>
 		<tr>
-			<th/>
 			<th> № </th>
 			<th> Дата </th>
+			<th/>
 		</tr>
 	{% for i in permit %}
 		<tr>
-			<td> <input type="button" value="X" onClick="window.location.href='{% url lansite.sro.views.org_edit_permit_del org.id, i.id %}#permit'"/> </td>
-			<td> {{ i.id }} </td>
+			<td> {{ i.regno }} </td>
 			<td> {{ i.date }} </td>
+			<td> <input type="button" value="X" onClick="window.location.href='{% url lansite.sro.views.org_edit_permit_del org.id, i.id %}#permit'"/> </td>
 		</tr>
 	{% endfor %}
-	</table>
 	<!-- add -->
 	<form action=".#permit" method="POST">
-	<table>
-	{{ form.as_table }}
-	</table>
-	<input type="submit" value="+" />
-	<!-- <a href="javascript:document.formname­ .submit()">+</a> -->
+	<tr>
+		<td>
+			<div class="fieldWrapper">
+				{{ form.regno.errors }}
+				{{ form.regno }}
+			</div>
+		</td>
+		<td>
+			<div class="fieldWrapper">
+				{{ form.date.errors }}
+				{{ form.date }}
+			</div>
+		</td>
+		<td> <input type="submit" value="+" /> </td>
+		<!-- <a href="javascript:document.formname­ .submit()">+</a> -->
+	</tr>
 	</form>
+	</table>
 	<input type="button" value="Закончить" onClick="window.location.href='{% url lansite.sro.views.org_view org.id %}#okved'"/>
 {% endblock %}

@@ -1,19 +1,18 @@
 {% extends "sro/org_base.html" %}
-{% block body_email_button %} <a href="{% url lansite.sro.views.org_view org.id %}"> OK </a> {% endblock %}
 {% block body_email %}
 	<table border="0">
 	{% for i in email %}
 		<tr>
-			<td> <input type="button" value="X" onClick="window.location.href='{% url lansite.sro.views.org_edit_email_del org.id, i.id %}#email'"/> </td>
 			<td> {{ i.asstr }} </td>
+			<td> <input type="button" value="X" onClick="window.location.href='{% url lansite.sro.views.org_edit_email_del org.id, i.id %}#email'"/> </td>
 		</tr>
 	{% endfor %}
+		<form action=".#email" method="POST">
+		<tr>
+			<td> {{ form.as_p }} </td>
+			<td> <input type="submit" value="+" /> </td>
+		</tr>
+		</form>
 	</table>
-<form action=".#email" method="POST">
-<table border="0"> <tr>
-	<td> <input type="submit" value="+" /> </td>
-	<td> {{ form.as_p }} </td>
-</tr></table>
 <input type="button" value="Закончить" onClick="window.location.href='{% url lansite.sro.views.org_view org.id %}#email'"/>
-</form>
 {% endblock %}

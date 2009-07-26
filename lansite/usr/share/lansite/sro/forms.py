@@ -21,6 +21,9 @@ class	OrgPhoneForm(forms.ModelForm):
 class	OrgEmailForm(forms.Form):
 	email	= forms.EmailField()
 
+class	OrgWWWForm(forms.Form):
+	www	= forms.URLField()
+
 class	OrgStuffForm(forms.ModelForm):
 	class	Meta:
 		model = OrgStuff
@@ -41,6 +44,20 @@ class	PermitForm(forms.ModelForm):
 		model = Permit
 		fields = ('regno', 'date',)
 
-class	PermitStageForm(forms.Form):
-	stage	= forms.BooleanField()
-	jobs	= forms.MultipleChoiceField(widget=forms.CheckboxSelectMultiple)
+class	PersonMainForm(forms.ModelForm):
+	class	Meta:
+		model = Person
+		fields = ('lastname', 'firstname', 'midname',)
+
+class	PersonSkillForm(forms.ModelForm):
+	class	Meta:
+		model = PersonSkill
+		fields = ('speciality', 'skill', 'year', 'school')
+
+class	PersonSkillAddSpecialityForm(forms.ModelForm):
+	class	Meta:
+		model = Speciality
+
+class	PersonSkillAddSkillForm(forms.ModelForm):
+	class	Meta:
+		model = Skill

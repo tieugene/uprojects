@@ -4,25 +4,22 @@
 	<!-- deletable -->
 	<table border="0">
 		<tr>
-			<th/>
 			<th> ФИО </th>
 			<th> Должность </th>
-			<th> Руководство </th>
+			<th title="Руководство"> Рук. </th>
+			<th/>
 		</tr>
 	{% for i in stuff %}
 		<tr>
-			<td> <input type="button" value="X" onClick="window.location.href='{% url lansite.sro.views.org_edit_stuff_del org.id, i.id %}#stuff'"/> </td>
 			<td> {{ i.person.asstr }} </td>
 			<td> {{ i.role.asstr }} </td>
 			<td align="center"> {% ifequal i.leader 1 %} V {% endifequal %} </td>
+			<td> <input type="button" value="X" title="Удалить" onClick="window.location.href='{% url lansite.sro.views.org_edit_stuff_del org.id, i.id %}#stuff'"/> </td>
 		</tr>
 	{% endfor %}
 	<!-- add -->
+		<form action=".#stuff" method="POST">
 		<tr>
-			<form action=".#stuff" method="POST">
-			<td>
-				<input type="submit" value="+" />
-			</td>
 			<td>
 				<div class="fieldWrapper">
 					{{ form.person.errors }}
@@ -35,53 +32,56 @@
 					{{ form.role }}
 				</div>
 			</td>
-			<td>
+			<td align="center">
 				<div class="fieldWrapper">
 					{{ form.leader.errors }}
 					{{ form.leader }}
 				</div>
 			</td>
-			</form>
+			<td>
+				<input type="submit" value="+" />
+			</td>
 		</tr>
+		</form>
 		<tr bgcolor="lightgrey">
-			<th/>
 			<th> ФИО </th>
-			<th colspan="2"> Должность </th>
+			<th> Должность </th>
+			<th colspan="2"/>
 		</tr>
 		<tr>
-			<td colspan="2">
+			<td colspan>
 				<form action="add_person/#stuff" method="POST">
 				<div class="fieldWrapper">
 					{{ form_person.lastname.errors }}
-					Ф
+					Ф:
 					{{ form_person.lastname }}
 				</div>
 				<div class="fieldWrapper">
 					{{ form_person.firstname.errors }}
-					И
+					И:
 					{{ form_person.firstname }}
 				</div>
 				<div class="fieldWrapper">
 					{{ form_person.midname.errors }}
-					О
+					О:
 					{{ form_person.midname }}
 				</div>
-				<center><input type="submit" value="Добавить" title="Добавить нового человека"/></center>
+				<center><input type="submit" value="Добавить в список" title="Добавить нового человека"/></center>
 				</form>
 			</td>
-			<td valign="top" colspan="2">
+			<td valign="top">
 				<form action="add_role/#stuff" method="POST">
 				<div class="fieldWrapper">
+					{{ form_role.name.label_tag }}:
 					{{ form_role.name.errors }}
 					{{ form_role.name }}
-					({{ form_role.name.label_tag }})
 				</div>
 				<div class="fieldWrapper">
+					{{ form_role.comments.label_tag }}:
 					{{ form_role.comments.errors }}
 					{{ form_role.comments }}
-					({{ form_role.comments.label_tag }})
 				</div>
-				<center><input type="submit" value="Добавить" title="Добавить новую должность"/></center>
+				<center><input type="submit" value="Добавить в список" title="Добавить новую должность"/></center>
 				</form>
 			</td>
 			<td/>

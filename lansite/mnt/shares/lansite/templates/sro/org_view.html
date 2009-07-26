@@ -1,9 +1,10 @@
 {% extends "sro/org_base.html" %}
-{% block body_main_button %}	<input type="button" value="Изменить" onClick="window.location.href='{% url lansite.sro.views.org_edit_main org.id %}#main'"/> {% endblock %}
-{% block body_okved_button %}	<input type="button" value="Изменить" onClick="window.location.href='{% url lansite.sro.views.org_edit_okved org.id %}#okved'"/> {% endblock %}
-{% block body_phone_button %}	<input type="button" value="Изменить" onClick="window.location.href='{% url lansite.sro.views.org_edit_phone org.id %}#phone'"/> {% endblock %}
-{% block body_email_button %}	<input type="button" value="Изменить" onClick="window.location.href='{% url lansite.sro.views.org_edit_email org.id %}#email'"/> {% endblock %}
-{% block body_stuff_button %}	<input type="button" value="Изменить" onClick="window.location.href='{% url lansite.sro.views.org_edit_stuff org.id %}#stuff'"/> {% endblock %}
-{% block body_permit_button %}	<input type="button" value="Изменить" onClick="window.location.href='{% url lansite.sro.views.org_edit_permit org.id %}#permit'"/> {% endblock %}
+{% block body_main_button %}		<input type="button" value="Изменить" onClick="window.location.href='{% url lansite.sro.views.org_edit_main org.id %}#main'"/> {% endblock %}
+{% block body_okved_button %}		<input type="button" value="Изменить" onClick="window.location.href='{% url lansite.sro.views.org_edit_okved org.id %}#okved'"/> {% endblock %}
+{% block body_phone_button %}		<input type="button" value="Изменить" onClick="window.location.href='{% url lansite.sro.views.org_edit_phone org.id %}#phone'"/> {% endblock %}
+{% block body_email_button %}		<input type="button" value="Изменить" onClick="window.location.href='{% url lansite.sro.views.org_edit_email org.id %}#email'"/> {% endblock %}
+{% block body_www_button %}		<input type="button" value="Изменить" onClick="window.location.href='{% url lansite.sro.views.org_edit_www org.id %}#www'"/> {% endblock %}
+{% block body_stuff_button %}		<input type="button" value="Изменить" onClick="window.location.href='{% url lansite.sro.views.org_edit_stuff org.id %}#stuff'"/> {% endblock %}
+{% block body_permit_button %}		<input type="button" value="Изменить" onClick="window.location.href='{% url lansite.sro.views.org_edit_permit org.id %}#permit'"/> {% endblock %}
 {% block body_event_button %} <!-- <a href="../edit/event/"> Edit </a> --> {% endblock %}
 {% block body_file_button %} <!-- <a href="../edit/file/"> Edit </a> --> {% endblock %}

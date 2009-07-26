@@ -16,17 +16,14 @@
 	<tbody>
 	{% for org in org_list %}
 		<tr>
-			<td> {{ org.id }} </td>
+			<td> {{ org.regno }} </td>
 			<td>  <a href="{% url lansite.sro.views.org_view org.id %}" title="{{ org.fullname }}">{{ org.name }} </td>
-			<td> [<a href="{% url lansite.sro.views.org_del org.id %}" title="Удалить"> x </a>] </td>
+			<td> <input type="button" value="X" title="Удалить" onClick="window.location.href='{% url lansite.sro.views.org_del org.id %}'"/> </td>
 		</tr>
 	{% endfor %}
 	</tbody>
 	</table>
-{% else %}
-	<p>No orgs are available.</p>
 {% endif %}
-<hr/>
-[<a href="{% url lansite.sro.views.org_add %}" title="Добавить"> + </a>]
+<input type="button" value="+" title="Добавить" onClick="window.location.href='{% url lansite.sro.views.org_add %}'"/>
 </body>
 </html>

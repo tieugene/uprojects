@@ -4,15 +4,16 @@
 	<table border="0">
 	{% for i in phone %}
 		<tr>
+			<td> {{ i.asstr }} </td>
 			<td> <input type="button" value="X" onClick="window.location.href='{% url lansite.sro.views.org_edit_phone_del org.id, i.id %}#phone'"/> </td>
-			<td> {{ i.asstr }} </td> </tr>
+		</tr>
 	{% endfor %}
+		<form action=".#phone" method="POST">
+		<tr>
+			<td> <table> {{ form.as_table }} </table> </td>
+			<td> <input type="submit" value="+" /> </td>
+		</tr>
+		</form>
 	</table>
-<form action=".#phone" method="POST">
-<table>
-{{ form.as_table }}
-</table>
-<input type="submit" value="+" />
 <input type="button" value="Закончить" onClick="window.location.href='{% url lansite.sro.views.org_view org.id %}#phone'"/>
-</form>
 {% endblock %}
