@@ -1,0 +1,82 @@
+{% extends "sro/person_base.html" %}
+{% block body_skill_button %} {% endblock %}
+{% block body_skill %}
+	<!-- deletable -->
+	<table border="0">
+		<tr>
+			<th> Специальность </th>
+			<th> Квалификация </th>
+			<th> Год </th>
+			<th> Учебное заведение </th>
+			<th/>
+		</tr>
+	{% for i in person_skill %}
+		<tr>
+			<td> {{ i.speciality.name }} </td>
+			<td> {{ i.skill.name }} </td>
+			<td> {{ i.year }} </td>
+			<td> {{ i.school }} </td>
+			<td> <input type="button" value="X" title="Удалить" onClick="window.location.href='{% url lansite.sro.views.person_skill_del person.id, i.id %}#stuff'"/> </td>
+		</tr>
+	{% endfor %}
+	<!-- add -->
+		<form action="." method="POST">
+		<tr>
+			<td>
+				<div class="fieldWrapper">
+					{{ form.speciality.errors }}
+					{{ form.speciality }}
+				</div>
+			</td>
+			<td>
+				<div class="fieldWrapper">
+					{{ form.skill.errors }}
+					{{ form.skill }}
+				</div>
+			</td>
+			<td align="center">
+				<div class="fieldWrapper">
+					{{ form.year.errors }}
+					{{ form.year }}
+				</div>
+			</td>
+			<td align="center">
+				<div class="fieldWrapper">
+					{{ form.school.errors }}
+					{{ form.school }}
+				</div>
+			</td>
+			<td>
+				<input type="submit" value="+" />
+			</td>
+		</tr>
+		</form>
+		<tr bgcolor="lightgrey">
+			<th> Специальность </th>
+			<th> Квалификация </th>
+			<th colspan="3"/>
+		</tr>
+		<tr>
+			<td colspan>
+				<form action="add_speciality/" method="POST">
+				<div class="fieldWrapper">
+					{{ form_speciality.name.errors }}
+					{{ form_speciality.name }}
+				</div>
+				<center><input type="submit" value="Добавить в список" title="Добавить новую специальность"/></center>
+				</form>
+			</td>
+			<td valign="top">
+				<form action="add_skill/" method="POST">
+				<div class="fieldWrapper">
+					{{ form_skill.name.errors }}
+					{{ form_skill.name }}
+				</div>
+				<center><input type="submit" value="Добавить в список" title="Добавить новую квалификацию"/></center>
+				</form>
+			</td>
+			<td/>
+		</tr>
+	</table>
+	<input type="button" value="Закончить" onClick="window.location.href='{% url lansite.sro.views.person_view person.id %}#skill'"/>
+{% endblock %}

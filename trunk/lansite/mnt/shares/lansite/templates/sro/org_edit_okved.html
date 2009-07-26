@@ -4,17 +4,17 @@
 	<table>
 		{% for i in org.okveds.all %}
 			<tr>
+				<td> {{ i.asstr }} </td>
 				<td> <input type="button" value="X" onClick="window.location.href='{% url lansite.sro.views.org_edit_okved_del org.id, i.id %}#okved'"/> </td>
-				<td> {{ i.asstr|wordwrap:50|linebreaksbr }} </td>
 			</tr>
 		{% endfor %}
 		<tr>
-			<td> <input type="submit" value="+"> </td>
 			<td> <select name="okved" id="okved_id">
 				{% for i in okved %}
-					<option value="{{ i.id }}" {% ifequal i.disabled True %} disabled="disabled" {% endifequal %}> {{ i.asstr|wordwrap:50|linebreaksbr }} </option>
+					<option value="{{ i.id }}"> {{ i.asstr }} </option>
 				{% endfor %}
 			</select> </td>
+			<td> <input type="submit" value="+"> </td>
 		</tr>
 	</table>
 	<input type="button" value="Закончить" onClick="window.location.href='{% url lansite.sro.views.org_view org.id %}#okved'"/>

@@ -7,9 +7,9 @@
 <body>
 {% block sidebar %}
 	<center> <h1>
-		<a href="{% url lansite.views.index %}">LanSite</a> &gt; 
+		<a href="{% url lansite.views.index %}"> LanSite </a> &gt; 
 		<a href="{% url lansite.sro.views.index %}"> СРО </a> &gt;
-		<a href="{% url lansite.sro.views.org %}"> Организации </a> &gt;
+		<a href="{% url lansite.sro.views.org_list %}"> Организации </a> &gt;
 		{{ org.name }}
 	</h1> </center>
 {% endblock %}
@@ -20,16 +20,28 @@
 		<tr>	<td> Кратко: </td>			<td> {{ org.name }} </td>	</tr>
 		<tr>	<td> Полно: </td>			<td> {{ org.fullname }} </td>	</tr>
 		<tr>	<td> ОКОПФ: </td>			<td> {{ org.okopf }} </td>	</tr>
-		<tr>	<td> Дата регистрации: </td>		<td> {{ org.regdate }} </td>	</tr>
+		<tr>	<td> Дата регистрации: </td>		<td> {{ org.egruldate }} </td>	</tr>
 		<tr>	<td> ИНН: </td>				<td> {{ org.inn }} </td>	</tr>
 		<tr>	<td> КПП: </td>				<td> {{ org.kpp }} </td>	</tr>
 		<tr>	<td> ОГРН: </td>			<td> {{ org.ogrn }} </td>	</tr>
 		<tr>	<td> Адрес юридический: </td>		<td> {{ org.laddress }} </td>	</tr>
 		<tr>	<td> Адрес фактический: </td>		<td> {{ org.raddress }} </td>	</tr>
-		<tr>	<td> Лицензия.№: </td>			<td> {{ org.licno }} </td>	</tr>
-		<tr>	<td> действительна до: </td>		<td> {% ifnotequal org.licdue None %} {{ org.licdue }} {% endifnotequal %} </td>	</tr>
 		<tr>	<td> Рег №: </td>			<td> {% ifnotequal org.regno None %} {{ org.regno }} {% endifnotequal %} </td>	</tr>
 		<tr>	<td> Дата регистрации в СРО: </td>	<td> {% ifnotequal org.sroregdate None %} {{ org.sroregdate }} {% endifnotequal %} </td>	</tr>
+		<tr>	<td> Лицензия: </td>	<td>
+			{% if license %}
+				№ {{ license.regno }} от {{ license.datefrom }} по {{ license.datedue }}
+			{% else %}
+				Нет
+			{% endif %}
+		</td>	</tr>
+		<tr>	<td> Страховка: </td>	<td>
+			{% if insurance %}
+				№ {{ insurance.insno }} от {{ insurance.insdate }} на {{ insurance.insum }} руб. в {{ insurance.insurer }}
+			{% else %}
+				Нет
+			{% endif %}
+		</td>	</tr>
 	</table>
 {% endblock %}
 <a name="okved"/>
@@ -46,81 +58,104 @@
 <a name="phone"/>
 <table width="100%" border="0" bgcolor="lightgrey"><tr><td><table><tr><td> {% block body_phone_button %} {% endblock %} </td><td><h3> 1.2. Телефоны: </h3></td></tr></table></td></tr></table>
 {% block body_phone %}
-	<ul>
-	{% for i in phone %}
-		<li> {{ i.asstr }} </li>
-	{% endfor %}
-	</ul>
+	{% if phone %}
+		<ul>
+		{% for i in phone %}
+			<li> {{ i.asstr }} </li>
+		{% endfor %}
+		</ul>
+	{% endif %}
 {% endblock %}
 <a name="email"/>
 <table width="100%" border="0" bgcolor="lightgrey"><tr><td><table><tr><td> {% block body_email_button %} {% endblock %} </td><td><h3> 1.3. Адреса электропочты: </h3></td></tr></table></td></tr></table>
 {% block body_email %}
-	<ul>
-	{% for i in email %}
-		<li> <a href="mailto:{{ i.asstr }}"> {{ i.asstr }} </a> </li>
-	{% endfor %}
-	</ul>
+	{% if email %}
+		<ul>
+		{% for i in email %}
+			<li> <a href="mailto:{{ i.asstr }}"> {{ i.asstr }} </a> </li>
+		{% endfor %}
+		</ul>
+	{% endif %}
+{% endblock %}
+<a name="www"/>
+<table width="100%" border="0" bgcolor="lightgrey"><tr><td><table><tr><td> {% block body_www_button %} {% endblock %} </td><td><h3> 1.4. Адреса сайтов: </h3></td></tr></table></td></tr></table>
+{% block body_www %}
+	{% if www %}
+		<ul>
+		{% for i in www %}
+			<li> <a href="{{ i.asstr }}"> {{ i.asstr }} </a> </li>
+		{% endfor %}
+		</ul>
+	{% endif %}
 {% endblock %}
 <a name="stuff"/>
 <table width="100%" border="0" bgcolor="lightgrey"><tr><td><table><tr><td> {% block body_stuff_button %} {% endblock %} </td><td><h2> 2. Персонал: </h2></td></tr></table></td></tr></table>
 {% block body_stuff %}
-	<table>
-		<tr>
-			<th> ФИО </th>
-			<th> Должность </th>
-			<th> Руководство </th>
-		</tr>
-	{% for i in stuff %}
-		<tr>
-			<td> <a href="{% url lansite.sro.views.person_view i.person.id %}"> {{ i.person.asstr }} </a> </td>
-			<td> {{ i.role.asstr }} </td>
-			<td align="center"> {% ifequal i.leader 1 %} &radic; {% endifequal %} </td>
-		</tr>
-	{% endfor %}
-	</table>
+	{% if stuff %}
+		<table>
+			<tr>
+				<th> ФИО </th>
+				<th> Должность </th>
+				<th> Руководство </th>
+			</tr>
+		{% for i in stuff %}
+			<tr>
+				<td> <a href="{% url lansite.sro.views.person_view i.person.id %}"> {{ i.person.asstr }} </a> </td>
+				<td> {{ i.role.asstr }} </td>
+				<td align="center"> {% ifequal i.leader 1 %} &radic; {% endifequal %} </td>
+			</tr>
+		{% endfor %}
+		</table>
+	{% endif %}
 {% endblock %}
 <a name="permit"/>
 <table width="100%" border="0" bgcolor="lightgrey"><tr><td><table><tr><td> {% block body_permit_button %} {% endblock %} </td><td><h2> 3. Допуски: </h2></td></tr></table></td></tr></table>
 {% block body_permit %}
-	<table>
-		<tr>
-			<th> № </th>
-			<th> Дата </th>
-		</tr>
-	{% for i in permit %}
-		<tr>
-			<td> <a href="{% url lansite.sro.views.permit_list i.id %}"> {{ i.regno }} </a> </td>
-			<td> {{ i.date }} </td>
-		</tr>
-	{% endfor %}
-	</table>
+	{% if permit %}
+		<table>
+			<tr>
+				<th> № </th>
+				<th> Дата </th>
+			</tr>
+		{% for i in permit %}
+			<tr>
+				<td> <a href="{% url lansite.sro.views.permit_list i.id %}"> {{ i.regno }} </a> </td>
+				<td> {{ i.date }} </td>
+			</tr>
+		{% endfor %}
+		</table>
+	{% endif %}
 {% endblock %}
 <a name="event"/>
 <table width="100%" border="0" bgcolor="lightgrey"><tr><td><table><tr><td> {% block body_event_button %} {% endblock %} </td><td><h2> 4. События: </h2></td></tr></table></td></tr></table>
 {% block body_event %}
-	<table>
-		<tr>
-			<th> Дата </th>
-			<th> Тип </th>
-			<th> Комментарии </th>
-		</tr>
-	{% for i in event %}
-		<tr>
-			<td> {{ i.date }} </td>
-			<td> {{ i.type.name }} </td>
-			<td> {{ i.comments }} </td>
-		</tr>
-	{% endfor %}
-	</table>
+	{% if event %}
+		<table>
+			<tr>
+				<th> Дата </th>
+				<th> Тип </th>
+				<th> Комментарии </th>
+			</tr>
+		{% for i in event %}
+			<tr>
+				<td> {{ i.date }} </td>
+				<td> {{ i.type.name }} </td>
+				<td> {{ i.comments }} </td>
+			</tr>
+		{% endfor %}
+		</table>
+	{% endif %}
 {% endblock %}
 <a name="file"/>
 <table width="100%" border="0" bgcolor="lightgrey"><tr><td><table><tr><td> {% block body_file_button %} {% endblock %} </td><td><h2> 5. Файлы: </h2></td></tr></table></td></tr></table>
 {% block body_file %}
-	<ul>
-	{% for i in file %}
-		<li> {{ i.asstr }} </i>
-	{% endfor %}
-	</ul>
+	{% if file %}
+		<ul>
+		{% for i in file %}
+			<li> {{ i.asstr }} </i>
+		{% endfor %}
+		</ul>
+	{% endif %}
 {% endblock %}
 </body>
 </html>

@@ -73,18 +73,30 @@ class	OrgEmailInLine(admin.TabularInline):
 	model = OrgEmail
 	extra = 1
 
-class	OrgEventInLine(admin.TabularInline):
-	model = OrgEvent
+class	OrgWWWInLine(admin.TabularInline):
+	model = OrgWWW
 	extra = 1
-	
+
 class	OrgStuffInLine(admin.TabularInline):
 	model = OrgStuff
 	extra = 1
 
+class	OrgEventInLine(admin.TabularInline):
+	model = OrgEvent
+	extra = 1
+	
 class	OrgFileInLine(ReadOnlyAdminFields, admin.TabularInline):
 	model = OrgFile
 	extra = 1
 	readonly = ('org',)
+
+class	OrgLicenseInLine(admin.TabularInline):
+	model = OrgLicense
+	extra = 1
+
+class	OrgInsuranceInLine(admin.TabularInline):
+	model = OrgInsurance
+	extra = 1
 
 class	MeetingOrgInLine(admin.TabularInline):
 	model = MeetingOrg
@@ -99,7 +111,7 @@ class	OkopfAdmin(admin.ModelAdmin):
 	#raw_id_fields	= ('parent',)
 
 class	OkvedAdmin(admin.ModelAdmin):
-	list_display	= ('id', 'name', 'disabled')
+	list_display	= ('id', 'name')
 	ordering	= ('id',)
 	search_fields	= ('name',)
 	inlines		= (OkvedInLine,)
@@ -140,7 +152,7 @@ class	PersonAdmin(admin.ModelAdmin):
 class	OrgAdmin(admin.ModelAdmin):
 	list_display	= ('name', 'fullname')
 	ordering	= ('name',)
-	inlines		= (OrgOkvedInLine, OrgPhoneInLine, OrgEmailInLine, OrgStuffInLine, OrgEventInLine, PermitInLine, OrgFileInLine)
+	inlines		= (OrgOkvedInLine, OrgPhoneInLine, OrgEmailInLine, OrgWWWInLine, OrgStuffInLine, PermitInLine, OrgEventInLine, OrgFileInLine, OrgLicenseInLine, OrgInsuranceInLine)
 	raw_id_fields	= ('okveds',)
 	#related_search_fields = {
 	#	'okveds': ('^id',),

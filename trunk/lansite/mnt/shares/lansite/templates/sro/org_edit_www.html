@@ -1,0 +1,18 @@
+{% extends "sro/org_base.html" %}
+{% block body_www %}
+	<table border="0">
+	{% for i in www %}
+		<tr>
+			<td> {{ i.asstr }} </td>
+			<td> <input type="button" value="X" onClick="window.location.href='{% url lansite.sro.views.org_edit_www_del org.id, i.id %}#www'"/> </td>
+		</tr>
+	{% endfor %}
+		<form action=".#email" method="POST">
+		<tr>
+			<td> {{ form.as_p }} </td>
+			<td> <input type="submit" value="+" /> </td>
+		</tr>
+		</form>
+	</table>
+<input type="button" value="Закончить" onClick="window.location.href='{% url lansite.sro.views.org_view org.id %}#www'"/>
+{% endblock %}
