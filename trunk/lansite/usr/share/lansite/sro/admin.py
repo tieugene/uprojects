@@ -182,7 +182,7 @@ class	FileAdmin(ReadOnlyAdminFields, admin.ModelAdmin):
 	readonly = ('name', 'mime')
 
 class	MeetingAdmin(admin.ModelAdmin):
-	list_display = ('date', 'agenda')
+	list_display = ('regno', 'date', 'common', 'agenda')
 	inlines = (MeetingOrgInLine,)
 	date_hierarchy = 'date'
 
