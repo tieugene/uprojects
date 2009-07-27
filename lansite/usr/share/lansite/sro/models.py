@@ -294,8 +294,10 @@ class	Org(models.Model):
 	ogrn		= models.PositiveIntegerField(null=False, blank=False, unique=True, verbose_name=u'ОГРН')
 	laddress	= models.CharField(null=False, blank=False, max_length=100, verbose_name=u'Адрес юридический')
 	raddress	= models.CharField(null=True, blank=True, max_length=100, verbose_name=u'Адрес почтовый')
-	sroregno	= models.PositiveIntegerField(null=True, blank=True, unique=True, verbose_name=u'Рег. №')
-	sroregdate	= models.DateField(null=True, blank=True, verbose_name=u'Дата регистрации в СРО')
+	sroregno	= models.PositiveIntegerField(null=False, blank=False, unique=True, verbose_name=u'Рег. №')
+	sroregdate	= models.DateField(null=False, blank=False, verbose_name=u'Дата регистрации в СРО')
+	paydate		= models.DateField(null=False, blank=False, verbose_name=u'Дата оплаты взноса')
+	paysum		= models.PositiveIntegerField(null=False, blank=False, verbose_name=u'Сумма взноса')
 	okveds		= models.ManyToManyField(Okved, through='OrgOkved', verbose_name=u'Коды ОКВЭД')
 	stuffs		= models.ManyToManyField(Person, through='OrgStuff', verbose_name=u'Штат')
 	events		= models.ManyToManyField(EventType, through='OrgEvent', verbose_name=u'События')
@@ -484,7 +486,7 @@ class	OrgInsurance(models.Model):
 
 class	Permit(models.Model):
 	org		= models.ForeignKey(Org, verbose_name=u'Организация')
-	regno		= models.PositiveIntegerField(null=False, unique=True, verbose_name=u'№')
+	regno		= models.PositiveIntegerField(null=False, blank=False, unique=True, verbose_name=u'№')
 	date		= models.DateField(null=True, blank=True, verbose_name=u'Выдано')
 	stages		= models.ManyToManyField(Stage, through='PermitStage', verbose_name=u'Виды работ')
 	#stages		= CheckBoxManyToMany(Stage, through='PermitStage', verbose_name=u'Виды работ')
@@ -531,9 +533,11 @@ class	PermitStageJob(models.Model):
 		return ''
 
 class	Meeting(models.Model):
-	date		= models.DateField(blank=False, verbose_name=u'Дата')
-	agenda		= models.CharField(max_length=100, blank=False, verbose_name=u'Повестка')
-	log		= models.TextField(blank=True, verbose_name=u'Протокол')
+	regno		= models.PositiveIntegerField(null=False, blank=False, unique=True, verbose_name=u'№')
+	date		= models.DateField(null=False, blank=False, verbose_name=u'Дата')
+	common		= models.BooleanField(null=False, blank=False, default=False, verbose_name=u'Заседание членов')
+	agenda		= models.CharField(max_length=100, null=False, blank=False, verbose_name=u'Повестка')
+	log		= models.TextField(null=True, blank=True, verbose_name=u'Протокол')
 	orgs		= models.ManyToManyField(Org, through='MeetingOrg', verbose_name=u'Организации')
 	_xmlname	= u'meeting'
 	def	asstr(self):

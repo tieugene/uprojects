@@ -39,7 +39,7 @@
 	{% if person.org_set %}
 		<ul>
 		{% for i in person.org_set.all %}
-			<li> {{ i.asstr }} </li>
+			<li> <a href="{% url lansite.sro.views.org_view i.id %}"> {{ i.asstr }} </a> </li>
 		{% endfor %}
 		</ul>
 	{% endif %}

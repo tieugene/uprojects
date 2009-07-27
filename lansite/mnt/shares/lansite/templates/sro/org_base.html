@@ -17,7 +17,7 @@
 <table width="100%" border="0" bgcolor="lightgrey"><tr><td><table><tr><td>{% block body_main_button %} {% endblock %}</td><td><h2> 1. Основные данные: </h2></td></tr></table></td></tr></table>
 {% block body_main %}
 	<table border="0">
-		<tr>	<td> Кратко: </td>			<td> {{ org.name }} </td>	</tr>
+		<tr>	<td> {{ org.name.label_tag }}: </td>			<td> {{ org.name }} </td>	</tr>
 		<tr>	<td> Полно: </td>			<td> {{ org.fullname }} </td>	</tr>
 		<tr>	<td> ОКОПФ: </td>			<td> {{ org.okopf }} </td>	</tr>
 		<tr>	<td> Дата регистрации: </td>		<td> {{ org.egruldate }} </td>	</tr>
@@ -26,8 +26,10 @@
 		<tr>	<td> ОГРН: </td>			<td> {{ org.ogrn }} </td>	</tr>
 		<tr>	<td> Адрес юридический: </td>		<td> {{ org.laddress }} </td>	</tr>
 		<tr>	<td> Адрес фактический: </td>		<td> {{ org.raddress }} </td>	</tr>
-		<tr>	<td> Рег №: </td>			<td> {% ifnotequal org.regno None %} {{ org.regno }} {% endifnotequal %} </td>	</tr>
-		<tr>	<td> Дата регистрации в СРО: </td>	<td> {% ifnotequal org.sroregdate None %} {{ org.sroregdate }} {% endifnotequal %} </td>	</tr>
+		<tr>	<td> Рег №: </td>			<td> {{ org.sroregno }} </td>	</tr>
+		<tr>	<td> Дата регистрации в СРО: </td>	<td> {{ org.sroregdate }} </td>	</tr>
+		<tr>	<td> Дата оплаты взноса: </td>		<td> {{ org.paydate }} </td>	</tr>
+		<tr>	<td> Сумма взноса: </td>		<td> {{ org.paysum }} </td>	</tr>
 		<tr>	<td> Лицензия: </td>	<td>
 			{% if license %}
 				№ {{ license.regno }} от {{ license.datefrom }} по {{ license.datedue }}
