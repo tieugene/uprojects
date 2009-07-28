@@ -8,6 +8,9 @@ class	ImportForm(forms.Form):
 	file  = forms.FileField()
 
 class	OrgMainForm(forms.ModelForm):
+	egruldate	= forms.DateField(input_formats=['%d.%m.%Y', '%d/%m/%Y'], widget=forms.widgets.DateTimeInput(format='%d.%m.%Y'))
+	sroregdate	= forms.DateField(input_formats=['%d.%m.%Y', '%d/%m/%Y'], widget=forms.widgets.DateTimeInput(format='%d.%m.%Y'))
+	paydate		= forms.DateField(input_formats=['%d.%m.%Y', '%d/%m/%Y'], widget=forms.widgets.DateTimeInput(format='%d.%m.%Y'))
 	class	Meta:
 		model = Org
 		exclude = ('okveds', 'events', 'stuffs', 'files')
@@ -39,6 +42,7 @@ class	OrgStuffAddRoleForm(forms.ModelForm):
 		#fields = ('firstname', 'midname', 'lastname')
 
 class	PermitForm(forms.ModelForm):
+	date	= forms.DateField(input_formats=['%d.%m.%Y', '%d/%m/%Y'], widget=forms.widgets.DateTimeInput(format='%d.%m.%Y'))
 	class	Meta:
 		model = Permit
 		fields = ('regno', 'date',)

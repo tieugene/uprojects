@@ -355,7 +355,7 @@ class	OrgPhone(models.Model):
 			e = u' #%d' % self.ext
 		else:
 			e = ''
-		return u'+%d %d %s%s' % (self.country, self.trunk, self.phone, e)
+		return u'+%d %d %s %s' % (self.country, self.trunk, self.phone, e)
 	def	__unicode__(self):
 		return self.asstr()
 	class	Meta:
