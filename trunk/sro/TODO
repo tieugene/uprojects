@@ -55,11 +55,10 @@ WISHES:
 	* skill - need only
 	* job - +okdp.names
 9728:
-	* permit_base: org -> org_list
-	* License
-	* Insurance
-	* Date - ru
-	* Phone: mask
-	* Qualification: add - vertical
-	* Permition: "select all", Select MegaAll
 	* www: last permition only
+Future:
+	* Copy permisions
+	* reverse()
+	* Events
+	* Phone: mask
+	* Edit stuff

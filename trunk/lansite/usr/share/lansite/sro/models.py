@@ -451,9 +451,9 @@ class	OrgFile(models.Model):
 
 class	OrgLicense(models.Model):
 	org		= models.OneToOneField(Org, verbose_name=u'Организация')
-	regno		= models.CharField(null=True, blank=True, max_length=50, unique=True, verbose_name=u'Номер лицензии')
-	datefrom	= models.DateField(null=True, blank=True, verbose_name=u'Выдана')
-	datedue		= models.DateField(null=True, blank=True, verbose_name=u'Действительна до')
+	regno		= models.CharField(null=False, blank=False, max_length=50, unique=True, verbose_name=u'Номер лицензии')
+	datefrom	= models.DateField(null=False, blank=False, verbose_name=u'Выдана')
+	datedue		= models.DateField(null=False, blank=False, verbose_name=u'Действительна до')
 	_xmlname	= u'orglicense'
 	def	asstr(self):
 		return u'%s, до %s' % (self.regno, self.datedue)
@@ -470,7 +470,7 @@ class	OrgInsurance(models.Model):
 	org		= models.OneToOneField(Org, verbose_name=u'Организация')
 	insurer		= models.CharField(null=False, blank=False, max_length=100, verbose_name=u'Страховщик')
 	insno		= models.CharField(null=False, blank=False, unique=True, max_length=50, verbose_name=u'Номер свидетельства')
-	insdate		= models.DateField(null=True, blank=True, verbose_name=u'Дата выдачи свидетельства')
+	insdate		= models.DateField(null=False, blank=False, verbose_name=u'Дата выдачи свидетельства')
 	insum		= models.PositiveIntegerField(null=False, blank=False, verbose_name=u'Страховая сумма')
 	_xmlname	= u'orginsurance'
 	def	asstr(self):

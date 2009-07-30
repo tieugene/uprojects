@@ -99,6 +99,44 @@ def	org_edit_main(request, org_id):
 	formdict['form'] = form
 	return render_to_response('sro/org_edit_main.html', formdict)
 
+def	org_license_add(request, org_id):
+	org = Org.objects.get(pk=org_id)
+	if request.method == 'POST':
+		form = OrgLicenseForm(request.POST)
+		if form.is_valid():
+			new_item = form.save(commit=False)
+			new_item.org = org
+			new_item.save()
+			return HttpResponseRedirect('../../')
+	else:
+		form = OrgLicenseForm()
+	formdict = __load_org(org_id, org)
+	formdict['form'] = form
+	return render_to_response('sro/org_license.html', formdict)
+
+def	org_license_del(request, org_id):
+	OrgLicense.objects.filter(org=Org.objects.get(pk=org_id))[0].delete()
+	return HttpResponseRedirect('../../')
+
+def	org_insurance_add(request, org_id):
+	org = Org.objects.get(pk=org_id)
+	if request.method == 'POST':
+		form = OrgInsuranceForm(request.POST)
+		if form.is_valid():
+			new_item = form.save(commit=False)
+			new_item.org = org
+			new_item.save()
+			return HttpResponseRedirect('../../')
+	else:
+		form = OrgInsuranceForm()
+	formdict = __load_org(org_id, org)
+	formdict['form'] = form
+	return render_to_response('sro/org_insurance.html', formdict)
+
+def	org_insurance_del(request, org_id):
+	OrgInsurance.objects.filter(org=Org.objects.get(pk=org_id))[0].delete()
+	return HttpResponseRedirect('../../')
+
 def	org_edit_okved(request, org_id):
 	org = Org.objects.get(pk=org_id)
 	if request.method == 'POST':	# add
@@ -232,8 +270,30 @@ def	org_edit_file(request, org_id):
 def	org_edit_file_del(request, org_id, item_id):
 	return HttpResponseRedirect('../../')
 
+@transaction.commit_manually
 def	permit_list(request, perm_id):
 	perm = Permit.objects.get(pk=perm_id)
+	if request.method == 'POST':	# no valid - just save
+		try:
+		#if (True):
+			# 1. delete all
+			ps = PermitStage.objects.filter(permit=perm)
+			if (ps):
+				ps.delete()
+			# 2. add all Stages
+			for sid in request.POST.getlist('set'):		# [u'<id>', ...]
+				stage = Stage.objects.get(pk=sid)
+				ps = PermitStage(permit=perm, stage=stage)
+				ps.save()
+			# 2.1 add all jobs
+				for j in Job.objects.filter(stage=stage):
+					PermitStageJob(permitstage=ps, job=j).save()
+		except:
+			transaction.rollback()
+		else:
+			transaction.commit()
+		#return HttpResponseRedirect('.')	# FIXME:
+	#else:	# GET
 	mystages = {}
 	for ps in PermitStage.objects.filter(permit=perm):
 		myjobs = dict()
@@ -254,7 +314,7 @@ def	permit_list(request, perm_id):
 	#pprint.pprint(stages)
 	return render_to_response('sro/permit_list.html', { 'permit': perm, 'stages': stages })
 
-#@transaction.commit_manually
+@transaction.commit_manually
 def	permit_edit(request, perm_id, stage_id):
 	perm = Permit.objects.get(pk=perm_id)
 	if request.method == 'POST':	# no valid - just save
@@ -262,8 +322,9 @@ def	permit_edit(request, perm_id, stage_id):
 		# 1. delete all
 		try:
 		#if (True):
-			if (PermitStage.objects.filter(permit=perm, stage=stage)):
-				PermitStage.objects.filter(permit=perm, stage=stage).delete()
+			ps = PermitStage.objects.filter(permit=perm, stage=stage)
+			if (ps):
+				ps.delete()
 			if (request.POST.get('g')):			# u'on' | None
 				# 2. create new PermitStage
 				ps = PermitStage(permit=perm, stage=stage)
