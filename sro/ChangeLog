@@ -2,3 +2,10 @@
 	* preload
 	* export to xml
 	* import from xml
+20090729:
+	* permit_base: org -> org_list
+	* Date - ru
+	* Qualification: add - vertical
+	* License: Add/Del
+	* Insurance: Add/Del
+	* Permision: "select/deselect all", Select MegaAll
