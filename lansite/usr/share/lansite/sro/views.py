@@ -41,6 +41,10 @@ def	org_list(request):
 	org_list = Org.objects.all().order_by('id')
 	return render_to_response('sro/org_list.html', {'org_list': org_list})
 
+def	org_publish(request):
+	org_list = Org.objects.all().order_by('id')
+	return render_to_response('sro/org_publish.html', {'org_list': org_list})
+
 def	org_del(request, org_id):
 	Org.objects.get(pk=org_id).delete()
 	return HttpResponseRedirect('../../')
