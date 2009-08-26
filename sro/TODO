@@ -55,10 +55,26 @@ WISHES:
 	* skill - need only
 	* job - +okdp.names
 9728:
-	* www: last permition only
+	* www: last permission only
 Future:
-	* Copy permisions
-	* reverse()
 	* Events
 	* Phone: mask
 	* Edit stuff
+9814:
+	* + "Дата оплаты ВВ"
+	* + "Страховка.Срок страхования с"
+	* + "Страховка.Срок страхования по"
+	* + Телефон: строка
+	* Персонал:
+		* оба - добавить (и вообще продумать дизайн)
+		* Руководство
+		* Edit mode
+		* onAddFIO/должност: setFocus...
+	* Подтверждение удаления
+	* Tooltips
+	* XLS import
+	* Auth
+	* Edit block rights
+	* Journal: last field editor
+	* ОКВЭД: дублирование -> err
+	* Копировать разрешения

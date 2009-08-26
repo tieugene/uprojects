@@ -16,14 +16,20 @@
 		</tr>
 	</table>
 </center>
-	<h2> Сервисные операции: </h2>
-	<ul>
-		<li> <a href="../admin/sro/"> Админка </a> </li>
-		<li> <a href="databrowse"> Просмотр данных </a> </li>
-		<li> <a href="export/"> Django.Экспорт </a> </li>
-		<li> <form enctype="multipart/form-data" method="POST" action="import/"> <input type="submit" value="Django.Import" /> <input type="file" name="file" /> </form> </li>
-		<li> <a href="myexport/"> My.Экспорт </a> </li>
-		<li> <form enctype="multipart/form-data" method="POST" action="myimport/"> <input type="submit" value="Import" /> <input type="file" name="file" /> </form> </li>
-		<li> <a href="delete/"> Удалить всё </a> </li>
+<p> Пользователь: {% if user.is_authenticated %} {{ user.username }} {% else %} anonymous {% endif %} </p>
+<!--a href="{ % url logout % }">Logout</a-->
+
+<h2> Сервисные операции: </h2>
+<ul>
+	<li> <a href="../admin/sro/"> Админка </a> </li>
+	<li> <a href="databrowse"> Просмотр данных </a> </li>
+	<!--
+	<li> <a href="export/"> Django.Экспорт </a> </li>
+	<li> <form enctype="multipart/form-data" method="POST" action="import/"> <input type="submit" value="Django.Import" /> <input type="file" name="file" /> </form> </li>
+	<li> <a href="myexport/"> My.Экспорт </a> </li>
+	<li> <form enctype="multipart/form-data" method="POST" action="myimport/"> <input type="submit" value="Import" /> <input type="file" name="file" /> </form> </li>
+	<li> <a href="delete/"> Удалить всё </a> </li>
+	-->
+</ul>
 </body>
 </html>
