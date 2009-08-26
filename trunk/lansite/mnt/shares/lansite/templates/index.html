@@ -15,5 +15,8 @@
 		<td> <a href="admin"> Администрирование </a> </td>
 	</tr> </table>
 </center>
+
+<p> Пользователь: {% if user.is_authenticated %} {{ user.username }} {% else %} anonymous {% endif %} </p>
+
 </body>
 </html>

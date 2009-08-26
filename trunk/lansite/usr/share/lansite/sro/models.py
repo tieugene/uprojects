@@ -294,9 +294,9 @@ class	Org(models.Model):
 	ogrn		= models.PositiveIntegerField(null=False, blank=False, unique=True, verbose_name=u'ОГРН')
 	laddress	= models.CharField(null=False, blank=False, max_length=100, verbose_name=u'Адрес юридический')
 	raddress	= models.CharField(null=True, blank=True, max_length=100, verbose_name=u'Адрес почтовый')
-	sroregno	= models.PositiveIntegerField(null=False, blank=False, unique=True, verbose_name=u'Рег. №')
-	sroregdate	= models.DateField(null=False, blank=False, verbose_name=u'Дата регистрации в СРО')
-	paydate		= models.DateField(null=False, blank=False, verbose_name=u'Дата оплаты взноса')
+	sroregno	= models.PositiveIntegerField(null=False, blank=False, unique=True, verbose_name=u'Реестровый №')
+	sroregdate	= models.DateField(null=False, blank=False, verbose_name=u'Дата членства в НП')
+	paydate		= models.DateField(null=False, blank=False, verbose_name=u'Дата оплаты взноса в КФ')
 	paysum		= models.PositiveIntegerField(null=False, blank=False, verbose_name=u'Сумма взноса')
 	okveds		= models.ManyToManyField(Okved, through='OrgOkved', verbose_name=u'Коды ОКВЭД')
 	stuffs		= models.ManyToManyField(Person, through='OrgStuff', verbose_name=u'Штат')
@@ -469,8 +469,8 @@ class	OrgLicense(models.Model):
 class	OrgInsurance(models.Model):
 	org		= models.OneToOneField(Org, verbose_name=u'Организация')
 	insurer		= models.CharField(null=False, blank=False, max_length=100, verbose_name=u'Страховщик')
-	insno		= models.CharField(null=False, blank=False, unique=True, max_length=50, verbose_name=u'Номер свидетельства')
-	insdate		= models.DateField(null=False, blank=False, verbose_name=u'Дата выдачи свидетельства')
+	insno		= models.CharField(null=False, blank=False, unique=True, max_length=50, verbose_name=u'Номер договора')
+	insdate		= models.DateField(null=False, blank=False, verbose_name=u'Дата договора')
 	insum		= models.PositiveIntegerField(null=False, blank=False, verbose_name=u'Страховая сумма')
 	_xmlname	= u'orginsurance'
 	def	asstr(self):

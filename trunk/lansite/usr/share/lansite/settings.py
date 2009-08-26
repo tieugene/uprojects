@@ -24,11 +24,10 @@ DATABASE_PORT = ''		# Set to empty string for default. Not used with sqlite3.
 # If running in a Windows environment this must be set to the same as your
 # system time zone.
 TIME_ZONE = 'Europe/Moscow'
-
+DATE_FORMAT = 'd/m/Y'
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
 LANGUAGE_CODE = 'ru-RU'
-DATE_FORMAT = 'd.m.Y'
 
 SITE_ID = 1
 
@@ -44,7 +43,8 @@ MEDIA_ROOT = '/mnt/shares/lansite/media/'
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash if there is a path component (optional in other cases).
 # Examples: "http://media.lawrence.com", "http://example.com/media/"
-MEDIA_URL = ''
+#MEDIA_URL = ''
+MEDIA_URL = 'http://localhost/media/'
 
 # URL prefix for admin media -- CSS, JavaScript and images. Make sure to use a
 # trailing slash.
@@ -85,8 +85,14 @@ INSTALLED_APPS = (
 	'django.contrib.databrowse',
 	'django.contrib.sessions',
 	'django.contrib.sites',
-#	'lansite.smart_selects',
-	'lansite.run1s',
+	#'lansite.run1s',
 	'lansite.sro',
 	#'lansite.insupol',
+)
+
+TEMPLATE_CONTEXT_PROCESSORS = (
+	'django.core.context_processors.auth',
+        'django.core.context_processors.debug',
+        'django.core.context_processors.i18n',
+        'django.core.context_processors.media',
 )

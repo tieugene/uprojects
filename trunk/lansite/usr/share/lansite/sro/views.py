@@ -2,13 +2,13 @@
 from django.shortcuts import get_object_or_404, render_to_response
 from django.core.urlresolvers import reverse
 from django.http import HttpResponse, HttpResponseRedirect
-from django.template import loader, Context
+from django.template import loader, Context, RequestContext
 from django.db import transaction
 from django.core import serializers
+from django.contrib.auth.decorators import login_required
+from django.utils.encoding import StrAndUnicode, force_unicode, smart_unicode, smart_str
 from xml.sax import handler, make_parser
 from datetime import datetime
-
-from django.utils.encoding import StrAndUnicode, force_unicode, smart_unicode, smart_str
 
 import pprint
 
@@ -16,8 +16,12 @@ from models import *
 from forms import *
 from impex import *
 
+@login_required
 def	index(request):
-	return render_to_response('sro/index.html')
+	if not request.user.is_authenticated():
+		return HttpResponseRedirect('/login/?next=%s' % request.path)
+	#print request.user.username
+	return render_to_response('sro/index.html', context_instance=RequestContext(request))
 
 def	dl_file(request, file_id, file_name):
 	'''
