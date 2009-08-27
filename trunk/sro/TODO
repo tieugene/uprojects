@@ -61,20 +61,17 @@ Future:
 	* Phone: mask
 	* Edit stuff
 9814:
-	* + "Дата оплаты ВВ"
-	* + "Страховка.Срок страхования с"
-	* + "Страховка.Срок страхования по"
-	* + Телефон: строка
-	* Персонал:
-		* оба - добавить (и вообще продумать дизайн)
-		* Руководство
-		* Edit mode
-		* onAddFIO/должност: setFocus...
-	* Подтверждение удаления
-	* Tooltips
-	* XLS import
-	* Auth
-	* Edit block rights
-	* Journal: last field editor
-	* ОКВЭД: дублирование -> err
-	* Копировать разрешения
+	* FIXME:
+		* XLS import
+		* Подтверждение удаления
+		* Edit block rights
+	* Issues:
+		* Персонал:
+			* оба - добавить (и вообще продумать дизайн)
+			* Руководство
+			* Edit mode
+			* onAddFIO/должност: setFocus...
+		* Tooltips
+		* Journal: last field editor
+		* ОКВЭД: дублирование -> err
+		* Копировать разрешения

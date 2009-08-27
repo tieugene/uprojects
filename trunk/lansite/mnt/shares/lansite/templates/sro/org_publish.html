@@ -29,19 +29,20 @@ function doMenu(item) {
 	<!-- main -->
 	<table width="100%" border="0" bgcolor="lightgrey"><tr><td><h2> 1. Основные данные: </h2></td></tr></table>
 	<table border="0">
-		<tr>	<td> Краткое наименование: </td>	<td> {{ org.name }} </td>		</tr>
-		<tr>	<td> Полное наименование: </td>		<td> {{ org.fullname }} </td>		</tr>
-		<tr>	<td> ОКОПФ: </td>			<td> {{ org.okopf }} </td>		</tr>
-		<tr>	<td> Дата регистрации в ЕГРЮЛ: </td>	<td> {{ org.egruldate|date }} </td>	</tr>
-		<tr>	<td> ИНН: </td>				<td> {{ org.inn }} </td>		</tr>
-		<tr>	<td> КПП: </td>				<td> {{ org.kpp }} </td>		</tr>
-		<tr>	<td> ОГРН: </td>			<td> {{ org.ogrn }} </td>		</tr>
-		<tr>	<td> Адрес юридический: </td>		<td> {{ org.laddress }} </td>		</tr>
-		<tr>	<td> Адрес фактический: </td>		<td> {{ org.raddress }} </td>		</tr>
-		<tr>	<td> Реестровый №: </td>		<td> {{ org.sroregno }} </td>		</tr>
-		<tr>	<td> Дата членства в НП: </td>		<td> {{ org.sroregdate|date }} </td>	</tr>
-		<tr>	<td> Дата оплаты взноса в КФ: </td>	<td> {{ org.paydate|date }} </td>	</tr>
-		<tr>	<td> Сумма взноса в КФ: </td>		<td> {{ org.paysum }} </td>		</tr>
+		<tr>	<td> Краткое наименование: </td>		<td> {{ org.name }} </td>		</tr>
+		<tr>	<td> Полное наименование: </td>			<td> {{ org.fullname }} </td>		</tr>
+		<tr>	<td> ОКОПФ: </td>				<td> {{ org.okopf }} </td>		</tr>
+		<tr>	<td> Дата регистрации в ЕГРЮЛ: </td>		<td> {{ org.egruldate|date }} </td>	</tr>
+		<tr>	<td> ИНН: </td>					<td> {{ org.inn }} </td>		</tr>
+		<tr>	<td> КПП: </td>					<td> {{ org.kpp }} </td>		</tr>
+		<tr>	<td> ОГРН: </td>				<td> {{ org.ogrn }} </td>		</tr>
+		<tr>	<td> Адрес юридический: </td>			<td> {{ org.laddress }} </td>		</tr>
+		<tr>	<td> Адрес фактический: </td>			<td> {{ org.raddress }} </td>		</tr>
+		<tr>	<td> Реестровый №: </td>			<td> {{ org.sroregno }} </td>		</tr>
+		<tr>	<td> Дата членства в НП: </td>			<td> {{ org.sroregdate|date }} </td>	</tr>
+		<tr>	<td> Дата оплаты взноса в КФ: </td>		<td> {{ org.paydate|date }} </td>	</tr>
+		<tr>	<td> Сумма взноса в КФ: </td>			<td> {{ org.paysum }} </td>		</tr>
+		<tr>	<td> Дата оплаты вступительного взноса: </td>	<td> {{ org.paydatevv|date }} </td>	</tr>
 		<tr>	<td> Лицензия: </td>	<td>
 			{% if license %}
 				№ {{ license.regno }} от {{ license.datefrom|date }} по {{ license.datedue|date }}

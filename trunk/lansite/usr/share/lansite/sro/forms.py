@@ -12,7 +12,8 @@ class	OrgMainForm(forms.ModelForm):
 	laddress	= forms.CharField(label='Юридический адрес', widget=forms.Textarea)
 	raddress	= forms.CharField(label='Фактический адрес', widget=forms.Textarea, required=False)
 	sroregdate	= forms.DateField(input_formats=['%d.%m.%Y', '%d/%m/%Y'], widget=forms.widgets.DateTimeInput(format='%d.%m.%Y'), label='Дата членства в НП')
-	paydate		= forms.DateField(input_formats=['%d.%m.%Y', '%d/%m/%Y'], widget=forms.widgets.DateTimeInput(format='%d.%m.%Y'), label='Дата оплаты взноса')
+	paydate		= forms.DateField(input_formats=['%d.%m.%Y', '%d/%m/%Y'], widget=forms.widgets.DateTimeInput(format='%d.%m.%Y'), label='Дата оплаты взноса в КФ')
+	paydatevv	= forms.DateField(input_formats=['%d.%m.%Y', '%d/%m/%Y'], widget=forms.widgets.DateTimeInput(format='%d.%m.%Y'), label='Дата оплаты вступительного взноса')
 	class	Meta:
 		model = Org
 		exclude = ('okveds', 'events', 'stuffs', 'files')
@@ -26,14 +27,16 @@ class	OrgLicenseForm(forms.ModelForm):
 
 class	OrgInsuranceForm(forms.ModelForm):
 	insdate		= forms.DateField(input_formats=['%d.%m.%Y', '%d/%m/%Y'], widget=forms.widgets.DateTimeInput(format='%d.%m.%Y'), label='Дата договора')
+	datefrom	= forms.DateField(input_formats=['%d.%m.%Y', '%d/%m/%Y'], widget=forms.widgets.DateTimeInput(format='%d.%m.%Y'), label='Старховка с')
+	datetill	= forms.DateField(input_formats=['%d.%m.%Y', '%d/%m/%Y'], widget=forms.widgets.DateTimeInput(format='%d.%m.%Y'), label='Страховка по')
 	class	Meta:
 		model = OrgInsurance
-		fields = ('insurer', 'insno', 'insdate', 'insum')
+		fields = ('insurer', 'insno', 'insdate', 'insum', 'datefrom', 'datetill',)
 
 class	OrgPhoneForm(forms.ModelForm):
 	class	Meta:
 		model = OrgPhone
-		fields = ('country', 'trunk', 'phone', 'ext',)
+		fields = ('phone',)
 
 class	OrgEmailForm(forms.Form):
 	email	= forms.EmailField()

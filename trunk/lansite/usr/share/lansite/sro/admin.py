@@ -44,11 +44,6 @@ class	PersonFileInLine(admin.TabularInline):
 	model		= PersonFile
 	extra		= 1
 
-class	OrgOkvedInLine(admin.TabularInline):
-	model		= OrgOkved
-	extra		= 1
-	raw_id_fields	= ('okved',)
-
 class	PermitInLine(admin.TabularInline):
 	list_display	= ('id', 'date')
 	model = Permit
@@ -61,6 +56,11 @@ class	PermitStageInLine(admin.TabularInline):
 class	PermitStageJobInLine(admin.TabularInline):
 	model = PermitStageJob
 	extra = 1
+
+class	OrgOkvedInLine(admin.TabularInline):
+	model		= OrgOkved
+	extra		= 1
+	raw_id_fields	= ('okved',)
 
 class	OrgPhoneInLine(admin.TabularInline):
 	model = OrgPhone

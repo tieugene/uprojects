@@ -297,7 +297,8 @@ class	Org(models.Model):
 	sroregno	= models.PositiveIntegerField(null=False, blank=False, unique=True, verbose_name=u'Реестровый №')
 	sroregdate	= models.DateField(null=False, blank=False, verbose_name=u'Дата членства в НП')
 	paydate		= models.DateField(null=False, blank=False, verbose_name=u'Дата оплаты взноса в КФ')
-	paysum		= models.PositiveIntegerField(null=False, blank=False, verbose_name=u'Сумма взноса')
+	paysum		= models.PositiveIntegerField(null=False, blank=False, verbose_name=u'Сумма взноса в КФ')
+	paydatevv	= models.DateField(null=False, blank=False, verbose_name=u'Дата оплаты вступительного взноса')
 	okveds		= models.ManyToManyField(Okved, through='OrgOkved', verbose_name=u'Коды ОКВЭД')
 	stuffs		= models.ManyToManyField(Person, through='OrgStuff', verbose_name=u'Штат')
 	events		= models.ManyToManyField(EventType, through='OrgEvent', verbose_name=u'События')
@@ -345,29 +346,18 @@ class	OrgOkved(models.Model):
 
 class	OrgPhone(models.Model):
 	org		= models.ForeignKey(Org, verbose_name=u'Организация')
-	country		= models.PositiveIntegerField(null=False, blank=False, default=7, verbose_name=u'Код страны')
-	trunk		= models.PositiveIntegerField(null=False, blank=False, default=812, verbose_name=u'Код города/оператора')
-	phone		= models.DecimalField(null=False, blank=False, max_digits=7, decimal_places=0, verbose_name=u'Номер')
-	ext		= models.DecimalField(null=True, blank=True, max_digits=4, decimal_places=0, verbose_name=u'Доб.')
+	phone		= models.CharField(null=False, blank=False, max_length=25, verbose_name=u'Номер')
 	_xmlname	= u'orgphone'
 	def	asstr(self):
-		if (self.ext):
-			e = u' #%d' % self.ext
-		else:
-			e = ''
-		return u'+%d %d %s %s' % (self.country, self.trunk, self.phone, e)
+		return self.phone
 	def	__unicode__(self):
 		return self.asstr()
 	class	Meta:
 		ordering		= ('id',)
 		verbose_name		= u'Телефон'
 		verbose_name_plural	= u'Телефоны'
-		unique_together		= [('org', 'country', 'trunk', 'phone', 'ext')]
 	def	exml(self):
-		retvalue = u'\t<%s id="%d" country="%d" trunk="%d" phone="%d"' % (self._xmlname, self.id, self.country, self.trunk, self.phone)
-		if (self.ext):
-			retvalue += u' ext="%d"' % self.ext
-		return retvalue + '/>\n'
+		return u'\t<%s id="%d" phone="%d"/>' % (self._xmlname, self.id, self.phone)
 
 class	OrgEmail(models.Model):
 	org		= models.ForeignKey(Org, verbose_name=u'Организация')
@@ -472,9 +462,11 @@ class	OrgInsurance(models.Model):
 	insno		= models.CharField(null=False, blank=False, unique=True, max_length=50, verbose_name=u'Номер договора')
 	insdate		= models.DateField(null=False, blank=False, verbose_name=u'Дата договора')
 	insum		= models.PositiveIntegerField(null=False, blank=False, verbose_name=u'Страховая сумма')
+	datefrom	= models.DateField(null=False, blank=False, verbose_name=u'Страховка с')
+	datetill	= models.DateField(null=False, blank=False, verbose_name=u'Страховка с')
 	_xmlname	= u'orginsurance'
 	def	asstr(self):
-		return u'%s от %s, %d руб' % (self.insno, self.insdate, self.insum)
+		return u'%s от %s, %d руб, с %s по %s' % (self.insno, self.insdate, self.insum, self.datefrom, self.datetill)
 	def	__unicode__(self):
 		return self.asstr()
 	class	Meta:
