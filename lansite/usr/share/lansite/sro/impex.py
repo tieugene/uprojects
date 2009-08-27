@@ -3,12 +3,17 @@
 impex
 '''
 
+import csv, pprint
+from datetime import datetime
+from xml.sax import handler, make_parser
+
 from django.db import transaction
 from django.core import serializers
-from xml.sax import handler, make_parser
-from datetime import datetime
-
 from django.utils.encoding import StrAndUnicode, force_unicode, smart_unicode, smart_str
+from django.http import HttpResponse, HttpResponseRedirect
+from django.shortcuts import get_object_or_404, render_to_response
+
+from forms import ImportForm
 
 class	timer:
 	def	__init__(self):
@@ -129,3 +134,41 @@ def	deleteall(request):
 		transaction.commit()
 	return HttpResponseRedirect('/sro/')
 
+fields = ('id', 'name', 'fullname', 'okopfname', 'inn', 'kpp', 'ogrn', 'laddr', 'raddr', 'boss', 'contact', 'phones', 'email', 'datevv', 'datekf', 'datez', 'date1', 'datenp', 'regno', 'isaffil', 'activity', 'job', 'licno', 'licstart', 'licend', 'state', 'letters', 'sviddate', 'svidfio', 'svidjob', 'comments')
+
+@transaction.commit_manually
+def	importcsv(request):
+	if (request.method == 'POST'):
+		form = ImportForm(request.POST, request.FILES)
+		if form.is_valid():
+		#if (True):
+			file = request.FILES['file']
+			if (file):
+				return render_to_response('sro/org_import.html', {'org_list': __parsecsv(file)})
+			else:
+				print "Not file"
+		else:
+			print "Invalid form"
+	return HttpResponseRedirect('../')
+
+def	__parsecsv(file):
+	retvalue = list()
+	#csvreader = csv.reader(file, delimiter="\t")
+	csvreader = csv.DictReader(file, fieldnames=fields, delimiter="\t")
+	csvreader.next()
+	for row in csvreader:
+		# 1. decode from utf
+		#del row[None]
+		for k in row.keys():
+			if k:
+				row[k] = row[k].decode('utf-8').strip()
+				#print k, ':', row[k]
+		print "===="
+		# 2. integers
+		#for k in ('id', 'inn', 'kpp', 'ogrn', 'regno'):
+		#	row[k] = long(row[k])
+		# 3. dates
+		# 4. letsgo
+		#pprint.pprint(row)
+		retvalue.append(row)
+	return retvalue

@@ -1,5 +1,4 @@
 {% extends "sro/org_base.html" %}
-{% block body_phone_button %} {% endblock %}
 {% block body_phone %}
 	<table border="0">
 	{% for i in phone %}
@@ -10,7 +9,7 @@
 	{% endfor %}
 		<form action=".#phone" method="POST">
 		<tr>
-			<td> <table> {{ form.as_table }} </table> </td>
+			<td> {{ form.as_p }} </td>
 			<td> <input type="submit" value="+" /> </td>
 		</tr>
 		</form>
