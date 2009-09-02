@@ -22,7 +22,8 @@
 			<th> ОГРН </th>
 			<th> ЮрАдрес </th>
 			<th> <i>ФизАдрес</i> </th>
-			<th> <i>Руководитель</i> </th>
+			<th> <i>Руководитель.Должность</i> </th>
+			<th> <i>Руководитель.ФИО</i> </th>
 			<th> <i>Телефоны</i> </th>
 			<th> <i>Email</i> </th>
 			<th> Дата ВВ </th>
@@ -41,16 +42,17 @@
 			<td> {{ org.name }} </td>
 			<td> {{ org.fullname }} </td>
 			<td>  </td>
-			<td>  </td>
+			<td> {{ org.okopf }} </td>
 			<td> {{ org.okopfname }} </td>
 			<td> {{ org.inn }} </td>
 			<td> {{ org.kpp }} </td>
 			<td> {{ org.ogrn }} </td>
 			<td> {{ org.laddr }} </td>
 			<td> {{ org.raddr }} </td>
-			<td> {{ org.boss }} </td>
+			<td> {{ org.bosstitle }} </td>
+			<td> {{ org.bossname }} </td>
 			<td> {{ org.phones }} </td>
-			<td> {{ org.email }} </td>
+			<td> {{ org.emails }} </td>
 			<td> {{ org.datevv }} </td>
 			<td> {{ org.datekf }} </td>
 			<td> {{ org.datenp }} </td>
