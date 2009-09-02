@@ -14,6 +14,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render_to_response
 
 from forms import ImportForm
+import models
 
 class	timer:
 	def	__init__(self):
@@ -134,9 +135,8 @@ def	deleteall(request):
 		transaction.commit()
 	return HttpResponseRedirect('/sro/')
 
-fields = ('id', 'name', 'fullname', 'okopfname', 'inn', 'kpp', 'ogrn', 'laddr', 'raddr', 'boss', 'contact', 'phones', 'email', 'datevv', 'datekf', 'datez', 'date1', 'datenp', 'regno', 'isaffil', 'activity', 'job', 'licno', 'licstart', 'licend', 'state', 'letters', 'sviddate', 'svidfio', 'svidjob', 'comments')
+fields = ('id', 'name', 'fullname', 'okopf', 'okopfname', 'inn', 'kpp', 'ogrn', 'laddr', 'raddr', 'bosstitle', 'bossname', 'contact', 'phones', 'emails', 'datevv', 'datekf', 'datez', 'date1', 'datenp', 'regno', 'datesvid', 'isaffil', 'activity', 'job', 'licstate', 'licno', 'licstart', 'licend', 'projlicno', 'projlicstart', 'projlicend', 'insurer', 'state', 'letters', 'svidfio', 'svidjob', 'sviddate', 'comments')
 
-@transaction.commit_manually
 def	importcsv(request):
 	if (request.method == 'POST'):
 		form = ImportForm(request.POST, request.FILES)
@@ -144,7 +144,8 @@ def	importcsv(request):
 		#if (True):
 			file = request.FILES['file']
 			if (file):
-				return render_to_response('sro/org_import.html', {'org_list': __parsecsv(file)})
+				#return render_to_response('sro/org_import.html', {'org_list': __parsecsv(file)})
+				__insertcsv(__parsecsv(file))
 			else:
 				print "Not file"
 		else:
@@ -162,13 +163,40 @@ def	__parsecsv(file):
 		for k in row.keys():
 			if k:
 				row[k] = row[k].decode('utf-8').strip()
-				#print k, ':', row[k]
-		print "===="
-		# 2. integers
-		#for k in ('id', 'inn', 'kpp', 'ogrn', 'regno'):
-		#	row[k] = long(row[k])
-		# 3. dates
-		# 4. letsgo
-		#pprint.pprint(row)
 		retvalue.append(row)
 	return retvalue
+
+#@transaction.commit_manually
+def	__insertcsv(datalist):
+	models.Org.objects.all().delete()
+	for data in datalist:
+		#if (data['kpp']) and (data['regno']) and (data['datenp']) and (data['datekf']):
+		if (data['id']):
+			print "\t", data['id'], data['name'], data['datekf'], data['datevv']
+			org = models.Org(
+				name		= data['name'],
+				fullname	= data['fullname'],
+				okopf		= models.Okopf.objects.get(pk=int(data['okopf'])),
+				inn		= int(data['inn']),
+				ogrn		= int(data['ogrn']),
+				laddress	= data['laddr'],
+				raddress	= data['raddr'],
+				paysum		= 300000,
+				comments	= data['comments'],
+			)
+			if (data['kpp']):
+				kpp		= int(data['kpp'])
+			if (data['regno']):
+				sroregno	= int(data['regno'])
+				sroregdate	= data['datenp']
+			if (data['datekf']):
+				paydate		= data['datekf']
+			if (data['datevv']):
+				paydatevv	= data['datevv'],
+			org.save()
+		else:
+			print "Skiped: %s - %s,\tkpp: %s,\tregno: %s,\tdatenp: %s,\tdatekf: %s" % (data['id'], data['name'], data['kpp'], data['regno'], data['datenp'], data['datekf'])
+	# phones
+	# emails
+	# license
+	# stuff

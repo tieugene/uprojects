@@ -75,3 +75,9 @@ Future:
 		* Journal: last field editor
 		* ОКВЭД: дублирование -> err
 		* Копировать разрешения
+9902:
+	* kpp - option
+	* reno - option
+	* regdate - option
+	* datekf - option
+	* 
