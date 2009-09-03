@@ -363,7 +363,7 @@ class	OrgPhone(models.Model):
 
 class	OrgEmail(models.Model):
 	org		= models.ForeignKey(Org, verbose_name=u'Организация')
-	URL		= models.EmailField(blank=False, unique=True, verbose_name=u'Ссылка')
+	URL		= models.EmailField(null=False, blank=False, unique=False, verbose_name=u'Ссылка')
 	_xmlname	= u'orgemail'
 	def	asstr(self):
 		return self.URL
@@ -443,7 +443,7 @@ class	OrgFile(models.Model):
 
 class	OrgLicense(models.Model):
 	org		= models.OneToOneField(Org, verbose_name=u'Организация')
-	regno		= models.CharField(null=False, blank=False, max_length=50, unique=True, verbose_name=u'Номер лицензии')
+	no		= models.CharField(null=False, blank=False, max_length=50, unique=True, verbose_name=u'Номер лицензии')
 	datefrom	= models.DateField(null=False, blank=False, verbose_name=u'Выдана')
 	datedue		= models.DateField(null=False, blank=False, verbose_name=u'Действительна до')
 	_xmlname	= u'orglicense'
