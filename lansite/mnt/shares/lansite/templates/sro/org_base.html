@@ -38,7 +38,7 @@
 	<table border="0">
 		<tr>	<td> Лицензия: </td>	<td>
 			{% if license %}
-				№ {{ license.regno }} от {{ license.datefrom|date }} по {{ license.datedue|date }}
+				№ {{ license.no }} от {{ license.datefrom|date }} по {{ license.datedue|date }}
 				{% block body_license_del_button %} {% endblock %}
 			{% else %}
 				Нет

@@ -172,31 +172,60 @@ def	__insertcsv(datalist):
 	for data in datalist:
 		#if (data['kpp']) and (data['regno']) and (data['datenp']) and (data['datekf']):
 		if (data['id']):
-			print "\t", data['id'], data['name'], data['datekf'], data['datevv']
+			#if not (data['kpp'] or data['regno'] or data['datenp'] or 
+			#print "\t", data['id'], data['name'], data['datekf'], data['datevv']
 			org = models.Org(
 				name		= data['name'],
 				fullname	= data['fullname'],
 				okopf		= models.Okopf.objects.get(pk=int(data['okopf'])),
-				inn		= int(data['inn']),
-				ogrn		= int(data['ogrn']),
+				inn		= long(data['inn']),
+				ogrn		= long(data['ogrn']),
 				laddress	= data['laddr'],
 				raddress	= data['raddr'],
 				paysum		= 300000,
 				comments	= data['comments'],
 			)
 			if (data['kpp']):
-				kpp		= int(data['kpp'])
+				org.kpp		= long(data['kpp'])
 			if (data['regno']):
-				sroregno	= int(data['regno'])
-				sroregdate	= data['datenp']
+				org.sroregno	= long(data['regno'])
+				org.sroregdate	= data['datenp']
 			if (data['datekf']):
-				paydate		= data['datekf']
+				org.paydate	= data['datekf']
 			if (data['datevv']):
-				paydatevv	= data['datevv'],
+				org.paydatevv	= data['datevv']
 			org.save()
+	# phones
+			phones = data['phones'].strip()
+			for phone in phones.split("\n"):
+				phone = phone.strip()
+				if (phone):
+					models.OrgPhone(org=org, phone=phone).save()
+	# emails
+			emails = data['emails'].strip()
+			for email in emails.split("\n"):
+				email = email.strip()
+				if (email):
+					models.OrgEmail(org=org, URL=email).save()
+	# license
+			if data['licno'] and data['licstart'] and data['licend']:
+				models.OrgLicense(org=org, no=data['licno'].strip(), datefrom=data['licstart'], datedue=data['licend']).save()
+	# stuff
+			if (data['bosstitle'].strip()) and (data['bossname'].strip()):
+				titlestr = data['bosstitle'].strip()
+				role = models.Role.objects.filter(name=titlestr)
+				if not (role):
+					role = models.Role(name=titlestr)
+					role.save()
+				else:
+					role = role[0]
+				f, i, o = data['bossname'].strip().split(' ')
+				person = models.Person.objects.filter(firstname=i, midname=o, lastname=f)
+				if (not person):
+					person = models.Person(firstname=i, midname=o, lastname=f)
+					person.save()
+				else:
+					person = person[0]
+				models.OrgStuff(org=org, role=role, person=person, leader=True).save()
 		else:
 			print "Skiped: %s - %s,\tkpp: %s,\tregno: %s,\tdatenp: %s,\tdatekf: %s" % (data['id'], data['name'], data['kpp'], data['regno'], data['datenp'], data['datekf'])
-	# phones
-	# emails
-	# license
-	# stuff

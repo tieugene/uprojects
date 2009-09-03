@@ -23,7 +23,7 @@ class	OrgLicenseForm(forms.ModelForm):
 	datedue		= forms.DateField(input_formats=['%d.%m.%Y', '%d/%m/%Y'], widget=forms.widgets.DateTimeInput(format='%d.%m.%Y'), label='Действительна до')
 	class	Meta:
 		model = OrgLicense
-		fields = ('regno', 'datefrom', 'datedue',)
+		fields = ('no', 'datefrom', 'datedue',)
 
 class	OrgInsuranceForm(forms.ModelForm):
 	insdate		= forms.DateField(input_formats=['%d.%m.%Y', '%d/%m/%Y'], widget=forms.widgets.DateTimeInput(format='%d.%m.%Y'), label='Дата договора')
