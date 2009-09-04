@@ -39,17 +39,19 @@ function SelectAll (state) {
 			</div>
 		</td>
 		<td valign="top"> <input type="button" value="Изменить" onClick="window.location.href='{% url lansite.sro.views.permit_edit permit.id, s.id %}'"/> </td>
-		<td align="center" colspan="3"> <input type="checkbox" name="set" value="{{ s.id }}"/> </td>
+		<td align="center" colspan="2"> <input type="checkbox" name="set" value="{{ s.id }}"/> </td>
 	<tr>
 {% endfor %}
 	<tr> <td colspan="8"> <hr/> </td> </tr>
 	<tr>
-		<td colspan="5" rowspan="2"> <b> ОПТОМ </b> </td>
-		<td align="center"> <input type="button" value="&radic;" title="Выбрать все" onClick="SelectAll(true);"/> </td>
-		<td align="center"> <input type="button" value="x" title="Удалить все" onClick="SelectAll(false);"/> </td>
-		<td align="center"> <input type="reset" title="Восстановить исходные значения" value="R"/> </td>
+		<td colspan="5"> <!-- <b> Итого: {{ scount }} видов работ, {{ jcount }} подвидов работ. </b> --> </td>
+		<td align="center" bgcolor="lightgrey"> <input type="button" value="&radic;" title="Выбрать все" onClick="SelectAll(true);"/> </td>
+		<td align="center" bgcolor="lightgrey"> <input type="button" value="x" title="Удалить все" onClick="SelectAll(false);"/> </td>
 	</tr>
-	<tr>	<td align="center" colspan="3"> <input type="submit" value="Записать"/> </td> </tr>
+	<tr>
+		<td colspan="5" bgcolor="lightgrey"> <b> ОПТОМ: </b> </td>
+		<td align="center" colspan="2" bgcolor="lightgrey"> <input type="submit" value="Записать"/> </td>
+	</tr>
 </table>
 </form>
 {% endblock %}
