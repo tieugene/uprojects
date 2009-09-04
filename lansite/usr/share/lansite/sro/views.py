@@ -42,11 +42,11 @@ def	dl_file(request, file_id, file_name):
 	return response
 
 def	org_list(request):
-	org_list = Org.objects.all().order_by('id')
+	org_list = Org.objects.all().order_by('name')
 	return render_to_response('sro/org_list.html', {'org_list': org_list})
 
 def	org_publish(request):
-	org_list = Org.objects.all().order_by('id')
+	org_list = Org.objects.filter(public=True).order_by('name')
 	return render_to_response('sro/org_publish.html', {'org_list': org_list})
 
 def	org_del(request, org_id):
