@@ -40,11 +40,11 @@ function doMenu(item) {
 		<tr>	<td> Дата членства в НП: </td>			<td> {{ org.sroregdate|date }} </td>	</tr>
 		<tr>	<td> Сумма взноса в КФ: </td>			<td> {{ org.paysum }} </td>		</tr>
 		<tr>	<td> Лицензия: </td>	<td>
-			{% if license %}
+			{% if org.orglicense_set %}
 				№ {{ license.no }} от {{ license.datefrom|date }} по {{ license.datedue|date }}
 				{% block body_license_del_button %} {% endblock %}
 			{% else %}
-				Нет
+				&nbsp;
 				{% block body_license_add_button %} {% endblock %}
 			{% endif %}
 		</td>	</tr>
@@ -53,7 +53,7 @@ function doMenu(item) {
 				{{ insurance.insum }} руб.
 				{% block body_insurance_del_button %} {% endblock %}
 			{% else %}
-				Нет
+				&nbsp;
 				{% block body_insurance_add_button %} {% endblock %}
 			{% endif %}
 		</td>	</tr>
