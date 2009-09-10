@@ -99,6 +99,7 @@ class	Speciality(models.Model):
 		return self.asstr()
 
 	class	Meta:
+		ordering = ('name',)
 		verbose_name = u'Специальность'
 		verbose_name_plural = u'Специальности'
 
@@ -116,7 +117,7 @@ class	Skill(models.Model):
 	def	__unicode__(self):
 		return self.asstr()
 	class	Meta:
-		ordering = ('id',)
+		ordering = ('name',)
 		verbose_name = u'Квалификация'
 		verbose_name_plural = u'Квалификации'
 	def	exml(self):
@@ -257,7 +258,7 @@ class	PersonSkill(models.Model):
 	speciality	= models.ForeignKey(Speciality, verbose_name=u'Специальность')
 	skill		= models.ForeignKey(Skill, verbose_name=u'Квалификация')
 	year		= models.PositiveIntegerField(null=False, blank=False, verbose_name=u'Год')
-	school		= models.CharField(max_length=100, null=False, blank=False, verbose_name=u'Учебное')
+	school		= models.CharField(max_length=100, null=False, blank=False, verbose_name=u'Учебное заведение')
 	_xmlname	= u'personskill'
 	def	asstr(self):
 		return u'%s: %s, %s' % (self.person.asstr(), self.speciality.asstr(), self.skill.asstr())

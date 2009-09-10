@@ -71,6 +71,7 @@ class	PersonMainForm(forms.ModelForm):
 		fields = ('lastname', 'firstname', 'midname',)
 
 class	PersonSkillForm(forms.ModelForm):
+	school	= forms.CharField(label='Учебное заведение', widget=forms.Textarea)
 	class	Meta:
 		model = PersonSkill
 		fields = ('speciality', 'skill', 'year', 'school')
