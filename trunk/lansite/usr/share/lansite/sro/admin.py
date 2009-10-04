@@ -11,6 +11,10 @@ from models import *
 from rfm import ReadOnlyAdminFields
 
 # 1. Inlines
+class	OkatoInLine(admin.TabularInline):
+	model		= Okato
+	extra		= 1
+
 class	OkopfInLine(admin.TabularInline):
 	model		= Okopf
 	extra		= 1
@@ -103,6 +107,16 @@ class	MeetingOrgInLine(admin.TabularInline):
 	extra = 1
 	
 # 2. Odmins
+class	InsurerAdmin(admin.ModelAdmin):
+	list_display	= ('id', 'name')
+	ordering	= ('name',)
+	search_fields	= ('name',)
+
+class	OkatoAdmin(admin.ModelAdmin):
+	list_display	= ('id', 'name')
+	ordering	= ('id',)
+	search_fields	= ('name',)
+
 class	OkopfAdmin(admin.ModelAdmin):
 	list_display	= ('id', 'name', 'shortname', 'disabled')
 	ordering	= ('id',)
@@ -141,8 +155,8 @@ class	RoleAdmin(admin.ModelAdmin):
 	ordering	= ('name',)
 
 class	PersonAdmin(admin.ModelAdmin):
-	list_display	= ('firstname', 'midname', 'lastname')
-	ordering	= ('firstname', 'midname', 'lastname')
+	list_display	= ('lastname', 'firstname', 'midname',)
+	ordering	= ('lastname', 'firstname', 'midname',)
 	inlines		= (PersonSkillInLine, OrgStuffInLine, PersonFileInLine,)
 	#raw_id_fields	= ('skills',)
 	#related_search_fields = {
@@ -186,6 +200,8 @@ class	MeetingAdmin(admin.ModelAdmin):
 	inlines = (MeetingOrgInLine,)
 	date_hierarchy = 'date'
 
+admin.site.register(Insurer,		InsurerAdmin)
+admin.site.register(Okato,		OkatoAdmin)
 admin.site.register(Okopf,		OkopfAdmin)
 admin.site.register(Okved,		OkvedAdmin)
 admin.site.register(Speciality,		SpecialityAdmin)

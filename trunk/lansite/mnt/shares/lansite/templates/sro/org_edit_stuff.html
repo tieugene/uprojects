@@ -6,14 +6,16 @@
 		<tr>
 			<th> ФИО </th>
 			<th> Должность </th>
-			<th title="Руководство"> Рук. </th>
+			<th title="Руководитель"> Рук. </th>
+			<th title="Постоянное место работы"> Пост. </th>
 			<th/>
 		</tr>
 	{% for i in stuff %}
 		<tr>
 			<td> {{ i.person.asstr }} </td>
 			<td> {{ i.role.asstr }} </td>
-			<td align="center"> {% ifequal i.leader 1 %} V {% endifequal %} </td>
+			<td align="center"> [{% ifequal i.leader 1 %} V {% else %} &nbsp; {% endifequal %}] </td>
+			<td align="center"> [{% ifequal i.permanent 1 %} V {% else %} &nbsp; {% endifequal %}] </td>
 			<td> <input type="button" value="X" title="Удалить" onClick="window.location.href='{% url lansite.sro.views.org_edit_stuff_del org.id, i.id %}#stuff'"/> </td>
 		</tr>
 	{% endfor %}
@@ -36,6 +38,12 @@
 				<div class="fieldWrapper">
 					{{ form.leader.errors }}
 					{{ form.leader }}
+				</div>
+			</td>
+			<td align="center">
+				<div class="fieldWrapper">
+					{{ form.permanent.errors }}
+					{{ form.permanent }}
 				</div>
 			</td>
 			<td>

@@ -31,7 +31,7 @@ class	OrgInsuranceForm(forms.ModelForm):
 	datetill	= forms.DateField(input_formats=['%d.%m.%Y', '%d/%m/%Y'], widget=forms.widgets.DateTimeInput(format='%d.%m.%Y'), label='Страховка по')
 	class	Meta:
 		model = OrgInsurance
-		fields = ('insurer', 'insno', 'insdate', 'insum', 'datefrom', 'datetill',)
+		fields = ('insurername', 'insurer', 'insno', 'insdate', 'insum', 'datefrom', 'datetill',)
 
 class	OrgPhoneForm(forms.ModelForm):
 	class	Meta:
@@ -47,7 +47,7 @@ class	OrgWWWForm(forms.Form):
 class	OrgStuffForm(forms.ModelForm):
 	class	Meta:
 		model = OrgStuff
-		fields = ('person', 'role', 'leader')
+		fields = ('person', 'role', 'leader', 'permanent')
 
 class	OrgStuffAddPersonForm(forms.ModelForm):
 	class	Meta:
@@ -71,7 +71,6 @@ class	PersonMainForm(forms.ModelForm):
 		fields = ('lastname', 'firstname', 'midname',)
 
 class	PersonSkillForm(forms.ModelForm):
-	school	= forms.CharField(label='Учебное заведение', widget=forms.Textarea)
 	class	Meta:
 		model = PersonSkill
 		fields = ('speciality', 'skill', 'year', 'school')

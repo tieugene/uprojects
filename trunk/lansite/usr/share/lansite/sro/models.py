@@ -16,6 +16,52 @@ def	my_upload_to(instance, filename):
 	instance.name = filename
 	return u'temp/%s' % filename
 
+class	Insurer(models.Model):
+	name		= models.CharField(max_length=100, blank=False, unique=True, verbose_name=u'Наименование')
+	_xmlname	= u'insurer'
+
+	def	asstr(self):
+		return self.name
+
+	def	__unicode__(self):
+		return self.asstr()
+
+	class	Meta:
+		ordering = ('id',)
+		verbose_name = u'Страховщик'
+		verbose_name_plural = u'Страховщики'
+
+	def	exml(self):
+		retvalue = u'\t<%s id="%d" name="%s"/>\n' % (self._xmlname, self.id, self.name)
+
+	def	ixml(self, s):
+		return self
+
+class	Okato(models.Model):
+	'''
+	id - by OKATO
+	'''
+	id		= models.PositiveSmallIntegerField(primary_key=True, verbose_name=u'Код')
+	name		= models.CharField(max_length=100, blank=False, unique=False, verbose_name=u'Наименование')
+	_xmlname	= u'okato'
+
+	def	asstr(self):
+		return u'%d: %s' % (self.id, self.name)
+
+	def	__unicode__(self):
+		return self.asstr()
+
+	class	Meta:
+		ordering = ('id',)
+		verbose_name = u'ОКАТО'
+		verbose_name_plural = u'Коды ОКАТО'
+
+	def	exml(self):
+		retvalue = u'\t<%s id="%d" name="%s"/>\n' % (self._xmlname, self.id, self.name)
+
+	def	ixml(self, s):
+		return self
+
 class	Okopf(models.Model):
 	'''
 	id - by OKOPF, short int
@@ -99,7 +145,6 @@ class	Speciality(models.Model):
 		return self.asstr()
 
 	class	Meta:
-		ordering = ('name',)
 		verbose_name = u'Специальность'
 		verbose_name_plural = u'Специальности'
 
@@ -117,7 +162,7 @@ class	Skill(models.Model):
 	def	__unicode__(self):
 		return self.asstr()
 	class	Meta:
-		ordering = ('name',)
+		ordering = ('id',)
 		verbose_name = u'Квалификация'
 		verbose_name_plural = u'Квалификации'
 	def	exml(self):
@@ -217,7 +262,10 @@ class	Role(models.Model):
 	comments	= models.CharField(max_length=100, blank=True, verbose_name=u'Коментарии')
 	_xmlname	= u'role'
 	def	asstr(self):
-		return u'%s (%s)' % (self.name, self.comments)
+		retvalue = self.name
+		if self.comments:
+			retvalue += u' (%s)' % self.comments
+		return retvalue
 	def	__unicode__(self):
 		return self.asstr()
 	class	Meta:
@@ -258,7 +306,7 @@ class	PersonSkill(models.Model):
 	speciality	= models.ForeignKey(Speciality, verbose_name=u'Специальность')
 	skill		= models.ForeignKey(Skill, verbose_name=u'Квалификация')
 	year		= models.PositiveIntegerField(null=False, blank=False, verbose_name=u'Год')
-	school		= models.CharField(max_length=100, null=False, blank=False, verbose_name=u'Учебное заведение')
+	school		= models.CharField(max_length=100, null=False, blank=False, verbose_name=u'Учебное')
 	_xmlname	= u'personskill'
 	def	asstr(self):
 		return u'%s: %s, %s' % (self.person.asstr(), self.speciality.asstr(), self.skill.asstr())
@@ -286,13 +334,14 @@ class	PersonFile(models.Model):
 		return u'\t<%s id="%d" person="%d" file="%d"/>\n' % (self._xmlname, self.id, self.person.id, self.file.id)
 
 class	Org(models.Model):
-	name		= models.CharField(null=False, blank=False, max_length=40, unique=True, verbose_name=u'Наименование')
+	name		= models.CharField(null=False, blank=False, max_length=40, unique=False, verbose_name=u'Наименование')
 	fullname	= models.CharField(null=False, blank=False, max_length=100, unique=False, verbose_name=u'Полное наименование')
 	okopf		= models.ForeignKey(Okopf, null=False, blank=False, verbose_name=u'ОКОПФ')
 	egruldate	= models.DateField(null=True, blank=True, verbose_name=u'Дата регистрации в ЕГРЮЛ')
 	inn		= models.PositiveIntegerField(null=False, blank=False, unique=True, verbose_name=u'ИНН')
 	kpp		= models.PositiveIntegerField(null=True, blank=True, verbose_name=u'КПП')
 	ogrn		= models.PositiveIntegerField(null=False, blank=False, unique=True, verbose_name=u'ОГРН')
+	okato		= models.ForeignKey(Okato, null=True, blank=True, verbose_name=u'ОКАТО')
 	laddress	= models.CharField(null=False, blank=False, max_length=100, verbose_name=u'Адрес юридический')
 	raddress	= models.CharField(null=True, blank=True, max_length=100, verbose_name=u'Адрес почтовый')
 	sroregno	= models.PositiveIntegerField(null=True, blank=True, unique=True, verbose_name=u'Реестровый №')
@@ -395,10 +444,14 @@ class	OrgWWW(models.Model):
 		return u'\t<%s id="%d" URL="%s"/>\n' % (self._xmlname, self.id, self.URL)
 
 class	OrgStuff(models.Model):
+	'''
+	FIXME: permanent => Fulltime job
+	'''
 	org		= models.ForeignKey(Org, verbose_name=u'Организация')
 	role		= models.ForeignKey(Role, verbose_name=u'Должность')
 	person		= models.ForeignKey(Person, verbose_name=u'Человек')
-	leader		= models.BooleanField(verbose_name=u'Начальство')
+	leader		= models.BooleanField(verbose_name=u'Руководитель')
+	permanent	= models.BooleanField(verbose_name=u'Постоянное место работы')
 	_xmlname	= u'orgstuff'
 	def	asstr(self):
 		return u'%s: %s' % (self.role.asstr(), self.person.asstr())
@@ -444,12 +497,12 @@ class	OrgFile(models.Model):
 
 class	OrgLicense(models.Model):
 	org		= models.OneToOneField(Org, verbose_name=u'Организация')
-	no		= models.CharField(null=False, blank=False, max_length=50, unique=True, verbose_name=u'Номер лицензии')
+	no		= models.CharField(null=False, blank=False, max_length=100, unique=True, verbose_name=u'Номер лицензии')
 	datefrom	= models.DateField(null=False, blank=False, verbose_name=u'Выдана')
 	datedue		= models.DateField(null=False, blank=False, verbose_name=u'Действительна до')
 	_xmlname	= u'orglicense'
 	def	asstr(self):
-		return u'%s, до %s' % (self.regno, self.datedue)
+		return u'%s, до %s' % (self.no, self.datedue)
 	def	__unicode__(self):
 		return self.asstr()
 	class	Meta:
@@ -461,12 +514,13 @@ class	OrgLicense(models.Model):
 
 class	OrgInsurance(models.Model):
 	org		= models.OneToOneField(Org, verbose_name=u'Организация')
-	insurer		= models.CharField(null=False, blank=False, max_length=100, verbose_name=u'Страховщик')
+	insurername	= models.CharField(null=False, blank=False, max_length=100, verbose_name=u'Страховщик (наим.)')
+	insurer		= models.ForeignKey(Insurer, null=True, blank=True, verbose_name=u'Страховщик')
 	insno		= models.CharField(null=False, blank=False, unique=True, max_length=50, verbose_name=u'Номер договора')
 	insdate		= models.DateField(null=False, blank=False, verbose_name=u'Дата договора')
 	insum		= models.PositiveIntegerField(null=False, blank=False, verbose_name=u'Страховая сумма')
 	datefrom	= models.DateField(null=False, blank=False, verbose_name=u'Страховка с')
-	datetill	= models.DateField(null=False, blank=False, verbose_name=u'Страховка с')
+	datetill	= models.DateField(null=False, blank=False, verbose_name=u'Страховка до')
 	_xmlname	= u'orginsurance'
 	def	asstr(self):
 		return u'%s от %s, %d руб, с %s по %s' % (self.insno, self.insdate, self.insum, self.datefrom, self.datetill)
