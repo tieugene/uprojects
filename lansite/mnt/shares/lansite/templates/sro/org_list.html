@@ -18,7 +18,7 @@
 		<tr>
 			<td> {{ forloop.counter }} </td>
 			<td>  <a href="{% url lansite.sro.views.org_view org.id %}" title="{{ org.fullname }}">{{ org.name }} </td>
-			<td> <!-- input type="button" value="X" title="Удалить" onClick="window.location.href='{% url lansite.sro.views.org_del org.id %}'"/--> </td>
+			<td> <input type="button" value="X" title="Удалить" onClick="window.location.href='{% url lansite.sro.views.org_del org.id %}'"/> </td>
 		</tr>
 	{% endfor %}
 	</tbody>

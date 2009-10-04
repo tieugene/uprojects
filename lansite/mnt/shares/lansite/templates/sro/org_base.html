@@ -24,6 +24,7 @@
 		<tr>	<td> ИНН: </td>				<td> {{ org.inn }} </td>		</tr>
 		<tr>	<td> КПП: </td>				<td> {{ org.kpp }} </td>		</tr>
 		<tr>	<td> ОГРН: </td>			<td> {{ org.ogrn }} </td>		</tr>
+		<tr>	<td> ОКАТО: </td>			<td> {{ org.okato }} </td>		</tr>
 		<tr>	<td> Адрес юридический: </td>		<td> {{ org.laddress }} </td>		</tr>
 		<tr>	<td> Адрес фактический: </td>		<td> {{ org.raddress }} </td>		</tr>
 		<tr>	<td> Реестровый №: </td>		<td> {{ org.sroregno }} </td>		</tr>
@@ -32,7 +33,7 @@
 		<tr>	<td> Сумма взноса в КФ: </td>		<td> {{ org.paysum }} </td>		</tr>
 		<tr>	<td> Дата оплаты вступительного взноса: </td>	<td> {{ org.paydatevv|date }} </td>	</tr>
 		<tr>	<td> Коментарии: </td>			<td> {{ org.comments }} </td>		</tr>
-		<tr>	<td> Публиковать: </td>			<td> [{% ifequal org.public 1 %} V {% endifequal %}] </td>		</tr>
+		<tr>	<td> Публиковать: </td>			<td> [{% ifequal org.public 1 %} V {% else %} &nbsp; {% endifequal %}] </td>		</tr>
 	</table>
 {% endblock %}
 {% block body_license %}
@@ -52,7 +53,7 @@
 	<table border="0">
 		<tr>	<td> Страховка: </td>	<td>
 			{% if insurance %}
-				Договор № {{ insurance.insno }} от {{ insurance.insdate|date }} на {{ insurance.insum }} руб. в {{ insurance.insurer }}
+				Договор № {{ insurance.insno }} от {{ insurance.insdate|date }} на {{ insurance.insum }} руб. в {{ insurance.insurer }} ({{ insurance.insurername }})
 				{% block body_insurance_del_button %} {% endblock %}
 			{% else %}
 				Нет
@@ -115,13 +116,15 @@
 			<tr>
 				<th> ФИО </th>
 				<th> Должность </th>
-				<th> Руководство </th>
+				<th> Руководитель </th>
+				<th> Постоянно </th>
 			</tr>
 		{% for i in stuff %}
 			<tr>
 				<td> <a href="{% url lansite.sro.views.person_view i.person.id %}"> {{ i.person.asstr }} </a> </td>
 				<td> {{ i.role.asstr }} </td>
-				<td align="center"> {% ifequal i.leader 1 %} &radic; {% endifequal %} </td>
+				<td align="center"> [{% ifequal i.leader 1 %} &radic; {% else %} &nbsp; {% endifequal %}] </td>
+				<td align="center"> [{% ifequal i.permanent 1 %} &radic; {% else %} &nbsp; {% endifequal %}] </td>
 			</tr>
 		{% endfor %}
 		</table>

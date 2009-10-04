@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 from django.conf.urls.defaults import *
-
 from django.contrib import admin
 from django.contrib.auth.views import login, logout
+from django.conf import settings
 
 admin.autodiscover()
 
@@ -20,4 +20,5 @@ urlpatterns = patterns('',
 	(r'^accounts/$', login),
 	(r'^accounts/login/$', login),
 	(r'^accounts/logout/$', logout),
+	(r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.STATIC_DOC_ROOT}),
 )

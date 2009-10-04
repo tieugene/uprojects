@@ -29,6 +29,12 @@ def	load_job(c):
 		okdp	= __get_int(s[1])
 		c.execute('INSERT INTO sro_job (id, stage_id, okdp, name) VALUES (?, ?, ?, ?)', (int('%d%d' % (stage, okdp)), stage, okdp, __get_str(s[2])))
 
+def	load_okato(c):
+	print 'Loading OKATO'
+	c.execute('DELETE FROM sro_okato')
+	for s in __get_reader('okato.txt'):
+		c.execute('INSERT INTO sro_okato (id, name) VALUES (?, ?)', (__get_int(s[0]), __get_str(s[1])))
+
 def	load_okopf(c):
 	print 'Loading OKOPF'
 	c.execute('DELETE FROM sro_okopf')
@@ -39,7 +45,8 @@ def	load_okved(c):
 	print 'Loading OKVED'
 	c.execute('DELETE FROM sro_okved')
 	for s in __get_reader('okved.txt'):
-		c.execute('INSERT INTO sro_okved (id, name, disabled) VALUES (?, ?, ?)', (__get_str(s[0]).replace('.', ''), __get_str(s[1]), False))
+		if (len(__get_str(s[0])) > 2):
+			c.execute('INSERT INTO sro_okved (id, name) VALUES (?, ?)', (__get_str(s[0]).replace('.', ''), __get_str(s[1])))
 
 def	load_skill(c):
 	print 'Loading Skills'
@@ -63,12 +70,13 @@ def	load_stage(c):
 def	main():
 	conn = sqlite3.connect('/mnt/shares/lansite/db/lansite.db')
 	c = conn.cursor()
-	load_job(c)
-	load_okopf(c)
-	load_okved(c)
-	load_skill(c)
-	load_speciality(c)
-	load_stage(c)
+	#load_job(c)
+	load_okato(c)
+	#load_okopf(c)
+	#load_okved(c)
+	#load_skill(c)
+	#load_speciality(c)
+	#load_stage(c)
 	c.execute('VACUUM')
 	conn.close()
 
