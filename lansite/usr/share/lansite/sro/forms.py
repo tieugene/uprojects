@@ -31,7 +31,7 @@ class	OrgInsuranceForm(forms.ModelForm):
 	datetill	= forms.DateField(input_formats=['%d.%m.%Y', '%d/%m/%Y'], widget=forms.widgets.DateTimeInput(format='%d.%m.%Y'), label='Страховка по')
 	class	Meta:
 		model = OrgInsurance
-		fields = ('insurername', 'insurer', 'insno', 'insdate', 'insum', 'datefrom', 'datetill',)
+		fields = ('insurer', 'insno', 'insdate', 'insum', 'datefrom', 'datetill',)
 
 class	OrgPhoneForm(forms.ModelForm):
 	class	Meta:

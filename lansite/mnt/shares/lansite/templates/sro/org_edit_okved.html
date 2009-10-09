@@ -5,7 +5,7 @@
 		{% for i in org.okveds.all %}
 			<tr>
 				<td> {{ i.asstr }} </td>
-				<td> <input type="button" value="X" onClick="window.location.href='{% url lansite.sro.views.org_edit_okved_del org.id, i.id %}#okved'"/> </td>
+				<td> <input type="button" value="X" onClick="confirmDelete('{% url lansite.sro.views.org_edit_okved_del org.id, i.id %}#okved')"/> </td>
 			</tr>
 		{% endfor %}
 		<tr>
