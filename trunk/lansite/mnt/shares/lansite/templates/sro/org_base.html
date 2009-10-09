@@ -5,6 +5,14 @@
 	<link rel="stylesheet" href="org.css" type="text/css" />
 </head>
 <body>
+<script langauge="JavaScript" type="text/javascript">
+function confirmDelete(delUrl) {
+	if (confirm("Are you sure you want to delete")) {
+		document.location = delUrl;
+	}
+}
+</script>
+
 {% block sidebar %}
 	<center> <h1>
 		<a href="{% url lansite.views.index %}"> LanSite </a> &gt; 

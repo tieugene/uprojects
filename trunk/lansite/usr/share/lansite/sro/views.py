@@ -7,8 +7,10 @@ from django.db import transaction
 from django.core import serializers
 from django.contrib.auth.decorators import login_required
 from django.utils.encoding import StrAndUnicode, force_unicode, smart_unicode, smart_str
+
 from xml.sax import handler, make_parser
 from datetime import datetime
+import ftplib, netrc, tempfile
 
 import pprint
 
@@ -42,12 +44,30 @@ def	dl_file(request, file_id, file_name):
 	return response
 
 def	org_list(request):
-	org_list = Org.objects.all().order_by('id')
+	org_list = Org.objects.all().order_by('name')
 	return render_to_response('sro/org_list.html', {'org_list': org_list})
 
 def	org_publish(request):
-	org_list = Org.objects.all().order_by('id')
-	return render_to_response('sro/org_publish.html', {'org_list': org_list})
+	org_list = Org.objects.all().order_by('name')
+	return render_to_response('sro/org_publish.html', {'org_list': org_list, 'dt': datetime.now().strftime('%d.%m.%Y %H:%M:%S')})
+
+def	org_upload(request):
+	ftpname = 'ftp.moozs.ru'
+	org_list = Org.objects.all().order_by('name')
+	hosts = netrc.netrc().hosts
+	if (not hosts.has_key(ftpname)):
+		return render_to_response('sro/upload_msg.html', {'msg': "Check netrc"})
+	t = loader.get_template('sro/org_publish.html')
+	html = t.render(Context({'org_list': org_list, 'dt': datetime.now().strftime('%d.%m.%Y %H:%M:%S')})).encode('windows-1251')
+	f = tempfile.TemporaryFile()
+	f.write(html)
+	f.seek(0)
+	login, acct, password = hosts[ftpname]
+	ftp = ftplib.FTP(ftpname, login, password)
+	ftp.storbinary('STOR /moozs.ru/docs/joom/images/members.htm', f)
+	ftp.quit()
+	f.close()
+	return render_to_response('sro/upload_msg.html', {'msg': "Uploaded OK"})
 
 def	org_del(request, org_id):
 	Org.objects.get(pk=org_id).delete()

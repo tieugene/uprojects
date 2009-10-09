@@ -4,7 +4,7 @@
 	{% for i in email %}
 		<tr>
 			<td> {{ i.asstr }} </td>
-			<td> <input type="button" value="X" onClick="window.location.href='{% url lansite.sro.views.org_edit_email_del org.id, i.id %}#email'"/> </td>
+			<td> <input type="button" value="X" onClick="confirmDelete('{% url lansite.sro.views.org_edit_email_del org.id, i.id %}#email')"/> </td>
 		</tr>
 	{% endfor %}
 		<form action=".#email" method="POST">

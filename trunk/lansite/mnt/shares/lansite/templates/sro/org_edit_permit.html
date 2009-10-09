@@ -11,7 +11,7 @@
 		<tr>
 			<td> {{ i.regno }} </td>
 			<td> {{ i.date|date }} </td>
-			<td> <input type="button" value="X" onClick="window.location.href='{% url lansite.sro.views.org_edit_permit_del org.id, i.id %}#permit'"/> </td>
+			<td> <input type="button" value="X" onClick="confirmDelete('{% url lansite.sro.views.org_edit_permit_del org.id, i.id %}#permit')"/> </td>
 		</tr>
 	{% endfor %}
 	<!-- add -->

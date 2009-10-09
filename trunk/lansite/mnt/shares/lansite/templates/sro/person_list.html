@@ -6,6 +6,14 @@
 	<link rel="stylesheet" href="base.css" type="text/css" />
 </head>
 <body>
+<script langauge="JavaScript" type="text/javascript">
+function confirmDelete(delUrl) {
+	if (confirm("Are you sure you want to delete")) {
+		document.location = delUrl;
+	}
+}
+</script>
+
 <center> <h1> <a href="{% url lansite.views.index %}">LanSite</a> &gt; <a href="{% url lansite.sro.views.index %}"> СРО </a> &gt; Люди </h1> </center>
 <hr/>
 {% if person_list %}
@@ -20,7 +28,7 @@
 			<td> <a href="{% url lansite.sro.views.person_view person.id %}"> {{ person.lastname }} </a> </td>
 			<td>  {{ person.firstname }} </td>
 			<td>  {{ person.midname }} </td>
-			<td> <!-- input type="button" value="X" title="Удалить" onClick="window.location.href='{% url lansite.sro.views.person_del person.id %}'"/--> </td>
+			<td> <input type="button" value="X" title="Удалить" onClick="confirmDelete('{% url lansite.sro.views.person_del person.id %}')"/> </td>
 		</tr>
 	{% endfor %}
 	</tbody>

@@ -514,13 +514,12 @@ class	OrgLicense(models.Model):
 
 class	OrgInsurance(models.Model):
 	org		= models.OneToOneField(Org, verbose_name=u'Организация')
-	insurername	= models.CharField(null=False, blank=False, max_length=100, verbose_name=u'Страховщик (наим.)')
 	insurer		= models.ForeignKey(Insurer, null=True, blank=True, verbose_name=u'Страховщик')
 	insno		= models.CharField(null=False, blank=False, unique=True, max_length=50, verbose_name=u'Номер договора')
 	insdate		= models.DateField(null=False, blank=False, verbose_name=u'Дата договора')
 	insum		= models.PositiveIntegerField(null=False, blank=False, verbose_name=u'Страховая сумма')
-	datefrom	= models.DateField(null=False, blank=False, verbose_name=u'Страховка с')
-	datetill	= models.DateField(null=False, blank=False, verbose_name=u'Страховка до')
+	datefrom	= models.DateField(null=True, blank=True, verbose_name=u'Страховка с')
+	datetill	= models.DateField(null=True, blank=True, verbose_name=u'Страховка до')
 	_xmlname	= u'orginsurance'
 	def	asstr(self):
 		return u'%s от %s, %d руб, с %s по %s' % (self.insno, self.insdate, self.insum, self.datefrom, self.datetill)
