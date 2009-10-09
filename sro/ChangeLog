@@ -37,3 +37,15 @@
 	* + Public
 20090903:
 	* import from csv
+20091004:
+	* publish: okopf
+	* publish: css
+	* Org.Name: uniq=False
+	* OrgLicense.no: 50=>100
+	* <new>: Okato
+	* <new>: Insurer
+	* Org: Okato
+20091009:
+	* Org: sort by name
+	* confirm delete
+	* Semiauto uploading
