@@ -342,8 +342,8 @@ class	Org(models.Model):
 	kpp		= models.PositiveIntegerField(null=True, blank=True, verbose_name=u'КПП')
 	ogrn		= models.PositiveIntegerField(null=False, blank=False, unique=True, verbose_name=u'ОГРН')
 	okato		= models.ForeignKey(Okato, null=True, blank=True, verbose_name=u'ОКАТО')
-	laddress	= models.CharField(null=False, blank=False, max_length=100, verbose_name=u'Адрес юридический')
-	raddress	= models.CharField(null=True, blank=True, max_length=100, verbose_name=u'Адрес почтовый')
+	laddress	= models.CharField(null=False, blank=False, max_length=255, verbose_name=u'Адрес юридический')
+	raddress	= models.CharField(null=True, blank=True, max_length=255, verbose_name=u'Адрес почтовый')
 	sroregno	= models.PositiveIntegerField(null=True, blank=True, unique=True, verbose_name=u'Реестровый №')
 	sroregdate	= models.DateField(null=True, blank=True, verbose_name=u'Дата членства в НП')
 	paydate		= models.DateField(null=True, blank=True, verbose_name=u'Дата оплаты взноса в КФ')
@@ -532,10 +532,46 @@ class	OrgInsurance(models.Model):
 	def	exml(self):
 		return u'\t<%s id="%d" URL="%s"/>\n' % (self._xmlname, self.id, self.insurer)
 
+class	Meeting(models.Model):
+	regno		= models.PositiveIntegerField(null=False, blank=False, unique=False, verbose_name=u'№')
+	date		= models.DateField(null=False, blank=False, verbose_name=u'Дата')
+	common		= models.BooleanField(null=False, blank=False, default=False, verbose_name=u'Общеее')
+	agenda		= models.CharField(max_length=100, null=False, blank=False, verbose_name=u'Повестка')
+	log		= models.TextField(null=True, blank=True, verbose_name=u'Протокол')
+	orgs		= models.ManyToManyField(Org, through='MeetingOrg', verbose_name=u'Организации')
+	_xmlname	= u'meeting'
+	def	asstr(self):
+		return u'%s %s' % (self.date, self.agenda)
+	def	__unicode__(self):
+		return self.asstr()
+	class	Meta:
+		ordering = ('date',)
+		verbose_name		= u'Заседание'
+		verbose_name_plural	= u'Заседания'
+	def	exml(self):
+		return u'\t<%s id="%d" date="%s" agenda="%s" log="%s"/>\n' % (self._xmlname, self.id, self.date, self.agenda, self.log)
+
+class	MeetingOrg(models.Model):
+	meeting		= models.ForeignKey(Meeting, verbose_name=u'Заседание')
+	org		= models.ForeignKey(Org, verbose_name=u'Организация')
+	_xmlname	= u'meetingorg'
+	def	asstr(self):
+		return self.org.asstr()
+	def	__unicode__(self):
+		return self.asstr()
+	class	Meta:
+		ordering = ('meeting',)
+		verbose_name		= u'Заседание.Организация'
+		verbose_name_plural	= u'Заседание.Организации'
+		unique_together		= [('meeting', 'org')]
+	def	exml(self):
+		return ''
+
 class	Permit(models.Model):
 	org		= models.ForeignKey(Org, verbose_name=u'Организация')
-	regno		= models.PositiveIntegerField(null=False, blank=False, unique=True, verbose_name=u'№')
+	regno		= models.PositiveIntegerField(null=False, blank=False, unique=False, verbose_name=u'№')
 	date		= models.DateField(null=True, blank=True, verbose_name=u'Выдано')
+	meeting		= models.ForeignKey(Meeting, null=True, blank=True, verbose_name=u'Заседание')
 	stages		= models.ManyToManyField(Stage, through='PermitStage', verbose_name=u'Виды работ')
 	#stages		= CheckBoxManyToMany(Stage, through='PermitStage', verbose_name=u'Виды работ')
 	_xmlname	= u'permit'
@@ -580,40 +616,6 @@ class	PermitStageJob(models.Model):
 	def	exml(self):
 		return ''
 
-class	Meeting(models.Model):
-	regno		= models.PositiveIntegerField(null=False, blank=False, unique=True, verbose_name=u'№')
-	date		= models.DateField(null=False, blank=False, verbose_name=u'Дата')
-	common		= models.BooleanField(null=False, blank=False, default=False, verbose_name=u'Заседание членов')
-	agenda		= models.CharField(max_length=100, null=False, blank=False, verbose_name=u'Повестка')
-	log		= models.TextField(null=True, blank=True, verbose_name=u'Протокол')
-	orgs		= models.ManyToManyField(Org, through='MeetingOrg', verbose_name=u'Организации')
-	_xmlname	= u'meeting'
-	def	asstr(self):
-		return u'%s %s' % (self.date, self.agenda)
-	def	__unicode__(self):
-		return self.asstr()
-	class	Meta:
-		ordering = ('date',)
-		verbose_name		= u'Заседание'
-		verbose_name_plural	= u'Заседания'
-	def	exml(self):
-		return u'\t<%s id="%d" date="%s" agenda="%s" log="%s"/>\n' % (self._xmlname, self.id, self.date, self.agenda, self.log)
-
-class	MeetingOrg(models.Model):
-	meeting		= models.ForeignKey(Meeting, verbose_name=u'Заседание')
-	org		= models.ForeignKey(Org, verbose_name=u'Организация')
-	_xmlname	= u'meetingorg'
-	def	asstr(self):
-		return self.org.asstr()
-	def	__unicode__(self):
-		return self.asstr()
-	class	Meta:
-		ordering = ('meeting',)
-		verbose_name		= u'Заседание.Организация'
-		verbose_name_plural	= u'Заседание.Организации'
-		unique_together		= [('meeting', 'org')]
-	def	exml(self):
-		return ''
 
 modellist = (
 	Okopf, Okved, Speciality, Skill, Stage, Job, File, EventType, Role, Person,
