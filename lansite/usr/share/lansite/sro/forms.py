@@ -27,8 +27,8 @@ class	OrgLicenseForm(forms.ModelForm):
 
 class	OrgInsuranceForm(forms.ModelForm):
 	insdate		= forms.DateField(input_formats=['%d.%m.%Y', '%d/%m/%Y'], widget=forms.widgets.DateTimeInput(format='%d.%m.%Y'), label='Дата договора')
-	datefrom	= forms.DateField(input_formats=['%d.%m.%Y', '%d/%m/%Y'], widget=forms.widgets.DateTimeInput(format='%d.%m.%Y'), label='Старховка с')
-	datetill	= forms.DateField(input_formats=['%d.%m.%Y', '%d/%m/%Y'], widget=forms.widgets.DateTimeInput(format='%d.%m.%Y'), label='Страховка по')
+	datefrom	= forms.DateField(input_formats=['%d.%m.%Y', '%d/%m/%Y'], widget=forms.widgets.DateTimeInput(format='%d.%m.%Y'), label='Старховка с', required=False)
+	datetill	= forms.DateField(input_formats=['%d.%m.%Y', '%d/%m/%Y'], widget=forms.widgets.DateTimeInput(format='%d.%m.%Y'), label='Страховка по', required=False)
 	class	Meta:
 		model = OrgInsurance
 		fields = ('insurer', 'insno', 'insdate', 'insum', 'datefrom', 'datetill',)
