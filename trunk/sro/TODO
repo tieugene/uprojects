@@ -81,3 +81,18 @@ Future:
 	* regdate - option
 	* datekf - option
 	* 
+9908:
+	* в месте учебы (окошке) мало места для названия учебного заведения
+	* и в других окошках тоже.
+	* Откуда вы коды специальностей взяли?
+	* Я свои спец-ти ввожу, где мне их посмотреть?
+	* Потом, они не встают по алфавиту, а хотелось бы.
+9A04:
+	* Change DB:
+		* [./manage.py sql sro > old.sql]
+		* ./manage.py dumpdata --format=json --indent=1 sro > sro.json
+		* rm -f /mnt/shares/lansite/db/lansite.db
+		* ./manage.py syncdb
+		* ./manage.py loaddata sro.json
+0A09:
+	* semauto upload

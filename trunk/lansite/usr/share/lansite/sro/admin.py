@@ -11,6 +11,10 @@ from models import *
 from rfm import ReadOnlyAdminFields
 
 # 1. Inlines
+class	InsurerInLine(admin.TabularInline):
+	model		= Insurer
+	extra		= 1
+
 class	OkatoInLine(admin.TabularInline):
 	model		= Okato
 	extra		= 1
@@ -39,6 +43,22 @@ class	JobInLine(admin.TabularInline):
 	model		= Job
 	extra		= 1
 
+class	FileInLine(admin.TabularInline):
+	model		= File
+	extra		= 1
+
+class	EventTypeInLine(admin.TabularInline):
+	model		= EventType
+	extra		= 1
+
+class	RoleInLine(admin.TabularInline):
+	model		= Role
+	extra		= 1
+
+class	PersonInLine(admin.TabularInline):
+	model		= Person
+	extra		= 1
+
 class	PersonSkillInLine(admin.TabularInline):
 	model		= PersonSkill
 	extra		= 1
@@ -46,6 +66,10 @@ class	PersonSkillInLine(admin.TabularInline):
 
 class	PersonFileInLine(admin.TabularInline):
 	model		= PersonFile
+	extra		= 1
+
+class	OrgInLine(admin.TabularInline):
+	model		= Org
 	extra		= 1
 
 class	PermitInLine(admin.TabularInline):
@@ -102,6 +126,10 @@ class	OrgInsuranceInLine(admin.TabularInline):
 	model = OrgInsurance
 	extra = 1
 
+class	MeetingInLine(admin.TabularInline):
+	model = Meeting
+	extra = 1
+
 class	MeetingOrgInLine(admin.TabularInline):
 	model = MeetingOrg
 	extra = 1
@@ -118,14 +146,14 @@ class	OkatoAdmin(admin.ModelAdmin):
 	search_fields	= ('name',)
 
 class	OkopfAdmin(admin.ModelAdmin):
-	list_display	= ('id', 'name', 'shortname', 'disabled')
+	list_display	= ('id', 'name', 'shortname', 'disabled', 'parent')
 	ordering	= ('id',)
 	search_fields	= ('shorname',)
 	inlines		= (OkopfInLine,)
 	#raw_id_fields	= ('parent',)
 
 class	OkvedAdmin(admin.ModelAdmin):
-	list_display	= ('id', 'name')
+	list_display	= ('id', 'name', 'parent')
 	ordering	= ('id',)
 	search_fields	= ('name',)
 	inlines		= (OkvedInLine,)
@@ -134,12 +162,13 @@ class	SpecialityAdmin(admin.ModelAdmin):
 	list_display	= ('name',)
 	ordering	= ('name',)
 	search_fields	= ('name',)
+	inlines		= (PersonSkillInLine,)
 
 class	SkillAdmin(admin.ModelAdmin):
 	list_display	= ('name',)
 	ordering	= ('name',)
 	search_field	= ('name',)
-	#raw_id_fields	= ('okso',)
+	inlines		= (PersonSkillInLine,)
 
 class	StageAdmin(admin.ModelAdmin):
 	list_display	= ('id', 'name', 'hq', 'hs', 'mq', 'ms')
@@ -173,7 +202,7 @@ class	OrgAdmin(admin.ModelAdmin):
 	#}
 
 class	PermitAdmin(admin.ModelAdmin):
-	list_display	= ('org', 'regno', 'date',)
+	list_display	= ('org', 'regno', 'date', 'meeting')
 	list_filter	= ('org',)
 	ordering	= ('org', 'regno',)
 	inlines		= (PermitStageInLine,)
@@ -191,14 +220,14 @@ class	OrgEventAdmin(admin.ModelAdmin):
 	ordering	= ('org', 'type',)
 
 class	FileAdmin(ReadOnlyAdminFields, admin.ModelAdmin):
-	list_display = ('name', 'comments', 'saved', 'mime')
-	inlines = (PersonFileInLine, OrgFileInLine,)
-	readonly = ('name', 'mime')
+	list_display	= ('name', 'comments', 'saved', 'mime')
+	inlines		= (PersonFileInLine, OrgFileInLine,)
+	readonly	= ('name', 'mime')
 
 class	MeetingAdmin(admin.ModelAdmin):
-	list_display = ('regno', 'date', 'common', 'agenda')
-	inlines = (MeetingOrgInLine,)
-	date_hierarchy = 'date'
+	list_display	= ('regno', 'date', 'common', 'agenda')
+	inlines		= (MeetingOrgInLine, PermitInLine,)
+	date_hierarchy	= 'date'
 
 admin.site.register(Insurer,		InsurerAdmin)
 admin.site.register(Okato,		OkatoAdmin)
