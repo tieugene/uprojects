@@ -535,7 +535,7 @@ class	OrgInsurance(models.Model):
 class	Meeting(models.Model):
 	regno		= models.PositiveIntegerField(null=False, blank=False, unique=False, verbose_name=u'№')
 	date		= models.DateField(null=False, blank=False, verbose_name=u'Дата')
-	common		= models.BooleanField(null=False, blank=False, default=False, verbose_name=u'Общеее')
+	common		= models.BooleanField(null=False, blank=False, default=False, verbose_name=u'Общее')
 	agenda		= models.CharField(max_length=100, null=False, blank=False, verbose_name=u'Повестка')
 	log		= models.TextField(null=True, blank=True, verbose_name=u'Протокол')
 	orgs		= models.ManyToManyField(Org, through='MeetingOrg', verbose_name=u'Организации')
@@ -618,7 +618,7 @@ class	PermitStageJob(models.Model):
 
 
 modellist = (
-	Okopf, Okved, Speciality, Skill, Stage, Job, File, EventType, Role, Person,
-	PersonSkill, PersonFile, Org, OrgOkved, OrgPhone, OrgEmail, OrgWWW, OrgStuff, OrgEvent, OrgFile,
-	OrgLicense, OrgInsurance, Permit, PermitStage, PermitStageJob, Meeting, MeetingOrg,
+	Insurer, Okato, Okopf, Okved, Speciality, Skill, Stage, Job, File, EventType,
+	Role, Person, PersonSkill, PersonFile, Org, OrgOkved, OrgPhone, OrgEmail, OrgWWW, OrgStuff,
+	OrgEvent, OrgFile, OrgLicense, OrgInsurance, Meeting, MeetingOrg, Permit, PermitStage, PermitStageJob,
 )
