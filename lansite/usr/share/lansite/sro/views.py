@@ -381,6 +381,37 @@ def	permit_edit(request, perm_id, stage_id):
 			jobs.append((j, j.id in myjobs))
 		return render_to_response('sro/permit_edit.html', { 'permit': perm, 'stage': stage, 'sflag': sflag, 'jobs': jobs })
 
+def	__strdate(d):
+	__mon = [
+		u'января',
+		u'февраля',
+		u'марта',
+		u'апреля',
+		u'мая',
+		u'июня',
+		u'июля',
+		u'августа',
+		u'сентября',
+		u'октября',
+		u'ноября',
+		u'декабря',
+	]
+	return u'«%02d» %s %d года' % (d.day, __mon[d.month - 1], d.year)
+
+def	permit_html(request, perm_id):
+	perm = Permit.objects.get(pk=perm_id)
+	data = dict()
+	data['no']		= u'%d-%02d' % (perm.org.sroregno, perm.regno)
+	data['date']		= __strdate(perm.date)
+	data['name']		= perm.org.okopf.name + ' ' + perm.org.name
+	data['inn']		= perm.org.inn
+	data['ogrn']		= perm.org.ogrn
+	data['address']		= perm.org.laddress
+	data['protono']		= perm.meeting.regno
+	data['protodate']	= __strdate(perm.meeting.date)
+	data['stage']		= perm.stages.all()
+	return render_to_response('sro/permit_html.html', { 'data': data })
+
 def	person_list(request):
 	person_list = Person.objects.all().order_by('lastname')
 	return render_to_response('sro/person_list.html', {'person_list': person_list})
