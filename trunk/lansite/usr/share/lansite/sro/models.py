@@ -69,6 +69,7 @@ class	Okopf(models.Model):
 	id		= models.PositiveSmallIntegerField(primary_key=True, verbose_name=u'Код')
 	name		= models.CharField(max_length=100, blank=False, unique=True, verbose_name=u'Наименование')
 	shortname	= models.CharField(max_length=10, null=True, blank=True, verbose_name=u'Краткое наименование')
+	namedp		= models.CharField(max_length=100, blank=True, unique=False, verbose_name=u'Наименование (д.п.)')
 	disabled	= models.BooleanField(blank=False, verbose_name=u'Не выбирать')
 	parent		= models.ForeignKey('self', null=True, verbose_name=u'Группа')
 	_xmlname	= u'okopf'
@@ -541,7 +542,7 @@ class	Meeting(models.Model):
 	orgs		= models.ManyToManyField(Org, through='MeetingOrg', verbose_name=u'Организации')
 	_xmlname	= u'meeting'
 	def	asstr(self):
-		return u'%s %s' % (self.date, self.agenda)
+		return u'%d, %s' % (self.regno, self.date)
 	def	__unicode__(self):
 		return self.asstr()
 	class	Meta:

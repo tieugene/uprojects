@@ -11,6 +11,7 @@ from django.utils.encoding import StrAndUnicode, force_unicode, smart_unicode, s
 from xml.sax import handler, make_parser
 from datetime import datetime
 import ftplib, netrc, tempfile
+from trml2pdf import trml2pdf
 
 import pprint
 
@@ -324,10 +325,12 @@ def	permit_list(request, perm_id):
 		#return HttpResponseRedirect('.')	# FIXME:
 	#else:	# GET
 	mystages = {}
+	jcount = 0
 	for ps in PermitStage.objects.filter(permit=perm):
 		myjobs = dict()
 		for j in PermitStageJob.objects.filter(permitstage=ps):
 			myjobs[j.job.id] = True
+			jcount += 1
 		mystages[ps.stage.id] = myjobs
 	stages = []		# [(stage, flag, jobs),]
 	for s in Stage.objects.all():
@@ -341,7 +344,7 @@ def	permit_list(request, perm_id):
 				jobs.append((j, False))
 		stages.append((s, sflag, jobs))
 	#pprint.pprint(stages)
-	return render_to_response('sro/permit_list.html', { 'permit': perm, 'stages': stages })
+	return render_to_response('sro/permit_list.html', { 'permit': perm, 'stages': stages, 'jcount': jcount })
 
 @transaction.commit_manually
 def	permit_edit(request, perm_id, stage_id):
@@ -398,19 +401,39 @@ def	__strdate(d):
 	]
 	return u'«%02d» %s %d года' % (d.day, __mon[d.month - 1], d.year)
 
-def	permit_html(request, perm_id):
+def	__load_permit(perm_id):
 	perm = Permit.objects.get(pk=perm_id)
 	data = dict()
 	data['no']		= u'%d-%02d' % (perm.org.sroregno, perm.regno)
 	data['date']		= __strdate(perm.date)
-	data['name']		= perm.org.okopf.name + ' ' + perm.org.name
+	data['name']		= perm.org.okopf.namedp + ' ' + perm.org.fullname
 	data['inn']		= perm.org.inn
 	data['ogrn']		= perm.org.ogrn
 	data['address']		= perm.org.laddress
 	data['protono']		= perm.meeting.regno
 	data['protodate']	= __strdate(perm.meeting.date)
 	data['stage']		= perm.stages.all()
-	return render_to_response('sro/permit_html.html', { 'data': data })
+	return data
+
+def	permit_html(request, perm_id):
+	return render_to_response('sro/permit_html.html', { 'data': __load_permit(perm_id) })
+
+def	pdf_render_to_response(template, context, filename=None):
+	response = HttpResponse(mimetype='application/pdf')
+	if not filename:
+		filename = template+'.pdf'
+	cd = []
+	cd.append('filename=%s' % filename)
+	response['Content-Disposition'] = '; '.join(cd)
+	tpl = loader.get_template(template)
+	tc = {'filename': filename}
+	tc.update(context)
+	response.write(trml2pdf.parseString(tpl.render(Context(tc)).encode('utf-8')))
+	return response
+
+def	permit_pdf(request, perm_id):
+	data = __load_permit(perm_id)
+	return pdf_render_to_response('sro/permit.rml', {'data': data}, filename=data['no'] + '.pdf')
 
 def	person_list(request):
 	person_list = Person.objects.all().order_by('lastname')

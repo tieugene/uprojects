@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE document SYSTEM "rml_1_0.dtd">
+<document filename="svid.pdf">
+<docinit>
+	<registerFont fontName="Sans" fontFile="arial.ttf"/>
+	<registerFont fontName="Sans-Bold" fontFile="arialbd.ttf"/>
+</docinit>
+<template pageSize="(21cm, 29.7cm)" title="Svid" showBoundary="1">
+		<pageTemplate id="main">
+			<frame id="main"	x1="3.5cm" y1="7.5cm" width="14cm" height="12.5cm"/>
+			<frame id="footer"	x1="4.0cm" y1="5cm" width="13cm" height="2.5cm"/>
+		</pageTemplate>
+		<pageTemplate id="even">
+			<frame id="no"		x1="2cm" y1="2cm" width="17cm" height="26cm"/>
+		</pageTemplate>
+		<pageTemplate id="odd">
+			<pageGraphics>
+				<setFont name="Sans" size="11"/>
+				<drawCentredString x="13cm" y="27cm"> {{ data.no }} </drawCentredString>
+			</pageGraphics>
+			<frame id="no"		x1="2cm" y1="2cm" width="17cm" height="24cm"/>
+		</pageTemplate>
+</template>
+<stylesheet>
+<initialize>
+</initialize>
+<paraStyle
+	name="style1"
+	fontName="Sans"
+	fontSize="11"
+	alignment="justify"
+	spaceAfter="11"
+/>
+<paraStyle
+	name="style2"
+	fontName="Sans"
+	fontSize="11"
+	alignment="justify"
+	spaceAfter="0"
+/>
+<paraStyle
+	name="style3"
+	fontName="Sans-Bold"
+	fontSize="11"
+	alignment="justify"
+	spaceAfter="0"
+/>
+<paraStyle
+	name="style4"
+	fontName="Sans"
+	fontSize="11"
+	alignment="justify"
+	spaceAfter="0"
+/>
+</stylesheet>
+
+<story>
+	<para style="style1" alignment="center">
+		№ {{ data.no }}
+	</para>
+	<para style="style1" alignment="center">
+		Начало действия с {{ data.date }}
+	</para>
+	<para style="style1">
+		Выдано члену саморегулируемой организации
+	</para>
+	<para style="style1" fontName="Sans-Bold">
+		{{ data.name }}
+	</para>
+	<para style="style1">
+		ИНН {{ data.inn }}, ОГРН {{ data.ogrn }}, местонахождение: {{ data.address }}
+	</para>
+	<para style="style1" spaceAfter="0">
+		Основание выдачи Свидетельства:
+	</para>
+	<para style="style1">
+		решение Правления Некоммерческого партнерства саморегулируемой организации «Межрегиональное объединение организаций железнодорожного строительства», протокол №{{ data.protono }} от {{ data.protodate }}.
+	</para>
+	<para style="style1">
+		Настоящим Свидетельством подтверждается допуск к работам, которые оказывают влияние на безопасность объектов капитального строительства, перечень которых указан в приложении к Свидетельству.
+	</para>
+	<para style="style1">
+		Свидетельство выдано без ограничения срока и территории его действия.
+	</para>
+	<para style="style1">
+		Настоящее Свидетельство без приложений не действительно.
+	</para>
+	<nextFrame/>
+	<blockTable>
+		<tr>
+			<td> <para style="style1"> Председатель<br/>Правления </para> </td>
+			<td> <para alignment="center"> ________________ </para> </td>
+			<td> <para style="style1" alignment="right"> Г.Н. Талашкин </para> </td>
+		</tr>
+		<tr> <td/> <td>	<para style="style1" alignment="center"> МП </para> </td> <td/> </tr>
+	</blockTable>
+<setNextTemplate name="even,odd"/>
+{% for stage in data.stage %}
+	<para style="style3"> {{ stage.id }}. {{ stage.name }} </para>
+	{% for job in stage.job_set.all %}
+		<para style="style4"> {{ job.okdp }}: {{ job.name }} </para>
+	{% endfor %}
+{% endfor %}
+</story>
+</document>
