@@ -52,6 +52,10 @@ function SelectAll (state) {
 		<td align="center" colspan="2"> <input type="submit" value="Записать"/> </td>
 	</tr>
 </table>
-<input type="button" value="Печать" title="Напечатать разрешение" onClick="window.location.href='{% url lansite.sro.views.permit_html permit.id %}'"/>
+<p>
+<input type="button" value="HTML" title="Напечатать разрешение (HTML)" onClick="window.location.href='{% url lansite.sro.views.permit_html permit.id %}'"/>
+<input type="button" value="PDF" title="Напечатать разрешение (PDF)" onClick="window.location.href='{% url lansite.sro.views.permit_pdf permit.id %}'"/>
+</p>
 </form>
+<p> Итого: {{ jcount }} работ </p>
 {% endblock %}

@@ -146,7 +146,7 @@ class	OkatoAdmin(admin.ModelAdmin):
 	search_fields	= ('name',)
 
 class	OkopfAdmin(admin.ModelAdmin):
-	list_display	= ('id', 'name', 'shortname', 'disabled', 'parent')
+	list_display	= ('id', 'name', 'shortname', 'namedp', 'disabled', 'parent')
 	ordering	= ('id',)
 	search_fields	= ('shorname',)
 	inlines		= (OkopfInLine,)
