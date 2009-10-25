@@ -542,7 +542,7 @@ class	Meeting(models.Model):
 	orgs		= models.ManyToManyField(Org, through='MeetingOrg', verbose_name=u'Организации')
 	_xmlname	= u'meeting'
 	def	asstr(self):
-		return u'%d, %s' % (self.regno, self.date)
+		return u'№ %d от %s' % (self.regno, self.date)
 	def	__unicode__(self):
 		return self.asstr()
 	class	Meta:

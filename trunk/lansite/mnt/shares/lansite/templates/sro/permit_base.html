@@ -16,14 +16,18 @@
 {% endblock %}
 <hr/>
 <h1> Основные данные: </h1>
+{% block main %}
 <table border="0">
 	<tr> <td> Организация: </td>	<td> {{ permit.org.asstr }} </td> </tr>
 	<tr> <td> Реестровый №: </td>	<td> {{ permit.regno }} </td> </tr>
 	<tr> <td> Дата: </td>		<td> {{ permit.date|date }} </td> </tr>
+	<tr> <td> Протокол: </td>	<td> № {{ permit.meeting.regno }} от {{ permit.meeting.date|date }} </td> </tr>
 </table>
+{% endblock %}
+{% block editmain %} {% endblock %}
 <hr/>
 <h1> Виды работ: </h1>
-{% block main %}
+{% block stages %}
 {% endblock %}
 </body>
 </html>

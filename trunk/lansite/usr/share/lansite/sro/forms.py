@@ -8,6 +8,7 @@ class	ImportForm(forms.Form):
 	file  = forms.FileField()
 
 class	OrgMainForm(forms.ModelForm):
+	fullname	= forms.CharField(label='Полное наименование', widget=forms.Textarea)
 	egruldate	= forms.DateField(input_formats=['%d.%m.%Y', '%d/%m/%Y'], widget=forms.widgets.DateTimeInput(format='%d.%m.%Y'), label='Дата регистрации в ЕГРЮЛ', required=False)
 	laddress	= forms.CharField(label='Юридический адрес', widget=forms.Textarea)
 	raddress	= forms.CharField(label='Фактический адрес', widget=forms.Textarea, required=False)
@@ -19,6 +20,7 @@ class	OrgMainForm(forms.ModelForm):
 		exclude = ('okveds', 'events', 'stuffs', 'files')
 
 class	OrgLicenseForm(forms.ModelForm):
+	no		= forms.CharField(label='Номер', widget=forms.Textarea)
 	datefrom	= forms.DateField(input_formats=['%d.%m.%Y', '%d/%m/%Y'], widget=forms.widgets.DateTimeInput(format='%d.%m.%Y'), label='Действует с')
 	datedue		= forms.DateField(input_formats=['%d.%m.%Y', '%d/%m/%Y'], widget=forms.widgets.DateTimeInput(format='%d.%m.%Y'), label='Действительна до')
 	class	Meta:
@@ -63,7 +65,7 @@ class	PermitForm(forms.ModelForm):
 	date	= forms.DateField(input_formats=['%d.%m.%Y', '%d/%m/%Y'], widget=forms.widgets.DateTimeInput(format='%d.%m.%Y'))
 	class	Meta:
 		model = Permit
-		fields = ('regno', 'date',)
+		fields = ('regno', 'date', 'meeting')
 
 class	PersonMainForm(forms.ModelForm):
 	class	Meta:

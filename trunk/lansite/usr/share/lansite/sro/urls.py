@@ -1,7 +1,10 @@
 # -*- coding: utf-8 -*-
+'''
+SRO URLs
+'''
 from django.conf.urls.defaults import *
 from django.contrib import databrowse
-from django.contrib.auth.views import login, logout
+#from django.contrib.auth.views import login, logout
 #import django.views.generic
 from models import *
 
@@ -20,8 +23,10 @@ urlpatterns = patterns('lansite.sro.views',
 	(r'^org/(?P<org_id>\d+)/$',					'org_view'),
 	(r'^org/(?P<org_id>\d+)/edit/main/$',				'org_edit_main'),
 	(r'^org/(?P<org_id>\d+)/license/add/$',				'org_license_add'),
+	(r'^org/(?P<org_id>\d+)/license/edit/$',			'org_license_edit'),
 	(r'^org/(?P<org_id>\d+)/license/del/$',				'org_license_del'),
 	(r'^org/(?P<org_id>\d+)/insurance/add/$',			'org_insurance_add'),
+	(r'^org/(?P<org_id>\d+)/insurance/edit/$',			'org_insurance_edit'),
 	(r'^org/(?P<org_id>\d+)/insurance/del/$',			'org_insurance_del'),
 	(r'^org/(?P<org_id>\d+)/edit/okved/$',				'org_edit_okved'),
 	(r'^org/(?P<org_id>\d+)/edit/okved/(?P<item_id>\d+)/del/$',	'org_edit_okved_del'),
@@ -44,9 +49,10 @@ urlpatterns = patterns('lansite.sro.views',
 	(r'^org/(?P<org_id>\d+)/del/$',					'org_del'),
 	(r'^org/add/$',							'org_add'),
 	(r'^permit/(?P<perm_id>\d+)/$',					'permit_list'),
+	(r'^permit/(?P<perm_id>\d+)/edit/$',				'permit_edit'),
 	(r'^permit/(?P<perm_id>\d+)/html/$',				'permit_html'),
 	(r'^permit/(?P<perm_id>\d+)/pdf/$',				'permit_pdf'),
-	(r'^permit/(?P<perm_id>\d+)/(?P<stage_id>\d+)/edit/$',		'permit_edit'),
+	(r'^permit/(?P<perm_id>\d+)/(?P<stage_id>\d+)/edit/$',		'permit_edit_stage'),
 	(r'^person/$', 							'person_list'),
 	(r'^person/(?P<person_id>\d+)/del/$',				'person_del'),
 	(r'^person/(?P<person_id>\d+)/$',				'person_view'),
@@ -63,6 +69,6 @@ urlpatterns = patterns('lansite.sro.views',
 	(r'^myimport/$', 'ixml'),
 	(r'^delete/$', 'deleteall'),
 	(r'^databrowse/(.*)', databrowse.site.root),
-	(r'^accounts/login/$',  login),
-	(r'^accounts/logout/$', logout),
+#	(r'^login/$',  login),
+#	(r'^logout/$', logout),
 )

@@ -4,17 +4,19 @@
 		<tr>
 			<th> № </th>
 			<th> Дата </th>
-			<th/>
+			<th> Протокол </th>
 			<th/>
 		</tr>
 	{% for i in permit %}
 		<tr>
 			<td> {{ i.regno }} </td>
 			<td> {{ i.date|date }} </td>
-			<td> <input type="button" value="X" onClick="confirmDelete('{% url lansite.sro.views.org_edit_permit_del org.id, i.id %}#permit')"/> </td>
+			<td> {{ i.meeting.asstr }} </td>
+			<td> {% if perms.sro.delete_permit %} <input type="button" value="X" onClick="confirmDelete('{% url lansite.sro.views.org_edit_permit_del org.id, i.id %}#permit')"/> {% endif %} </td>
 		</tr>
 	{% endfor %}
 	<!-- add -->
+	{% if perms.sro.add_permit %}
 	<form action=".#permit" method="POST">
 	<tr>
 		<td>
@@ -29,10 +31,16 @@
 				{{ form.date }}
 			</div>
 		</td>
+		<td>
+			<div class="fieldWrapper">
+				{{ form.meeting.errors }}
+				{{ form.meeting }}
+			</div>
+		</td>
 		<td> <input type="submit" value="+" /> </td>
-		<!-- <a href="javascript:document.formname­ .submit()">+</a> -->
 	</tr>
 	</form>
+	{% endif %}
 	</table>
-	<input type="button" value="Закончить" onClick="window.location.href='{% url lansite.sro.views.org_view org.id %}#okved'"/>
+	<input type="button" value="Закончить" onClick="window.location.href='{% url lansite.sro.views.org_view org.id %}#permit'"/>
 {% endblock %}
