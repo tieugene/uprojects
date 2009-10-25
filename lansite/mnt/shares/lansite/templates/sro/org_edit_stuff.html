@@ -16,10 +16,11 @@
 			<td> {{ i.role.asstr }} </td>
 			<td align="center"> [{% ifequal i.leader 1 %} V {% else %} &nbsp; {% endifequal %}] </td>
 			<td align="center"> [{% ifequal i.permanent 1 %} V {% else %} &nbsp; {% endifequal %}] </td>
-			<td> <input type="button" value="X" title="Удалить" onClick="confirmDelete('{% url lansite.sro.views.org_edit_stuff_del org.id, i.id %}#stuff')"/> </td>
+			<td> {% if perms.sro.delete_orgstuff %} <input type="button" value="X" title="Удалить" onClick="confirmDelete('{% url lansite.sro.views.org_edit_stuff_del org.id, i.id %}#stuff')"/> {% endif %} </td>
 		</tr>
 	{% endfor %}
 	<!-- add -->
+	{% if perms.sro.add_orgstuff %}
 		<form action=".#stuff" method="POST">
 		<tr>
 			<td>
@@ -51,12 +52,14 @@
 			</td>
 		</tr>
 		</form>
+	{% endif %}
 		<tr bgcolor="lightgrey">
 			<th> ФИО </th>
 			<th> Должность </th>
 			<th colspan="2"/>
 		</tr>
 		<tr>
+		{% if perms.sro.add_person %}
 			<td colspan>
 				<form action="add_person/#stuff" method="POST">
 				<div class="fieldWrapper">
@@ -77,6 +80,8 @@
 				<center><input type="submit" value="Добавить в список" title="Добавить нового человека"/></center>
 				</form>
 			</td>
+		{% endif %}
+		{% if perms.sro.add_role %}
 			<td valign="top">
 				<form action="add_role/#stuff" method="POST">
 				<div class="fieldWrapper">
@@ -92,6 +97,7 @@
 				<center><input type="submit" value="Добавить в список" title="Добавить новую должность"/></center>
 				</form>
 			</td>
+		{% endif %}
 			<td/>
 		</tr>
 	</table>

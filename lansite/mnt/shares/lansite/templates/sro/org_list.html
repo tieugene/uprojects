@@ -26,13 +26,15 @@ function confirmDelete(delUrl) {
 		<tr>
 			<td> {{ forloop.counter }} </td>
 			<td>  <a href="{% url lansite.sro.views.org_view org.id %}" title="{{ org.fullname }}">{{ org.name }} </td>
-			<td> <input type="button" value="X" title="Удалить" onClick="confirmDelete('{% url lansite.sro.views.org_del org.id %}')"/> </td>
+			<td> {% if perms.sro.delete_org %} <input type="button" value="X" title="Удалить" onClick="confirmDelete('{% url lansite.sro.views.org_del org.id %}')"/>  {% endif %} </td>
 		</tr>
 	{% endfor %}
 	</tbody>
 	</table>
 {% endif %}
+{% if perms.sro.add_org %}
 <input type="button" value="+" title="Добавить" onClick="window.location.href='{% url lansite.sro.views.org_add %}'"/>
+{% endif %}
 <hr/>
 <p>
 	<a title="Список организаций для размещения на вебсайте" href="{% url lansite.sro.views.org_publish %}"> Просмотр </a>
