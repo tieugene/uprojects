@@ -1,0 +1,5 @@
+#!/bin/sh
+echo "`date` DEL: $HAL_PROP_BLOCK_DEVICE" >> /var/log/myhal
+umount -f -l /mnt/usbstick
+service postgresql stop
+umount -f -l /mnt/cryptfs && cryptsetup luksClose /dev/mapper/cryptfs

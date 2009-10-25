@@ -1,0 +1,3 @@
+#!/bin/sh
+echo "`date` ADD: $HAL_PROP_BLOCK_DEVICE" >> /var/log/myhal
+mount $HAL_PROP_BLOCK_DEVICE /mnt/usbstick

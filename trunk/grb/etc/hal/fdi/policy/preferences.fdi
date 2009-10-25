@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<deviceinfo version="2.0">
+	<device>
+		<match key="volume.uuid" string="4663-F86C">
+			<append key="info.callouts.add" type="strlist">rb_add</append>
+			<append key="info.callouts.remove" type="strlist">rb_remove</append>
+		</match>
+	</device>
+</deviceinfo>
