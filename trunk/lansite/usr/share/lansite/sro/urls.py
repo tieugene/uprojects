@@ -69,6 +69,6 @@ urlpatterns = patterns('lansite.sro.views',
 	(r'^myimport/$', 'ixml'),
 	(r'^delete/$', 'deleteall'),
 	(r'^databrowse/(.*)', databrowse.site.root),
-	(r'^login/$',  login),
+#	(r'^login/$',  login),
 #	(r'^logout/$', logout),
 )
