@@ -4,7 +4,7 @@ SRO URLs
 '''
 from django.conf.urls.defaults import *
 from django.contrib import databrowse
-#from django.contrib.auth.views import login, logout
+from django.contrib.auth.views import login, logout
 #import django.views.generic
 from models import *
 
@@ -69,6 +69,6 @@ urlpatterns = patterns('lansite.sro.views',
 	(r'^myimport/$', 'ixml'),
 	(r'^delete/$', 'deleteall'),
 	(r'^databrowse/(.*)', databrowse.site.root),
-#	(r'^login/$',  login),
+	(r'^login/$',  login),
 #	(r'^logout/$', logout),
 )

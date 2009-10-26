@@ -26,6 +26,7 @@ from impex import *
 def	index(request):
 	if not request.user.is_authenticated():
 		return HttpResponseRedirect('../login/?next=%s' % request.path)
+		#return HttpResponseRedirect('../login/')
 	#print request.user.username
 	return render_to_response('sro/index.html', context_instance=RequestContext(request))
 
