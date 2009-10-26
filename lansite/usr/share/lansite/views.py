@@ -7,6 +7,7 @@ from django.core.urlresolvers import reverse
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader, Context, RequestContext
 from django.db import transaction
+from django.contrib.auth import logout
 
 def     index(request):
 	#if not request.user.is_authenticated():
@@ -15,3 +16,7 @@ def     index(request):
 
 def	profile(request):
 	return index(request)
+
+def	logout_view(request):
+	logout(request)
+	return HttpResponseRedirect('../')
