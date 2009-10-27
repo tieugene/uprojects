@@ -423,7 +423,7 @@ def	permit_edit_stage(request, perm_id, stage_id):
 		jobs = []
 		for j in Job.objects.filter(stage=stage):
 			jobs.append((j, j.id in myjobs))
-		return render_to_response('sro/permit_edit.html', RequestContext(request, { 'permit': perm, 'stage': stage, 'sflag': sflag, 'jobs': jobs }))
+		return render_to_response('sro/permit_edit_stage.html', RequestContext(request, { 'permit': perm, 'stage': stage, 'sflag': sflag, 'jobs': jobs }))
 
 def	__strdate(d):
 	__mon = [
