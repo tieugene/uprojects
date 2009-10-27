@@ -474,11 +474,11 @@ def	pdf_render_to_response(template, context, filename=None):
 
 def	permit_pdf(request, perm_id):
 	data = __load_permit(perm_id)
-	return pdf_render_to_response('sro/permit.rml', RequestContext(request, {'data': data}, filename=data['no'] + '.pdf'))
+	return pdf_render_to_response('sro/permit.rml', RequestContext(request, {'data': data}), filename=data['no'] + '.pdf')
 
 def	person_list(request):
 	person_list = Person.objects.all().order_by('lastname')
-	return render_to_response('sro/person_list.html', {'person_list': person_list})
+	return render_to_response('sro/person_list.html', RequestContext(request, {'person_list': person_list}))
 
 def	person_del(request, person_id):
 	Person.objects.get(pk=person_id).delete()

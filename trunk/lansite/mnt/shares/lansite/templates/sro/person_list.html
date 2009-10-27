@@ -28,7 +28,7 @@ function confirmDelete(delUrl) {
 			<td> <a href="{% url lansite.sro.views.person_view person.id %}"> {{ person.lastname }} </a> </td>
 			<td>  {{ person.firstname }} </td>
 			<td>  {{ person.midname }} </td>
-			<td> <input type="button" value="X" title="Удалить" onClick="confirmDelete('{% url lansite.sro.views.person_del person.id %}')"/> </td>
+			<td> {% if perms.sro.delete_person %} <input type="button" value="X" title="Удалить" onClick="confirmDelete('{% url lansite.sro.views.person_del person.id %}')"/> {% endif %} </td>
 		</tr>
 	{% endfor %}
 	</tbody>

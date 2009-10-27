@@ -16,12 +16,13 @@
 			<td> {{ i.skill.name }} </td>
 			<td> {{ i.year }} </td>
 			<td> {{ i.school }} </td>
-			<td> <input type="button" value="X" title="Удалить" onClick="confirmDelete('{% url lansite.sro.views.person_skill_del person.id, i.id %}#stuff')"/> </td>
+			<td> {% if perms.sro.delete_personskill %} <input type="button" value="X" title="Удалить" onClick="confirmDelete('{% url lansite.sro.views.person_skill_del person.id, i.id %}#stuff')"/> {% endif %} </td>
 		</tr>
 	{% endfor %}
 	</table>
 <hr/>
 	<!-- add -->
+{% if perms.sro.add_personskill %}
 <table border="0"> <tr>
 <td>
 	<form action="." method="POST">
@@ -69,9 +70,11 @@
 	</table>
 	</form>
 </td>
+{% if perms.sro.add_speciality or perms.sro.add_skill %}
 <td valign="top">
 	<table border="0"> 
 		<tr> <td >
+			{% if perms.sro.add_speciality %}
 			<form action="add_speciality/" method="POST">
 				<div class="fieldWrapper">
 					<input type="submit" value="<" title="Добавить новую специальность" value="<"/>
@@ -79,6 +82,8 @@
 					{{ form_speciality.name }}
 				</div>
 			</form>
+			{% endif %}
+			{% if perms.sro.add_skill %}
 			<form action="add_skill/" method="POST">
 				<div class="fieldWrapper">
 					<input type="submit" value="<" title="Добавить новую квалификацию"/>
@@ -86,10 +91,13 @@
 					{{ form_skill.name }}
 				</div>
 			</form>
+			{% endif %}
 		</td> </tr>
 	</table>
 </td>
+{% endif %}
 </tr>
 </table>
+{% endif %}
 <input type="button" value="Закончить" onClick="window.location.href='{% url lansite.sro.views.person_view person.id %}#skill'"/>
 {% endblock %}
