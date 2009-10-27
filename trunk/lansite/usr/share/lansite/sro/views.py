@@ -51,22 +51,21 @@ def	org_list(request):
 	return render_to_response('sro/org_list.html', RequestContext(request, {'org_list': org_list}))
 
 def	org_publish(request):
-	org_list = Org.objects.all().order_by('name')
+	org_list = Org.objects.filter(public=True).order_by('name')
 	return render_to_response('sro/org_publish.html', RequestContext(request, {'org_list': org_list, 'dt': datetime.now().strftime('%d.%m.%Y %H:%M:%S')}))
 
 def	org_upload(request):
 	ftpname = 'ftp.moozs.ru'
-	org_list = Org.objects.all().order_by('name')
-	#hosts = netrc.netrc(MEDIA_ROOT + '/netrc').hosts
-	#if (not hosts.has_key(ftpname)):
-	#	return render_to_response('sro/upload_msg.html', {'msg': "Check netrc"})
+	org_list = Org.objects.filter(public=True).order_by('name')
+	hosts = netrc.netrc('netrc').hosts
+	if (not hosts.has_key(ftpname)):
+		return render_to_response('sro/upload_msg.html', {'msg': "Check netrc"})
 	t = loader.get_template('sro/org_publish.html')
 	html = t.render(Context({'org_list': org_list, 'dt': datetime.now().strftime('%d.%m.%Y %H:%M:%S')})).encode('windows-1251')
 	f = tempfile.TemporaryFile()
 	f.write(html)
 	f.seek(0)
-	#login, acct, password = hosts[ftpname]
-	login, password = ('npsts_posh', 'ouvlfscu')
+	login, acct, password = hosts[ftpname]
 	ftp = ftplib.FTP(ftpname, login, password)
 	ftp.storbinary('STOR /moozs.ru/docs/joom/images/members.htm', f)
 	ftp.quit()
