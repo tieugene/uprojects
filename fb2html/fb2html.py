@@ -24,7 +24,7 @@ class	FB2Handler(ContentHandler):
 			if (not self.drop):
 				s += u'<p>'
 				self.outtext = True
-		elif name in (	# drop complextype
+		elif name in (			# just replace
 			'annotation',
 			'author',
 			'body',
@@ -32,7 +32,7 @@ class	FB2Handler(ContentHandler):
 			'book-title'
 			):
 			pass
-		elif name in ('FictionBook',):	# just skip
+		elif name in ('FictionBook',):	# skipdown
 			pass
 		else:
 			print "Unknown element:", name
