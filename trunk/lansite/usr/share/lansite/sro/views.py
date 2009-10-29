@@ -47,8 +47,31 @@ def	dl_file(request, file_id, file_name):
 
 @login_required
 def	org_list(request):
+	if request.method == 'POST':
+		form = OrgListForm(request.POST, instance=org)
+		if form.is_valid():
+			pass
+			'''
+			If you want to add HTML attributes to the widget of a field, you need add them to the dictionary ``attrs``::
+
+			class ActionForm(forms.Form):
+				action=forms.ChoiceField(choices=(
+				    ("", "---"),
+				    ("edit", "Bearbeiten"),
+				    ("delete", "Delete"))
+				action.widget.attrs["onchange"]="this.form.submit()"
+				====
+				Better yet, don't mix your js in with your other stuff, separate out your script and say
+				document.getElementByID("id_whatever").onchange = do something 
+			'''
+			#org = form.save()
+			#return HttpResponseRedirect('../%d/' % org.id)
+			#return HttpResponseRedirect(reverse('sro.org_view', args={'org_id': org.id}))
+	else:
+		form = OrgMainForm(instance=org)
 	org_list = Org.objects.all().order_by('name')
-	return render_to_response('sro/org_list.html', RequestContext(request, {'org_list': org_list}))
+	olf = OrgListForm()
+	return render_to_response('sro/org_list.html', RequestContext(request, {'org_list': org_list, 'form': olf}))
 
 def	org_publish(request):
 	org_list = Org.objects.filter(public=True).order_by('name')

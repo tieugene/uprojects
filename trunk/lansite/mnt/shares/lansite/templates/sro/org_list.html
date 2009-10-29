@@ -19,13 +19,29 @@ function confirmDelete(delUrl) {
 {% if org_list %}
 	<table border="0">
 	<thead>
-		<tr> <th> <u>№</u> </th> <th> <u> Наименование </u> </th> <th/> </tr>
+		<form>
+		<tr>
+			<th> <u>№</u> </th>
+			<th> <u> Наименование </u> </th>
+			<th>
+				<u> ОКАТО </u>
+				{{ form.okato }}
+			</th>
+			<th>
+				<u> Страхователь </u>
+				{{ form.insurer }}
+			</th>
+			<th>	<input type="submit" value="F" title="Фильтр"/> </th>
+		</tr>
+		</form>
 	</thead>
 	<tbody>
 	{% for org in org_list %}
 		<tr>
 			<td> {{ forloop.counter }} </td>
-			<td>  <a href="{% url lansite.sro.views.org_view org.id %}" title="{{ org.fullname }}">{{ org.name }} </td>
+			<td> <a href="{% url lansite.sro.views.org_view org.id %}" title="{{ org.fullname }}">{{ org.name }} </td>
+			<td> {% if org.okato %} {{ org.okato.pk }} {% endif %} </td>
+			<td> {% if org.orginsurance %} {{ org.orginsurance.insurer }} {% endif %} </td>
 			<td> {% if perms.sro.delete_org %} <input type="button" value="X" title="Удалить" onClick="confirmDelete('{% url lansite.sro.views.org_del org.id %}')"/>  {% endif %} </td>
 		</tr>
 	{% endfor %}
