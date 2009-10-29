@@ -7,6 +7,10 @@ from models import *
 class	ImportForm(forms.Form):
 	file  = forms.FileField()
 
+class	OrgListForm(forms.Form):
+	okato		= forms.ModelChoiceField(queryset=Okato.objects.all())
+	insurer		= forms.ModelChoiceField(queryset=Insurer.objects.all())
+
 class	OrgMainForm(forms.ModelForm):
 	fullname	= forms.CharField(label='Полное наименование', widget=forms.Textarea)
 	egruldate	= forms.DateField(input_formats=['%d.%m.%Y', '%d/%m/%Y'], widget=forms.widgets.DateTimeInput(format='%d.%m.%Y'), label='Дата регистрации в ЕГРЮЛ', required=False)
