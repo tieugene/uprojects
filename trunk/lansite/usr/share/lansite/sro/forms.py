@@ -10,6 +10,8 @@ class	ImportForm(forms.Form):
 class	OrgListForm(forms.Form):
 	okato		= forms.ModelChoiceField(queryset=Okato.objects.all())
 	insurer		= forms.ModelChoiceField(queryset=Insurer.objects.all())
+	okato.widget.attrs["onchange"]="window.location.href='../org_o/1/'"
+	insurer.widget.attrs["onchange"]="window.location.href='../org_i/1/'"
 
 class	OrgMainForm(forms.ModelForm):
 	fullname	= forms.CharField(label='Полное наименование', widget=forms.Textarea)

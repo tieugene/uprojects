@@ -71,10 +71,10 @@
 	<p class="style1"> № {{ data.no }} </p>
 	<p class="style2"> Начало действия с {{ data.date }} </p>
 	<p class="style3"> Выдано члену саморегулируемой организации </p>
-	<p class="style4"> {{ data.name }} </p>
-	<p class="style5"> ИНН {{ data.inn }}, ОГРН {{ data.ogrn }}, местонахождение: {{ data.address }} </p>
+	<p class="style4"> {{ data.perm.org.okopf.namedp }} {{ data.perm.org.fullname }} </p>
+	<p class="style5"> ИНН {{ data.perm.org.inn }}, ОГРН {{ data.perm.org.ogrn }}, местонахождение: {{ data.perm.org.laddress }} </p>
 	<p class="style3"> Основание выдачи Свидетельства: </p>
-	<p class="style5"> решение Правления Некоммерческого партнерства саморегулируемой организации «Межрегиональное объединение организаций железнодорожного строительства», протокол №{{ data.protono }} от {{ data.protodate }}.</p>
+	<p class="style5"> решение Правления Некоммерческого партнерства саморегулируемой организации «Межрегиональное объединение организаций железнодорожного строительства», протокол №{{ data.perm.meeting.regno }} от {{ data.protodate }}.</p>
 	<p class="style5"> Настоящим Свидетельством подтверждается допуск к работам, которые оказывают влияние на безопасность объектов капитального строительства, перечень которых указан в приложении к Свидетельству.</p>
 	<p class="style5"> Свидетельство выдано без ограничения срока  и территории его действия.</p>
 	<p class="style5"> Настоящее Свидетельство без приложений не действительно.</p>
@@ -83,9 +83,9 @@
 		<tr> <td colspan="3" align="center"> МП </td> </tr>
 	</table>
 	<p style="page-break-before: always"/>
-	{% for stage in data.stage %}
-		<p class="style6"> {{ stage.id }}. {{ stage.name }} </p>
-		{% for job in stage.job_set.all %}
+	{% for stage in data.perm.permitstage_set.all %}
+		<p class="style6"> {{ stage.stage.id }}. {{ stage.stage.name }} </p>
+		{% for job in stage.jobs.all %}
 			<p class="style7"> {{ job.okdp }}: {{ job.name }} </p>
 		{% endfor %}
 	{% endfor %}
