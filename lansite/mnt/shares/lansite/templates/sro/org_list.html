@@ -40,7 +40,7 @@ function confirmDelete(delUrl) {
 		<tr>
 			<td> {{ forloop.counter }} </td>
 			<td> <a href="{% url lansite.sro.views.org_view org.id %}" title="{{ org.fullname }}">{{ org.name }} </td>
-			<td> {% if org.okato %} {{ org.okato.pk }} {% endif %} </td>
+			<td> {% if org.okato %} {{ org.okato }} {% endif %} </td>
 			<td> {% if org.orginsurance %} {{ org.orginsurance.insurer }} {% endif %} </td>
 			<td> {% if perms.sro.delete_org %} <input type="button" value="X" title="Удалить" onClick="confirmDelete('{% url lansite.sro.views.org_del org.id %}')"/>  {% endif %} </td>
 		</tr>

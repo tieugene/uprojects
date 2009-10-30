@@ -47,30 +47,55 @@ def	dl_file(request, file_id, file_name):
 
 @login_required
 def	org_list(request):
-	if request.method == 'POST':
-		form = OrgListForm(request.POST, instance=org)
-		if form.is_valid():
-			pass
-			'''
-			If you want to add HTML attributes to the widget of a field, you need add them to the dictionary ``attrs``::
+	#if request.method == 'POST':
+	#	form = OrgListForm(request.POST, instance=org)
+	#	if form.is_valid():
+	#		pass
+	#		'''
+	#		If you want to add HTML attributes to the widget of a field, you need add them to the dictionary ``attrs``::
 
-			class ActionForm(forms.Form):
-				action=forms.ChoiceField(choices=(
-				    ("", "---"),
-				    ("edit", "Bearbeiten"),
-				    ("delete", "Delete"))
-				action.widget.attrs["onchange"]="this.form.submit()"
-				====
-				Better yet, don't mix your js in with your other stuff, separate out your script and say
-				document.getElementByID("id_whatever").onchange = do something 
-			'''
-			#org = form.save()
-			#return HttpResponseRedirect('../%d/' % org.id)
-			#return HttpResponseRedirect(reverse('sro.org_view', args={'org_id': org.id}))
-	else:
-		form = OrgMainForm(instance=org)
+	#		class ActionForm(forms.Form):
+	#			action=forms.ChoiceField(choices=(
+	#			    ("", "---"),
+	#			    ("edit", "Bearbeiten"),
+	#			    ("delete", "Delete"))
+	#			action.widget.attrs["onchange"]="this.form.submit()"
+	#			====
+	#			Better yet, don't mix your js in with your other stuff, separate out your script and say
+	#			document.getElementByID("id_whatever").onchange = do something 
+	#		'''
+	#		#org = form.save()
+	#		#return HttpResponseRedirect('../%d/' % org.id)
+	#		#return HttpResponseRedirect(reverse('sro.org_view', args={'org_id': org.id}))
+	#else:
+	#	form = OrgMainForm(instance=org)
 	org_list = Org.objects.all().order_by('name')
 	olf = OrgListForm()
+	return render_to_response('sro/org_list.html', RequestContext(request, {'org_list': org_list, 'form': olf}))
+
+def	org_list_insurer(request, id):
+	'''
+	List orgs filtered by insurer.id = id
+	'''
+	print "insurer"
+	insurer = Insurer.objects.get(pk=id)
+	org_list = Org.objects.filter().order_by('name')
+	olf = OrgListForm()
+	return render_to_response('sro/org_list.html', RequestContext(request, {'org_list': org_list, 'form': olf}))
+
+def	org_list_okato(request, id):
+	'''
+	List orgs filtered by okato.id = id
+	'''
+	print 'okato'
+	form = OrgListForm(request.GET)
+	if form.is_valid():
+		print 'valid'
+	okato = Okato.objects.get(pk=id)
+	org_list = Org.objects.filter(okato=okato).order_by('name')
+	olf = OrgListForm()
+	'''
+	'''
 	return render_to_response('sro/org_list.html', RequestContext(request, {'org_list': org_list, 'form': olf}))
 
 def	org_publish(request):
@@ -409,7 +434,6 @@ def	permit_edit(request, perm_id):
 		form = PermitForm(instance=perm)
 	return render_to_response('sro/permit_edit.html', RequestContext(request, { 'form': form, 'permit': perm }))
 
-
 @transaction.commit_manually
 def	permit_edit_stage(request, perm_id, stage_id):
 	perm = Permit.objects.get(pk=perm_id)
@@ -468,15 +492,16 @@ def	__strdate(d):
 def	__load_permit(perm_id):
 	perm = Permit.objects.get(pk=perm_id)
 	data = dict()
+	data['perm']		= perm
 	data['no']		= u'%d-%02d' % (perm.org.sroregno, perm.regno)
 	data['date']		= __strdate(perm.date)
-	data['name']		= perm.org.okopf.namedp + ' ' + perm.org.fullname
-	data['inn']		= perm.org.inn
-	data['ogrn']		= perm.org.ogrn
-	data['address']		= perm.org.laddress
-	data['protono']		= perm.meeting.regno
+	#data['name']		= perm.org.okopf.namedp + ' ' + perm.org.fullname
+	#data['inn']		= perm.org.inn
+	#data['ogrn']		= perm.org.ogrn
+	#data['address']		= perm.org.laddress
+	#data['protono']		= perm.meeting.regno
 	data['protodate']	= __strdate(perm.meeting.date)
-	data['stage']		= perm.stages.all()
+	#data['stage']		= perm.stages.all()
 	return data
 
 def	permit_html(request, perm_id):

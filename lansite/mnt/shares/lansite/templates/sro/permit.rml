@@ -1,9 +1,9 @@
-﻿<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
 <!DOCTYPE document SYSTEM "rml_1_0.dtd">
 <document filename="svid.pdf">
 <docinit>
-	<registerFont fontName="Sans" fontFile="/mnt/shares/lansite/media/arial.ttf"/>
-	<registerFont fontName="Sans-Bold" fontFile="/mnt/shares/lansite/media/arialbd.ttf"/>
+	<registerFont fontName="Sans" fontFile="arial.ttf"/>
+	<registerFont fontName="Sans-Bold" fontFile="arialbd.ttf"/>
 </docinit>
 <template pageSize="(21cm, 29.7cm)" title="Svid" showBoundary="0">
 		<pageTemplate id="main">
@@ -65,16 +65,16 @@
 		Выдано члену саморегулируемой организации
 	</para>
 	<para style="style1" fontName="Sans-Bold">
-		{{ data.name }}
+		{{ data.perm.org.okopf.namedp }} {{ data.perm.org.fullname }}
 	</para>
 	<para style="style1">
-		ИНН {{ data.inn }}, ОГРН {{ data.ogrn }}, местонахождение: {{ data.address }}
+		ИНН {{ data.perm.org.inn }}, ОГРН {{ data.perm.org.ogrn }}, местонахождение: {{ data.perm.org.laddress }}
 	</para>
 	<para style="style1" spaceAfter="0">
 		Основание выдачи Свидетельства:
 	</para>
 	<para style="style1">
-		решение Правления Некоммерческого партнерства саморегулируемой организации «Межрегиональное объединение организаций железнодорожного строительства», протокол №{{ data.protono }} от {{ data.protodate }}.
+		решение Правления Некоммерческого партнерства саморегулируемой организации «Межрегиональное объединение организаций железнодорожного строительства», протокол №{{ data.perm.meeting.regno }} от {{ data.protodate }}.
 	</para>
 	<para style="style1">
 		Настоящим Свидетельством подтверждается допуск к работам, которые оказывают влияние на безопасность объектов капитального строительства, перечень которых указан в приложении к Свидетельству.
@@ -98,9 +98,9 @@
 	<para style="style1">
 		Перечень видов работ, которые оказывают влияние на безопасность объектов капитального строительства и о допуске к которым член Некоммерческого партнерства "Межрегиональное объединение организаций железнодорожного строительства" имеет Свидетельство
 	</para>
-{% for stage in data.stage %}
-	<para style="style3"> {{ stage.id }}. {{ stage.name }} </para>
-	{% for job in stage.job_set.all %}
+{%  for stage in data.perm.permitstage_set.all %}
+	<para style="style3"> {{ stage.stage.id }}. {{ stage.stage.name }} </para>
+	{% for job in stage.jobs.all %}
 		<para style="style4"> {{ job.okdp }}: {{ job.name }} </para>
 	{% endfor %}
 {% endfor %}
