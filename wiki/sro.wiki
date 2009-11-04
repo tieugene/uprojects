@@ -7,15 +7,14 @@
  * find precision printer
  * netrc
  * PDF: metadata: user, datetime, [host]:
-  * can:
-   * Title:          Svid
+  * can: title, author (svid, anonymous)
+  * хез: 
    * Subject:        (unspecified)
    * Keywords:
-   * Author:         (anonymous)
    * Producer:       ReportLab http://www.reportlab.com
    * CreationDate:   Wed Nov  4 16:37:35 2009
-   * ModificationDate:
-   * metadata
+   * [ModificationDate:]
+   * [metadata]
   * not used:
    * Tagged:         no
    * Pages:          3
