@@ -16,10 +16,9 @@ function confirmDelete(delUrl) {
 
 <center> <h1> <a href="{% url lansite.views.index %}">LanSite</a> &gt; <a href="{% url lansite.sro.views.index %}"> СРО </a> &gt; Организации </h1> </center>
 <hr/>
-{% if org_list %}
 	<table border="0">
 	<thead>
-		<form>
+		<form method="POST">
 		<tr>
 			<th> <u>№</u> </th>
 			<th> <u> Наименование </u> </th>
@@ -31,10 +30,11 @@ function confirmDelete(delUrl) {
 				<u> Страхователь </u>
 				{{ form.insurer }}
 			</th>
-			<th>	<input type="submit" value="F" title="Фильтр"/> </th>
+			<th> <input type="submit" value="Все" title="Снять фильтр"/> </th>
 		</tr>
 		</form>
 	</thead>
+{% if org_list %}
 	<tbody>
 	{% for org in org_list %}
 		<tr>
@@ -46,8 +46,8 @@ function confirmDelete(delUrl) {
 		</tr>
 	{% endfor %}
 	</tbody>
-	</table>
 {% endif %}
+	</table>
 {% if perms.sro.add_org %}
 <input type="button" value="+" title="Добавить" onClick="window.location.href='{% url lansite.sro.views.org_add %}'"/>
 {% endif %}
