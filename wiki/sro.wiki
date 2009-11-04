@@ -6,25 +6,6 @@
 == 9B02 ==
  * find precision printer
  * netrc
- * PDF: metadata: user, datetime, [host]:
-  * can: title, author (svid, anonymous)
-  * хез: 
-   * Subject:        (unspecified)
-   * Keywords:
-   * Producer:       ReportLab http://www.reportlab.com
-   * CreationDate:   Wed Nov  4 16:37:35 2009
-   * [ModificationDate:]
-   * [metadata]
-  * not used:
-   * Tagged:         no
-   * Pages:          3
-   * Encrypted:      no
-   * Page size:      595.276 x 841.89 pts (A4)
-   * File size:      87327 bytes
-   * Optimized:      no
-   * PDF version:    1.3
-
- * Publish: user, [host]
  * fix: checkbox for stage w/ 1 job
  * Допуск:
   * вид: Заявление/Допуск/Чужой допуск
@@ -32,6 +13,8 @@
   * хранить PDF в самой базе (вечно)
   * Дублирование
   * Заморозка
+ * Publish: user, [host]
+  * HttpRequest.META.HTTP_HOST/REMOTE_ADDR/REMOTE_HOST/REMOTE_USER
 
 = Done =
 == 9A30 ==
@@ -42,3 +25,9 @@
  * new pdf template
  * hide Insurance from publication
  * person* permissions
+== 9B04 ==
+ * PDF: metadata: user, datetime:
+  * title: no
+  * author: <username>
+  * Subject: <doctype>
+  * CreationDate: ...
