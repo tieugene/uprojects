@@ -1,0 +1,22 @@
+#summary SRO.
+
+= ToDo =
+== 9A26 ==
+ - Org: filter by insurer, region
+== 9B02 ==
+ * find precision printer
+ * netrc
+ * PDF: metadata: user, datetime, [host]
+ * Publish: user, [host]
+ * fix: checkbox for stage w/ 1 job
+ * Допуск:
+
+= Done =
+== 9A30 ==
+ * Здесь http://server/lansite/sro/org/ Ссылки "Просмотр" и "Публикация" внизу соединены.
+ * В публикации сделать допуски как у нас : № 1 от 12/10/2009, протокол № 11 от 12/10/2009
+ * Также он публикует всех членов, даже если галочка "Публиковать" снята.
+ * Так же, после публикации - выдает ссылку "Взад", она не работает.
+ * new pdf template
+ * hide Insurance from publication
+ * person* permissions
