@@ -1,15 +1,15 @@
 {% extends "sro/permit_base.html" %}
 {% block stages %}
 
+<!-- ща будет костыль -->
 <script type="text/javascript" language="JavaScript">
 <!--
-function GroupClicked () {
-	state = document.myform.g.checked;
-	items = document.myform.id;
-	for (i = 0; i < items.length; i++) {
-		if (items[i].checked != state) {
-			items[i].checked = state;
-		}
+function GroupClicked (fmobj) {
+	for (var i=0;i<fmobj.elements.length;i++)
+	{
+		var e = fmobj.elements[i];
+		if ((e.name == 'id') && (e.type=='checkbox') && (!e.disabled))
+			{ e.checked = fmobj.g.checked; }
 	}
 }
 function ItemClicked (item) {
@@ -38,7 +38,7 @@ function ItemClicked (item) {
 <form name="myform" action=".#{{ id }}" method="POST">
 <table border="0">
 	<tr bgcolor="lightgrey">
-		<th align="center"> <input type="checkbox" name="g" {% ifequal sflag 1 %} checked {% endifequal %} onClick="GroupClicked();" /> </td>
+		<th align="center"> <input type="checkbox" name="g" {% ifequal sflag 1 %} checked {% endifequal %} onClick="GroupClicked(document.myform);" /> </td>
 		<th> {{ stage.id }} </td>
 		<th> {{ stage.name }} </td>
 	<tr>

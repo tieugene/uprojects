@@ -1,9 +1,16 @@
-9A26:
- - Org: filter by insurer, region
 9B02:
- * find precision printer
- * PDF: metadata: user, datetime, [host]
- * Publish: user, [host]
- - fix: checkbox for stage w/ 1 job
- - Допуск:
- 
+ * netrc
+ * Допуск:
+  * Дублирование
+  * вид: Заявление/Допуск/Чужой допуск
+  * Сравнение 2-х допусков (любых)
+  * хранить PDF в самой базе (вечно) == Заморозить
+ * Option:
+  * find precision printer
+  * Publish: user, host?
+   * HttpRequest?.META.HTTP_HOST/REMOTE_ADDR/REMOTE_HOST/REMOTE_USER
+  * Допуск: Заморозка
+
+Done:
+ * filter
+ * fix: checkbox for stage w/ 1 job

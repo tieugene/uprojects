@@ -8,10 +8,11 @@ class	ImportForm(forms.Form):
 	file  = forms.FileField()
 
 class	OrgListForm(forms.Form):
-	okato		= forms.ModelChoiceField(queryset=Okato.objects.all())
-	insurer		= forms.ModelChoiceField(queryset=Insurer.objects.all())
-	okato.widget.attrs["onchange"]="window.location.href='../org_o/1/'"
-	insurer.widget.attrs["onchange"]="window.location.href='../org_i/1/'"
+	okato		= forms.ModelChoiceField(queryset=Okato.objects.all(), required=False)
+	insurer		= forms.ModelChoiceField(queryset=Insurer.objects.all(), required=False)
+	#okato.widget.attrs["onchange"]="window.location.href='../org_o/1/'"
+	okato.widget.attrs["onchange"]="this.form.submit()"
+	insurer.widget.attrs["onchange"]="this.form.submit()"
 
 class	OrgMainForm(forms.ModelForm):
 	fullname	= forms.CharField(label='Полное наименование', widget=forms.Textarea)

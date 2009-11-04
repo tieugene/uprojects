@@ -47,56 +47,18 @@ def	dl_file(request, file_id, file_name):
 
 @login_required
 def	org_list(request):
-	#if request.method == 'POST':
-	#	form = OrgListForm(request.POST, instance=org)
-	#	if form.is_valid():
-	#		pass
-	#		'''
-	#		If you want to add HTML attributes to the widget of a field, you need add them to the dictionary ``attrs``::
-
-	#		class ActionForm(forms.Form):
-	#			action=forms.ChoiceField(choices=(
-	#			    ("", "---"),
-	#			    ("edit", "Bearbeiten"),
-	#			    ("delete", "Delete"))
-	#			action.widget.attrs["onchange"]="this.form.submit()"
-	#			====
-	#			Better yet, don't mix your js in with your other stuff, separate out your script and say
-	#			document.getElementByID("id_whatever").onchange = do something 
-	#		'''
-	#		#org = form.save()
-	#		#return HttpResponseRedirect('../%d/' % org.id)
-	#		#return HttpResponseRedirect(reverse('sro.org_view', args={'org_id': org.id}))
-	#else:
-	#	form = OrgMainForm(instance=org)
-	org_list = Org.objects.all().order_by('name')
-	olf = OrgListForm()
-	return render_to_response('sro/org_list.html', RequestContext(request, {'org_list': org_list, 'form': olf}))
-
-def	org_list_insurer(request, id):
-	'''
-	List orgs filtered by insurer.id = id
-	'''
-	print "insurer"
-	insurer = Insurer.objects.get(pk=id)
-	org_list = Org.objects.filter().order_by('name')
-	olf = OrgListForm()
-	return render_to_response('sro/org_list.html', RequestContext(request, {'org_list': org_list, 'form': olf}))
-
-def	org_list_okato(request, id):
-	'''
-	List orgs filtered by okato.id = id
-	'''
-	print 'okato'
-	form = OrgListForm(request.GET)
-	if form.is_valid():
-		print 'valid'
-	okato = Okato.objects.get(pk=id)
-	org_list = Org.objects.filter(okato=okato).order_by('name')
-	olf = OrgListForm()
-	'''
-	'''
-	return render_to_response('sro/org_list.html', RequestContext(request, {'org_list': org_list, 'form': olf}))
+	print request.method
+	if request.method == 'POST':
+		if (request.POST['okato']):
+			org_list = Org.objects.filter(okato__pk=request.POST['okato'])
+		elif (request.POST['insurer']):
+			org_list = Org.objects.filter(orginsurance__insurer__pk=request.POST['insurer'])
+		else:
+			org_list = Org.objects.all()
+	else:
+		org_list = Org.objects.all()
+	org_list = org_list.order_by('name')
+	return render_to_response('sro/org_list.html', RequestContext(request, {'org_list': org_list, 'form': OrgListForm()}))
 
 def	org_publish(request):
 	org_list = Org.objects.filter(public=True).order_by('name')
@@ -522,6 +484,7 @@ def	pdf_render_to_response(template, context, filename=None):
 
 def	permit_pdf(request, perm_id):
 	data = __load_permit(perm_id)
+	data['user'] = request.user.username
 	return pdf_render_to_response('sro/permit.rml', {'data': data}, filename=data['no'] + '.pdf')
 
 def	person_list(request):

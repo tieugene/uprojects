@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <!DOCTYPE document SYSTEM "rml_1_0.dtd">
-<document filename="svid.pdf">
+<document filename="{{ data.no }}.pdf">
 <docinit>
 	<registerFont fontName="Sans" fontFile="arial.ttf"/>
 	<registerFont fontName="Sans-Bold" fontFile="arialbd.ttf"/>
 </docinit>
-<template pageSize="(21cm, 29.7cm)" title="Svid" showBoundary="0">
+<template pageSize="(21cm, 29.7cm)" title="{{ data.no }}" author="{{ data.user }}" subject="Permit" showBoundary="0">
 		<pageTemplate id="main">
 			<frame id="main"	x1="3cm" y1="7.5cm" width="15cm" height="12cm"/>
 			<frame id="footer"	x1="4.0cm" y1="5cm" width="13cm" height="2.5cm"/>
