@@ -17,6 +17,7 @@
 || Video player ||  || [http://smplayer.sourceforge.net/ SMplayer] || 0.6.8 || GPL ||
 || PDF viewer || Adobe || [http://get.adobe.com/reader/ Acrobat reader] || 9.2 ||  ||
 || Flash || Adobe || [http://get.adobe.com/flashplayer/ Flash player] || 10 ||  ||
+|| Virtual printer ||  || [http://sourceforge.net/projects/pdfcreator/ PDFCreator] || 0.9.8 || GPL ||
 
 = Try =
  * Evolution
