@@ -9,7 +9,7 @@
 || IM ||  || [http://www.qutim.org/ qutim] || 0.2 || GPL ||
 || RSS aggregator ||  || RSS demon? ||  ||  ||
 || Image viewer ||  || [http://www.irfanview.com/ IrfanView] || 4.25 ||  ||
-|| Image editor ||  || [http://mtpaint.sourceforge.net/ mtPaint] ||  ||  ||
+|| Image editor ||  || [http://mtpaint.sourceforge.net/ mtPaint] || 3.31 ||  ||
 || Archiver ||  || [http://www.7-zip.org/ 7-zip] || 4.65 || GPL ||
 || Antivirus ||  || Avira ||  ||  ||
 || CD recorder ||  || [http://infrarecorder.org/ InfraRecorder] || 0.50 || GPL ||
