@@ -20,8 +20,8 @@
 || Virtual printer ||  || [http://sourceforge.net/projects/pdfcreator/ PDFCreator] || 0.9.8 || GPL ||
 
 = Try =
- * Evolution
- * TUGZip
+ * [http://www.dipconsultants.com/evolution/ Evolution] 2.26.2
+ * [http://www.tugzip.com/ TUGZip]
 
 = Find =
  * RSS aggregator (RSS demon?)
