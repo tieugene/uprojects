@@ -7,11 +7,11 @@
 || Mail client || Mozilla || Thunderbird || 3.0 b4 ||
 || IM ||  || qutim || 0.2 ||
 || RSS aggregator ||  || RSS demon? ||  ||
-|| Image viewer ||  ||  ||  ||
-|| Image editor ||  ||  ||  ||
+|| Image viewer ||  || IrfanView ||  ||
+|| Image editor ||  || mtPaint ||  ||
 || Archiver ||  || 7-zip || 4.65 ||
 || Antivirus ||  || Avira ||  ||
-|| CD recorder ||  ||  ||  ||
+|| CD recorder ||  || InfraRecorder || 0.50 ||
 || Notepad ||  || JuffEd ||  ||
 || Multimedia codecs ||  ||  ||  ||
 || Audio player ||  ||  ||  ||
