@@ -1,0 +1,22 @@
+#summary Microsoft Windows Standard Softset.
+
+= Introduction =
+
+|| Office suite || || OpenOffice.org || 3.1.1 ||
+|| Web browser || Mozilla || Firefox || 3.5.5 ||
+|| Mail client || Mozilla || Thunderbird || 3.0 b4 ||
+|| IM ||  || qutim || 0.2 ||
+|| RSS aggregator ||  || RSS demon? ||  ||
+|| Image viewer ||  ||  ||  ||
+|| Image editor ||  ||  ||  ||
+|| Archiver ||  || 7-zip || 4.65 ||
+|| Antivirus ||  || Avira ||  ||
+|| CD recorder ||  ||  ||  ||
+|| Notepad ||  || JuffEd ||  ||
+|| Multimedia codecs ||  ||  ||  ||
+|| Audio player ||  ||  ||  ||
+|| Video player ||  ||  ||  ||
+||  ||  ||  ||  ||
+
+= Try =
+ * Evolution
