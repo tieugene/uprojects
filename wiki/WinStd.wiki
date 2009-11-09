@@ -5,7 +5,7 @@
 || *What* || *Vendor* || *Product* || *Ver* || *License * ||
 || Office suite || || [http://ru.openoffice.org/ OpenOffice.org] || 3.1.1 || GPL ||
 || Web browser || Mozilla || [http://www.mozilla.ru/ Firefox] || 3.5.5 || GPL ||
-|| Mail client || Mozilla || http://www.mozilla.ru/ Thunderbird] || 3.0 b4 || GPL ||
+|| Mail client || Mozilla || [http://www.mozilla.ru/ Thunderbird] || 3.0 b4 || GPL ||
 || IM ||  || [http://www.qutim.org/ qutim] || 0.2 || GPL ||
 || RSS aggregator ||  || RSS demon? ||  ||  ||
 || Image viewer ||  || [http://www.irfanview.com/ IrfanView] || 4.25 ||  ||
