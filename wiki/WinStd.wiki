@@ -15,7 +15,7 @@
 || Notepad ||  || JuffEd ||  ||
 || Multimedia codecs ||  ||  ||  ||
 || Audio player ||  ||  ||  ||
-|| Video player ||  ||  ||  ||
+|| Video player ||  || SMplayer ||  ||
 ||  ||  ||  ||  ||
 
 = Try =
