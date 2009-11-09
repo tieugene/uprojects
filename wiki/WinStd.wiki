@@ -15,8 +15,8 @@
 || Notepad ||  || [http://sourceforge.net/projects/juffed/ JuffEd] || 0.8 || GPL ||
 || Multimedia codecs ||  || [http://www.codecguide.com/ K-Lite] || 5.4.0 ||  ||
 || Video player ||  || [http://smplayer.sourceforge.net/ SMplayer] || 0.6.8 || GPL ||
-|| PDF viewer || Adobe || Acrobat reader ||  ||  ||
-|| Flash || Adobe || Flash player ||  ||  ||
+|| PDF viewer || Adobe || [http://get.adobe.com/reader/ Acrobat reader] || 9.2 ||  ||
+|| Flash || Adobe || [http://get.adobe.com/flashplayer/ Flash player] || 10 ||  ||
 
 = Try =
  * Evolution
