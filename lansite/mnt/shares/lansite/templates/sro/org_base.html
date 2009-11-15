@@ -47,8 +47,8 @@ function confirmDelete(delUrl) {
 {% block body_license %}
 	<table border="0">
 		<tr>	<td> Лицензия: </td>	<td>
-			{% if license %}
-				№ {{ license.no }} от {{ license.datefrom|date }} по {{ license.datedue|date }}
+			{% if org.orglicense %}
+				№ {{ org.orglicense.no }} от {{ org.orglicense.datefrom|date }} по {{ org.orglicense.datedue|date }}
 				{% block body_license_edit_button %} {% endblock %}
 				{% block body_license_del_button %} {% endblock %}
 			{% else %}
@@ -61,8 +61,8 @@ function confirmDelete(delUrl) {
 {% block body_insurance %}
 	<table border="0">
 		<tr>	<td> Страховка: </td>	<td>
-			{% if insurance %}
-				Договор № {{ insurance.insno }} от {{ insurance.insdate|date }} на {{ insurance.insum }} руб. в {{ insurance.insurer }} ({{ insurance.insurername }})
+			{% if org.orginsurance %}
+				Договор № {{ org.orginsurance.insno }} от {{ org.orginsurance.insdate|date }} на {{ org.orginsurance.insum }} руб. в {{ org.orginsurance.insurer }} ({{ insurance.insurername }})
 				{% block body_insurance_edit_button %} {% endblock %}
 				{% block body_insurance_del_button %} {% endblock %}
 			{% else %}

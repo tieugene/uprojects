@@ -1,16 +1,24 @@
 9B02:
- * netrc
- * Допуск:
-  * Дублирование
-  * вид: Заявление/Допуск/Чужой допуск
-  * Сравнение 2-х допусков (любых)
-  * хранить PDF в самой базе (вечно) == Заморозить
- * Option:
-  * find precision printer
-  * Publish: user, host?
-   * HttpRequest?.META.HTTP_HOST/REMOTE_ADDR/REMOTE_HOST/REMOTE_USER
-  * Допуск: Заморозка
-
-Done:
- * filter
- * fix: checkbox for stage w/ 1 job
+= Допуск: =
+ * Дублирование
+ * вид: Заявление/Допуск/Чужой допуск
+ * Сравнение 2-х допусков (любых)
+ * Заморозка = readonly + pdf
+= Logging: =
+ * get all
+ * action_type
+ * HttpRequest?.META.HTTP_HOST/REMOTE_ADDR/REMOTE_HOST/REMOTE_USER
+ * Publish: user, host?
+= Option: =
+ * find precision printer
+====
+0. dump
+1. Create new models:
+	* PermitStatement ()
+	* PermitOwn (regno (optional), meeting=>Meeting (optional))
+	* PermitAlien(sro=>SRO, regno:str, protono, protodate)
+	* SRO (Name, Fullname, regno)
+2. Permit
+	* mk optional: regno, meeting
+	* add type (optional)
+3. 
