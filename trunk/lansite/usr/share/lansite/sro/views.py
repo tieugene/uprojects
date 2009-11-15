@@ -2,25 +2,40 @@
 '''
 SRO views
 '''
+# 1. django
 from django.shortcuts import get_object_or_404, render_to_response
+from django.contrib.auth.decorators import login_required, permission_required
+from django.contrib.admin.models import LogEntry, ADDITION, CHANGE, DELETION
+from django.contrib.contenttypes.models import ContentType
+from django.core import serializers
 from django.core.urlresolvers import reverse
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader, Context, RequestContext
 from django.db import transaction
-from django.core import serializers
-from django.contrib.auth.decorators import login_required, permission_required
 from django.utils.encoding import StrAndUnicode, force_unicode, smart_unicode, smart_str
-
+# 2. other python
 from xml.sax import handler, make_parser
 from datetime import datetime
 import ftplib, netrc, tempfile
 from trml2pdf import trml2pdf
-
 import pprint
-
+# 3. my
 from models import *
 from forms import *
 from impex import *
+
+def	__log_it(request, object, action, change_message=''):
+	'''
+	Log this activity
+	'''
+	LogEntry.objects.log_action(
+		user_id         = request.user.id, 
+		content_type_id = ContentType.objects.get_for_model(object).pk, 
+		object_id       = object.pk, 
+		object_repr     = object.asstr(), # Message you want to show in admin action list
+		change_message  = change_message, # I used same
+		action_flag     = action	# django.contrib.admin.models: ADDITION/CHANGE/DELETION
+	)
 
 def	index(request):
 	if not request.user.is_authenticated():
@@ -67,7 +82,7 @@ def	org_publish(request):
 def	org_upload(request):
 	ftpname = 'ftp.moozs.ru'
 	org_list = Org.objects.filter(public=True).order_by('name')
-	hosts = netrc.netrc('netrc').hosts
+	hosts = netrc.netrc('/mnt/shares/lansite/media/netrc').hosts
 	if (not hosts.has_key(ftpname)):
 		return render_to_response('sro/upload_msg.html', {'msg': "Check netrc"})
 	t = loader.get_template('sro/org_publish.html')
@@ -83,7 +98,9 @@ def	org_upload(request):
 	return render_to_response('sro/upload_msg.html', RequestContext(request, {'msg': "Uploaded OK"}))
 
 def	org_del(request, org_id):
-	Org.objects.get(pk=org_id).delete()
+	org = Org.objects.get(pk=org_id)
+	__log_it(request, org, DELETION)
+	org.delete()
 	return HttpResponseRedirect('../../')
 
 def	__load_org(org_id, org=None):
@@ -120,6 +137,7 @@ def	org_add(request):
 		form = OrgMainForm(request.POST, instance=org)
 		if form.is_valid():
 			org = form.save()
+			__log_it(request, org, ADDITION)
 			return HttpResponseRedirect('../%d/' % org.id)
 			#return HttpResponseRedirect(reverse('sro.org_view', args={'org_id': org.id}))
 	else:
@@ -133,6 +151,7 @@ def	org_edit_main(request, org_id):
 		form = OrgMainForm(request.POST, instance=org)
 		if form.is_valid():
 			form.save()
+			__log_it(request, org, CHANGE)
 			#return HttpResponseRedirect(reverse('org_view', args=[org_id,]))
 			return HttpResponseRedirect('../../')
 	else:
@@ -150,6 +169,7 @@ def	org_license_add(request, org_id):
 			new_item = form.save(commit=False)
 			new_item.org = org
 			new_item.save()
+			#__log_it(request, org, "Org %s: license added" % org.name)
 			return HttpResponseRedirect('../../')
 	else:
 		form = OrgLicenseForm()
@@ -164,6 +184,7 @@ def	org_license_edit(request, org_id):
 		form = OrgLicenseForm(request.POST, instance=formdict['license'])
 		if form.is_valid():
 			form.save()
+			#__log_it(request, org, "Org %s: license edited" % org.name)
 			return HttpResponseRedirect('../../')
 	else:
 		form = OrgLicenseForm(instance=formdict['license'])

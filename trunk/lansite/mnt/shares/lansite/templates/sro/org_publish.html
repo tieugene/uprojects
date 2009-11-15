@@ -6,7 +6,7 @@
 <style  type="text/css">
 body	{
 	font-family:		Serif;
-	font-size:		10pt;
+	font-size:		9pt;
 	background-color:	white;
 	color:			black;
 }
@@ -23,15 +23,15 @@ H1	{
 	text-align:		center;
 }
 H2	{
-	font-size:		14pt;
+	font-size:		11pt;
 	font-weight:		bold;
 }
 H3	{
-	font-size:		12pt;
+	font-size:		10pt;
 	font-weight:		bold;
 }
 H4	{
-	font-size:		10pt;
+	font-size:		9pt;
 	font-weight:		bold;
 }
 </style>
@@ -86,8 +86,8 @@ function doMenu(item) {
 		<tr>	<td> Сумма взноса в КФ: </td>			<td> {{ org.paysum }} </td>		</tr>
 		<tr>	<td> Дата оплаты вступительного взноса: </td>	<td> {{ org.paydatevv|date }} </td>	</tr>
 		<tr>	<td> Лицензия: </td>	<td>
-			{% if license %}
-				№ {{ license.no }} от {{ license.datefrom|date }} по {{ license.datedue|date }}
+			{% if org.orglicense %}
+				№ {{ org.orglicense.no }} от {{ org.orglicense.datefrom|date }} по {{ org.orglicense.datedue|date }}
 				{% block body_license_del_button %} {% endblock %}
 			{% else %}
 				Нет
@@ -95,8 +95,8 @@ function doMenu(item) {
 			{% endif %}
 		</td>	</tr>
 		<!--tr>	<td> Страховка: </td>	<td>
-			{% if insurance %}
-				№ {{ insurance.insno }} от {{ insurance.insdate|date }} на {{ insurance.insum }} руб. в {{ insurance.insurer }}
+			{% if org.orginsurance %}
+				№ {{ org.orginsurance.insno }} от {{ org.orginsurance.insdate|date }} на {{ org.orginsurance.insum }} руб. в {{ org.orginsurance.insurer }}
 				{% block body_insurance_del_button %} {% endblock %}
 			{% else %}
 				Нет
@@ -159,11 +159,11 @@ function doMenu(item) {
 		</table>
 	{% endif %}
 	<!-- permit -->
-	<table width="100%" border="0" bgcolor="lightgrey"><tr><td><h3> 3. Допуски: </h3></td></tr></table>
+	<table width="100%" border="0" bgcolor="lightgrey"><tr><td><h3> 3. Свидетельства о допуске к работам, оказывающим влияние на безопасность объектов капитального строительства: </h3></td></tr></table>
 	{% if org.permit_set.all %}
 		<ul>
 		{% for i in org.permit_set.all %}
-			<li> № {{ i.regno }} от {{ i.date|date }}, протокол № {{ i.meeting.regno }} от {{ i.meeting.date|date }} </li>
+			<li> № {{ org.sroregno }}-{{ i.regno }} от {{ i.date|date }}, протокол № {{ i.meeting.regno }} от {{ i.meeting.date|date }} </li>
 		{% endfor %}
 		</ul>
 	{% endif %}

@@ -2,8 +2,8 @@
 <!DOCTYPE document SYSTEM "rml_1_0.dtd">
 <document filename="{{ data.no }}.pdf">
 <docinit>
-	<registerFont fontName="Sans" fontFile="arial.ttf"/>
-	<registerFont fontName="Sans-Bold" fontFile="arialbd.ttf"/>
+	<registerFont fontName="Sans" fontFile="/mnt/shares/lansite/media/arial.ttf"/>
+	<registerFont fontName="Sans-Bold" fontFile="/mnt/shares/lansite/media/arialbd.ttf"/>
 </docinit>
 <template pageSize="(21cm, 29.7cm)" title="{{ data.no }}" author="{{ data.user }}" subject="Permit" showBoundary="0">
 		<pageTemplate id="main">
