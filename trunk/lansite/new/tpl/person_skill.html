@@ -1,0 +1,103 @@
+{% extends "sro/person_base.html" %}
+{% block body_skill_button %} {% endblock %}
+{% block body_skill %}
+	<!-- deletable -->
+	<table border="0">
+		<tr>
+			<th> Специальность </th>
+			<th> Квалификация </th>
+			<th> Год </th>
+			<th> Учебное заведение </th>
+			<th/>
+		</tr>
+	{% for i in person_skill %}
+		<tr>
+			<td> {{ i.speciality.name }} </td>
+			<td> {{ i.skill.name }} </td>
+			<td> {{ i.year }} </td>
+			<td> {{ i.school }} </td>
+			<td> {% if perms.sro.delete_personskill %} <input type="button" value="X" title="Удалить" onClick="confirmDelete('{% url lansite.sro.views.person_skill_del person.id, i.id %}#stuff')"/> {% endif %} </td>
+		</tr>
+	{% endfor %}
+	</table>
+<hr/>
+	<!-- add -->
+{% if perms.sro.add_personskill %}
+<table border="0"> <tr>
+<td>
+	<form action="." method="POST">
+	<table border="0">
+		<tr>
+			<td> {{ form.speciality.label_tag }} </td>
+			<td>
+				<div class="fieldWrapper">
+					{{ form.speciality.errors }}
+					{{ form.speciality }}
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td> {{ form.skill.label_tag }} </td>
+			<td>
+				<div class="fieldWrapper">
+					{{ form.skill.errors }}
+					{{ form.skill }}
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td> {{ form.year.label_tag }} </td>
+			<td>
+				<div class="fieldWrapper">
+					{{ form.year.errors }}
+					{{ form.year }}
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td> {{ form.school.label_tag }} </td>
+			<td>
+				<div class="fieldWrapper">
+					{{ form.school.errors }}
+					{{ form.school }}
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td/>
+			<td> <input type="submit" value="+" /> </td>
+		</tr>
+	</table>
+	</form>
+</td>
+{% if perms.sro.add_speciality or perms.sro.add_skill %}
+<td valign="top">
+	<table border="0"> 
+		<tr> <td >
+			{% if perms.sro.add_speciality %}
+			<form action="add_speciality/" method="POST">
+				<div class="fieldWrapper">
+					<input type="submit" value="<" title="Добавить новую специальность" value="<"/>
+					{{ form_speciality.name.errors }}
+					{{ form_speciality.name }}
+				</div>
+			</form>
+			{% endif %}
+			{% if perms.sro.add_skill %}
+			<form action="add_skill/" method="POST">
+				<div class="fieldWrapper">
+					<input type="submit" value="<" title="Добавить новую квалификацию"/>
+					{{ form_skill.name.errors }}
+					{{ form_skill.name }}
+				</div>
+			</form>
+			{% endif %}
+		</td> </tr>
+	</table>
+</td>
+{% endif %}
+</tr>
+</table>
+{% endif %}
+<input type="button" value="Закончить" onClick="window.location.href='{% url lansite.sro.views.person_view person.id %}#skill'"/>
+{% endblock %}
