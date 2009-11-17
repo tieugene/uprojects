@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<title>LanSite.СРО.Организации</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<link rel="stylesheet" href="base.css" type="text/css" />
+</head>
+<body>
+<center> <h1> <a href="{% url lansite.views.index %}">LanSite</a> &gt; <a href="{% url lansite.sro.views.index %}"> СРО </a> &gt; Организации </h1> </center>
+{% if org_list %}
+	<table border="1">
+	<thead>
+		<tr>
+			<th> № </th>
+			<th> Кратко </th>
+			<th> Полно </th>
+			<th> Дата ЕГРЮЛ </th>
+			<th> ОКОПФ </th>
+			<th> <i>ОПФ</i> </th>
+			<th> ИНН </th>
+			<th> КПП </th>
+			<th> ОГРН </th>
+			<th> ЮрАдрес </th>
+			<th> <i>ФизАдрес</i> </th>
+			<th> <i>Руководитель.Должность</i> </th>
+			<th> <i>Руководитель.ФИО</i> </th>
+			<th> <i>Телефоны</i> </th>
+			<th> <i>Email</i> </th>
+			<th> Дата ВВ </th>
+			<th> Дата КФ </th>
+			<th> Дата членства НП </th>
+			<th> Реестровый № </th>
+			<th> Лицензия. № </th>
+			<th> Лицензия. С </th>
+			<th> Лицензия. До </th>
+		</tr>
+	</thead>
+	<tbody>
+	{% for org in org_list %}
+		<tr>
+			<td> {{ org.id }} </td>
+			<td> {{ org.name }} </td>
+			<td> {{ org.fullname }} </td>
+			<td>  </td>
+			<td> {{ org.okopf }} </td>
+			<td> {{ org.okopfname }} </td>
+			<td> {{ org.inn }} </td>
+			<td> {{ org.kpp }} </td>
+			<td> {{ org.ogrn }} </td>
+			<td> {{ org.laddr }} </td>
+			<td> {{ org.raddr }} </td>
+			<td> {{ org.bosstitle }} </td>
+			<td> {{ org.bossname }} </td>
+			<td> {{ org.phones }} </td>
+			<td> {{ org.emails }} </td>
+			<td> {{ org.datevv }} </td>
+			<td> {{ org.datekf }} </td>
+			<td> {{ org.datenp }} </td>
+			<td> {{ org.regno }} </td>
+			<td> {{ org.licno }} </td>
+			<td> {{ org.licstart }} </td>
+			<td> {{ org.licend }} </td>
+		</tr>
+	{% endfor %}
+	</tbody>
+	</table>
+{% endif %}
+<input type="submit" value="OK" onClick="window.location.href='{% url lansite.sro.views.org_list %}'"/>
+<input type="button" value="Cancel" onClick="window.location.href='{% url lansite.sro.views.org_list %}'"/>
+<hr/>
+Todo:
+<ol>
+	<li> Все поля, кроме выделенных <i>курсивом</i> - обязательны
+	<li> Код ОКОПФ
+	<li> Дата регистрации в ЕГРЮЛ
+	<li> Лицензии: или всё - или ничего
+	<li> Телефоны - 24 символа
+	<li> Руководитель - 4 поля
+	<li> Даты: все - в одном формате
+</ol>
+</body>
+</html>

@@ -1,0 +1,70 @@
+{% extends "sro/permit_base.html" %}
+{% block editmain %}
+{% if perms.sro.change_permit %}
+<input type="button" value="Изменить" onClick="window.location.href='{% url lansite.sro.views.permit_edit permit.id %}'"/>
+{% endif %}
+{% endblock %}
+{% block stages %}
+<script langauge="JavaScript" type="text/javascript">
+function doMenu(item) {
+	obj=document.getElementById(item);
+	col=document.getElementById("x" + item);
+	if (obj.style.display=="none") {
+		obj.style.display="block";
+		col.innerHTML="[-]";
+	}
+	else {
+		obj.style.display="none";
+		col.innerHTML="[+]";
+	}
+}
+function SelectAll (state) {
+	items = document.myform.set;
+	for (i = 0; i < items.length; i++) {
+		if (items[i].checked = state) {
+			items[i].checked = state;
+		}
+	}
+}
+</script>
+
+<form action="." method="POST" name="myform">
+<table border="0">
+{% for s, sflag, jobs in stages %}
+	<a name="{{ s.id }}"/>
+	<tr {% if forloop.counter|divisibleby:2 %} bgcolor="lightgrey" {% endif %}>
+		<td valign="top"> {% if jobs %} <a href="JavaScript:doMenu('{{ s.id }}');" id=x{{ s.id }}>[+]</a> {% endif %} </td>
+		<td align="center" valign="top"> {% ifequal sflag 1 %} &radic; {% endifequal %} </td>
+		<td valign="top"> {{ s.id }} </td>
+		<td> {{ s.name }}
+			<div id={{ s.id }} style="display:none">
+				{% for j, jflag in jobs %}
+					<p> {% ifequal jflag 1 %} &radic; {% else %} &nbsp; {% endifequal %} {{ j.id }}: {{ j.name }} </p>
+				{% endfor %}
+			</div>
+		</td>
+		{% if perms.sro.add_permitstage and perms.sro.add_permitstagejob and perms.sro.delete_permitstage and perms.sro.add_permitstagejob %}
+		<td valign="top"> <input type="button" value="Изменить" onClick="window.location.href='{% url lansite.sro.views.permit_edit_stage permit.id, s.id %}'"/> </td>
+		<td align="center" colspan="2" bgcolor="red"> <input type="checkbox" name="set" value="{{ s.id }}"/> </td>
+		{% endif %}
+	<tr>
+{% endfor %}
+	<tr> <td colspan="8"> <hr/> </td> </tr>
+	{% if perms.sro.add_permitstage and perms.sro.add_permitstagejob and perms.sro.delete_permitstage and perms.sro.add_permitstagejob %}
+	<tr bgcolor="red">
+		<td colspan="5" rowspan="2"> <b> ОПТОМ: </b> </td>
+		<td align="center"> <input type="button" value="&radic;" title="Выбрать все" onClick="SelectAll(true);"/> </td>
+		<td align="center"> <input type="button" value="x" title="Удалить все" onClick="SelectAll(false);"/> </td>
+	</tr>
+	<tr bgcolor="red">
+		<td align="center" colspan="2"> <input type="submit" value="Записать"/> </td>
+	</tr>
+	{% endif %}
+</table>
+<p>
+<input type="button" value="HTML" title="Напечатать разрешение (HTML)" onClick="window.location.href='{% url lansite.sro.views.permit_html permit.id %}'"/>
+<input type="button" value="PDF" title="Напечатать разрешение (PDF)" onClick="window.location.href='{% url lansite.sro.views.permit_pdf permit.id %}'"/>
+</p>
+</form>
+<p> Итого: {{ jcount }} работ </p>
+{% endblock %}
