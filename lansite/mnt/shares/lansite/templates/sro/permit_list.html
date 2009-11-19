@@ -28,7 +28,23 @@ function SelectAll (state) {
 }
 </script>
 
+<form action="dup/" method="POST" name="form1">
+<p>
+{{ form.permittype }}
+<input type="submit" value="Дубль" title="Скопировать этот документ в другой"/>
+</p>
+</form>
+<form action="cmp/" method="POST" name="form1">
+<p>
+{{ form.otherperm }}
+<input type="submit" value="Сравнить" disabled title="Сравнить составы двух документов"/>
+</p>
+</form>
 <form action="." method="POST" name="myform">
+<p>
+<input type="button" value="HTML" title="Напечатать разрешение (HTML)" onClick="window.location.href='{% url lansite.sro.views.permit_html permit.id %}'"/>
+<input type="button" value="PDF" title="Напечатать разрешение (PDF)" onClick="window.location.href='{% url lansite.sro.views.permit_pdf permit.id %}'"/>
+</p>
 <table border="0">
 {% for s, sflag, jobs in stages %}
 	<a name="{{ s.id }}"/>
@@ -61,10 +77,6 @@ function SelectAll (state) {
 	</tr>
 	{% endif %}
 </table>
-<p>
-<input type="button" value="HTML" title="Напечатать разрешение (HTML)" onClick="window.location.href='{% url lansite.sro.views.permit_html permit.id %}'"/>
-<input type="button" value="PDF" title="Напечатать разрешение (PDF)" onClick="window.location.href='{% url lansite.sro.views.permit_pdf permit.id %}'"/>
-</p>
 </form>
 <p> Итого: {{ jcount }} работ </p>
 {% endblock %}

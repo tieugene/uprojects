@@ -201,10 +201,14 @@ class	OrgAdmin(admin.ModelAdmin):
 	#	'okveds': ('^id',),
 	#}
 
+class	PermitTypeAdmin(admin.ModelAdmin):
+	list_display	= ('id', 'name')
+	ordering	= ('id',)
+
 class	PermitAdmin(admin.ModelAdmin):
-	list_display	= ('org', 'regno', 'date', 'meeting')
-	list_filter	= ('org',)
-	ordering	= ('org', 'regno',)
+	list_display	= ('org', 'permittype',)
+	list_filter	= ('org', 'permittype',)
+	ordering	= ('org', 'permittype',)
 	inlines		= (PermitStageInLine,)
 
 class	PermitStageAdmin(admin.ModelAdmin):
@@ -213,6 +217,27 @@ class	PermitStageAdmin(admin.ModelAdmin):
 	ordering	= ('permit', 'stage',)
 	#filter_horizontal = ('jobs',)
 	inlines = (PermitStageJobInLine,)
+
+class	PermitOwnAdmin(admin.ModelAdmin):
+	list_display	= ('permit', 'regno', 'date', 'meeting')
+	list_filter	= ('meeting',)
+	ordering	= ('regno',)
+	date_hierarchy	= 'date'
+
+class	PermitStatementAdmin(admin.ModelAdmin):
+	list_display	= ('permit', 'date')
+	ordering	= ('date',)
+	date_hierarchy	= 'date'
+
+class	SROAdmin(admin.ModelAdmin):
+	list_display	= ('name', 'fullname', 'regno')
+	ordering	= ('name',)
+
+class	PermitAlienAdmin(admin.ModelAdmin):
+	list_display	= ('permit', 'sro', 'regno', 'date', 'protono', 'protodate')
+	list_filter	= ('sro',)
+	ordering	= ('sro', 'regno',)
+	date_hierarchy	= 'date'
 
 class	OrgEventAdmin(admin.ModelAdmin):
 	list_display	= ('org', 'type',)
@@ -240,8 +265,13 @@ admin.site.register(EventType,		EventTypeAdmin)
 admin.site.register(Role,		RoleAdmin)
 admin.site.register(Person,		PersonAdmin)
 admin.site.register(Org,		OrgAdmin)
+admin.site.register(PermitType,		PermitTypeAdmin)
 admin.site.register(Permit,		PermitAdmin)
 admin.site.register(PermitStage,	PermitStageAdmin)
+admin.site.register(PermitOwn,		PermitOwnAdmin)
+admin.site.register(PermitStatement,	PermitStatementAdmin)
+admin.site.register(SRO,		SROAdmin)
+admin.site.register(PermitAlien,	PermitAlienAdmin)
 admin.site.register(OrgEvent,		OrgEventAdmin)
 admin.site.register(File,		FileAdmin)
 admin.site.register(Meeting,		MeetingAdmin)

@@ -334,15 +334,63 @@ def	org_edit_permit(request, org_id):
 	if request.method == 'POST':
 		form = PermitForm(request.POST)
 		if form.is_valid():
-			new_item = form.save(commit=False)
-			new_item.org = org
-			new_item.save()
-			form = PermitForm()
+			permittype = form.cleaned_data['permittype']
+			#new_item = form.save(commit=False)
+			#new_item.org = org
+			#new_item.save()
+			return HttpResponseRedirect('%s/add/' % permittype.id)
 	else:
 		form = PermitForm()
 	formdict = __load_org(org_id, org)
 	formdict['form'] = form
 	return render_to_response('sro/org_edit_permit.html', RequestContext(request, formdict))
+
+@transaction.commit_manually
+def	org_edit_permit_add(request, org_id, type_id):
+	'''
+	Own permition
+	'''
+	org = Org.objects.get(pk=org_id)
+	permittype = PermitType.objects.get(pk=type_id)
+	type_id = int(type_id)
+	needform = (PermitOwnForm, PermitStatementForm, PermitAlienForm)[type_id - 1]
+	if request.method == 'POST':
+		form = needform(request.POST)
+		if form.is_valid():
+			try:
+				permit = Permit(org=org, permittype=permittype)
+				permit.save()
+				if (type_id == 1):
+					a = PermitOwn(
+						permit=permit,
+						regno=form.cleaned_data['regno'],
+						date=form.cleaned_data['date'],
+						meeting=form.cleaned_data['meeting']
+					)
+				elif (type_id == 2):
+					a = PermitStatement(
+						permit=permit,
+						date=form.cleaned_data['date']
+					)
+				else:
+					a = PermitAlien(
+						permit=permit,
+						sro=form.cleaned_data['sro'],
+						regno=form.cleaned_data['regno'],
+						date=form.cleaned_data['date'],
+						protono=form.cleaned_data['protono'],
+						protodate=form.cleaned_data['protodate']
+					)
+				a.save()
+			except:
+				transaction.rollback()
+			else:
+				transaction.commit()
+			return HttpResponseRedirect('../../')
+	else:
+		form = needform()
+	formdict = {'org': org, 'permittype': permittype, 'form': form}
+	return render_to_response('sro/org_edit_permit_add.html', RequestContext(request, formdict))
 
 def	org_edit_permit_del(request, org_id, item_id):
 	Permit.objects.get(pk=item_id).delete()
@@ -404,17 +452,27 @@ def	permit_list(request, perm_id):
 				jobs.append((j, False))
 		stages.append((s, sflag, jobs))
 	#pprint.pprint(stages)
-	return render_to_response('sro/permit_list.html', RequestContext(request, { 'permit': perm, 'stages': stages, 'jcount': jcount }))
+	return render_to_response('sro/permit_list.html', RequestContext(request, { 'permit': perm, 'stages': stages, 'jcount': jcount, 'form': PermitListForm() }))
 
 def	permit_edit(request, perm_id):
-	perm = Permit.objects.get(pk=perm_id)
+	permit = Permit.objects.get(pk=perm_id)
+	type_id = permit.permittype.id
+	if (type_id == 1):
+		perm = permit.permitown
+		needform = PermitOwnForm
+	elif (type_id == 2):
+		perm = permit.permitstatement
+		needform = PermitStatementForm
+	else:
+		perm = permit.permitalien
+		needform = PermitAlienForm
 	if request.method == 'POST':
-		form = PermitForm(request.POST, instance=perm)
+		form = needform(request.POST, instance=perm)
 		if form.is_valid():
 			form.save()
 			return HttpResponseRedirect('../')
 	else:
-		form = PermitForm(instance=perm)
+		form = needform(instance=perm)
 	return render_to_response('sro/permit_edit.html', RequestContext(request, { 'form': form, 'permit': perm }))
 
 @transaction.commit_manually
@@ -456,35 +514,16 @@ def	permit_edit_stage(request, perm_id, stage_id):
 		return render_to_response('sro/permit_edit_stage.html', RequestContext(request, { 'permit': perm, 'stage': stage, 'sflag': sflag, 'jobs': jobs }))
 
 def	__strdate(d):
-	__mon = [
-		u'января',
-		u'февраля',
-		u'марта',
-		u'апреля',
-		u'мая',
-		u'июня',
-		u'июля',
-		u'августа',
-		u'сентября',
-		u'октября',
-		u'ноября',
-		u'декабря',
-	]
+	__mon = (u'января', u'февраля', u'марта', u'апреля', u'мая', u'июня', u'июля', u'августа', u'сентября', u'октября', u'ноября', u'декабря')
 	return u'«%02d» %s %d года' % (d.day, __mon[d.month - 1], d.year)
 
 def	__load_permit(perm_id):
 	perm = Permit.objects.get(pk=perm_id)
 	data = dict()
 	data['perm']		= perm
-	data['no']		= u'%d-%02d' % (perm.org.sroregno, perm.regno)
-	data['date']		= __strdate(perm.date)
-	#data['name']		= perm.org.okopf.namedp + ' ' + perm.org.fullname
-	#data['inn']		= perm.org.inn
-	#data['ogrn']		= perm.org.ogrn
-	#data['address']		= perm.org.laddress
-	#data['protono']		= perm.meeting.regno
-	data['protodate']	= __strdate(perm.meeting.date)
-	#data['stage']		= perm.stages.all()
+	data['no']		= u'%d-%02d' % (perm.org.sroregno, perm.permitown.regno)
+	data['date']		= __strdate(perm.permitown.date)
+	data['protodate']	= __strdate(perm.permitown.meeting.date)
 	return data
 
 def	permit_html(request, perm_id):
@@ -507,6 +546,80 @@ def	permit_pdf(request, perm_id):
 	data = __load_permit(perm_id)
 	data['user'] = request.user.username
 	return pdf_render_to_response('sro/permit.rml', {'data': data}, filename=data['no'] + '.pdf')
+
+def	permit_dup(request, perm_id):
+	if request.method == 'POST':
+		form = PermitListForm(request.POST)
+		if form.is_valid():
+			permittype = form.cleaned_data['permittype']
+			if (permittype):
+				return HttpResponseRedirect('%d/' % permittype.id)
+			else:
+				print 'Wrong permittype'
+		else:
+			print 'Invalid'
+	else:
+		print 'GET'
+	return HttpResponseRedirect('../')
+
+#@transaction.commit_manually
+def	permit_dup_edit(request, perm_id, type_id):
+	perm = Permit.objects.get(pk=perm_id)
+	permittype = PermitType.objects.get(pk=type_id)
+	type_id = int(type_id)
+	needform = (PermitOwnForm, PermitStatementForm, PermitAlienForm)[type_id - 1]
+	if request.method == 'POST':
+		form = needform(request.POST)
+		if form.is_valid():
+			#try:
+			if (True):
+				# 1. main object
+				permit = Permit(org=perm.org, permittype=permittype)
+				permit.save()
+				# 2. subobject
+				if (type_id == 1):
+					a = PermitOwn(
+						permit=permit,
+						regno=form.cleaned_data['regno'],
+						date=form.cleaned_data['date'],
+						meeting=form.cleaned_data['meeting']
+					)
+				elif (type_id == 2):
+					a = PermitStatement(
+						permit=permit,
+						date=form.cleaned_data['date']
+					)
+				else:
+					a = PermitAlien(
+						permit=permit,
+						sro=form.cleaned_data['sro'],
+						regno=form.cleaned_data['regno'],
+						date=form.cleaned_data['date'],
+						protono=form.cleaned_data['protono'],
+						protodate=form.cleaned_data['protodate']
+					)
+				a.save()
+				# 3. copy jobs
+				for ps in perm.permitstage_set.all():
+					permitstage = PermitStage(permit=permit, stage=ps.stage)
+					permitstage.save()
+					for psj in ps.permitstagejob_set.all():
+						PermitStageJob(permitstage=permitstage, job=psj.job).save()
+			#except:
+			#	transaction.rollback()
+			#	print "except"
+			#	return HttpResponseRedirect('../../')
+			#else:
+			#	transaction.commit()
+			#	print 'commit'
+				return HttpResponseRedirect('../../../%d' % permit.id)
+	else:
+		form = needform()
+	formdict = {'org': perm.org, 'permittype': permittype, 'form': form}
+	return render_to_response('sro/org_edit_permit_add.html', RequestContext(request, formdict))
+
+def	permit_cmp(request, perm_id):
+	pass
 
 def	person_list(request):
 	person_list = Person.objects.all().order_by('lastname')

@@ -68,11 +68,47 @@ class	OrgStuffAddRoleForm(forms.ModelForm):
 		model = Role
 		#fields = ('firstname', 'midname', 'lastname')
 
+class	PermitListForm(forms.Form):
+	permittype	= forms.ModelChoiceField(queryset=PermitType.objects.all(), required=False)
+	otherperm	= forms.ModelChoiceField(queryset=Permit.objects.all(), required=False)
+
 class	PermitForm(forms.ModelForm):
-	date	= forms.DateField(input_formats=['%d.%m.%Y', '%d/%m/%Y'], widget=forms.widgets.DateTimeInput(format='%d.%m.%Y'))
 	class	Meta:
 		model = Permit
+		fields = ('permittype',)
+
+class	PermitOwnForm(forms.ModelForm):
+	date	= forms.DateField(input_formats=['%d.%m.%Y', '%d/%m/%Y'], widget=forms.widgets.DateTimeInput(format='%d.%m.%Y'))
+	#def	__init__(self, *args, **kwargs):
+	#	super(PermitOwnForm, self).__init__(*args, **kwargs)
+	#	instance = getattr(self, 'instance', None)
+	#	if instance and instance.id:
+	#		self.fields['permit'].required = False
+	#		self.fields['permit'].widget.attrs['disabled'] = 'disabled'
+	#def	clean_permit(self):
+	#	# As shown in the above answer.
+	#	instance = getattr(self, 'instance', None)
+	#	if instance:
+	#		return instance.permit
+	#	else:
+	#		return self.cleaned_data.get('permit', None)
+	class	Meta:
+		model = PermitOwn
 		fields = ('regno', 'date', 'meeting')
+		#exclude = ('permit',)
+		#readonly = ('permit',)
+
+class	PermitStatementForm(forms.ModelForm):
+	date	= forms.DateField(input_formats=['%d.%m.%Y', '%d/%m/%Y'], widget=forms.widgets.DateTimeInput(format='%d.%m.%Y'))
+	class	Meta:
+		model = PermitStatement
+		fields = ('date',)
+
+class	PermitAlienForm(forms.ModelForm):
+	date	= forms.DateField(input_formats=['%d.%m.%Y', '%d/%m/%Y'], widget=forms.widgets.DateTimeInput(format='%d.%m.%Y'))
+	class	Meta:
+		model = PermitAlien
+		fields = ('regno', 'date', 'sro', 'protono', 'protodate')
 
 class	PersonMainForm(forms.ModelForm):
 	class	Meta:
