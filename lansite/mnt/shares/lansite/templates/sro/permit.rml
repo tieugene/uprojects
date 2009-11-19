@@ -7,18 +7,18 @@
 </docinit>
 <template pageSize="(21cm, 29.7cm)" title="{{ data.no }}" author="{{ data.user }}" subject="Permit" showBoundary="0">
 		<pageTemplate id="main">
-			<frame id="main"	x1="3cm" y1="7.5cm" width="15cm" height="12cm"/>
-			<frame id="footer"	x1="4.0cm" y1="5cm" width="13cm" height="2.5cm"/>
+			<frame id="main"	x1="3cm" y1="7.3cm" width="15cm" height="12cm"/>
+			<frame id="footer"	x1="4.0cm" y1="5cm" width="13cm" height="2.3cm"/>
 		</pageTemplate>
 		<pageTemplate id="even">
 			<pageGraphics>
 				<setFont name="Sans" size="11"/>
-				<drawCentredString x="13.7cm" y="27.43cm"> {{ data.no }} </drawCentredString>
+				<drawCentredString x="13.5cm" y="27.35cm"> {{ data.no }} </drawCentredString>
 			</pageGraphics>
-			<frame id="no"		x1="2cm" y1="1.5cm" width="17.5cm" height="24.5cm"/>
+			<frame id="no"		x1="1.8cm" y1="1.3cm" width="17.5cm" height="24.8cm"/>
 		</pageTemplate>
 		<pageTemplate id="odd">
-			<frame id="no"		x1="2cm" y1="2.2cm" width="17cm" height="26cm"/>
+			<frame id="no"		x1="1.8cm" y1="2.2cm" width="17.5cm" height="26cm"/>
 		</pageTemplate>
 </template>
 <stylesheet>
@@ -49,6 +49,20 @@
 	name="style4"
 	fontName="Sans"
 	fontSize="8"
+	alignment="justify"
+	spaceAfter="0"
+/>
+<paraStyle
+	name="style5"
+	fontName="Sans"
+	fontSize="10"
+	alignment="justify"
+	spaceAfter="8"
+/>
+<paraStyle
+	name="style6"
+	fontName="Sans-Bold"
+	fontSize="10"
 	alignment="justify"
 	spaceAfter="0"
 />
@@ -95,8 +109,8 @@
 		<tr> <td/> <td>	<para style="style1" alignment="center"> МП </para> </td> <td/> </tr>
 	</blockTable>
 <setNextTemplate name="even,odd"/>
-	<para style="style1">
-		Перечень видов работ, которые оказывают влияние на безопасность объектов капитального строительства и о допуске к которым член Некоммерческого партнерства "Межрегиональное объединение организаций железнодорожного строительства" имеет Свидетельство
+	<para style="style5">
+		Перечень видов работ, которые оказывают влияние на безопасность объектов капитального строительства и о допуске к которым член Некоммерческого партнерства "Межрегиональное объединение организаций железнодорожного строительства" имеет Свидетельство:
 	</para>
 {%  for stage in data.perm.permitstage_set.all %}
 	<para style="style3"> {{ stage.stage.id }}. {{ stage.stage.name }} </para>

@@ -62,7 +62,6 @@ def	dl_file(request, file_id, file_name):
 
 @login_required
 def	org_list(request):
-	print request.method
 	if request.method == 'POST':
 		if (request.POST['okato']):
 			org_list = Org.objects.filter(okato__pk=request.POST['okato'])
@@ -451,7 +450,6 @@ def	permit_list(request, perm_id):
 			else:
 				jobs.append((j, False))
 		stages.append((s, sflag, jobs))
-	#pprint.pprint(stages)
 	return render_to_response('sro/permit_list.html', RequestContext(request, { 'permit': perm, 'stages': stages, 'jcount': jcount, 'form': PermitListForm() }))
 
 def	permit_edit(request, perm_id):
@@ -554,12 +552,6 @@ def	permit_dup(request, perm_id):
 			permittype = form.cleaned_data['permittype']
 			if (permittype):
 				return HttpResponseRedirect('%d/' % permittype.id)
-			else:
-				print 'Wrong permittype'
-		else:
-			print 'Invalid'
-	else:
-		print 'GET'
 	return HttpResponseRedirect('../')
 
 #@transaction.commit_manually
@@ -649,12 +641,9 @@ def	person_main(request, person_id):
 def	person_skill(request, person_id):
 	person = Person.objects.get(pk=person_id)
 	if request.method == 'POST':
-		#print "adding:", request.POST
 		form = PersonSkillForm(request.POST)
 		if form.is_valid():
 		#if (True):
-			#print "form valid"
-			#pprint.pprint(form)
 			new_item = form.save(commit=False)
 			new_item.person = person
 			new_item.save()

@@ -4,13 +4,13 @@
 kill all sro_* tables
 '''
 
-import sys, sqlite3
+import sys, sqlite
 
 reload(sys)
 sys.setdefaultencoding( "utf-8" )
 
 def	main():
-	conn = sqlite3.connect('/mnt/shares/lansite/db/lansite.db')
+	conn = sqlite.connect('/mnt/shares/lansite/db/lansite.db', autocommit=1)
 	c = conn.cursor()
 	l = list()
 	c.execute('SELECT name FROM sqlite_master WHERE type="table"')

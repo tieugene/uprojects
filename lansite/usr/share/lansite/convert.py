@@ -1,7 +1,7 @@
 #!/bin/env python
 # -*- coding: utf-8 -*-
 
-import json, pprint
+import simplejson as json
 
 # 1. load data
 data = json.load(open('sro.json', 'r'))
@@ -30,7 +30,7 @@ for i, a in enumerate(data):
 data.extend([
 	{ 'pk': 1, 'model': 'sro.permittype', 'fields': { 'id':	1, 'name': 'Permition' } },
 	{ 'pk': 2, 'model': 'sro.permittype', 'fields': { 'id':	2, 'name': 'Statement' } },
-	{ 'pk': 3, 'model': 'sro.permittype', 'fields': { 'id':	3, 'name': 'Alient permition' } },
+	{ 'pk': 3, 'model': 'sro.permittype', 'fields': { 'id':	3, 'name': 'Alien permition' } },
 ])
 # 5. merge data
 data.extend(permitown)
