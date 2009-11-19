@@ -163,7 +163,9 @@ function doMenu(item) {
 	{% if org.permit_set.all %}
 		<ul>
 		{% for i in org.permit_set.all %}
-			<li> № {{ org.sroregno }}-{{ i.regno }} от {{ i.date|date }}, протокол № {{ i.meeting.regno }} от {{ i.meeting.date|date }} </li>
+			{% ifequal i.permittype.id 1 %}
+			<li> № {{ i.permitown.regno }} от {{ i.permitown.date|date }}, протокол № {{ i.permitown.meeting.regno }} от {{ i.permitown.meeting.date|date }} </li>
+			{% endifequal %}
 		{% endfor %}
 		</ul>
 	{% endif %}

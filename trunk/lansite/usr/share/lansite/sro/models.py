@@ -568,21 +568,33 @@ class	MeetingOrg(models.Model):
 	def	exml(self):
 		return ''
 
+class	PermitType(models.Model):
+	id		= models.PositiveSmallIntegerField(primary_key=True, verbose_name=u'Код')
+	name		= models.CharField(max_length=30, blank=False, unique=True, verbose_name=u'Наименование')
+	_xmlname	= u'permit'
+	def	asstr(self):
+		return u'%d: %s' % (self.id, self.name)
+	def	__unicode__(self):
+		return self.asstr()
+	class	Meta:
+		verbose_name		= u'СписокВидовРаботТип'
+		verbose_name_plural	= u'СписокВидовРаботТипы'
+	def	exml(self):
+		return ''
+
 class	Permit(models.Model):
 	org		= models.ForeignKey(Org, verbose_name=u'Организация')
-	regno		= models.PositiveIntegerField(null=False, blank=False, unique=False, verbose_name=u'№')
-	date		= models.DateField(null=True, blank=True, verbose_name=u'Выдано')
-	meeting		= models.ForeignKey(Meeting, null=True, blank=True, verbose_name=u'Заседание')
+	permittype	= models.ForeignKey(PermitType, verbose_name=u'Тип')
 	stages		= models.ManyToManyField(Stage, through='PermitStage', verbose_name=u'Виды работ')
 	#stages		= CheckBoxManyToMany(Stage, through='PermitStage', verbose_name=u'Виды работ')
 	_xmlname	= u'permit'
 	def	asstr(self):
-		return u'%s: № %d' % (self.org.asstr(), self.id)
+		return u'%s: %s' % (self.org.asstr(), self.permittype.name)
 	def	__unicode__(self):
 		return self.asstr()
 	class	Meta:
-		verbose_name		= u'Разрешение'
-		verbose_name_plural	= u'Разрешения'
+		verbose_name		= u'СписокВидовРабот'
+		verbose_name_plural	= u'СпискиВидовРабот'
 	def	exml(self):
 		return ''
 
@@ -596,8 +608,8 @@ class	PermitStage(models.Model):
 	def	__unicode__(self):
 		return self.asstr()
 	class	Meta:
-		verbose_name		= u'Разрешение.Вид работ'
-		verbose_name_plural	= u'Разрешение.Виды работ'
+		verbose_name		= u'СписокВидовРабот.ВидРабот'
+		verbose_name_plural	= u'СписокВидовРабот.ВидыРабот'
 		unique_together		= [('permit', 'stage')]
 	def	exml(self):
 		return ''
@@ -611,15 +623,78 @@ class	PermitStageJob(models.Model):
 	def	__unicode__(self):
 		return self.asstr()
 	class	Meta:
-		verbose_name		= u'Разрешение.Вид работ.Работа'
-		verbose_name_plural	= u'Разрешение.Вид работ.Работы'
+		verbose_name		= u'СписокВидовРабот.ВидРабот.Работа'
+		verbose_name_plural	= u'СписокВидовРабот.ВидРабот.Работы'
 		unique_together		= [('permitstage', 'job')]
 	def	exml(self):
 		return ''
 
+class	PermitOwn(models.Model):
+	permit		= models.OneToOneField(Permit, verbose_name=u'СписокВидовРабот')
+	regno		= models.PositiveIntegerField(null=False, blank=False, unique=False, verbose_name=u'№')
+	date		= models.DateField(null=True, blank=True, verbose_name=u'Дата')
+	meeting		= models.ForeignKey(Meeting, null=True, blank=True, verbose_name=u'Заседание')
+	_xmlname	= u'permitown'
+	def	asstr(self):
+		return u'%s: %s № %d от %s' % (self.permit.org.name, self.permit.permittype.name, self.regno, self.permit.date)
+	def	__unicode__(self):
+		return self.asstr()
+	class	Meta:
+		verbose_name		= u'СвидетельствоСобственное'
+		verbose_name_plural	= u'СвидетельстваСобственные'
+	def	exml(self):
+		return ''
+
+class	PermitStatement(models.Model):
+	permit		= models.OneToOneField(Permit, verbose_name=u'СписокВидовРабот')
+	date		= models.DateField(null=True, blank=True, verbose_name=u'Дата')
+	_xmlname	= u'permitstatement'
+	def	asstr(self):
+		return u'%s: %s № %d от %s' % (self.permit.org.name, self.permit.permittype.name, self.regno, self.permit.date)
+	def	__unicode__(self):
+		return self.asstr()
+	class	Meta:
+		verbose_name		= u'Заявление'
+		verbose_name_plural	= u'Заявления'
+	def	exml(self):
+		return ''
+
+class	SRO(models.Model):
+	name		= models.CharField(max_length=30,  blank=False, unique=True, verbose_name=u'Наименование')
+	fullname	= models.CharField(max_length=100, blank=False, unique=True, verbose_name=u'Полное наименование')
+	regno		= models.CharField(max_length=30,  blank=False, unique=True, verbose_name=u'Рег. №')
+	_xmlname	= u'sro'
+	def	asstr(self):
+		return self.name
+	def	__unicode__(self):
+		return self.asstr()
+	class	Meta:
+		verbose_name		= u'СРО'
+		verbose_name_plural	= u'СРО'
+	def	exml(self):
+		return ''
+
+class	PermitAlien(models.Model):
+	permit		= models.OneToOneField(Permit, verbose_name=u'СписокВидовРабот')
+	sro		= models.ForeignKey(SRO, null=False, blank=False, verbose_name=u'СРО')
+	regno		= models.PositiveIntegerField(null=False, blank=False, unique=False, verbose_name=u'Рег. №')
+	date		= models.DateField(null=True, blank=True, verbose_name=u'Дата')
+	protono		= models.PositiveIntegerField(null=False, blank=False, unique=False, verbose_name=u'Протокол №')
+	protodate	= models.DateField(null=False, blank=False, verbose_name=u'Дата протокола')
+	_xmlname	= u'permitalien'
+	def	asstr(self):
+		return u'%s: %s № %d от %s' % (self.permit.org.name, self.permit.permittype.name, self.regno, self.permit.date)
+	def	__unicode__(self):
+		return self.asstr()
+	class	Meta:
+		verbose_name		= u'СвидетельствоЧужое'
+		verbose_name_plural	= u'СвидетельстваЧужие'
+	def	exml(self):
+		return ''
 
 modellist = (
 	Insurer, Okato, Okopf, Okved, Speciality, Skill, Stage, Job, File, EventType,
 	Role, Person, PersonSkill, PersonFile, Org, OrgOkved, OrgPhone, OrgEmail, OrgWWW, OrgStuff,
-	OrgEvent, OrgFile, OrgLicense, OrgInsurance, Meeting, MeetingOrg, Permit, PermitStage, PermitStageJob,
+	OrgEvent, OrgFile, OrgLicense, OrgInsurance, Meeting, MeetingOrg, PermitType, Permit, PermitStage, PermitStageJob,
+	PermitOwn, PermitStatement, SRO, PermitAlien
 )

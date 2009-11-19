@@ -19,9 +19,21 @@
 {% block main %}
 <table border="0">
 	<tr> <td> Организация: </td>	<td> {{ permit.org.asstr }} </td> </tr>
-	<tr> <td> Реестровый №: </td>	<td> {{ permit.regno }} </td> </tr>
-	<tr> <td> Дата: </td>		<td> {{ permit.date|date }} </td> </tr>
-	<tr> <td> Протокол: </td>	<td> № {{ permit.meeting.regno }} от {{ permit.meeting.date|date }} </td> </tr>
+	<tr> <td> Тип: </td>		<td> {{ permit.permittype.name }} </td> </tr>
+{% ifequal permit.permittype.id 1 %}
+	<tr> <td> №: </td>		<td> {{ permit.permitown.regno }} </td> </tr>
+	<tr> <td> от: </td>		<td> {{ permit.permitown.date|date }} </td> </tr>
+	<tr> <td> Протокол: </td>	<td> № {{ permit.permitown.meeting.regno }} от {{ permit.permitown.meeting.date|date }} </td> </tr>
+{% endifequal %}
+{% ifequal permit.permittype.id 2 %}
+	<tr> <td> от: </td>		<td> {{ permit.permitstatement.date|date }} </td> </tr>
+{% endifequal %}
+{% ifequal permit.permittype.id 3 %}
+	<tr> <td> №: </td>		<td> {{ permit.permitalien.regno }} </td> </tr>
+	<tr> <td> от: </td>		<td> {{ permit.permitalien.date|date }} </td> </tr>
+	<tr> <td> СРО: </td>		<td> {{ permit.permitalien.sro.asstr }} </td> </tr>
+	<tr> <td> Протокол: </td>	<td> № {{ permit.permitalien.protono }} от {{ permit.permitalien.protodatedate|date }} </td> </tr>
+{% endifequal %}
 </table>
 {% endblock %}
 {% block editmain %} {% endblock %}

@@ -2,16 +2,24 @@
 {% block body_permit %}
 	<table>
 		<tr>
-			<th> № </th>
-			<th> Дата </th>
-			<th> Протокол </th>
+			<th> Тип </th>
+			<th> Документ </th>
 			<th/>
 		</tr>
-	{% for i in permit %}
+	{% for i in org.permit_set.all %}
 		<tr>
-			<td> {{ i.regno }} </td>
-			<td> {{ i.date|date }} </td>
-			<td> {{ i.meeting.asstr }} </td>
+			<td> {{ i.permittype.name }} </td>
+			<td>
+			{% ifequal i.permittype.id 1 %}
+				№ {{ i.permitown.regno }} от {{ i.permitown.date|date }}, протокол № {{ i.permitown.meeting.regno }} от {{ i.permitown.meeting.date|date }}
+			{% endifequal %}
+			{% ifequal i.permittype.id 2 %}
+				от {{ i.permitstatement.date|date }}
+			{% endifequal %}
+			{% ifequal i.permittype.id 3 %}
+				№ {{ i.permitalien.regno }} от {{ i.permitalien.date|date }}, выдано {{ i.permitalien.sro.name }}, протокол № {{ i.permitalien.protono }} от {{ i.permitalient.protodate|date }}
+			{% endifequal %}
+			</td>
 			<td> {% if perms.sro.delete_permit %} <input type="button" value="X" onClick="confirmDelete('{% url lansite.sro.views.org_edit_permit_del org.id, i.id %}#permit')"/> {% endif %} </td>
 		</tr>
 	{% endfor %}
@@ -19,22 +27,10 @@
 	{% if perms.sro.add_permit %}
 	<form action=".#permit" method="POST">
 	<tr>
-		<td>
+		<td colspan="2">
 			<div class="fieldWrapper">
-				{{ form.regno.errors }}
-				{{ form.regno }}
-			</div>
-		</td>
-		<td>
-			<div class="fieldWrapper">
-				{{ form.date.errors }}
-				{{ form.date }}
-			</div>
-		</td>
-		<td>
-			<div class="fieldWrapper">
-				{{ form.meeting.errors }}
-				{{ form.meeting }}
+				{{ form.permittype.errors }}
+				{{ form.permittype }}
 			</div>
 		</td>
 		<td> <input type="submit" value="+" /> </td>
