@@ -303,7 +303,7 @@ def	org_edit_stuff(request, org_id = None):
 			new_item.save()
 			form = OrgStuffForm()
 	else:
-		form = OrgStuffForm()
+		form = OrgStuffForm(request.GET)
 	formdict = __load_org(org_id, org)
 	formdict['form'] = form
 	formdict['form_person'] = OrgStuffAddPersonForm()
@@ -314,15 +314,21 @@ def	org_edit_stuff_add_person(request, org_id):
 	if request.method == 'POST':
 		form = OrgStuffAddPersonForm(request.POST)
 		if form.is_valid():
-			form.save()
-	return HttpResponseRedirect('../')
+			item = form.save()
+			#org = Org.objects.get(pk=org_id)
+			#formdict = __load_org(org_id, org)
+			#formdict['form'] = OrgStuffForm(person=person)
+			#formdict['form_person'] = OrgStuffAddPersonForm()
+			#formdict['form_role'] = OrgStuffAddRoleForm()
+	return HttpResponseRedirect('../?person=%d' % item.id)
 
 def	org_edit_stuff_add_role(request, org_id):
 	if request.method == 'POST':
 		form = OrgStuffAddRoleForm(request.POST)
 		if form.is_valid():
-			form.save()
-	return HttpResponseRedirect('../')
+			item = form.save()
+	return HttpResponseRedirect('../?role=%d' % item.id)
+	#return HttpResponseRedirect(reverse('org_edit_stuff', args=(int(org_id),)))
 
 def	org_edit_stuff_del(request, org_id, item_id):
 	OrgStuff.objects.get(pk=item_id).delete()
