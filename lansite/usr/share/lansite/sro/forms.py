@@ -58,6 +58,13 @@ class	OrgStuffForm(forms.ModelForm):
 		model = OrgStuff
 		fields = ('person', 'role', 'leader', 'permanent')
 
+class	OrgStuffForm_Soft(forms.ModelForm):
+	person	= forms.ModelChoiceField(queryset=Person.objects.all(), required=False)
+	role	= forms.ModelChoiceField(queryset=Role.objects.all(), required=False)
+	class	Meta:
+		model = OrgStuff
+		fields = ('person', 'role', 'leader', 'permanent')
+
 class	OrgStuffAddPersonForm(forms.ModelForm):
 	class	Meta:
 		model = Person
