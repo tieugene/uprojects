@@ -303,7 +303,7 @@ def	org_edit_stuff(request, org_id = None):
 			new_item.save()
 			form = OrgStuffForm()
 	else:
-		form = OrgStuffForm(request.GET)
+		form = OrgStuffForm_Soft(request.GET)
 	formdict = __load_org(org_id, org)
 	formdict['form'] = form
 	formdict['form_person'] = OrgStuffAddPersonForm()
