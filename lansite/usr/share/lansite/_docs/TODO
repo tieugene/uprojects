@@ -51,3 +51,16 @@
 5. Admin
 6. Forms
 7. ...
+====
+* comparing permits
+* journal
+* Qualification:
+	* Skill:
+		+ high:bool
+	* PersonSkill:
+		+ tested:date=None
+		+ seniority:int=None
+		+ seniodate:date=None
+	* Speciality:
+		+ stages:M2M(Stage=>SpecialityStage)
+	+ SpecialityStage
