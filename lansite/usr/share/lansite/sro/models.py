@@ -18,6 +18,7 @@ def	my_upload_to(instance, filename):
 
 class	Insurer(models.Model):
 	name		= models.CharField(max_length=100, blank=False, unique=True, verbose_name=u'Наименование')
+	fullname	= models.CharField(max_length=100, blank=True, unique=False, verbose_name=u'Полное наименование')
 	_xmlname	= u'insurer'
 
 	def	asstr(self):
@@ -27,7 +28,7 @@ class	Insurer(models.Model):
 		return self.asstr()
 
 	class	Meta:
-		ordering = ('id',)
+		ordering = ('name',)
 		verbose_name = u'Страховщик'
 		verbose_name_plural = u'Страховщики'
 
@@ -135,40 +136,6 @@ class	Okved(models.Model):
 			s = self.name
 		return u'%s - %s' % (self.fmtid(), s)
 
-class	Speciality(models.Model):
-	name		= models.CharField(max_length=255, blank=False, unique=True, verbose_name=u'Наименование')
-	_xmlname	= u'speciality'
-
-	def	asstr(self):
-		return u'%s' % (self.name)
-
-	def	__unicode__(self):
-		return self.asstr()
-
-	class	Meta:
-		verbose_name = u'Специальность'
-		verbose_name_plural = u'Специальности'
-
-	def	exml(self):
-		return u'\t<%s name=\"%s\"/>\n' % (self._xmlname, self.name)
-
-class	Skill(models.Model):
-	'''
-	id - by OKSO+qualificationid
-	'''
-	name		= models.CharField(max_length=50, blank=False, unique=True, verbose_name=u'Наименование')
-	_xmlname	= u'skill'
-	def	asstr(self):
-		return self.name
-	def	__unicode__(self):
-		return self.asstr()
-	class	Meta:
-		ordering = ('id',)
-		verbose_name = u'Квалификация'
-		verbose_name_plural = u'Квалификации'
-	def	exml(self):
-		return u'\t<%s name="%s"/>\n' % (self._xmlname, self.name)
-
 class	Stage(models.Model):
 	id		= models.PositiveSmallIntegerField(primary_key=True, verbose_name=u'Код')
 	name		= models.CharField(max_length=255, blank=False, unique=True, verbose_name=u'Наименование')
@@ -208,10 +175,67 @@ class	Job(models.Model):
 	def	__unicode__(self):
 		return self.asstr()
 	class	Meta:
+		ordering	= ('id',)
 		verbose_name = u'Работа'
 		verbose_name_plural = u'Работы'
 	def	exml(self):
 		return u'\t<%s id="%d" stage="%d" okdp="%d" name="%s"/>\n' % (self._xmlname, self.id, self.stage.id, self.okdp, self.name)
+
+class	Speciality(models.Model):
+	name		= models.CharField(max_length=255, blank=False, unique=True, verbose_name=u'Наименование')
+	stages		= models.ManyToManyField(Stage, through='SpecialityStage', verbose_name=u'Виды работ')
+	_xmlname	= u'speciality'
+
+	def	asstr(self):
+		return u'%s' % (self.name)
+
+	def	__unicode__(self):
+		return self.asstr()
+
+	class	Meta:
+		ordering	= ('name',)
+		verbose_name	= u'Специальность'
+		verbose_name_plural = u'Специальности'
+
+	def	exml(self):
+		return u'\t<%s name=\"%s\"/>\n' % (self._xmlname, self.name)
+
+class	SpecialityStage(models.Model):
+	speciality	= models.ForeignKey(Speciality, verbose_name=u'Специальность')
+	stage		= models.ForeignKey(Stage, verbose_name=u'Вид работ')
+	_xmlname	= u'specialitysrage'
+
+	def	asstr(self):
+		return u'%s:%s' % (self.speciality, self.stage)
+
+	def	__unicode__(self):
+		return self.asstr()
+
+	class	Meta:
+		verbose_name		= u'Специальность.ВидРабот'
+		verbose_name_plural	= u'Специальности.ВидыРабот'
+		unique_together		= (('speciality', 'stage',),)
+
+	def	exml(self):
+		return u'\t<%s name=\"%s\"/>\n' % (self._xmlname, self.name)
+
+class	Skill(models.Model):
+	'''
+	id - by OKSO+qualificationid
+	'''
+	name		= models.CharField(max_length=50, blank=False, unique=True, verbose_name=u'Наименование')
+	high		= models.BooleanField(blank=False, null=False, default=False, verbose_name=u'Высшее')
+	_xmlname	= u'skill'
+	def	asstr(self):
+		return self.name
+	def	__unicode__(self):
+		return self.asstr()
+	class	Meta:
+		ordering = ('name',)
+		verbose_name = u'Квалификация'
+		verbose_name_plural = u'Квалификации'
+	def	exml(self):
+		return u'\t<%s name="%s"/>\n' % (self._xmlname, self.name)
 
 class	File(RenameFilesModel):
 	name		= models.CharField	(null=False, blank=False, max_length=255, verbose_name=u'Имя файла')
@@ -307,7 +331,10 @@ class	PersonSkill(models.Model):
 	speciality	= models.ForeignKey(Speciality, verbose_name=u'Специальность')
 	skill		= models.ForeignKey(Skill, verbose_name=u'Квалификация')
 	year		= models.PositiveIntegerField(null=False, blank=False, verbose_name=u'Год')
-	school		= models.CharField(max_length=100, null=False, blank=False, verbose_name=u'Учебное')
+	school		= models.CharField(max_length=100, null=False, blank=False, verbose_name=u'Учебное заведение')
+	seniority	= models.PositiveSmallIntegerField(null=True, blank=True, verbose_name=u'Стаж')
+	seniodate	= models.DateField(null=True, blank=True, verbose_name=u'Дата актуальности стажа')
+	tested		= models.DateField(null=True, blank=True, verbose_name=u'Дата последней аттестации')
 	_xmlname	= u'personskill'
 	def	asstr(self):
 		return u'%s: %s, %s' % (self.person.asstr(), self.speciality.asstr(), self.skill.asstr())
@@ -633,6 +660,7 @@ class	PermitOwn(models.Model):
 	permit		= models.OneToOneField(Permit, verbose_name=u'СписокВидовРабот')
 	regno		= models.PositiveIntegerField(null=False, blank=False, unique=False, verbose_name=u'№')
 	date		= models.DateField(null=True, blank=True, verbose_name=u'Дата')
+	datedue		= models.DateField(null=True, blank=True, verbose_name=u'Дата аннулирования')
 	meeting		= models.ForeignKey(Meeting, null=True, blank=True, verbose_name=u'Заседание')
 	_xmlname	= u'permitown'
 	def	asstr(self):
@@ -669,6 +697,7 @@ class	SRO(models.Model):
 	def	__unicode__(self):
 		return self.asstr()
 	class	Meta:
+		ordering		= ('name',)
 		verbose_name		= u'СРО'
 		verbose_name_plural	= u'СРО'
 	def	exml(self):
@@ -693,8 +722,8 @@ class	PermitAlien(models.Model):
 		return ''
 
 modellist = (
-	Insurer, Okato, Okopf, Okved, Speciality, Skill, Stage, Job, File, EventType,
-	Role, Person, PersonSkill, PersonFile, Org, OrgOkved, OrgPhone, OrgEmail, OrgWWW, OrgStuff,
-	OrgEvent, OrgFile, OrgLicense, OrgInsurance, Meeting, MeetingOrg, PermitType, Permit, PermitStage, PermitStageJob,
-	PermitOwn, PermitStatement, SRO, PermitAlien
+	Insurer, Okato, Okopf, Okved, Speciality, SpecialityStage, Skill, Stage, Job, File,
+	EventType, Role, Person, PersonSkill, PersonFile, Org, OrgOkved, OrgPhone, OrgEmail, OrgWWW,
+	OrgStuff, OrgEvent, OrgFile, OrgLicense, OrgInsurance, Meeting, MeetingOrg, PermitType, Permit, PermitStage,
+	PermitStageJob, PermitOwn, PermitStatement, SRO, PermitAlien
 )

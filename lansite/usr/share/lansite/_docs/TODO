@@ -11,3 +11,4 @@
 	* Speciality:
 		+ stages:M2M(Stage=>SpecialityStage)
 	+ SpecialityStage
+	* PermitOwn: datedue:date=None
