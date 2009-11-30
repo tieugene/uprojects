@@ -8,6 +8,8 @@
 			<th> Квалификация </th>
 			<th> Год </th>
 			<th> Учебное заведение </th>
+			<th> Стаж </th>
+			<th> Аттестация </th>
 			<th/>
 		</tr>
 	{% for i in person_skill %}
@@ -16,6 +18,8 @@
 			<td> {{ i.skill.name }} </td>
 			<td> {{ i.year }} </td>
 			<td> {{ i.school }} </td>
+			<td> {% if i.seniority %} {{ i.seniority }} ({{ i.seniodate|date }}) {% endif %}</td>
+			<td> {{ i.tested|date }} </td>
 			<td> {% if perms.sro.delete_personskill %} <input type="button" value="X" title="Удалить" onClick="confirmDelete('{% url lansite.sro.views.person_skill_del person.id, i.id %}#stuff')"/> {% endif %} </td>
 		</tr>
 	{% endfor %}
@@ -60,6 +64,33 @@
 				<div class="fieldWrapper">
 					{{ form.school.errors }}
 					{{ form.school }}
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td> {{ form.seniority.label_tag }} </td>
+			<td>
+				<div class="fieldWrapper">
+					{{ form.seniority.errors }}
+					{{ form.seniority }}
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td> {{ form.seniodate.label_tag }} </td>
+			<td>
+				<div class="fieldWrapper">
+					{{ form.seniodate.errors }}
+					{{ form.seniodate }}
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td> {{ form.tested.label_tag }} </td>
+			<td>
+				<div class="fieldWrapper">
+					{{ form.tested.errors }}
+					{{ form.tested }}
 				</div>
 			</td>
 		</tr>

@@ -31,6 +31,10 @@ class	SpecialityInLine(admin.TabularInline):
 	model		= Speciality
 	extra		= 1
 
+class	SpecialityStageInLine(admin.TabularInline):
+	model		= SpecialityStage
+	extra		= 1
+
 class	SkillInLine(admin.TabularInline):
 	model		= Skill
 	extra		= 1
@@ -162,7 +166,7 @@ class	SpecialityAdmin(admin.ModelAdmin):
 	list_display	= ('name',)
 	ordering	= ('name',)
 	search_fields	= ('name',)
-	inlines		= (PersonSkillInLine,)
+	inlines		= (PersonSkillInLine, SpecialityStageInLine)
 
 class	SkillAdmin(admin.ModelAdmin):
 	list_display	= ('name',)
@@ -173,7 +177,7 @@ class	SkillAdmin(admin.ModelAdmin):
 class	StageAdmin(admin.ModelAdmin):
 	list_display	= ('id', 'name', 'hq', 'hs', 'mq', 'ms')
 	ordering	= ('id', 'name')
-	inlines		= (JobInLine,)
+	inlines		= (JobInLine, SpecialityStageInLine)
 
 class	EventTypeAdmin(admin.ModelAdmin):
 	list_display	= ('name', 'comments')
