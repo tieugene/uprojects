@@ -706,9 +706,9 @@ class	SRO(models.Model):
 class	PermitAlien(models.Model):
 	permit		= models.OneToOneField(Permit, verbose_name=u'СписокВидовРабот')
 	sro		= models.ForeignKey(SRO, null=False, blank=False, verbose_name=u'СРО')
-	regno		= models.PositiveIntegerField(null=False, blank=False, unique=False, verbose_name=u'Рег. №')
-	date		= models.DateField(null=True, blank=True, verbose_name=u'Дата')
-	protono		= models.PositiveIntegerField(null=False, blank=False, unique=False, verbose_name=u'Протокол №')
+	regno		= models.CharField(max_length=50, null=False, blank=False, unique=False, verbose_name=u'Рег. №')
+	date		= models.DateField(null=False, blank=False, verbose_name=u'Дата')
+	protono		= models.CharField(max_length=16, null=False, blank=False, unique=False, verbose_name=u'Протокол №')
 	protodate	= models.DateField(null=False, blank=False, verbose_name=u'Дата протокола')
 	_xmlname	= u'permitalien'
 	def	asstr(self):
