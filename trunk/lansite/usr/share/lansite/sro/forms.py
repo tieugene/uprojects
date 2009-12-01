@@ -132,6 +132,7 @@ class	PersonSkillForm(forms.ModelForm):
 class	PersonSkillAddSpecialityForm(forms.ModelForm):
 	class	Meta:
 		model = Speciality
+		fields = ('name',)
 
 class	PersonSkillAddSkillForm(forms.ModelForm):
 	class	Meta:

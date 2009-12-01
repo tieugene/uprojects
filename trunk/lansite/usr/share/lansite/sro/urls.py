@@ -17,6 +17,7 @@ info_dict = {
 urlpatterns = patterns('lansite.sro.views',
 	(r'^$', 'index'),
 	#(r'^org/$', 'django.views.generic.list_detail.object_list', info_dict),
+	(r'^journal/$',							'journal'),
 	(r'^org/$',							'org_list'),
 	(r'^org/publish/$',						'org_publish'),
 	(r'^org/upload/$',						'org_upload'),
