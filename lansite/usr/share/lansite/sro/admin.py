@@ -77,8 +77,13 @@ class	OrgInLine(admin.TabularInline):
 	extra		= 1
 
 class	PermitInLine(admin.TabularInline):
-	list_display	= ('id', 'date')
+	list_display	= ('org', 'permittype')
 	model = Permit
+	extra = 1
+
+class	PermitOwnInLine(admin.TabularInline):
+	list_display	= ('regno', 'date', 'datedue', 'meeting')
+	model = PermitOwn
 	extra = 1
 
 class	PermitStageInLine(admin.TabularInline):
@@ -255,7 +260,7 @@ class	FileAdmin(ReadOnlyAdminFields, admin.ModelAdmin):
 
 class	MeetingAdmin(admin.ModelAdmin):
 	list_display	= ('regno', 'date', 'common', 'agenda')
-	inlines		= (MeetingOrgInLine, PermitInLine,)
+	inlines		= (MeetingOrgInLine, PermitOwnInLine,)
 	date_hierarchy	= 'date'
 
 admin.site.register(Insurer,		InsurerAdmin)

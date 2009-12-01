@@ -42,6 +42,9 @@ def	index(request):
 		return HttpResponseRedirect('../login/?next=%s' % request.path)
 	return render_to_response('sro/index.html', context_instance=RequestContext(request))
 
+def	journal(request):
+	return render_to_response('sro/journal.html', RequestContext(request, {'log': LogEntry.objects.all()}))
+
 def	dl_file(request, file_id, file_name):
 	'''
 	web.header("Content-Type", "%s/%s;" % (item.mime_media, item.mime_type))
