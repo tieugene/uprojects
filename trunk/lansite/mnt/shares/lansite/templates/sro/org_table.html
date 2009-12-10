@@ -36,7 +36,7 @@
 	<td>	<!-- email -->
 	{% if org.orgemail_set.all %}
 		{% for i in org.orgemail_set.all %}
-			<p> {{ i.asstr }} </p>
+			<p> <a href="mailto:{{ i.asstr }}"> {{ i.asstr }} </a> </p>
 		{% endfor %}
 	{% endif %}
 	</td>

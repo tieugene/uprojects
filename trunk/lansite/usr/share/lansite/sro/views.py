@@ -99,6 +99,19 @@ def	org_upload(request):
 	f.close()
 	return render_to_response('sro/upload_msg.html', RequestContext(request, {'msg': "Uploaded OK"}))
 
+def	org_table(request):
+	org_list = Org.objects.all().order_by('name')
+	return render_to_response('sro/org_table.html', RequestContext(request, {'org_list': org_list}))
+
+def	org_mailto(request):
+	s = ""
+	sep = ""
+	for i in OrgEmail.objects.all():
+		s = s + sep + i.URL
+		if not sep:
+			sep = ", "
+	return render_to_response('sro/org_mailto.html', RequestContext(request, {'mailto': s}))
+
 def	org_del(request, org_id):
 	org = Org.objects.get(pk=org_id)
 	__log_it(request, org, DELETION)

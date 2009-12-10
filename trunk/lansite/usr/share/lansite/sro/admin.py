@@ -174,7 +174,7 @@ class	SpecialityAdmin(admin.ModelAdmin):
 	inlines		= (PersonSkillInLine, SpecialityStageInLine)
 
 class	SkillAdmin(admin.ModelAdmin):
-	list_display	= ('name',)
+	list_display	= ('name', 'high')
 	ordering	= ('name',)
 	search_field	= ('name',)
 	inlines		= (PersonSkillInLine,)
