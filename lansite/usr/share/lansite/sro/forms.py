@@ -112,7 +112,8 @@ class	PermitStatementForm(forms.ModelForm):
 		fields = ('date',)
 
 class	PermitAlienForm(forms.ModelForm):
-	date	= forms.DateField(input_formats=['%d.%m.%Y', '%d/%m/%Y'], widget=forms.widgets.DateTimeInput(format='%d.%m.%Y'))
+	date		= forms.DateField(input_formats=['%d.%m.%Y', '%d/%m/%Y'], widget=forms.widgets.DateTimeInput(format='%d.%m.%Y'), required=False)
+	protodate	= forms.DateField(input_formats=['%d.%m.%Y', '%d/%m/%Y'], widget=forms.widgets.DateTimeInput(format='%d.%m.%Y'), required=False)
 	class	Meta:
 		model = PermitAlien
 		fields = ('regno', 'date', 'sro', 'protono', 'protodate')
