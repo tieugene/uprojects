@@ -1,5 +1,5 @@
 {% extends "sro/org_base.html" %}
-{% block body_main_button %}		{% if perms.sro.change_org %}					<input type="button" value="Изменить"	onClick="window.location.href='{% url lansite.sro.views.org_edit_main		org.id %}#main'"/>	{% endif %} {% endblock %}
+{% block body_main_button %}		{% if perms.sro.change_org %}					<input type="button" value="Изменить"	onClick="window.location.href='{% url lansite.sro.views.org_edit_main		org.id %}#main'"/>	{% endif %}	{% endblock %}
 {% block body_license_add_button %}	{% if perms.sro.add_orglicense %}				<input type="button" value="Указать"	onClick="window.location.href='{% url lansite.sro.views.org_license_add		org.id %}#main'"/>	{% endif %}	{% endblock %}
 {% block body_license_edit_button %}	{% if perms.sro.change_orglicense %}				<input type="button" value="Изменить"	onClick="window.location.href='{% url lansite.sro.views.org_license_edit	org.id %}#main'"/>	{% endif %}	{% endblock %}
 {% block body_license_del_button %}	{% if perms.sro.del_orglicense %}				<input type="button" value="Удалить"	onClick="confirmDelete('{% url lansite.sro.views.org_license_del		org.id %}#main')"/>	{% endif %}	{% endblock %}
@@ -14,3 +14,4 @@
 {% block body_permit_button %}		{% if perms.sro.del_permit or perms.sro.add_permit %}		<input type="button" value="Изменить"	onClick="window.location.href='{% url lansite.sro.views.org_edit_permit		org.id %}#permit'"/>	{% endif %}	{% endblock %}
 {% block body_event_button %} <!-- <a href="../edit/event/"> Edit </a> --> {% endblock %}
 {% block body_file_button %} <!-- <a href="../edit/file/"> Edit </a> --> {% endblock %}
+{% block body_svid %}	<a href="svid/"> Свидетельство </a> {% endblock %}
