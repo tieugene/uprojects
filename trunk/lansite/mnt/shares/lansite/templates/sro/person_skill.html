@@ -7,6 +7,7 @@
 			<th> Специальность </th>
 			<th> Квалификация </th>
 			<th> Год </th>
+			<th> Дата </th>
 			<th> Учебное заведение </th>
 			<th> Стаж </th>
 			<th> Аттестация </th>
@@ -17,6 +18,7 @@
 			<td> {{ i.speciality.name }} </td>
 			<td> {{ i.skill.name }} </td>
 			<td> {{ i.year }} </td>
+			<td> {{ i.skilldate }} </td>
 			<td> {{ i.school }} </td>
 			<td> {% if i.seniority %} {{ i.seniority }} ({{ i.seniodate|date }}) {% endif %}</td>
 			<td> {{ i.tested|date }} </td>
@@ -55,6 +57,15 @@
 				<div class="fieldWrapper">
 					{{ form.year.errors }}
 					{{ form.year }}
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td> {{ form.skilldate.label_tag }} </td>
+			<td>
+				<div class="fieldWrapper">
+					{{ form.skilldate.errors }}
+					{{ form.skilldate }}
 				</div>
 			</td>
 		</tr>

@@ -309,6 +309,7 @@ class	Person(models.Model):
 	lastname	= models.CharField(max_length=24, blank=False, verbose_name=u'Фамилия')
 	skills		= models.ManyToManyField(Skill, through='PersonSkill', verbose_name=u'Квалификации')
 	files		= models.ManyToManyField(File, through='PersonFile', verbose_name=u'Файлы')
+	phone		= models.CharField(null=True, blank=True, max_length=25, verbose_name=u'Телефон')
 	_xmlname	= u'person'
 	def	asstr(self):
 		return u'%s %s %s' % (self.lastname, self.firstname, self.midname)
@@ -331,6 +332,7 @@ class	PersonSkill(models.Model):
 	speciality	= models.ForeignKey(Speciality, verbose_name=u'Специальность')
 	skill		= models.ForeignKey(Skill, verbose_name=u'Квалификация')
 	year		= models.PositiveIntegerField(null=False, blank=False, verbose_name=u'Год')
+	skilldate	= models.DateField(null=True, blank=True, verbose_name=u'Дата окончания')
 	school		= models.CharField(max_length=100, null=False, blank=False, verbose_name=u'Учебное заведение')
 	seniority	= models.PositiveSmallIntegerField(null=True, blank=True, verbose_name=u'Стаж')
 	seniodate	= models.DateField(null=True, blank=True, verbose_name=u'Дата актуальности стажа')

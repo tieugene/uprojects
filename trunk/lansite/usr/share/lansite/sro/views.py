@@ -37,6 +37,19 @@ def	__log_it(request, object, action, change_message=''):
 		action_flag     = action	# django.contrib.admin.models: ADDITION/CHANGE/DELETION
 	)
 
+def	pdf_render_to_response(template, context, filename=None):
+	response = HttpResponse(mimetype='application/pdf')
+	if not filename:
+		filename = template+'.pdf'
+	cd = []
+	cd.append('filename=%s' % filename)
+	response['Content-Disposition'] = '; '.join(cd)
+	tpl = loader.get_template(template)
+	tc = {'filename': filename}
+	tc.update(context)
+	response.write(trml2pdf.parseString(tpl.render(Context(tc)).encode('utf-8')))
+	return response
+
 def	index(request):
 	if not request.user.is_authenticated():
 		return HttpResponseRedirect('../login/?next=%s' % request.path)
@@ -103,6 +116,10 @@ def	org_table(request):
 	org_list = Org.objects.all().order_by('name')
 	return render_to_response('sro/org_table.html', RequestContext(request, {'org_list': org_list}))
 
+def	org_report(request):
+	org_list = Org.objects.filter(public=True).order_by('name')
+	return render_to_response('sro/org_report.html', RequestContext(request, {'org_list': org_list, 'dt': datetime.now().strftime('%d.%m.%Y %H:%M:%S')}))
+
 def	org_mailto(request):
 	s = ""
 	sep = ""
@@ -145,6 +162,12 @@ def	__load_org(org_id, org=None):
 
 def	org_view(request, org_id):
 	return render_to_response('sro/org_view.html', RequestContext(request, __load_org(org_id)))
+
+def	org_svid_pdf(request, org_id):
+	org = Org.objects.get(pk=org_id)
+	data = dict()
+	data['org'] = org
+	return pdf_render_to_response('sro/svid.rml', {'data': data}, filename=str(org.sroregno) + '.pdf')
 
 def	org_add(request):
 	org = Org()
@@ -548,19 +571,6 @@ def	__load_permit(perm_id):
 
 def	permit_html(request, perm_id):
 	return render_to_response('sro/permit_html.html', RequestContext(request, { 'data': __load_permit(perm_id) }))
-
-def	pdf_render_to_response(template, context, filename=None):
-	response = HttpResponse(mimetype='application/pdf')
-	if not filename:
-		filename = template+'.pdf'
-	cd = []
-	cd.append('filename=%s' % filename)
-	response['Content-Disposition'] = '; '.join(cd)
-	tpl = loader.get_template(template)
-	tc = {'filename': filename}
-	tc.update(context)
-	response.write(trml2pdf.parseString(tpl.render(Context(tc)).encode('utf-8')))
-	return response
 
 def	permit_pdf(request, perm_id):
 	data = __load_permit(perm_id)
