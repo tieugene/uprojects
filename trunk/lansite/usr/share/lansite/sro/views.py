@@ -577,6 +577,16 @@ def	permit_pdf(request, perm_id):
 	data['user'] = request.user.username
 	return pdf_render_to_response('sro/permit.rml', {'data': data}, filename=data['no'] + '.pdf')
 
+def	org_prj_pdf(request, org_id):
+	org = Org.objects.get(pk=org_id)
+	prjorg = org.prjorg
+	data = dict()
+	data['prjorg']		= prjorg
+	data['date']		= __strdate(prjorg.permdate)
+	data['protodate']	= __strdate(prjorg.protocol.date)
+	data['user'] = request.user.username
+	return pdf_render_to_response('sro/prj.rml', {'data': data}, filename=data['prjorg'].permno + '.pdf')
+
 def	permit_dup(request, perm_id):
 	if request.method == 'POST':
 		form = PermitListForm(request.POST)

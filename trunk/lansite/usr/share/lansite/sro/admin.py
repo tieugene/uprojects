@@ -6,6 +6,7 @@ TODO:
 	* Selector: raw_id + readonly - or unicode + del/add + select
 '''
 
+from django import forms
 from django.contrib import admin
 from models import *
 from rfm import ReadOnlyAdminFields
@@ -143,6 +144,11 @@ class	MeetingOrgInLine(admin.TabularInline):
 	model = MeetingOrg
 	extra = 1
 	
+class	PrjOrgStageInLine(admin.TabularInline):
+	model		= PrjOrgStage
+	list_display	= ('stage',)
+	extra		= 1
+
 # 2. Odmins
 class	InsurerAdmin(admin.ModelAdmin):
 	list_display	= ('id', 'name')
@@ -263,6 +269,20 @@ class	MeetingAdmin(admin.ModelAdmin):
 	inlines		= (MeetingOrgInLine, PermitOwnInLine,)
 	date_hierarchy	= 'date'
 
+class	PrjStageAdmin(admin.ModelAdmin):
+	list_display	= ('id', 'name')
+	ordering	= ('id',)
+
+class	PrjProtoAdmin(admin.ModelAdmin):
+	list_display	= ('no', 'date')
+	ordering	= ('no',)
+
+class	PrjOrgAdmin(admin.ModelAdmin):
+	list_display	= ('org',)
+	ordering	= ('org',)
+	inlines		= (PrjOrgStageInLine,)
+	#formfield_overrides = {models.ManyToManyField: {'widget': forms.CheckboxSelectMultiple},}
+
 admin.site.register(Insurer,		InsurerAdmin)
 admin.site.register(Okato,		OkatoAdmin)
 admin.site.register(Okopf,		OkopfAdmin)
@@ -284,3 +304,6 @@ admin.site.register(PermitAlien,	PermitAlienAdmin)
 admin.site.register(OrgEvent,		OrgEventAdmin)
 admin.site.register(File,		FileAdmin)
 admin.site.register(Meeting,		MeetingAdmin)
+admin.site.register(PrjStage,		PrjStageAdmin)
+admin.site.register(PrjProto,		PrjProtoAdmin)
+admin.site.register(PrjOrg,		PrjOrgAdmin)

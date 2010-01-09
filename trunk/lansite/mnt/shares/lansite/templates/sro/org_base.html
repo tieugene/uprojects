@@ -35,13 +35,16 @@ function confirmDelete(delUrl) {
 		<tr>	<td> ОКАТО: </td>			<td> {{ org.okato }} </td>		</tr>
 		<tr>	<td> Адрес юридический: </td>		<td> {{ org.laddress }} </td>		</tr>
 		<tr>	<td> Адрес фактический: </td>		<td> {{ org.raddress }} </td>		</tr>
+	</table>
+		<h3 align="center"> Строительство: </h3>
+	<table>
 		<tr>	<td> Реестровый №: </td>		<td> {{ org.sroregno }} </td>		</tr>
 		<tr>	<td> Дата членства в НП: </td>		<td> {{ org.sroregdate|date }} </td>	</tr>
 		<tr>	<td> Дата оплаты взноса в КФ: </td>	<td> {{ org.paydate|date }} </td>	</tr>
 		<tr>	<td> Сумма взноса в КФ: </td>		<td> {{ org.paysum }} </td>		</tr>
-		<tr>	<td> Дата оплаты вступительного взноса: </td>	<td> {{ org.paydatevv|date }} </td>	</tr>
+		<tr>	<td> Дата оплаты ВВ: </td>		<td> {{ org.paydatevv|date }} </td>	</tr>
 		<tr>	<td> Коментарии: </td>			<td> {{ org.comments }} </td>		</tr>
-		<tr>	<td> Публиковать: </td>			<td> [{% ifequal org.public 1 %} V {% else %} &nbsp; {% endifequal %}] </td>		</tr>
+		<tr>	<td> Публиковать: </td>		<td> [{% ifequal org.public 1 %} V {% else %} &nbsp; {% endifequal %}] </td>		</tr>
 	</table>
 {% endblock %}
 {% block body_license %}
@@ -71,6 +74,25 @@ function confirmDelete(delUrl) {
 			{% endif %}
 		</td>	</tr>
 	</table>
+{% endblock %}
+{% block body_prj %}
+	{% if org.prjorg %}
+		<h3 align="center"> Проектирование: </h3>
+		<table border="0">
+			<tr>	<td> Реестровый №: </td>		<td> {{ org.prjorg.regno }} </td>		</tr>
+			<tr>	<td> Дата членства в НП: </td>		<td> {{ org.prjorg.regdate|date }} </td>	</tr>
+			<tr>	<td> Дата оплаты взноса в КФ: </td>	<td> {{ org.prjorg.paydate|date }} </td>	</tr>
+			<tr>	<td> Сумма взноса в КФ: </td>		<td> {{ org.prjorg.paysum }} </td>		</tr>
+			<tr>	<td> Дата оплаты ВВ: </td>		<td> {{ org.prjorg.paydatevv|date }} </td>	</tr>
+			<tr>	<td> Лицензия: </td>			<td> № {{ org.prjorg.licno }} от {{ org.prjorg.licfrom|date }} по {{ org.prjorg.licdue|date }} </td>		</tr>
+			<tr>	<td> Страховка: </td>			<td> {{ org.prjorg.insurer }}, Дог. № {{ org.prjorg.insno }} от {{ org.prjorg.insdate|date }} на {{ org.prjorg.inssum }} руб., с {{ org.prjorg.insfrom|date }} по {{ org.prjorg.insdue|date }} </td>		</tr>
+			<tr>	<td> Публиковать: </td>		<td> [{% ifequal org.prjorg.publish 1 %} V {% else %} &nbsp; {% endifequal %}] </td>		</tr>
+			<tr>	<td> Только проектирование: </td>	<td> [{% ifequal org.prjorg.projonly 1 %} V {% else %} &nbsp; {% endifequal %}] </td>		</tr>
+			<tr>	<td> Коментарии: </td>			<td> {{ org.prjorg.comments }} </td>		</tr>
+			<tr>	<td> Свидетельство: </td>		<td> № {{ org.prjorg.permno }} от {{ org.prjorg.permdate|date }}, прот. № {{ org.prjorg.protocol.no }} от {{ org.prjorg.protocol.date|date }} </td>		</tr>
+		</table>
+		[ <a href="{% url lansite.sro.views.org_prj_pdf org.id %}" title="Печать свидетельства на проектирование"> PDF </a> ]
+	{% endif %}
 {% endblock %}
 <a name="okved"/>
 <table width="100%" border="0" bgcolor="lightgrey"><tr><td><table><tr><td> {% block body_okved_button %} {% endblock %} </td><td><h3> 1.1. ОКВЭД: </h3></td></tr></table></td></tr></table>

@@ -723,9 +723,87 @@ class	PermitAlien(models.Model):
 	def	exml(self):
 		return ''
 
+# Projecting addon
+class	PrjStage(models.Model):
+	id		= models.PositiveSmallIntegerField(primary_key=True, verbose_name=u'Код')
+	name		= models.CharField(max_length=255, blank=False, unique=True, verbose_name=u'Наименование')
+	hq		= models.PositiveSmallIntegerField(null=True, verbose_name=u'Кол-во ВО', help_text=u'Количество специалистов с высшим образованием')
+	hs		= models.PositiveSmallIntegerField(null=True, verbose_name=u'Стаж ВО', help_text=u'Минимальный стаж специалистов с высшим образованием')
+	mq		= models.PositiveSmallIntegerField(null=True, verbose_name=u'Кол-во СО', help_text=u'Количество специалистов со средним образованием')
+	ms		= models.PositiveSmallIntegerField(null=True, verbose_name=u'Стаж СО', help_text=u'Минимальный стаж специалистов со средним образованием')
+	def	asstr(self):
+		return u'%02d. %s' % (self.id, self.name)
+	def	__unicode__(self):
+		return self.asstr()
+	class	Meta:
+		ordering = ('id',)
+		verbose_name = u'Prj: Вид работ'
+		verbose_name_plural = u'Prj: Виды работ'
+
+class	PrjProto(models.Model):
+	no		= models.PositiveSmallIntegerField(null=False, blank=False, verbose_name=u'№ протокола')
+	date		= models.DateField(null=False, blank=False, verbose_name=u'Дата протокола')
+	def	asstr(self):
+		return u'%d от %s' % (self.no, self.date)
+	def	__unicode__(self):
+		return self.asstr()
+	class	Meta:
+		ordering = ('no',)
+		verbose_name = u'Prj: Протокол'
+		verbose_name_plural = u'Prj: Протоколы'
+
+class	PrjOrg(models.Model):
+	org		= models.OneToOneField(Org, verbose_name=u'Организация')
+	# 1. SRO
+	regno		= models.CharField(max_length=50, null=True, blank=True, unique=False, verbose_name=u'Рег. №')
+	regdate		= models.DateField(null=True, blank=True, verbose_name=u'Дата членства')
+	paydate		= models.DateField(null=True, blank=True, verbose_name=u'Дата оплаты взноса в КФ')
+	paysum		= models.PositiveIntegerField(null=True, blank=True, verbose_name=u'Сумма взноса в КФ')
+	paydatevv	= models.DateField(null=True, blank=True, verbose_name=u'Дата оплаты вступительного взноса')
+	# 2. license
+	licno		= models.CharField(null=True, blank=True, max_length=100, unique=True, verbose_name=u'Лиц №')
+	licfrom		= models.DateField(null=True, blank=True, verbose_name=u'Лиц. выдана')
+	licdue		= models.DateField(null=True, blank=True, verbose_name=u'Лиц. до')
+	# 3. insurance
+	insurer		= models.ForeignKey(Insurer, null=True, blank=True, verbose_name=u'Страховщик')
+	insno		= models.CharField(null=True, blank=True, unique=True, max_length=50, verbose_name=u'Номер договора')
+	insdate		= models.DateField(null=True, blank=True, verbose_name=u'Дата договора')
+	inssum		= models.PositiveIntegerField(null=True, blank=True, verbose_name=u'Страховая сумма')
+	insfrom		= models.DateField(null=True, blank=True, verbose_name=u'Страховка с')
+	insdue		= models.DateField(null=True, blank=True, verbose_name=u'Страховка до')
+	# 4. misc
+	publish		= models.BooleanField(null=False, blank=False, default=False, verbose_name=u'Публиковать')
+	projonly	= models.BooleanField(null=False, blank=False, default=False, verbose_name=u'Только проектирование')
+	comments	= models.TextField(null=True, blank=True, verbose_name=u'Коментарии')
+	# 5. permision
+	permno		= models.CharField(max_length=16, null=True, blank=True, unique=False, verbose_name=u'Свид. №')
+	permdate	= models.DateField(null=True, blank=True, verbose_name=u'Свид. дата')
+	protocol	= models.ForeignKey(PrjProto, null=True, blank=True, verbose_name=u'Протокол')
+	stages		= models.ManyToManyField(PrjStage, through='PrjOrgStage', verbose_name=u'Виды работ')
+	def	asstr(self):
+		return u'%s' % self.org
+	def	__unicode__(self):
+		return self.asstr()
+	class	Meta:
+		ordering = ('org',)
+		verbose_name		= u'Prj: Организация'
+		verbose_name_plural	= u'Prj: Организации'
+
+class	PrjOrgStage(models.Model):
+	org		= models.ForeignKey(PrjOrg, null=False, blank=False, verbose_name=u'Организация')
+	stage		= models.ForeignKey(PrjStage, null=False, blank=False, verbose_name=u'Вид работ')
+	def	asstr(self):
+		return u'%s: %s' % (self.org, self.stage)
+	def	__unicode__(self):
+		return self.asstr()
+	class	Meta:
+		ordering = ('org', 'stage')
+		verbose_name		= u'Prj: Организация.ВидРабот'
+		verbose_name_plural	= u'Prj: Организации.ВидыРабот'
+
 modellist = (
 	Insurer, Okato, Okopf, Okved, Speciality, SpecialityStage, Skill, Stage, Job, File,
 	EventType, Role, Person, PersonSkill, PersonFile, Org, OrgOkved, OrgPhone, OrgEmail, OrgWWW,
 	OrgStuff, OrgEvent, OrgFile, OrgLicense, OrgInsurance, Meeting, MeetingOrg, PermitType, Permit, PermitStage,
-	PermitStageJob, PermitOwn, PermitStatement, SRO, PermitAlien
+	PermitStageJob, PermitOwn, PermitStatement, SRO, PermitAlien, PrjStage, PrjProto, PrjOrg, PrjOrgStage
 )
