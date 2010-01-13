@@ -1,0 +1,82 @@
+;SetupMgrTag
+[Data]
+    AutoPartition=0
+    MsDosInitiated="0"
+    UnattendedInstall="Yes"
+
+[Unattended]
+    UnattendMode=FullUnattended
+    OemSkipEula=Yes
+    OemPreinstall=No
+    TargetPath=\WINDOWS
+    FileSystem=*
+
+[GuiUnattended]
+    AdminPassword="tratata"
+    EncryptedAdminPassword=NO
+    AutoLogon=Yes
+    AutoLogonCount=1
+    OEMSkipRegional=1
+    TimeZone=145
+    OemSkipWelcome=1
+
+[UserData]
+    ProductKey=RK38B-7RTKV-3JTPJ-T8V7R-M73TP
+    FullName="User"
+    OrgName=""
+    ComputerName=host
+
+[RegionalSettings]
+    LanguageGroup=1,2,3,4,5
+    SystemLocale=00000419
+    UserLocale=00000419
+    InputLocale=0409:00000409,0419:00000419
+
+[Shell]
+    DefaultStartPanelOff=Yes
+    DefaultThemesOff=Yes 
+
+[Identification]
+    JoinWorkgroup=WORKGROUP
+
+[Networking]
+    InstallDefaultComponents=Yes
+
+[TerminalServices] 
+    AllowConnections=1
+    PermissionsSetting=1
+
+[WindowsFirewall]
+    Profiles = WindowsFirewall.TurnOffFirewall
+
+[WindowsFirewall.TurnOffFirewall]
+    Mode = 0
+
+[Components]
+    AccessOpt=off
+    Calc=off
+    charmap=on
+    chat=off
+    clipbook=off
+    deskpaper=off
+    dialer=off
+    fax=off
+    freecell=off
+    hearts=off
+    indexsrv_system=off
+    inetprint=on
+    media_clips=off
+    media_utopia=off
+    minesweeper=off
+    mousepoint=off
+    msmsgs=off
+    msnexplr=off
+    OEAccess=off
+    paint=on
+    pinball=off
+    rec=off
+    solitaire=off
+    spider=off
+    templates=off
+    TerminalServer=on
+    zonegames=off
