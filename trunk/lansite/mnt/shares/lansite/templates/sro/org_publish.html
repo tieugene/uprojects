@@ -74,7 +74,7 @@ function doMenu(item) {
 		<tr>	<td> Полное наименование: </td>			<td> {{ org.fullname }} </td>		</tr>
 		<tr>	<td> ОКОПФ: </td>				<td> {{ org.okopf }} </td>		</tr>
 		<tr>	<td> Дата регистрации в ЕГРЮЛ: </td>		<td> {{ org.egruldate|date }} </td>	</tr>
-		<tr>	<td> ИНН: </td>					<td> {{ org.inn }} </td>		</tr>
+		<tr>	<td> ИНН: </td>					<td> {{ org.inn|stringformat:"010d" }} </td>		</tr>
 		<tr>	<td> КПП: </td>					<td> {{ org.kpp }} </td>		</tr>
 		<tr>	<td> ОГРН: </td>				<td> {{ org.ogrn }} </td>		</tr>
 		<tr>	<td> ОКАТО: </td>				<td> {{ org.okato }} </td>		</tr>
@@ -164,7 +164,7 @@ function doMenu(item) {
 		<ul>
 		{% for i in org.permit_set.all %}
 			{% ifequal i.permittype.id 1 %}
-			<li> № {{ i.permitown.regno }} от {{ i.permitown.date|date }}, протокол № {{ i.permitown.meeting.regno }} от {{ i.permitown.meeting.date|date }} </li>
+			<li> № {{ org.sroregno }}-{{ i.permitown.regno }} от {{ i.permitown.date|date }}, протокол № {{ i.permitown.meeting.regno }} от {{ i.permitown.meeting.date|date }} </li>
 			{% endifequal %}
 		{% endfor %}
 		</ul>
