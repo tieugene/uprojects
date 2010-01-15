@@ -116,10 +116,6 @@ def	org_table(request):
 	org_list = Org.objects.all().order_by('name')
 	return render_to_response('sro/org_table.html', RequestContext(request, {'org_list': org_list}))
 
-def	org_report(request):
-	org_list = Org.objects.filter(public=True).order_by('name')
-	return render_to_response('sro/org_report.html', RequestContext(request, {'org_list': org_list, 'dt': datetime.now().strftime('%d.%m.%Y %H:%M:%S')}))
-
 def	org_mailto(request):
 	s = ""
 	sep = ""
