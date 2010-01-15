@@ -82,7 +82,7 @@
 		{{ data.perm.org.okopf.namedp }} {{ data.perm.org.fullname }}
 	</para>
 	<para style="style1">
-		ИНН {{ data.perm.org.inn }}, ОГРН {{ data.perm.org.ogrn }}, местонахождение: {{ data.perm.org.laddress }}
+		ИНН {{ data.perm.org.inn|stringformat:"010d" }}, ОГРН {{ data.perm.org.ogrn }}, местонахождение: {{ data.perm.org.laddress }}
 	</para>
 	<para style="style1" spaceAfter="0">
 		Основание выдачи Свидетельства:

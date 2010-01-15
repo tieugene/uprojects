@@ -29,7 +29,7 @@ function confirmDelete(delUrl) {
 		<tr>	<td> Полное наименование: </td>		<td> {{ org.fullname }} </td>		</tr>
 		<tr>	<td> ОКОПФ: </td>			<td> {{ org.okopf }} </td>		</tr>
 		<tr>	<td> Дата регистрации в ЕГРЮЛ: </td>	<td> {{ org.egruldate|date }} </td>	</tr>
-		<tr>	<td> ИНН: </td>				<td> {{ org.inn }} </td>		</tr>
+		<tr>	<td> ИНН: </td>				<td> {{ org.inn|stringformat:"010d" }} </td>		</tr>
 		<tr>	<td> КПП: </td>				<td> {{ org.kpp }} </td>		</tr>
 		<tr>	<td> ОГРН: </td>			<td> {{ org.ogrn }} </td>		</tr>
 		<tr>	<td> ОКАТО: </td>			<td> {{ org.okato }} </td>		</tr>
@@ -44,7 +44,7 @@ function confirmDelete(delUrl) {
 		<tr>	<td> Сумма взноса в КФ: </td>		<td> {{ org.paysum }} </td>		</tr>
 		<tr>	<td> Дата оплаты ВВ: </td>		<td> {{ org.paydatevv|date }} </td>	</tr>
 		<tr>	<td> Коментарии: </td>			<td> {{ org.comments }} </td>		</tr>
-		<tr>	<td> Публиковать: </td>		<td> [{% ifequal org.public 1 %} V {% else %} &nbsp; {% endifequal %}] </td>		</tr>
+		<tr>	<td> Публиковать: </td>			<td> [{% ifequal org.public 1 %} V {% else %} &nbsp; {% endifequal %}] </td>		</tr>
 	</table>
 {% endblock %}
 {% block body_license %}
@@ -170,7 +170,7 @@ function confirmDelete(delUrl) {
 		{% for i in org.permit_set.all %}
 			<li> <a href="{% url lansite.sro.views.permit_list i.id %}"> {{ i.permittype.name }}
 			{% ifequal i.permittype.id 1 %}
-				№ {{ i.permitown.regno }} от {{ i.permitown.date|date }}, протокол № {{ i.permitown.meeting.regno }} от {{ i.permitown.meeting.date|date }}
+				№ {{ org.sroregno }}-{{ i.permitown.regno }} от {{ i.permitown.date|date }}, протокол № {{ i.permitown.meeting.regno }} от {{ i.permitown.meeting.date|date }}
 			{% endifequal %}
 			{% ifequal i.permittype.id 2 %}
 				от {{ i.permitstatement.date|date }}
