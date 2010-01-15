@@ -666,7 +666,7 @@ class	PermitOwn(models.Model):
 	meeting		= models.ForeignKey(Meeting, null=True, blank=True, verbose_name=u'Заседание')
 	_xmlname	= u'permitown'
 	def	asstr(self):
-		return u'%s: %s № %d от %s' % (self.permit.org.name, self.permit.permittype.name, self.regno, self.permit.date)
+		return u'%s: %s № %d от %s' % (self.permit.org.name, self.permit.permittype.name, self.regno, self.date)
 	def	__unicode__(self):
 		return self.asstr()
 	class	Meta:
@@ -680,7 +680,7 @@ class	PermitStatement(models.Model):
 	date		= models.DateField(null=True, blank=True, verbose_name=u'Дата')
 	_xmlname	= u'permitstatement'
 	def	asstr(self):
-		return u'%s: %s № %d от %s' % (self.permit.org.name, self.permit.permittype.name, self.regno, self.permit.date)
+		return u'%s: %s от %s' % (self.permit.org.name, self.permit.permittype.name, self.date)
 	def	__unicode__(self):
 		return self.asstr()
 	class	Meta:
@@ -714,7 +714,7 @@ class	PermitAlien(models.Model):
 	protodate	= models.DateField(null=False, blank=False, verbose_name=u'Дата протокола')
 	_xmlname	= u'permitalien'
 	def	asstr(self):
-		return u'%s: %s № %d от %s' % (self.permit.org.name, self.permit.permittype.name, self.regno, self.permit.date)
+		return u'%s: %s № %s от %s' % (self.permit.org.name, self.permit.permittype.name, self.regno, self.date)
 	def	__unicode__(self):
 		return self.asstr()
 	class	Meta:

@@ -266,7 +266,7 @@ class	FileAdmin(ReadOnlyAdminFields, admin.ModelAdmin):
 
 class	MeetingAdmin(admin.ModelAdmin):
 	list_display	= ('regno', 'date', 'common', 'agenda')
-	inlines		= (MeetingOrgInLine, PermitOwnInLine,)
+	inlines		= (PermitOwnInLine,)
 	date_hierarchy	= 'date'
 
 class	PrjStageAdmin(admin.ModelAdmin):
@@ -282,6 +282,10 @@ class	PrjOrgAdmin(admin.ModelAdmin):
 	ordering	= ('org',)
 	inlines		= (PrjOrgStageInLine,)
 	#formfield_overrides = {models.ManyToManyField: {'widget': forms.CheckboxSelectMultiple},}
+
+class	OrgInsuranceAdmin(admin.ModelAdmin):
+	list_display	= ('org', 'insno')
+	ordering	= ('org',)
 
 admin.site.register(Insurer,		InsurerAdmin)
 admin.site.register(Okato,		OkatoAdmin)
@@ -307,3 +311,4 @@ admin.site.register(Meeting,		MeetingAdmin)
 admin.site.register(PrjStage,		PrjStageAdmin)
 admin.site.register(PrjProto,		PrjProtoAdmin)
 admin.site.register(PrjOrg,		PrjOrgAdmin)
+admin.site.register(OrgInsurance,	OrgInsuranceAdmin)
