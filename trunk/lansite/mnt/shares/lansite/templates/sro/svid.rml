@@ -73,22 +73,40 @@
 		№ {{ data.org.sroregno }}
 	</para>
 	<para style="style1" alignment="center">
-		{{ data.org.fullname }}
-	</para>
-	<para style="style1">
-		ИНН {{ data.org.inn }}
-	</para>
-	<para style="style1">
+		{{ data.org.okopf.name|upper }} <br/>
+		{{ data.org.fullname|upper }} <br/>
+		ИНН {{ data.org.inn }} <br/>
 		ОГРН {{ data.org.ogrn }}
 	</para>
-	<nextFrame/>
+	<para style="style1" alignment="center">
+		ЯВЛЯЕТСЯ ДЕЙСТВИТЕЛЬНЫМ ЧЛЕНОМ <br/>
+		НЕКОММЕРЧЕСКОГО ПАРТНЕРСТВА <br/>
+		«МЕЖРЕГИОНАЛЬНОЕ ОБЪЕДИНЕНИЕ ОРГАНИЗАЦИЙ <br/>
+		ЖЕЛЕЗНОДОРОЖНОГО СТРОИТЕЛЬСТВА» <br/>
+		С {{ data.bigdate }}
+	</para>
 	<blockTable>
 		<tr>
-			<td> <para style="style1"> Председатель<br/>Правления </para> </td>
-			<td> <para alignment="center"> ________________ </para> </td>
-			<td> <para style="style1" alignment="right"> Г.Н. Талашкин </para> </td>
+			<td> <para style="style1">
+				Председатель правления <br/>
+				некоммерческого партнерства <br/>
+				«Межрегиональное объединение организаций <br/>
+				железнодорожного строительства»
+			</para> </td>
+			<td> <para style="style1" alignment="center">
+				________________ <br/>
+				(подпись)
+			</para> </td>
+			<td> <para style="style1" alignment="right">
+				Г.Н. Талашкин
+			</para> </td>
 		</tr>
-		<tr> <td/> <td>	<para style="style1" alignment="center"> МП </para> </td> <td/> </tr>
+		<tr> <td/> <td>	<para style="style1" alignment="center">
+			МП
+		</para> </td> <td/> </tr>
 	</blockTable>
+		<para style="style1">
+			Выдано {{ data.date }}
+		</para>
 </story>
 </document>

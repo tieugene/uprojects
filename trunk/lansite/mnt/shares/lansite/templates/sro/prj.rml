@@ -70,7 +70,7 @@
 
 <story>
 	<para style="style1" alignment="center">
-		№ {{ data.no }}
+		№ {{ data.data.prjorg.regno }}
 	</para>
 	<para style="style1" alignment="center">
 		Начало действия с {{ data.date }}

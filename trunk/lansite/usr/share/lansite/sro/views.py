@@ -163,6 +163,8 @@ def	org_svid_pdf(request, org_id):
 	org = Org.objects.get(pk=org_id)
 	data = dict()
 	data['org'] = org
+	data['date'] = __strdate(org.sroregdate)
+	data['bigdate'] = __strdate(org.sroregdate).upper()
 	return pdf_render_to_response('sro/svid.rml', {'data': data}, filename=str(org.sroregno) + '.pdf')
 
 def	org_add(request):
