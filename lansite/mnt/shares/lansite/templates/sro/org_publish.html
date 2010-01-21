@@ -82,9 +82,6 @@ function doMenu(item) {
 		<tr>	<td> Адрес фактический: </td>			<td> {{ org.raddress }} </td>		</tr>
 		<tr>	<td> Реестровый №: </td>			<td> {{ org.sroregno }} </td>		</tr>
 		<tr>	<td> Дата членства в НП: </td>			<td> {{ org.sroregdate|date }} </td>	</tr>
-		<tr>	<td> Дата оплаты взноса в КФ: </td>		<td> {{ org.paydate|date }} </td>	</tr>
-		<tr>	<td> Сумма взноса в КФ: </td>			<td> {{ org.paysum }} </td>		</tr>
-		<tr>	<td> Дата оплаты вступительного взноса: </td>	<td> {{ org.paydatevv|date }} </td>	</tr>
 		<tr>	<td> Лицензия: </td>	<td>
 			{% if org.orglicense %}
 				№ {{ org.orglicense.no }} от {{ org.orglicense.datefrom|date }} по {{ org.orglicense.datedue|date }}
