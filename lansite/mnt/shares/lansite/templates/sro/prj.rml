@@ -13,7 +13,7 @@
 		<pageTemplate id="even">
 			<pageGraphics>
 				<setFont name="Sans" size="11"/>
-				<drawCentredString x="13.5cm" y="27.35cm"> {{ data.no }} </drawCentredString>
+				<drawCentredString x="13.5cm" y="27.35cm"> {{ data.prjorg.permno }} </drawCentredString>
 			</pageGraphics>
 			<frame id="no"		x1="1.8cm" y1="1.3cm" width="17.5cm" height="24.8cm"/>
 		</pageTemplate>
@@ -88,7 +88,7 @@
 		Основание выдачи Свидетельства:
 	</para>
 	<para style="style1">
-		решение Правления Некоммерческого партнерства саморегулируемой организации «Межрегиональное объединение организаций железнодорожного строительства», протокол №{{ data.prjorg.protocol.no }} от {{ data.protodate }}.
+		решение Правления Некоммерческого партнерства саморегулируемой организации «Межрегиональное объединение организаций архитектурно- строительного проектирования», протокол №{{ data.prjorg.protocol.no }} от {{ data.protodate }}.
 	</para>
 	<para style="style1">
 		Настоящим Свидетельством подтверждается допуск к работам, которые оказывают влияние на безопасность объектов капитального строительства, перечень которых указан в приложении к Свидетельству.
@@ -104,13 +104,13 @@
 		<tr>
 			<td> <para style="style1"> Председатель<br/>Правления </para> </td>
 			<td> <para alignment="center"> ________________ </para> </td>
-			<td> <para style="style1" alignment="right"> Г.Н. Талашкин </para> </td>
+			<td> <para style="style1" alignment="right"> В.А.Сасалин </para> </td>
 		</tr>
 		<tr> <td/> <td>	<para style="style1" alignment="center"> МП </para> </td> <td/> </tr>
 	</blockTable>
 <setNextTemplate name="even,odd"/>
-	<para style="style5">
-		Перечень видов работ, которые оказывают влияние на безопасность объектов капитального строительства и о допуске к которым член Некоммерческого партнерства "Межрегиональное объединение организаций железнодорожного строительства" имеет Свидетельство:
+		<para style="style5">
+		Перечень видов работ, которые оказывают влияние на безопасность объектов капитального строительства и о допуске к которым член Некоммерческого партнерства "Межрегиональное объединение организаций архитектурно-строительного проектирования" имеет Свидетельство:
 	</para>
 {%  for stage in data.prjorg.prjorgstage_set.all %}
 	<para style="style3"> {{ stage.stage.id }}. {{ stage.stage.name }} </para>

@@ -12,3 +12,102 @@
 		+ stages:M2M(Stage=>SpecialityStage)
 	+ SpecialityStage
 	* PermitOwn: datedue:date=None
+= A104 =
++ SROType
+* SRO: +type
+
+= A121 =
+PersonSkill:
+	* Номер свид
+	* Дата свид
+	* УЗ
+	* Курс
+Свид о членстве:
+	* напечатано (датавремя?)
+	* Дата выдачи
+	* Способ
+	* Кто получил
+	* Кто выдал
+Свид о доп:
+	* напечатано (датавремя?)
+	* Дата выдачи
+	* Способ
+	* Кто получил
+	* Кто выдал
+= Changing DB =
+== 0. not changed ==
+* Insurer
+* Okato
+* Okopf
+* Okved
+* Speciality
+* SpecialityStage
+* Skill
+* Job
+* EventType
+* Role
+* Person
+* PersonSkill
+* OrgOkved
+* OrgPhone
+* OrgEmail
+* OrgWWW
+* OrgStuff
+* PermitStage
+* PermitStageJob
+== 1. Add ==
+* SROType
+* OrgSro
+== 2. Rename ==
+* Meeting => Protocol
+* PermitType=>StageListType
+* Permit=>StageList
+* PermitOwn=>Certificate
+* PermitStatement=>Statement
+== 3. Edit ==
+* Stage: add: SROType
+* Person: del: files
+* Org: del (move to OrgSro):
+	* sroregno
+	* sroregdate
+	* paydate
+	* paysum
+	* paydatevv
+	* public
+	* events
+	* files
+* OrgEvent: edit: org=>orgsro
+* OrgLicense: edit: org=>orgsro
+* OrgInsurance: edit: org=>orgsro
+* SRO: add:
+	* type
+	* own
+== 4. Del ==
+* File
+* OrgFile
+* PersonFile
+* MeetingOrg
+* PrjStage
+* PrjProto
+* PrjOrg
+* PrjOrgStage
+* PermitAlien
+
+= Plan =
+* add:
+	* add model
+	* syncdb
+* rename:
+* edit:
+* del:
+	* del models
+	* del tables
+== removing column ==
+BEGIN TRANSACTION;
+CREATE TEMPORARY TABLE t1_backup(a,b);
+INSERT INTO t1_backup SELECT a,b FROM t1;
+DROP TABLE t1;
+CREATE TABLE t1(a,b);
+INSERT INTO t1 SELECT a,b FROM t1_backup;
+DROP TABLE t1_backup;
+COMMIT;
