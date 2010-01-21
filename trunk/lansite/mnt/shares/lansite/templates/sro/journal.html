@@ -12,6 +12,9 @@
 	<thead>
 		<tr>
 			<th> <u> № </u> </th>
+			<th> <u> id </u> </th>
+			<th> <u> date </u> </th>
+			<th> <u> time </u> </th>
 			<th> <u> user_id </u> </th>
 			<th> <u> content_type_id </u> </th>
 			<th> <u> object_id </u> </th>
@@ -25,6 +28,9 @@
 	{% for i in log %}
 		<tr>
 			<td> {{ forloop.counter }} </td>
+			<td> {{ i.id }} </td>
+			<td> {{ i.action_time|date }} </td>
+			<td> {{ i.action_time|time:"H:i:s" }} </td>
 			<td> {{ i.user_id }} </td>
 			<td> {{ i.content_type_id }} </td>
 			<td> {{ i.object_id }} </td>
