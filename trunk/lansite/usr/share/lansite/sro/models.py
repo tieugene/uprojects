@@ -337,6 +337,10 @@ class	PersonSkill(models.Model):
 	seniority	= models.PositiveSmallIntegerField(null=True, blank=True, verbose_name=u'Стаж')
 	seniodate	= models.DateField(null=True, blank=True, verbose_name=u'Дата актуальности стажа')
 	tested		= models.DateField(null=True, blank=True, verbose_name=u'Дата последней аттестации')
+	courseno	= models.CharField(max_length=50, null=True, blank=True, verbose_name=u'СоПК.№')
+	coursedate	= models.DateField(null=True, blank=True, verbose_name=u'СоПК.Дата Выдачи')
+	coursename	= models.CharField(max_length=50, null=True, blank=True, verbose_name=u'СоПК.Наименование курсов')
+	courseschool	= models.CharField(max_length=100, null=True, blank=True, verbose_name=u'СоПК.УЗ')
 	_xmlname	= u'personskill'
 	def	asstr(self):
 		return u'%s: %s, %s' % (self.person.asstr(), self.speciality.asstr(), self.skill.asstr())
