@@ -1,29 +1,40 @@
-;SetupMgrTag
+
 [Data]
+    AutomaticUpdates="No"
     AutoPartition=0
-    MsDosInitiated="0"
+    MsDosInitiated=0
     UnattendedInstall="Yes"
 
 [Unattended]
     UnattendMode=FullUnattended
+    UnattendSwitch="Yes"
     OemSkipEula=Yes
     OemPreinstall=No
     TargetPath=\WINDOWS
     FileSystem=*
+    WaitForReboot="No"
+    NoWaitAfterTextMode=1
+    NoWaitAfterGUIMode=1
+    DriverSigningPolicy=Ignore
+    NonDriverSigningPolicy=Ignore
+
+[Display]
+    BitsPerPel=32
+    XResolution=1024
+    YResolution=768
+    Vrefresh=60
 
 [GuiUnattended]
     AdminPassword="tratata"
     EncryptedAdminPassword=NO
-    AutoLogon=Yes
-    AutoLogonCount=1
-    OEMSkipRegional=1
     TimeZone=145
+    OEMSkipRegional=1
     OemSkipWelcome=1
 
 [UserData]
     ProductKey=RK38B-7RTKV-3JTPJ-T8V7R-M73TP
-    FullName="User"
-    OrgName=""
+    FullName="root"
+    OrgName="Microsoft"
     ComputerName=host
 
 [RegionalSettings]
@@ -37,7 +48,7 @@
     DefaultThemesOff=Yes 
 
 [Identification]
-    JoinWorkgroup=WORKGROUP
+    JoinWorkgroup="WORKGROUP"
 
 [Networking]
     InstallDefaultComponents=Yes

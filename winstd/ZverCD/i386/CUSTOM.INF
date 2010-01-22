@@ -1,0 +1,405 @@
+[Version]
+signature = $CHICAGO$
+SetupClass=BASE
+
+[Optional Components]
+CustomSetting
+
+[CustomSetting]
+OptionDesc	= "Custom Setting"
+Tip		= "Тонкая настройка Windows"
+Modes		= 0,1,2,3
+AddReg		= Custom.AddReg
+
+;******************************************************************
+;
+;  Для удобства все твики разделены на секции и прокомментированы
+;  
+;  Для порядка добавляем твики в соответствующие секции
+;  Например, HKLM,"SOFTWARE\... добавляем в секции [HKLM.*]
+;            HKCU,"SOFTWARE\... добавляем в секции [HKCU.*] и.т.д.
+;
+;******************************************************************
+
+
+[DefaultInstall]
+AddReg	   = Custom.AddReg
+AddReg     = HKCR.AddReg, HKLM.AddReg, HKCU.AddReg, HKU.AddReg, FirstLogon.AddReg
+DelReg     = HKCR.DelReg, HKLM.DelReg, HKCU.DelReg, HKU.DelReg
+AddReg     = HKCR.FirstLogonOnceAddReg, HKLM.FirstLogonOnceAddReg, HKCU.FirstLogonOnceAddReg, HKU.FirstLogonOnceAddReg
+DelReg     = TECH.FirstLogonOnceDelReg, HKCR.FirstLogonOnceDelReg, HKLM.FirstLogonOnceDelReg, HKCU.FirstLogonOnceDelReg, HKU.FirstLogonOnceDelReg
+AddReg     = HKCU.NewUserAlwasAddReg
+DelReg     = HKCU.NewUserAlwasDelReg
+
+
+
+
+[Custom.AddReg]
+HKLM,"SOFTWARE\Microsoft\Windows\CurrentVersion\RunOnce","ZZ_CustomSetting_0",0x20000,"%SystemRoot%\System32\rundll32.exe advpack.dll,LaunchINFSection %17%\custom.inf,CustomInstall,0"
+HKLM,"SOFTWARE\Microsoft\Windows\CurrentVersion\RunOnce","ZZ_CustomSetting_1",0x20000,"%SystemRoot%\System32\cmd.exe /C MD %TempDir%"
+HKLM,"SOFTWARE\Microsoft\Windows\CurrentVersion\RunOnce","ZZ_CustomSetting_3",0x20000,"%SystemRoot%\System32\cmd.exe /C Echo Y | Cacls %TempDir% /E /P "Все":F"
+
+[FirstLogon.AddReg]
+HKU,".DEFAULT\Software\Microsoft\Windows\CurrentVersion\RunOnce","ZZZZ1_FirstLogonSetting",0x20000,"%SystemRoot%\System32\rundll32.exe advpack.dll,LaunchINFSection %17%\custom.inf,OnceFirstLogonInstall,0"
+HKU,".DEFAULT\Software\Microsoft\Windows\CurrentVersion\RunOnce","ZZZZ2_FirstLogonSetting",0x20000,"%SystemRoot%\System32\rundll32.exe advpack.dll,LaunchINFSection %17%\custom.inf,NewUserFirstLogonInstall,0"
+
+
+;Delayed add tweaks
+[CustomInstall]
+AddReg     = HKCR.AddReg, HKLM.AddReg, HKCU.AddReg, HKU.AddReg, FirstLogon.AddReg
+DelReg     = HKCR.DelReg, HKLM.DelReg, HKCU.DelReg, HKU.DelReg
+
+
+;First logon once add tweak
+[OnceFirstLogonInstall]
+AddReg     = HKCR.FirstLogonOnceAddReg, HKLM.FirstLogonOnceAddReg, HKCU.FirstLogonOnceAddReg, HKU.FirstLogonOnceAddReg
+DelReg     = TECH.FirstLogonOnceDelReg, HKCR.FirstLogonOnceDelReg, HKLM.FirstLogonOnceDelReg, HKCU.FirstLogonOnceDelReg, HKU.FirstLogonOnceDelReg
+
+
+;New User first logon add tweak
+[NewUserFirstLogonInstall]
+AddReg     = HKCU.NewUserAlwasAddReg
+DelReg     = HKCU.NewUserAlwasDelReg
+
+
+;Удаление ключей, использовавшихся для однократного запуска при первом логоне
+[TECH.FirstLogonOnceDelReg]
+HKU,".DEFAULT\Software\Microsoft\Windows\CurrentVersion\RunOnce","ZZZZ1_FirstLogonSetting"
+HKU,".DEFAULT\Software\Microsoft\Windows\CurrentVersion\RunOnce","ZZZZ3_FirstLogonOOBE_FIX"
+
+
+;******************************************************************
+;
+;  Эти ключи/значения вносятся в реестр при первом логоне
+;
+;******************************************************************
+
+[HKCR.FirstLogonOnceAddReg]
+;No keys
+
+[HKLM.FirstLogonOnceAddReg]
+;Отключить автоматические обновления системы
+;HKLM,"SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU","NoAutoUpdate",0x00010001,1
+HKLM,"SOFTWARE\Microsoft\Windows\CurrentVersion\WindowsUpdate\Auto Update","AUOptions",0x00010001,1
+HKLM,"SOFTWARE\Microsoft\Windows\CurrentVersion\WindowsUpdate\Auto Update","AUState",0x00010001,7
+
+; Отключить автоматическую перезагрузку в случае BSOD, иногда Sysprep перекрывает настройку)
+HKLM,"SYSTEM\CurrentControlSet\Control\CrashControl","AutoReboot",0x10001,00,00,00,00
+HKLM,"SYSTEM\CurrentControlSet\Control\CrashControl","CrashDumpEnabled",0x00010001,0
+HKLM,"SYSTEM\CurrentControlSet\Control\CrashControl","LogEvent",0x00010001,1
+HKLM,"SYSTEM\CurrentControlSet\Control\CrashControl","Overwrite",0x00010001,1
+HKLM,"SYSTEM\CurrentControlSet\Control\CrashControl","SendAlert",0x00010001,0
+
+[HKCU.FirstLogonOnceAddReg]
+;No keys
+
+
+[HKU.FirstLogonOnceAddReg]
+;No keys
+
+
+;******************************************************************
+;
+;  Эти ключи/значения удаляются из реестра при первом логоне
+;
+;******************************************************************
+
+[HKCR.FirstLogonOnceDelReg]
+;No keys
+
+
+[HKLM.FirstLogonOnceDelReg]
+;No keys
+
+
+[HKCU.FirstLogonOnceDelReg]
+;No keys
+
+
+[HKU.FirstLogonOnceDelReg]
+;No keys
+
+
+;***********************************************************************************************
+;
+;  Эти ключи/значения вносятся в реестр при первом логоне для каждого вновь созданного юзера
+;  В том числе, и для созданного в процессе установки системы 
+;
+;***********************************************************************************************
+
+[HKCU.NewUserAlwasAddReg]
+;No keys
+
+
+;***********************************************************************************************
+;
+;  Эти ключи/значения удалятся из реестр при первом логоне для каждого вновь созданного юзера
+;  В том числе, и для созданного в процессе установки системы 
+;
+;***********************************************************************************************
+
+[HKCU.NewUserAlwasDelReg]
+;No keys
+
+
+;********************************************************************************
+;
+;  Эти ключи/значения вносятся в реестр при установке системы на этапе T13
+;
+;********************************************************************************
+[HKCR.AddReg]
+;Позволить переименовывать Корзину
+HKCR,"CLSID\{645FF040-5081-101B-9F08-00AA002F954E}\ShellFolder","Attributes",0x00000001,50,01,00,20
+HKCR,"CLSID\{645FF040-5081-101B-9F08-00AA002F954E}\ShellFolder","CallForAttributes",0x00010001,0
+
+;Добавление редактора реестра в меню Мой компьютер
+HKCR,"CLSID\{20D04FE0-3AEA-1069-A2D8-08002B30309D}\shell\regedit",,,"Редактор реестра"
+HKCR,"CLSID\{20D04FE0-3AEA-1069-A2D8-08002B30309D}\shell\regedit\command",,,"Regedit.exe"
+
+;Добавление register / unregister в контекстное меню для  .dll файлов
+HKCR,".dll","Content Type",,"application/x-msdownload"
+HKCR,".dll",,,"dllfile"
+HKCR,"dllfile",,,"Application Extension"
+HKCR,"dllfile\Shell\Register\command",,,"regsvr32.exe ""%1"""
+HKCR,"dllfile\Shell\UnRegister\command",,,"regsvr32.exe /u ""%1"""
+
+;Добавление register / unregister в контекстное меню для .ocx файлов
+HKCR,".ocx",,,"ocxfile"
+HKCR,"ocxfile",,,"OCX"
+HKCR,"ocxfile\Shell\Register\command",,,"regsvr32.exe ""%1"""
+HKCR,"ocxfile\Shell\UnRegister\command",,,"regsvr32.exe /u ""%1"""
+
+[HKLM.AddReg]
+;Сервера обновлений времени
+HKLM,"SOFTWARE\Microsoft\Windows\CurrentVersion\DateTime\Servers",,,"0"
+HKLM,"SOFTWARE\Microsoft\Windows\CurrentVersion\DateTime\Servers","1",,"time.windows.com"
+HKLM,"SOFTWARE\Microsoft\Windows\CurrentVersion\DateTime\Servers","2",,"time.nist.gov"
+HKLM,"SOFTWARE\Microsoft\Windows\CurrentVersion\DateTime\Servers","0",,"ntp.colocall.net"
+
+;Корзина использует 3% от доступного места на диске (не 10%)
+HKLM,"SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\BitBucket","Percent",0x10001,03,00,00,00
+
+;Отключить поиск драйверов в сети Интернет при подключении нового устройства
+HKLM,"SOFTWARE\Policies\Microsoft\Windows\DriverSearching","DontSearchWindowsUpdate",0x00010001,1
+HKLM,"SOFTWARE\Policies\Microsoft\Windows\DriverSearching","DontPromptForWindowsUpdate",0x00010001,1
+
+;Отключить поиск в сети Интернет при открытии файла с неизвестными расширением
+HKLM,"SOFTWARE\Microsoft\Windows\CurrentVersion\policies\system","NoInternetOpenWith",0x00010001,1
+
+; Не посылать отчет о крахе в Microsoft
+HKLM,"SOFTWARE\Microsoft\PCHealth\ErrorReporting","DoReport",0x00010001,0
+; Не посылать отчет о крахе в Microsoft (не показывать диалог)
+HKLM,"SOFTWARE\Microsoft\PCHealth\ErrorReporting","ShowUI",0x00010001,0
+; Не посылать отчет о крахе в Microsoft (включая ошибки ядра)
+HKLM,"SOFTWARE\Microsoft\PCHealth\ErrorReporting","IncludeKernelFaults",0x00010001,0
+; Не посылать отчет о крахе в Microsoft (включая ошибки приложений Microsoft)
+HKLM,"SOFTWARE\Microsoft\PCHealth\ErrorReporting","IncludeMicrosoftApps",0x00010001,0
+; Не посылать отчет о крахе в Microsoft (включая ошибки компонентов Windows)
+HKLM,"SOFTWARE\Microsoft\PCHealth\ErrorReporting","IncludeWindowsApps",0x00010001,0
+
+; Решение проблемы с открытием CHM с сетевых дисков после установки KB896358 
+HKLM,"SOFTWARE\Microsoft\HTMLHelp\1.x\ItssRestrictions","MaxAllowedZone",0x00010001,1
+
+; Избавляемся от кракозябликов в некотрых не-юникоде программах
+HKLM,"SYSTEM\CurrentControlSet\Control\Nls\CodePage","1250",0x00000000,"c_1251.nls"
+HKLM,"SYSTEM\CurrentControlSet\Control\Nls\CodePage","1251",0x00000000,"c_1251.nls"
+HKLM,"SYSTEM\CurrentControlSet\Control\Nls\CodePage","1252",0x00000000,"c_1251.nls"
+
+; Диспетчер устройств в меню 'Мой компьютер'
+HKLM,"SOFTWARE\Classes\CLSID\{20D04FE0-3AEA-1069-A2D8-08002B30309D}\shell\_DevMgr",,0x00000000,"Диспетчер устройств"
+HKLM,"SOFTWARE\Classes\CLSID\{20D04FE0-3AEA-1069-A2D8-08002B30309D}\shell\_DevMgr\command",,0x00020000,"%windir%\system32\mmc.exe /s %windir%\system32\devmgmt.msc"
+
+; "Установка и удаление программ" в меню 'Мой компьютер'
+HKLM,"SOFTWARE\Classes\CLSID\{20D04FE0-3AEA-1069-A2D8-08002B30309D}\shell\_appwiz",,0x00000000,"Установка и удаление программ"
+HKLM,"SOFTWARE\Classes\CLSID\{20D04FE0-3AEA-1069-A2D8-08002B30309D}\shell\_appwiz\command",,0x00000000,"control appwiz.cpl"
+
+;Отключение Prefetch ускоряет загрузку системы
+HKLM,"SYSTEM\ControlSet001\Control\Session Manager\Memory Management\PrefetchParameters","EnablePrefetcher",0x10001,00,00,00,00
+
+;Оптимизирует загрузку
+HKLM,"SOFTWARE\Microsoft\Dfrg\BootOptimizeFunction","Enable",,"Y"
+
+;отключение локальной и доменной политики брэндмауэра
+HKLM,"SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile","EnableFirewall",0x10001,00,00,00,00
+HKLM,"SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\DomainProfile","EnableFirewall",0x10001,00,00,00,00
+
+; Отключение уведомлений Брандмауэра, обновления и антивируса
+HKLM,"SOFTWARE\Microsoft\Security Center","FirstRunDisabled",0x00010001,1
+HKLM,"SOFTWARE\Microsoft\Security Center","FirewallDisableNotify",0x00010001,1
+HKLM,"SOFTWARE\Microsoft\Security Center","FirewallOverride",0x00010001,1
+HKLM,"SOFTWARE\Microsoft\Security Center","UpdatesDisableNotify",0x00010001,1
+HKLM,"SOFTWARE\Microsoft\Security Center","UpdatesOverride",0x00010001,1
+HKLM,"SOFTWARE\Microsoft\Security Center","AntiVirusDisableNotify",0x00010001,1
+HKLM,"SOFTWARE\Microsoft\Security Center","AntiVirusOverride",0x00010001,1
+
+;отключение службы "Брандмауэр Windows/Общий доступ к Интернету (ICS)"
+HKLM,"SYSTEM\CurrentControlSet\Services\SharedAccess","Start",0x10001,04,00,00,00
+
+;отключение службы "Центр обеспечения безопасности"
+HKLM,"SYSTEM\CurrentControlSet\Services\wscsvc","Start",0x10001,04,00,00,00
+
+;отключение службы "Автоматического обновления"
+HKLM,"SYSTEM\CurrentControlSet\Services\wuauserv","Start",0x10001,04,00,00,00
+
+;Отключить службу восстановление системы
+HKLM,"SYSTEM\CurrentControlSet\Services\srservice","Start",0x10001,04,00,00,00
+
+; Отключить службу восстановление системы
+HKLM,"SOFTWARE\Microsoft\Windows NT\CurrentVersion\SystemRestore","DisableSR",0x00010001,1
+
+;Отключить службу Messenger (останавливает спам. не влияет на MSN or Windows Messenger)
+HKLM,"SYSTEM\CurrentControlSet\Services\Messenger","Start",0x10001,04,00,00,00
+
+;Отключить удаленный доступ к реестру
+HKLM,"SYSTEM\CurrentControlSet\Services\RemoteRegistry","Start",0x10001,04,00,00,00
+
+;Отключить службу поддержки смарт-карт Smart Card Helper
+HKLM,"SYSTEM\CurrentControlSet\Services\SCardDrv"","Start",0x10001,04,00,00,00
+
+;;Отключить службу серийных номеров переносных устройств мультимедиа
+HKLM,"SYSTEM\CurrentControlSet\Services\WmdmPmSN"","Start",0x10001,04,00,00,00
+
+[HKCU.AddReg]
+; Скрыть общиe дoкyмeнты в oкне Moй кoмпьютep и проводнике
+HKCU,"Software\Microsoft\Windows\CurrentVersion\Policies\Explorer","NoSharedDocuments",0x00010001,1
+
+; Ускорение и оптимизация интерфейса
+HKCU,"Control Panel\Desktop","AutoEndTasks",0x00000000,"1"
+HKCU,"Control Panel\Desktop","MenuShowDelay",0x00000000,"200"
+HKCU,"Control Panel\Desktop","PaintDesktopVersion",0x00010001,0
+HKCU,"Control Panel\Desktop","WaitToKillAppTimeout",0x00000000,"10000"
+HKCU,"Control Panel\Desktop","WaitToKillServiceTimeout",0x00000000,"5000"
+
+; Cached "Folder View Settings" - To speed up browsing local folders
+HKCU,"Software\Microsoft\Windows\Shell","BagMRU Size",0x00010001,250
+HKCU,"Software\Microsoft\Windows\ShellNoRoam","BagMRU Size",0x00010001,250
+
+; Убрать автоматический поиск сетевых папок и принтеров
+HKCU,"Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced","NoNetCrawling",0x00010001,1
+
+; Выводить полный путь в панели адреса и в панели заголовка
+HKCU,"Software\Microsoft\Windows\CurrentVersion\Explorer\CabinetState","FullPathAddress",0x00010001,1
+HKCU,"Software\Microsoft\Windows\CurrentVersion\Explorer\CabinetState","FullPath",0x00010001,1
+
+; Включить отображение всех расширений в Проводнике 
+HKCU,"Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced","HideFileExt",0x00010001,0
+
+; Отключить "Мастер очистки рабочего стола" (Desktop Cleanup Wizard) 
+HKCU,"Software\Microsoft\Windows\CurrentVersion\Explorer\Desktop\CleanupWiz","NoRun",0x00010001,1
+
+; Расширенная настройка помошника поиска
+HKCU,"Software\Microsoft\Windows\CurrentVersion\Explorer","link",0x00000001,00,00,00,00
+HKCU,"Software\Microsoft\Windows\CurrentVersion\Explorer","SearchSystemDirs",0x00010001,1
+HKCU,"Software\Microsoft\Windows\CurrentVersion\Explorer","SearchHidden",0x00010001,1
+HKCU,"Software\Microsoft\Windows\CurrentVersion\Explorer","IncludeSubFolders",0x00010001,1
+HKCU,"Software\Microsoft\Windows\CurrentVersion\Explorer","CaseSensitive",0x00010001,0
+HKCU,"Software\Microsoft\Windows\CurrentVersion\Explorer","SearchSlowFiles",0x00010001,1
+HKCU,"Software\Microsoft\Search Assistant","UseAdvancedSearchAlways",0x00010001,1
+
+; Opens .NFO files with Notepad
+HKCU,"Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.nfo","Application",0x00000000,"NOTEPAD.EXE"
+HKCU,"Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.nfo\OpenWithList","MRUList",0x00000000,"ba"
+HKCU,"Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.nfo\OpenWithList","a",0x00000000,"Explorer.exe"
+HKCU,"Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.nfo\OpenWithList","b",0x00000000,"NOTEPAD.EXE"
+
+; Показывать все иконки на рабочем столе при старом и новом виде меню
+HKCU,"Software\Microsoft\Windows\CurrentVersion\Explorer\HideDesktopIcons\NewStartPanel","{20D04FE0-3AEA-1069-A2D8-08002B30309D}",0x10001,0
+HKCU,"Software\Microsoft\Windows\CurrentVersion\Explorer\HideDesktopIcons\NewStartPanel","{450D8FBA-AD25-11D0-98A8-0800361B1103}",0x10001,0
+HKCU,"Software\Microsoft\Windows\CurrentVersion\Explorer\HideDesktopIcons\NewStartPanel","{208D2C60-3AEA-1069-A2D7-08002B30309D}",0x10001,0
+HKCU,"Software\Microsoft\Windows\CurrentVersion\Explorer\HideDesktopIcons\NewStartPanel","{871C5380-42A0-1069-A2EA-08002B30309D}",0x10001,0
+
+HKCU,"Software\Microsoft\Windows\CurrentVersion\Explorer\HideDesktopIcons\ClassicStartmenu","{20D04FE0-3AEA-1069-A2D8-08002B30309D}",0x10001,0
+HKCU,"Software\Microsoft\Windows\CurrentVersion\Explorer\HideDesktopIcons\ClassicStartmenu","{450D8FBA-AD25-11D0-98A8-0800361B1103}",0x10001,0
+HKCU,"Software\Microsoft\Windows\CurrentVersion\Explorer\HideDesktopIcons\ClassicStartmenu","{208D2C60-3AEA-1069-A2D7-08002B30309D}",0x10001,0
+HKCU,"Software\Microsoft\Windows\CurrentVersion\Explorer\HideDesktopIcons\ClassicStartmenu","{871C5380-42A0-1069-A2EA-08002B30309D}",0x10001,0
+
+HKCU,"Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced","StartMenuInit",0x00010001,1
+HKCU,"Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced","Start_LargeMFUIcons",0x00010001,1
+HKCU,"Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced","Start_MinMFU",0x00010001,3
+HKCU,"Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced","Start_NotifyNewApps",0x00010001,0
+
+; Не запрашивать пароль при выходе из ждущего режима
+HKCU,"Control Panel\PowerCfg\GlobalPowerPolicy","Policies",0x00000001,\
+  01,00,00,00,00,00,00,00,03,00,00,00,10,00,00,00,00,00,00,00,03,\
+  00,00,00,10,00,00,00,02,00,00,00,03,00,00,00,00,00,00,00,02,00,00,00,03,00,\
+  00,00,00,00,00,00,02,00,00,00,01,00,00,00,00,00,00,00,02,00,00,00,01,00,00,\
+  00,00,00,00,00,01,00,00,00,03,00,00,00,02,00,00,00,04,00,00,c0,01,00,00,00,\
+  04,00,00,00,01,00,00,00,0a,00,00,00,00,00,00,00,03,00,00,00,01,00,01,00,01,\
+  00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,02,00,00,00,\
+  00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,00,03,00,00,00,00,\
+  00,12,00,00,00
+
+;Отключить предупреждение при открытии файлов, загруженных из Интернета
+HKCU,"Software\Microsoft\Windows\CurrentVersion\Policies\Associations","LowRiskFileTypes",,".zip;.rar;.nfo;.txt;.exe;.bat;.com;.cmd;.reg;.msi;.htm;.html;.gif;.bmp;.jpg;.avi;.mpg;.mpeg;.mov;.mp3;.m3u;.wav;"
+HKCU,"Software\Microsoft\Windows\CurrentVersion\Policies\Attachments","SaveZoneInformation",0x10001,01,00,00,00
+
+;Параметры подписывания драйверов: не запрашивать утверждения
+HKCU,"Software\Microsoft\Driver Signing","Policy",0x10001,00,00,00,00
+HKCU,"Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced","Policy",0x10001,00,00,00,00
+
+;Отключить проверку недостатка места на диске
+HKCU,"Software\Microsoft\Windows\CurrentVersion\Policies\Explorer","NoLowDiskSpaceChecks",0x10001,01,00,00,00
+
+;Отключить меню Недавние Документы в меню Пуск
+HKCU,"Software\Microsoft\Windows\CurrentVersion\Policies\Explorer","NoRecentDocsMenu",1,01,00,00,00
+
+;Отключить "Ярлык для" при создании новых ярлыков
+HKCU,"Software\Microsoft\Windows\CurrentVersion\Explorer","link",1,00,00,00,00
+
+;Убрать ярлык "Программы по умолчанию" из меню Пуск 
+HKCU,"Software\Microsoft\Windows\CurrentVersion\Policies\Explorer","NoSMConfigurePrograms",0x10001,01,00,00,00
+
+;Регистрация программы JeyoMobile
+HKCU,"Software\Jeyo\JMC\WindowsMobile\2.0","RegCode",0x0,"111136362035"
+HKCU,"Software\Jeyo\JMC\WindowsMobile\2.0","EndDate",0x0,"8F414F3A9479E340"
+HKCU,"Software\Jeyo\JMC\WindowsMobile\2.0","CP",0x0,"8B2C415E40B38EB32ED71B7FAC9E03F5"
+HKCU,"Software\Jeyo\JMC\WindowsMobile\2.0","UserName",0x0,"Zver"
+
+[HKU.AddReg]
+
+;No keys
+
+;********************************************************************************
+;
+;  Эти ключи/значения удаляются из реестра при установке системы на этапе T13
+;
+;********************************************************************************
+
+[HKCR.DelReg]
+;Ускоряет открытие AVI Media Files 
+HKCR,"CLSID\{87D62D94-71B3-4b9a-9489-5FE6850DC73E}",
+
+;Отключить предпросмотр фильмов в Проводнике (ускоряет работу и позволяет перемещать и удалять фай-лы)
+HKCR,".avi\ShellEx",
+HKCR,".mpg\ShellEx",
+HKCR,".mpe\ShellEx",
+HKCR,".mpeg\ShellEx",
+
+;remove "WMP Play Folder As Playlist Launcher"
+HKCR,"CLSID\{7D4734E6-047E-41e2-AEAA-E763B4739DC4}",
+;remove "WMP Burn Audio CD Launcher"
+HKCR,"CLSID\{8DD448E6-C188-4aed-AF92-44956194EB1F}",
+;remove "WMP Play As Playlist Launcher"
+HKCR,"CLSID\{CE3FB1D1-02AE-4a5f-A6E9-D9F1B4073E6C}",
+;remove "WMP Add To Playlist Launcher"
+HKCR,"CLSID\{F1B9284F-E9DC-4e68-9D7E-42362A59F0FD}",
+
+[HKLM.DelReg]
+;Отключить автоматические обновления системы
+HKLM,"SOFTWARE\Microsoft\Windows\CurrentVersion\WindowsUpdate\Auto Update","DetectionStartTime",
+HKLM,"SOFTWARE\Microsoft\Windows\CurrentVersion\WindowsUpdate\Auto Update","LastWaitTimeout",
+
+; Remove "Alexa" spyware that is built in to Windows
+HKLM,"SOFTWARE\Microsoft\Internet Explorer\Extensions\{c95fe080-8f5d-11d2-a20b-00aa003c157a}",
+
+; Удаление значков "Принтеры" и "Назначенные задания" из окна обзора локальных ресурсов с удаленного компьютера
+HKLM,"SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\RemoteComputer\NameSpace"
+HKLM,"SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\RemoteComputer\NameSpace\{D6277990-4C6A-11CF-8D87-00AA0060F5BF}",
+HKLM,"SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\RemoteComputer\NameSpace\{2227A280-3AEA-1069-A2DE-08002B30309D}",
+
+[HKCU.DelReg]
+;Пусто
+
+[HKU.DelReg]
+;Пусто
+
