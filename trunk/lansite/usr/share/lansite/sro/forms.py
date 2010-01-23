@@ -130,7 +130,7 @@ class	PersonSkillForm(forms.ModelForm):
 	coursedate	= forms.DateField(input_formats=['%d.%m.%Y', '%d/%m/%Y'], widget=forms.widgets.DateTimeInput(format='%d.%m.%Y'), label=u'СоПК. Дата выдачи', required=False)
 	class	Meta:
 		model = PersonSkill
-		#fields = ('speciality', 'skill', 'year', 'skilldate', 'school', 'seniority', 'seniodate', 'tested')
+		fields = ('speciality', 'skill', 'year', 'skilldate', 'school', 'seniority', 'seniodate', 'tested', 'courseno', 'coursedate', 'coursename', 'courseschool')
 
 class	PersonSkillAddSpecialityForm(forms.ModelForm):
 	class	Meta:

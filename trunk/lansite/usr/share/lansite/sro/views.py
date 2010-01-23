@@ -33,7 +33,7 @@ def	__log_it(request, object, action, change_message=''):
 		content_type_id = ContentType.objects.get_for_model(object).pk, 
 		object_id       = object.pk, 
 		object_repr     = object.asstr(), # Message you want to show in admin action list
-		change_message  = change_message, # I used same
+		change_message  = u'UI: ' + change_message, # I used same
 		action_flag     = action	# django.contrib.admin.models: ADDITION/CHANGE/DELETION
 	)
 
@@ -166,6 +166,11 @@ def	org_svid_pdf(request, org_id):
 	data['date'] = __strdate(org.sroregdate)
 	data['bigdate'] = __strdate(org.sroregdate).upper()
 	return pdf_render_to_response('sro/svid.rml', {'data': data}, filename=str(org.sroregno) + '.pdf')
+
+def	org_extract(request, org_id):
+	org = Org.objects.get(pk=org_id)
+	perm = Permit.objects.get(org=org, permittype=PermitType.objects.get(pk=1))
+	return render_to_response('sro/org_extract.html', RequestContext(request, {'org': org, 'perm': perm}))
 
 def	org_add(request):
 	org = Org()
@@ -442,12 +447,6 @@ def	org_edit_event(request, org_id):
 	return render_to_response('sro/dummy.html')
 
 def	org_edit_event_del(request, org_id, item_id):
-	return HttpResponseRedirect('../../')
-
-def	org_edit_file(request, org_id):
-	return render_to_response('sro/dummy.html', RequestContext(request))
-
-def	org_edit_file_del(request, org_id, item_id):
 	return HttpResponseRedirect('../../')
 
 @transaction.commit_manually

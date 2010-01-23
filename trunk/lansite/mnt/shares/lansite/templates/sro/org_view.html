@@ -13,5 +13,5 @@
 {% block body_stuff_button %}		{% if perms.sro.del_orgstuff or perms.sro.add_orgstuff %}	<input type="button" value="Изменить"	onClick="window.location.href='{% url lansite.sro.views.org_edit_stuff		org.id %}#stuff'"/>	{% endif %}	{% endblock %}
 {% block body_permit_button %}		{% if perms.sro.del_permit or perms.sro.add_permit %}		<input type="button" value="Изменить"	onClick="window.location.href='{% url lansite.sro.views.org_edit_permit		org.id %}#permit'"/>	{% endif %}	{% endblock %}
 {% block body_event_button %} <!-- <a href="../edit/event/"> Edit </a> --> {% endblock %}
-{% block body_file_button %} <!-- <a href="../edit/file/"> Edit </a> --> {% endblock %}
-{% block body_svid %}	<a href="svid/"> Свидетельство </a> {% endblock %}
+{% block body_svid %}	[ <a href="svid/" title="Свидетельство о членстве"> Свидетельство </a> ] {% endblock %}
+{% block body_extract %}	[ <a href="extract/" title="Выписка из реестра"> Выписка </a> ] {% endblock %}
