@@ -1,0 +1,156 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<title>Выписка</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style  type="text/css">
+@page		{
+	size: 21cm 29.7cm;
+	margin: 2cm;
+}
+body	{
+	font-family:	Serif;
+	font-size:	10pt;
+}
+
+TD	{
+	font-size:	12pt;
+	font-weight:	bold;
+}
+
+H1	{
+	font-size:	16pt;
+	font-weight:	bold;
+	text-align:	center;
+}
+H2	{
+	font-size:	14pt;
+	font-weight:	bold;
+	text-align:	center;
+}
+P.style1	{
+	font-size:	10pt;
+	font-weight:	bold;
+	text-align:	justify;
+}
+P.style2	{
+	font-size:	10pt;
+	font-weight:	bold;
+}
+P.style3	{
+	font-size:	10pt;
+	text-align:	left;
+}
+</style>
+</head>
+<body>
+<h1>ВЫПИСКА</h1>
+<h1>из реестра членов Некоммерческого партнерства саморегулируемой организации «Межрегиональное объединение организаций железнодорожного строительства»</h1>
+<p class="style1">(зарегистрировано в Управлении Министерства юстиции РФ по Санкт-Петербургу и Ленинградской области 18 марта 2009 года за учетным номером в ведомственном реестре зарегистрированных некоммерческих организаций: 7814031644; ИНН 7840018373; ОГРН 1097800001892 от 17 марта 2009 года; регистрационный номер в государственном реестре саморегулируемых организаций: <u>СРО-С-043-28092009</u>; место нахождение: 191040, Санкт-Петербург, ул. Марата, д. 42)</p>
+<h2>Основные сведения о члене НП СРО «МООЖС»</h2>
+<table width="100%" border="1">
+<tr>
+	<td> ОГРН </td>
+	<td> {{ org.ogrn }} </td>
+</tr>
+<tr>
+	<td> ИНН </td>
+	<td> {{ org.inn|stringformat:"010d" }} </td>
+</tr>
+<tr>
+	<td> Полное наименование </td>
+	<td> {{ org.okopf.name }} {{ org.fullname }} </td>
+</tr>
+<tr>
+	<td> Сокращенное наименование </td>
+	<td> {{ org.okopf.shortname }} {{ org.name }} </td>
+</tr>
+<tr>
+	<td> Фирменное наименование </td>
+	<td> {{ org.okopf.name }} {{ org.fullname }} </td>
+</tr>
+<tr>
+	<td> ОПФ </td>
+	<td> {{ org.okopf.name }} </td>
+</tr>
+<tr>
+	<td> Местонахождение </td>
+	<td> {{ org.laddress }} </td>
+</tr>
+<tr>
+	<td> Реестровый номер в НП СРО «МООЖС» </td>
+	<td> {{ org.sroregno }} </td>
+</tr>
+<tr>
+	<td> Дата членства в НП СРО «МООЖС» </td>
+	<td> {{ org.sroregdate|date }} </td>
+</tr>
+<tr>
+	<td> Номер Свидетельства о допуске к работам, которые оказывают влияние на безопасность объектов капитального строительства </td>
+	<td> {{ org.sroregno }}-{{perm.permitown.regno }} от {{perm.permitown.date|date }} </td>
+</tr>
+<tr>
+	<td> Состояние Свидетельства о допуске к работам, которые оказывают влияние на безопасность объектов капитального строительства </td>
+	<td> действующее </td>
+</tr>
+<tr>
+	<td> Основание выдачи: </td>
+	<td> Решение Правления НП «МООЖС», протокол №{{ perm.permitown.meeting.regno }} </td>
+</tr>
+<tr>
+	<td> Перечень видов работ, на которые член НП СРО «МООЖС» имеет Свидетельство о допуске к работам. </td>
+	<td>
+		{% for stage in perm.permitstage_set.all %}
+			<p class="style2"> {{ stage.stage.id }}. {{ stage.stage.name }} </p>
+			{% for job in stage.stage.job_set.all %}
+				<p class="style3"> {{ job.okdp }}: {{ job.name }} </p>
+			{% endfor %}
+		{% endfor %}
+	</td>
+</tr>
+<tr>
+	<td> Дата оплаты вступительного взноса </td>
+	<td> {{ org.paydatevv|date }} </td>
+</tr>
+<tr>
+	<td> Дата оплаты взноса в компенсационный фонд НП СРО «МООЖС» </td>
+	<td> {{ org.paydate|date }} </td>
+</tr>
+<tr>
+	<td> Страхование гражданской ответственности </td>
+	<td> Договор страхования гражданской ответственности № {{ org.orginsurance.insno }} от {{ org.orginsurance.insdate|date }}, {{ org.orginsurance.insurer.fullname }} </td>
+</tr>
+<tr>
+	<td> Сумма страхового возмещения </td>
+	<td> {{ org.orginsurance.insum }} </td>
+</tr>
+<tr>
+	<td> Сведения о внесении изменений  в Свидетельство о допуске к работам, которые оказывают влияние на безопасность объектов капитального строительства </td>
+	<td>  </td>
+</tr>
+<tr>
+	<td> Сведения о приостановлении выданного НП СРО «МООЖС» свидетельства о допуске к работам </td>
+	<td> отсутствуют </td>
+</tr>
+<tr>
+	<td> Сведения о возобновлении свидетельства о допуске к работам, которые оказывают влияние на безопасность объектов капитального строительства </td>
+	<td> отсутствуют </td>
+</tr>
+<tr>
+	<td> Сведения об отказе в возобновлении свидетельства о допуске к работам, которые оказывают влияние на безопасность объектов капитального строительства </td>
+	<td> отсутствуют </td>
+</tr>
+<tr>
+	<td> Сведения о прекращении действия свидетельства о допуске к работам, которые оказывают влияние на безопасность объектов капитального строительства </td>
+	<td> отсутствуют </td>
+</tr>
+</table>
+
+<table width="100%" border="0">
+<tr>
+	<td> Исполнительный директор <br/> НП СРО «МООЖС» </td>
+	<td align="right"> Д.В. Сережин </td>
+</tr>
+<tr><td colspan="2" align="center"> МП </td></tr>
+</table>
+</body>
+</html>
