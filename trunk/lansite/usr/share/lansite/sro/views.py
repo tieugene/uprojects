@@ -170,8 +170,11 @@ def	org_svid_pdf(request, org_id):
 def	org_extract(request, org_id):
 	org = Org.objects.get(pk=org_id)
 	#perm = Permit.objects.get(org=org, permittype=PermitType.objects.get(pk=1))
-	perm = Permit.objects.filter(org=org, permittype=PermitType.objects.get(pk=1), permitown__date__lt=datetime.today()).latest('permitown__date')
-	return render_to_response('sro/org_extract.html', RequestContext(request, {'org': org, 'perm': perm}))
+	ptype = PermitType.objects.get(pk=1)
+	perms = Permit.objects.filter(org=org, permittype=ptype, permitown__date__lte=datetime.today())
+	perm = perms.latest('permitown__date')
+	changes = perms.filter(permitown__regno__lt=perm.permitown.regno)
+	return render_to_response('sro/org_extract.html', RequestContext(request, { 'org': org, 'perm': perm, 'changes': changes, 'date': datetime.now() }))
 
 def	org_add(request):
 	org = Org()

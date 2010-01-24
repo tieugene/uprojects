@@ -11,146 +11,163 @@ body	{
 	font-family:	Serif;
 	font-size:	10pt;
 }
-
-TD	{
+P.style1	{
 	font-size:	12pt;
 	font-weight:	bold;
-}
-
-H1	{
-	font-size:	16pt;
-	font-weight:	bold;
 	text-align:	center;
-}
-H2	{
-	font-size:	14pt;
-	font-weight:	bold;
-	text-align:	center;
-}
-P.style1	{
-	font-size:	10pt;
-	font-weight:	bold;
-	text-align:	justify;
 }
 P.style2	{
 	font-size:	10pt;
 	font-weight:	bold;
+	text-align:	justify;
 }
 P.style3	{
+	font-size:	8pt;
+	text-align:	center;
+}
+P.style4	{
+	font-size:	12pt;
+	text-align:	left;
+}
+P.style5	{
+	font-size:	12pt;
+	font-weight:	bold;
+	text-align:	left;
+}
+P.style61	{
+	font-size:	10pt;
+	font-weight:	bold;
+	text-align:	left;
+}
+P.style62	{
 	font-size:	10pt;
 	text-align:	left;
 }
 </style>
 </head>
 <body>
-<h1>ВЫПИСКА</h1>
-<h1>из реестра членов Некоммерческого партнерства саморегулируемой организации «Межрегиональное объединение организаций железнодорожного строительства»</h1>
-<p class="style1">(зарегистрировано в Управлении Министерства юстиции РФ по Санкт-Петербургу и Ленинградской области 18 марта 2009 года за учетным номером в ведомственном реестре зарегистрированных некоммерческих организаций: 7814031644; ИНН 7840018373; ОГРН 1097800001892 от 17 марта 2009 года; регистрационный номер в государственном реестре саморегулируемых организаций: <u>СРО-С-043-28092009</u>; место нахождение: 191040, Санкт-Петербург, ул. Марата, д. 42)</p>
-<h2>Основные сведения о члене НП СРО «МООЖС»</h2>
+<p class="style1"> ВЫПИСКА </p>
+<p class="style1"> из реестра членов Некоммерческого партнерства саморегулируемой организации «Межрегиональное объединение организаций железнодорожного строительства» </p>
+<p class="style2"> (зарегистрировано в Управлении Министерства юстиции РФ по Санкт-Петербургу и Ленинградской области 18 марта 2009 года за учетным номером в ведомственном реестре зарегистрированных некоммерческих организаций: 7814031644; ИНН 7840018373; ОГРН 1097800001892 от 17 марта 2009 года; регистрационный номер в государственном реестре саморегулируемых организаций: <u>СРО-С-043-28092009</u>; место нахождение: 191040, Санкт-Петербург, ул. Марата, д. 42) </p>
+<table border="0"><tr><td>
+<p class="style1"> <u> {{ date|date }} </u> </p>
+<p class="style3"><sup>(Дата)</sup></p>
+</td></tr></table>
+<p class="style4"> Настоящая выписка содержит сведения о члене НП СРО «МООЖС»: </p>
+<p class="style1"> <u> {{ org.okopf.name }} {{ org.fullname }} </u> </p>
+<p class="style3"> (Полное наименование орагнизации) </p>
+<p class="style1"> <u> {{ org.sroregno }} </u> </p>
+<p class="style3"> (Реестровый номер) </p>
 <table width="100%" border="1">
 <tr>
-	<td> ОГРН </td>
-	<td> {{ org.ogrn }} </td>
+	<td> <p class="style5"> ОГРН </p> </td>
+	<td> <p class="style5"> {{ org.ogrn }} </p> </td>
 </tr>
 <tr>
-	<td> ИНН </td>
-	<td> {{ org.inn|stringformat:"010d" }} </td>
+	<td> <p class="style5"> ИНН </p> </td>
+	<td> <p class="style5"> {{ org.inn|stringformat:"010d" }} </p> </td>
 </tr>
 <tr>
-	<td> Полное наименование </td>
-	<td> {{ org.okopf.name }} {{ org.fullname }} </td>
+	<td> <p class="style5"> Полное наименование </p> </td>
+	<td> <p class="style5"> {{ org.okopf.name }} {{ org.fullname }} </p> </td>
 </tr>
 <tr>
-	<td> Сокращенное наименование </td>
-	<td> {{ org.okopf.shortname }} {{ org.name }} </td>
+	<td> <p class="style5"> Сокращенное наименование </p> </td>
+	<td> <p class="style5"> {{ org.okopf.shortname }} {{ org.name }} </p> </td>
 </tr>
 <tr>
-	<td> Фирменное наименование </td>
-	<td> {{ org.okopf.name }} {{ org.fullname }} </td>
+	<td> <p class="style5"> Фирменное наименование </p> </td>
+	<td> <p class="style5"> {{ org.okopf.name }} {{ org.fullname }} </p> </td>
 </tr>
 <tr>
-	<td> ОПФ </td>
-	<td> {{ org.okopf.name }} </td>
+	<td> <p class="style5"> ОПФ </p> </td>
+	<td> <p class="style5"> {{ org.okopf.name }} </p> </td>
 </tr>
 <tr>
-	<td> Местонахождение </td>
-	<td> {{ org.laddress }} </td>
+	<td> <p class="style5"> Местонахождение </p> </td>
+	<td> <p class="style5"> {{ org.laddress }} </p> </td>
 </tr>
 <tr>
-	<td> Реестровый номер в НП СРО «МООЖС» </td>
-	<td> {{ org.sroregno }} </td>
+	<td> <p class="style5"> Реестровый номер в НП СРО «МООЖС» </p> </td>
+	<td> <p class="style5"> {{ org.sroregno }} </p> </td>
 </tr>
 <tr>
-	<td> Дата членства в НП СРО «МООЖС» </td>
-	<td> {{ org.sroregdate|date }} </td>
+	<td> <p class="style5"> Дата членства в НП СРО «МООЖС» </p> </td>
+	<td> <p class="style5"> {{ org.sroregdate|date }} </p> </td>
 </tr>
 <tr>
-	<td> Номер Свидетельства о допуске к работам, которые оказывают влияние на безопасность объектов капитального строительства </td>
-	<td> {{ org.sroregno }}-{{perm.permitown.regno }} от {{perm.permitown.date|date }} </td>
+	<td> <p class="style5"> Номер Свидетельства о допуске к работам, которые оказывают влияние на безопасность объектов капитального строительства </p> </td>
+	<td> <p class="style5"> {{ org.sroregno }}-{{perm.permitown.regno }} от {{perm.permitown.date|date }} </p> </td>
 </tr>
 <tr>
-	<td> Состояние Свидетельства о допуске к работам, которые оказывают влияние на безопасность объектов капитального строительства </td>
-	<td> действующее </td>
+	<td> <p class="style5"> Состояние Свидетельства о допуске к работам, которые оказывают влияние на безопасность объектов капитального строительства </p> </td>
+	<td> <p class="style5"> действующее </p> </td>
 </tr>
 <tr>
-	<td> Основание выдачи: </td>
-	<td> Решение Правления НП «МООЖС», протокол №{{ perm.permitown.meeting.regno }} </td>
+	<td> <p class="style5"> Основание выдачи: </p> </td>
+	<td> <p class="style5"> Решение Правления НП «МООЖС», протокол №{{ perm.permitown.meeting.regno }} </p> </td>
 </tr>
 <tr>
-	<td> Перечень видов работ, на которые член НП СРО «МООЖС» имеет Свидетельство о допуске к работам. </td>
+	<td> <p class="style5"> Перечень видов работ, на которые член НП СРО «МООЖС» имеет Свидетельство о допуске к работам. </p> </td>
 	<td>
 		{% for stage in perm.permitstage_set.all %}
-			<p class="style2"> {{ stage.stage.id }}. {{ stage.stage.name }} </p>
+			<p class="style61"> {{ stage.stage.id }}. {{ stage.stage.name }} </p>
 			{% for job in stage.stage.job_set.all %}
-				<p class="style3"> {{ job.okdp }}: {{ job.name }} </p>
+				<p class="style62"> {{ job.okdp }}: {{ job.name }} </p>
 			{% endfor %}
 		{% endfor %}
+	</p> </td>
+</tr>
+<tr>
+	<td> <p class="style5"> Дата оплаты вступительного взноса </p> </td>
+	<td> <p class="style5"> {{ org.paydatevv|date }} </p> </td>
+</tr>
+<tr>
+	<td> <p class="style5"> Дата оплаты взноса в компенсационный фонд НП СРО «МООЖС» </p> </td>
+	<td> <p class="style5"> {{ org.paydate|date }} </p> </td>
+</tr>
+<tr>
+	<td> <p class="style5"> Страхование гражданской ответственности </p> </td>
+	<td> <p class="style5"> Договор страхования гражданской ответственности № {{ org.orginsurance.insno }} от {{ org.orginsurance.insdate|date }}, {{ org.orginsurance.insurer.fullname }} </p> </td>
+</tr>
+<tr>
+	<td> <p class="style5"> Сумма страхового возмещения </p> </td>
+	<td> <p class="style5"> {{ org.orginsurance.insum }} рублей </p> </td>
+</tr>
+<tr>
+	<td> <p class="style5"> Сведения о внесении изменений  в Свидетельство о допуске к работам, которые оказывают влияние на безопасность объектов капитального строительства </p> </td>
+	<td>
+		<ol>
+		{% for perm in changes %}
+			<li> <p class="style5"> Свидетельство № {{ org.sroregno }}-{{ perm.permitown.regno }} от {{ perm.permitown.date|date }} </p> </li>
+		{% endfor %}
+		</ol>
 	</td>
 </tr>
 <tr>
-	<td> Дата оплаты вступительного взноса </td>
-	<td> {{ org.paydatevv|date }} </td>
+	<td> <p class="style5"> Сведения о приостановлении выданного НП СРО «МООЖС» свидетельства о допуске к работам </p> </td>
+	<td> <p class="style5"> отсутствуют </p> </td>
 </tr>
 <tr>
-	<td> Дата оплаты взноса в компенсационный фонд НП СРО «МООЖС» </td>
-	<td> {{ org.paydate|date }} </td>
+	<td> <p class="style5"> Сведения о возобновлении свидетельства о допуске к работам, которые оказывают влияние на безопасность объектов капитального строительства </p> </td>
+	<td> <p class="style5"> отсутствуют </p> </td>
 </tr>
 <tr>
-	<td> Страхование гражданской ответственности </td>
-	<td> Договор страхования гражданской ответственности № {{ org.orginsurance.insno }} от {{ org.orginsurance.insdate|date }}, {{ org.orginsurance.insurer.fullname }} </td>
+	<td> <p class="style5"> Сведения об отказе в возобновлении свидетельства о допуске к работам, которые оказывают влияние на безопасность объектов капитального строительства </p> </td>
+	<td> <p class="style5"> отсутствуют </p> </td>
 </tr>
 <tr>
-	<td> Сумма страхового возмещения </td>
-	<td> {{ org.orginsurance.insum }} </td>
-</tr>
-<tr>
-	<td> Сведения о внесении изменений  в Свидетельство о допуске к работам, которые оказывают влияние на безопасность объектов капитального строительства </td>
-	<td>  </td>
-</tr>
-<tr>
-	<td> Сведения о приостановлении выданного НП СРО «МООЖС» свидетельства о допуске к работам </td>
-	<td> отсутствуют </td>
-</tr>
-<tr>
-	<td> Сведения о возобновлении свидетельства о допуске к работам, которые оказывают влияние на безопасность объектов капитального строительства </td>
-	<td> отсутствуют </td>
-</tr>
-<tr>
-	<td> Сведения об отказе в возобновлении свидетельства о допуске к работам, которые оказывают влияние на безопасность объектов капитального строительства </td>
-	<td> отсутствуют </td>
-</tr>
-<tr>
-	<td> Сведения о прекращении действия свидетельства о допуске к работам, которые оказывают влияние на безопасность объектов капитального строительства </td>
-	<td> отсутствуют </td>
+	<td> <p class="style5"> Сведения о прекращении действия свидетельства о допуске к работам, которые оказывают влияние на безопасность объектов капитального строительства </p> </td>
+	<td> <p class="style5"> отсутствуют </p> </td>
 </tr>
 </table>
 
 <table width="100%" border="0">
 <tr>
-	<td> Исполнительный директор <br/> НП СРО «МООЖС» </td>
-	<td align="right"> Д.В. Сережин </td>
+	<td> <p class="style5"> Исполнительный директор <br/> НП СРО «МООЖС» </p> </td>
+	<td align="right"> <p class="style5">  Д.В. Сережин </p> </td>
 </tr>
-<tr><td colspan="2" align="center"> МП </td></tr>
+<tr><td colspan="2" align="center"> <p class="style5">  МП </p> </td></tr>
 </table>
 </body>
 </html>
