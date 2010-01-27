@@ -1,0 +1,199 @@
+[HKEY_CURRENT_USER\Control Panel\Desktop]
+; Ускорение выключения компьютера
+"AutoEndTasks"="1"
+"WaitToKillAppTimeout"="10000"
+"WaitToKillServiceTimeout"="5000"
+; Ускорение меню Пуск
+"MenuShowDelay"="2"
+; Отключение отображения содержимого окна при перетаскивании
+"DragFullWindows"="0"
+; Включение сглаживания неровностей экранных шрифтов
+"FontSmoothing"="2"
+; Отключение скольжения и затухания меню
+"UserPreferencesMask"=hex:90,12,01,80
+; Отключить эффект для меню и подсказок
+"SmoothScroll"=dword:00000000
+
+; Отключить анимацию окон при свертывании и развертывании
+[HKEY_CURRENT_USER\Control Panel\Desktop\WindowMetrics]
+"MinAnimate"="0"
+
+; Включить NumLock при загрузке
+[HKEY_CURRENT_USER\Control Panel\Keyboard]
+"InitialKeyboardIndicators"="2"
+
+; Указание сочетания клавиш при переключении раскладок клавиатуры (LCtrl+Shift)
+[HKEY_CURRENT_USER\Keyboard Layout\Toggle]
+"Hotkey"="2"
+"Language Hotkey"="2" 
+"Layout Hotkey"="3"
+
+; Отключить "Ярлык для" при создании новых ярлыков
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer]
+"link"=hex:00,00,00,00
+; Расширенная настройка помошника поиска
+"SearchSystemDirs"=dword:00000001
+"SearchHidden"=dword:00000001
+"IncludeSubFolders"=dword:00000001
+"CaseSensitive"=dword:00000000
+"SearchSlowFiles"=dword:00000001
+
+[HKEY_CURRENT_USER\Software\Microsoft\Search Assistant]
+"UseAdvancedSearchAlways"=dword:00000001
+
+; Параметры подписывания драйверов: не запрашивать утверждения
+[HKEY_CURRENT_USER\Software\Microsoft\Driver Signing]
+"Policy=dword:00000000
+
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced]
+; Отключить все всплывающие уведомления в трее
+"EnableBalloonTips"=dword:00000000
+; Не Пoмнить пapaмeтpы oтoбpaжeния кaждoй пaпки
+"ClassicViewState"=dword:00000001
+; Отключить кэшиpoвaниe эcкизoв изoбpaжeний (файлы Thumbs.db)
+"DisableThumbnailCache"=dword:00000001
+; Отображать pacшиpeния для зapeгиcтpиpoвaнныx типoв фaйлoв
+"HideFileExt"=dword:00000000
+; Отключение отбрасывания теней значками на рабочем столе
+"ListviewShadow"=dword:00000000
+; Убрать автоматический поиск сетевых папок и принтеров
+"NoNetCrawling"=dword:00000001
+; Отображать скpытыe фaйлы и пaпки
+"Hidden"=dword:00000001
+; Показывать защищенные системные файлы
+"ShowSuperHidden"=dword:00000001
+; Использовать обычные папки Windows
+"WebView"=dword:00000000
+; Отключение отображения прозрачного прямоугольника при выделении
+"ListviewAlphaSelect"=dword:00000000
+; Отключение отображения фоновых рисунков для различных типов папок
+"ListviewWatermark"=dword:00000000
+; Отключение скольжения кнопок панели задач
+"TaskbarAnimations"=dword:00000000
+; Параметры подписывания драйверов: не запрашивать утверждения
+"Policy"=dword:00000000
+
+; Отключить Помощника очистки рабочего стола (Desktop Cleanup Wizard)
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Desktop\CleanupWiz]
+"NoRun"=dword:00000001
+
+; Показывать строку состояния в папках
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\WebView\BarricadedFolders]
+"shell:ControlPanelFolder"=dword:00000000
+
+; Отключить предупреждение при открытии файлов, загруженных из Интернета
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Policies\Associations]
+"LowRiskFileTypes"=".zip;.rar;.nfo;.txt;.exe;.bat;.com;.cmd;.reg;.msi;.htm;.html;.gif;.bmp;.jpg;.avi;.mpg;.mpeg;.mov;.mp3;.m3u;.wav;"
+
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer]
+; Классический вид Панели управления
+"ForceClassicControlPanel"=dword:00000001 
+; Отключить проверку недостатка места на диске
+"NoLowDiskSpaceChecks"=dword:00000001
+; Отключить меню Недавние Документы в меню Пуск
+"NoRecentDocsMenu"=hex:01,00,00,00
+; Отключить Недавние Документы
+"NoRecentDocsHistory"=dword:00000001
+; Скрыть общиe дoкyмeнты в oкне Moй кoмпьютep и проводнике
+"NoSharedDocuments"=dword:00000001
+; Убрать ярлык "Программы по умолчанию" из меню Пуск
+"NoSMConfigurePrograms"=dword:00000001
+; Отключить уведомление о новых программах в меню Пуск (выделение цветом)
+"Start_NotifyNewApps"=dword:00000000
+
+; Отключить "Поиск соответствия в Интернете" при открытии файла с неизвестными расширением
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Policies\System]
+"NoInternetOpenWith"=dword:00000001
+
+; Отключение анимации окон при свертывании и развертывании
+[HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\AnimateMinMax]
+"DefaultApplied"=dword:00000001
+"DefaultValue"=dword:00000000
+
+; Отключение гладкого прокручивания списков
+[HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\ComboBoxAnimation]
+"DefaultApplied"=dword:00000001
+"DefaultValue"=dword:00000000
+
+; Отключение отображения тени под указателем мыши
+[HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\CursorShadow]
+"DefaultApplied"=dword:00000001
+"DefaultValue"=dword:00000000
+
+; Отключение отображения содержимого окна при перетаскивании
+[HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\DragFullWindows]
+"DefaultApplied"=dword:00000001
+"DefaultValue"=dword:00000000
+"DefaultByAlphaTest"=dword:00000000
+
+; Отключение отображения теней, отбрасываемых меню
+[HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\DropShadow]
+"DefaultApplied"=dword:00000001
+"DefaultValue"=dword:00000000
+"DefaultByAlphaTest"=dword:00000000
+
+; Отключение сглаживания неровности экранных шрифтов
+[HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\FontSmoothing]
+"DefaultApplied"=dword:00000001
+"DefaultValue"=dword:00000001
+"DefaultByAlphaTest"=dword:00000001
+
+; Отключение скольжения при раскрытии списков
+[HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\ListBoxSmoothScrolling]
+"DefaultApplied"=dword:00000001
+"DefaultValue"=dword:00000001
+"DefaultByAlphaTest"=dword:00000001
+
+; Отключить отображение прозрачного прямоугольника при выделении
+[HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\ListviewAlphaSelect]
+"DefaultApplied"=dword:00000001
+"DefaultByAlphaTest"=dword:00000000
+"DefaultValue"=dword:00000000
+
+; Отключение отбрасывания теней значками на рабочем столе
+[HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\ListviewShadow]
+"DefaultApplied"=dword:00000001
+"DefaultByAlphaTest"=dword:00000001
+"DefaultValue"=dword:00000001
+
+; Отключение отображения фоновых рисунков для различных типов папок
+[HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\ListviewWatermark]
+"DefaultApplied"=dword:00000001
+"DefaultValue"=dword:00000000
+"DefaultByAlphaTest"=dword:00000000
+
+; Отключить эффекты затухания или скольжения при обращении к меню
+[HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\MenuAnimation]
+"DefaultApplied"=dword:00000001
+"DefaultByAlphaTest"=dword:00000000
+"DefaultValue"=dword:00000000
+
+; Отключить затухание меню после вызова команды
+[HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\SelectionFade]
+"DefaultApplied"=dword:00000001
+"DefaultByAlphaTest"=dword:00000000
+"DefaultValue"=dword:00000000
+
+; Отключение скольжения кнопок панели задач
+[HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\TaskbarAnimations]
+"DefaultApplied"=dword:00000001
+"DefaultByAlphaTest"=dword:00000000
+"DefaultValue"=dword:00000000
+
+; Отключить использование стилей для окон и кнопок
+[HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\Themes]
+"DefaultApplied"=dword:00000001
+"DefaultValue"=dword:00000000
+"DefaultByAlphaTest"=dword:00000000
+
+; Отключить эффекты затухания или скольжения при появлении подсказок
+[HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\TooltipAnimation]
+"DefaultApplied"=dword:00000001
+"DefaultByAlphaTest"=dword:00000000
+"DefaultValue"=dword:00000000
+
+; Отключить использование типичных задач для папок
+[HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects\WebView]
+"DefaultApplied"=dword:00000001
+"DefaultValue"=dword:00000000
+"DefaultByAlphaTest"=dword:00000000
