@@ -1,24 +1,29 @@
 #summary Microsoft Windows Standard Softset.
 
 = TOC =
-
 || *What* || *Vendor* || *Product* || *Ver* || *License * ||
+|||||||||| *Mandatory* ||
 || Office suite || || [http://ru.openoffice.org/ OpenOffice.org] || 3.1.1 || GPL ||
-|| Web browser || Mozilla || [http://www.mozilla.ru/ Firefox] || 3.5.5 || GPL ||
-|| Mail client || Mozilla || [http://www.mozilla.ru/ Thunderbird] || 3.0 b4 || GPL ||
+|| Web browser || Mozilla || [http://www.mozilla.ru/ Firefox] || 3.6 || GPL ||
+|| Mail client || Mozilla || [http://www.mozilla.ru/ Thunderbird] || 3.0.1 || GPL ||
+|| Mail client utility || Felix Geyer || [http://debfx.fobos.de/tbtray/ TB-Tray] || 1.2 || GPL ||
 || IM ||  || [http://www.qutim.org/ qutim] || 0.2 || GPL ||
 || Image viewer ||  || [http://www.irfanview.com/ IrfanView] || 4.25 ||  ||
-|| Image editor ||  || [http://mtpaint.sourceforge.net/ mtPaint] || 3.31 ||  ||
 || Archiver ||  || [http://www.7-zip.org/ 7-zip] || 4.65 || GPL ||
-|| Antivirus ||  || Avira ||  ||  ||
-|| CD recorder ||  || [http://infrarecorder.org/ InfraRecorder] || 0.50 || GPL ||
+|| Antivirus ||  || [http://www.free-av.com Avira] || 9.0.0.10 ||  ||
 || Notepad ||  || [http://sourceforge.net/projects/juffed/ JuffEd] || 0.8 || GPL ||
-|| Multimedia codecs ||  || [http://www.codecguide.com/ K-Lite] || 5.4.0 ||  ||
+|| PDF viewer || Adobe || [http://get.adobe.com/reader/ Acrobat reader] || 9.3 ||  ||
+|| Flash || Adobe || [http://get.adobe.com/flashplayer/ Flash player] || 10.0.42.34 ||  ||
+|| Virtual printer ||  || [http://sourceforge.net/projects/pdfcreator/ PDFCreator] || 0.9.9 || GPL ||
+|| Java || Sun || [http://java.sun.com JRE] || 6u18 ||  ||
+|||||||||| *Option* ||
+|| Remote control || Sun || [http://www.realvnc.com/ RealVNC] || 4.1.3 ||  ||
+|| Image editor ||  || [http://mtpaint.sourceforge.net/ mtPaint] || 3.31 ||  ||
+|| CD recorder ||  || [http://infrarecorder.org/ InfraRecorder] || 0.50 || GPL ||
+|| Multimedia codecs ||  || [http://www.codecguide.com/ K-Lite] || 5.6.1 ||  ||
+|| Multimedia player ||  || [www.kmplayer.com/ KMplayer] || 2.9.4.1435 || ||
 || Audio player ||  || [http://code.google.com/p/cuberok/ Cuberok] || 0.0.11 || GPL ||
 || Video player ||  || [http://smplayer.sourceforge.net/ SMplayer] || 0.6.8 || GPL ||
-|| PDF viewer || Adobe || [http://get.adobe.com/reader/ Acrobat reader] || 9.2 ||  ||
-|| Flash || Adobe || [http://get.adobe.com/flashplayer/ Flash player] || 10 ||  ||
-|| Virtual printer ||  || [http://sourceforge.net/projects/pdfcreator/ PDFCreator] || 0.9.8 || GPL ||
 
 = Try =
  * [http://www.dipconsultants.com/evolution/ Evolution] 2.26.2
