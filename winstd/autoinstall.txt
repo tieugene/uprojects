@@ -1,0 +1,74 @@
+7-zip:
+	7zip.exe /S
+	regedit
+FireFox:
+	"Firefox Setup 3.6.exe" -ms -ira
+ThunderBird:
+	"Thunderbird Setup 3.0.1.exe" -ms [-ira]
+TB-Tray:
+	TBTray-1.2-setup.exe /S
+	+remove tbtray from All/Autostart
+InfraRecorder:
+	ir50.exe /S
+IrfanView:
+	AutioIT + close browser
+PDFCreator:
+	PDFCreator-0_9_9_setup.exe /VERYSILENT
+	+ uninstall pdfforge toolbar (msiexec)
+JRE:
+	jre-6u18-windows-i586.exe /quiet /norestart
+	+ remove [HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Run] "SunJavaUpdateSched"
+	+ stop jqs
+Flash:
+	install_flash_player.10.0.42.34.exe /s
+	install_flash_player_ax.10.0.42.34.exe /s
+K-Lite:
+	K-Lite_Codec_Pack_561_Mega.exe /VERYSILENT
+Avira:
+	AutoIt + wait update => install as last
+	!!! stops after install - befor update
+AcroRead:
+	AutoIt
+	Remove:
+		[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Run] "Adobe ARM"
+		[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Run] "Adobe Reader Speed Launcher"
+KMPlayer:
+	AutoIT
+MSO:
+	setup.exe TRANSFORMS=D:\Setup\MSO2k3.MST /qb-
+quitim:
+	
+== Special ==
+Selta:
+	selta*.msi /qb
+	copy selta.lic c:\program files\selta
+CryptoPro:
+	
+PSQL:
+	
+== Todo ==
+vnc
+	/SILENT - bu w/o/ server
+or UltraVNC...
+OOo:
+	setup.exe TRANSFORMS=D:\Setup\OOo.MST /qb-
+
+OOo:
+	exclude:
+		gm_p_Base	OOo.Base
+		gm_p_Draw	OOo.Draw
+		gm_p_Math	OOo.Math
+		gm_o_Binfilter	Унаследованные фильтры
+		gm_o_Pyuno	Интеграция с Pyuno
+		gm_o_Onlineupdate	Проверка обновлений
+		gm_o_Quickstart	Быстрый старт
+	Или:
+		-gm_Prg
+		-gm_Optional
+		
+		+gm_p_Calc
+		+gm_p_Impress
+		+gm_p_Wrt
+		+gm_o_Grfflt	Графические фильтры
+		+gm_o_Winexplorerext	Расширение Прводника Windows
+	D:\Setup\OOo.3.1.1>msiexec /i openofficeorg31.msi REMOVE=gm_Prg, gm_Optional ADDLOCAL=gm_p_Calc, gm_p_Impress, gm_p_Wrt, gm_o_Grfflt, gm_o_Winexplorerext
