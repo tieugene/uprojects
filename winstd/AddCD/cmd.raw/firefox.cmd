@@ -1,0 +1,1 @@
+"\bin\Firefox Setup 3.6.exe"

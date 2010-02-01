@@ -7,14 +7,13 @@ from django.conf import settings
 admin.autodiscover()
 
 from lansite.views import index
-from lansite.sro.views import dl_file
 
 urlpatterns = patterns('',
 	(r'^$', index),
 #	(r'^run1s/', include('lansite.run1s.urls')),
 	(r'^sro/', include('lansite.sro.urls')),
+	(r'^sro2/', include('lansite.sro2.urls')),
 #	(r'^insupol/', include('lansite.insupol.urls')),
-	(r'^admin/sro/file/(\d+)/(\d+)$', dl_file),
 	(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 	(r'^admin/(.*)', admin.site.root),
 	(r'^login/$', login),

@@ -1,0 +1,1 @@
+copy \bin\Accounting\EANG000.ttf C:\Windows\Fonts

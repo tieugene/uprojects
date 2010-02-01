@@ -1,0 +1,8 @@
+[Setup]
+Lang=default
+Dir=C:\Program Files\RealVNC\VNC4
+Group=RealVNC
+NoIcons=0
+SetupType=custom
+Components=winvnc
+Tasks=installservice,launchservice

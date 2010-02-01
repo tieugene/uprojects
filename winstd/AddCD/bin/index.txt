@@ -1,0 +1,346 @@
+.
+├── 7z910.exe
+├── Accounting
+│   ├── 1CV77
+│   │   ├── 1cv7.exe
+│   │   ├── DISK1
+│   │   │   ├── admsetup.z
+│   │   │   ├── disk1.id
+│   │   │   ├── dll.1
+│   │   │   ├── exe.z
+│   │   │   ├── haspserv.nlm
+│   │   │   ├── _inst32i.ex_
+│   │   │   ├── _isdel.exe
+│   │   │   ├── setup.bmp
+│   │   │   ├── _setup.dll
+│   │   │   ├── setup.exe
+│   │   │   ├── setup.ini
+│   │   │   ├── setup.ins
+│   │   │   ├── setup.iss
+│   │   │   ├── _setup.lib
+│   │   │   ├── setup.log
+│   │   │   ├── setup.pkg
+│   │   │   └── ver.id
+│   │   ├── DISK10
+│   │   │   ├── disk10.id
+│   │   │   ├── shared.z
+│   │   │   └── ver.id
+│   │   ├── DISK2
+│   │   │   ├── disk2.id
+│   │   │   ├── dll.2
+│   │   │   └── ver.id
+│   │   ├── DISK3
+│   │   │   ├── disk3.id
+│   │   │   ├── dll.3
+│   │   │   └── ver.id
+│   │   ├── DISK4
+│   │   │   ├── disk4.id
+│   │   │   ├── dll.4
+│   │   │   └── ver.id
+│   │   ├── DISK5
+│   │   │   ├── disk5.id
+│   │   │   ├── dll.5
+│   │   │   └── ver.id
+│   │   ├── DISK6
+│   │   │   ├── disk6.id
+│   │   │   ├── dll.6
+│   │   │   └── ver.id
+│   │   ├── DISK7
+│   │   │   ├── disk7.id
+│   │   │   ├── dll.7
+│   │   │   ├── hasp.1
+│   │   │   └── ver.id
+│   │   ├── DISK8
+│   │   │   ├── disk8.id
+│   │   │   ├── hasp.2
+│   │   │   └── ver.id
+│   │   ├── DISK9
+│   │   │   ├── disk9.id
+│   │   │   ├── hasp.3
+│   │   │   ├── spcfiles.z
+│   │   │   └── ver.id
+│   │   ├── v7plus.als
+│   │   └── v7plus.dll
+│   ├── Admin-PKI v4.0.0.4.EXE
+│   ├── cpcsp2-0-2104.exe
+│   ├── cp.txt
+│   ├── EanG000.ttf
+│   ├── PDF417(3.0.9).msi
+│   ├── PSQL
+│   │   ├── autorun.inf
+│   │   ├── Data1.cab
+│   │   ├── dos
+│   │   │   ├── alt
+│   │   │   │   ├── BREQNT.exe
+│   │   │   │   ├── BREQTCP.EXE
+│   │   │   │   └── BREQUEST.exe
+│   │   │   ├── BREQNT.exe
+│   │   │   ├── breqnt.msg
+│   │   │   ├── BREQTCP.EXE
+│   │   │   ├── breqtcp.msg
+│   │   │   ├── BREQUEST.exe
+│   │   │   ├── brequest.msg
+│   │   │   ├── BTIUTILD.MSG
+│   │   │   ├── butildos.msg
+│   │   │   ├── butil.exe
+│   │   │   ├── m3open.exe
+│   │   │   ├── mftp22.exe
+│   │   │   ├── mnovlwp.exe
+│   │   │   ├── msocklib.rc
+│   │   │   ├── readdos.txt
+│   │   │   ├── vsldos.ftp
+│   │   │   ├── vsldos.lwp
+│   │   │   └── vsldos.m3
+│   │   ├── Eclipse.org
+│   │   │   └── eclipse_license.txt
+│   │   ├── Pervasive.SQL Client.msi
+│   │   ├── Pervasive.SQL Client.pdf
+│   │   ├── psa
+│   │   │   ├── autorun.inf
+│   │   │   ├── data1.cab
+│   │   │   ├── data1.hdr
+│   │   │   ├── DATA.TAG
+│   │   │   ├── _inst32i.ex_
+│   │   │   ├── _ISDel.exe
+│   │   │   ├── lang.dat
+│   │   │   ├── layout.bin
+│   │   │   ├── os.dat
+│   │   │   ├── readpsa.txt
+│   │   │   ├── setup.bmp
+│   │   │   ├── _Setup.dll
+│   │   │   ├── Setup.exe
+│   │   │   ├── SETUP.INI
+│   │   │   ├── setup.ins
+│   │   │   ├── setup.iss
+│   │   │   ├── setup.lid
+│   │   │   ├── _sys1.cab
+│   │   │   ├── _sys1.hdr
+│   │   │   ├── Update
+│   │   │   │   ├── support
+│   │   │   │   │   ├── 50comupd.exe
+│   │   │   │   │   └── hhupd.exe
+│   │   │   │   └── system
+│   │   │   │       └── win32
+│   │   │   │           ├── register
+│   │   │   │           │   ├── keyhelp.ocx
+│   │   │   │           │   └── winnt
+│   │   │   │           │       └── comcat.dll
+│   │   │   │           └── shared
+│   │   │   │               ├── keyhh.exe
+│   │   │   │               ├── mfc42.dll
+│   │   │   │               ├── msvcp60.dll
+│   │   │   │               └── msvcrt.dll
+│   │   │   ├── _user1.cab
+│   │   │   └── _user1.hdr
+│   │   ├── ptksetup.ini
+│   │   ├── readme.txt
+│   │   ├── setup.exe
+│   │   ├── Sun Microsystems
+│   │   │   └── JRE_license.txt
+│   │   └── trace
+│   │       ├── readtrc.txt
+│   │       ├── rel
+│   │       │   ├── w1mif183.dll
+│   │       │   ├── w1nsl251.dll
+│   │       │   ├── W1UPI301.dll
+│   │       │   ├── w3mif183.dll
+│   │       │   ├── w3nsl251.dll
+│   │       │   └── W3UPI301.dll
+│   │       └── trace
+│   │           ├── w1mif183.dll
+│   │           ├── w1nsl251.dll
+│   │           ├── W1UPI301.dll
+│   │           ├── w3mif183.dll
+│   │           ├── w3nsl251.dll
+│   │           └── W3UPI301.dll
+│   ├── PSQLHotFixSetup952.exe
+│   ├── selta-1.0.7.20090907.msi
+│   └── selta.lic
+├── AdbeRdr930_ru_RU.exe
+├── avira_antivir_personal_ru.9.0.0.10.exe
+├── Firefox Setup 3.6.exe
+├── flash_player.10.0.42.34.exe
+├── flash_player_ax.10.0.42.34.exe
+├── index.txt
+├── ir050.exe
+├── jre-6u18-windows-i586.exe
+├── K-Lite_Codec_Pack_561_Mega.exe
+├── MSO.2k3
+│   ├── A2561497.CAB
+│   ├── A35614AM.CAB
+│   ├── A4561479.CAB
+│   ├── AUTORUN.INF
+│   ├── AV561443.CAB
+│   ├── CC561401.CAB
+│   ├── CD561401.CAB
+│   ├── CF561401.CAB
+│   ├── CL561401.CAB
+│   ├── CM561401.CAB
+│   ├── CP561401.CAB
+│   ├── CR561401.CAB
+│   ├── CS561401.CAB
+│   ├── E25614BN.CAB
+│   ├── E35614BC.CAB
+│   ├── E4561471.CAB
+│   ├── EV561453.CAB
+│   ├── FILES
+│   │   ├── ACCRT
+│   │   │   ├── ACCESSRT.CAB
+│   │   │   └── ACCESSRT.MSI
+│   │   ├── OWC10
+│   │   │   ├── SETUP.EXE
+│   │   │   └── SETUP.INI
+│   │   ├── OWC11
+│   │   │   ├── SETUP.EXE
+│   │   │   └── SETUP.INI
+│   │   ├── PFILES
+│   │   │   ├── COMMON
+│   │   │   │   └── MSSHARED
+│   │   │   │       └── DW
+│   │   │   │           ├── 1049
+│   │   │   │           │   └── DWINTL20.DLL
+│   │   │   │           ├── DW20.EXE
+│   │   │   │           ├── DWDCW20.DLL
+│   │   │   │           └── DWTRIG20.EXE
+│   │   │   └── MSOFFICE
+│   │   │       └── OFFICE11
+│   │   │           ├── 1049
+│   │   │           │   ├── ACREADME.HTM
+│   │   │           │   ├── FILTERS.TXT
+│   │   │           │   ├── INREADME.HTM
+│   │   │           │   ├── OCLNINTL.OPC
+│   │   │           │   ├── OFREADME.HTM
+│   │   │           │   ├── OLREADME.HTM
+│   │   │           │   ├── PBREADME.HTM
+│   │   │           │   ├── PPREADME.HTM
+│   │   │           │   ├── PSS10O.CHM
+│   │   │           │   ├── PSS10R.CHM
+│   │   │           │   ├── PVREADME.HTM
+│   │   │           │   ├── SETUP.CHM
+│   │   │           │   ├── WDREADME.HTM
+│   │   │           │   └── XLREADME.HTM
+│   │   │           ├── OCLEAN.DLL
+│   │   │           ├── OCLNCORE.OPC
+│   │   │           ├── OCLNCUST.OPC
+│   │   │           └── OFFCLN.EXE
+│   │   ├── SETUP
+│   │   │   ├── OSE.EXE
+│   │   │   ├── OWC10.XML
+│   │   │   ├── OWC11.XML
+│   │   │   ├── PRO11.XML
+│   │   │   └── SETUP.INI
+│   │   └── WINDOWS
+│   │       └── INF
+│   │           └── AER_1049.ADM
+│   ├── G35614C0.CAB
+│   ├── GV561430.CAB
+│   ├── IJ561401.CAB
+│   ├── IS561401.CAB
+│   ├── IU561401.CAB
+│   ├── L25614CN.CAB
+│   ├── L35614B0.CAB
+│   ├── L45614AK.CAB
+│   ├── L9561415.CAB
+│   ├── LV561423.CAB
+│   ├── M2561493.CAB
+│   ├── M35614HG.CAB
+│   ├── M45614FY.CAB
+│   ├── M9561401.CAB
+│   ├── MA561423.CAB
+│   ├── MC5614CW.CAB
+│   ├── MG561470.CAB
+│   ├── MH561401.CAB
+│   ├── MO561464.CAB
+│   ├── MT561481.CAB
+│   ├── O0561401.CAB
+│   ├── O15614JT.CAB
+│   ├── O9561477.CAB
+│   ├── OWC10.MSI
+│   ├── OWC11.MSI
+│   ├── P25614B8.CAB
+│   ├── P3561478.CAB
+│   ├── P4561421.CAB
+│   ├── PA561401.CAB
+│   ├── PR103196.CAB
+│   ├── PR103369.CAB
+│   ├── PR104903.CAB
+│   ├── PR105811.CAB
+│   ├── PRO11.MSI
+│   ├── PV561435.CAB
+│   ├── PW561445.CAB
+│   ├── Q25614BM.CAB
+│   ├── Q35614C8.CAB
+│   ├── Q4561459.CAB
+│   ├── QV561452.CAB
+│   ├── README.HTM
+│   ├── SETUP.EXE
+│   ├── SETUP.HTM
+│   ├── SKU011.CAB
+│   ├── SKU011.XML
+│   ├── SKU026.CAB
+│   ├── SKU0A4.CAB
+│   ├── TR103102.CAB
+│   ├── UPDATE
+│   │   ├── KB828041-RUS.EXE
+│   │   └── !README.TXT
+│   ├── V3561417.CAB
+│   ├── W25614BJ.CAB
+│   ├── W35614BK.CAB
+│   ├── W4561474.CAB
+│   ├── WV561452.CAB
+│   ├── X25614B6.CAB
+│   ├── X3561447.CAB
+│   ├── YA5614BX.CAB
+│   ├── YB5614BE.CAB
+│   ├── YC561421.CAB
+│   ├── YH561436.CAB
+│   ├── YI561401.CAB
+│   ├── YL5614AH.CAB
+│   ├── YM561403.CAB
+│   ├── YO561419.CAB
+│   ├── YT561401.CAB
+│   ├── ZA561401.CAB
+│   ├── ZC561415.CAB
+│   ├── ZD561402.CAB
+│   ├── ZE561421.CAB
+│   ├── ZF561402.CAB
+│   ├── ZG561401.CAB
+│   ├── ZH561470.CAB
+│   ├── ZI561490.CAB
+│   ├── ZJ561401.CAB
+│   ├── ZK561401.CAB
+│   ├── ZM561401.CAB
+│   ├── ZN561401.CAB
+│   ├── ZO561454.CAB
+│   ├── ZQ561401.CAB
+│   ├── ZR561420.CAB
+│   ├── ZS561401.CAB
+│   ├── ZT561401.CAB
+│   ├── ZU561429.CAB
+│   ├── ZV561401.CAB
+│   ├── ZY5614BZ.CAB
+│   └── ZZ561401.CAB
+├── OOo.3.1.1
+│   ├── instmsia.exe
+│   ├── instmsiw.exe
+│   ├── licenses
+│   │   ├── license_ru.html
+│   │   └── license_ru.txt
+│   ├── openofficeorg1.cab
+│   ├── openofficeorg31.msi
+│   ├── readmes
+│   │   ├── readme_ru.html
+│   │   └── readme_ru.txt
+│   ├── redist
+│   │   └── vcredist_x86.exe
+│   ├── setup.exe
+│   └── setup.ini
+├── PDFCreator-0_9_9_setup.exe
+├── qutIM-0.2.0-2.exe
+├── TBTray-1.2-setup.exe
+├── The_KMPlayer_1435.exe
+├── Thunderbird Setup 3.0.1.exe
+├── vnc-4_1_3-x86_win32.exe
+└── XnView-win-full.exe
+
+49 directories, 294 files

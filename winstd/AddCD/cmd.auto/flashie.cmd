@@ -1,0 +1,1 @@
+\bin\flash_player_ax.10.0.42.34.exe /s

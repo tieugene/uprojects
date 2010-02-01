@@ -1,0 +1,211 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<title>LanSite.СРО.Организации</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<link rel="stylesheet" href="org.css" type="text/css" />
+</head>
+<body>
+<script langauge="JavaScript" type="text/javascript">
+function confirmDelete(delUrl) {
+	if (confirm("Are you sure you want to delete")) {
+		document.location = delUrl;
+	}
+}
+</script>
+
+{% block sidebar %}
+	<center> <h1>
+		<a href="{% url lansite.views.index %}"> LanSite </a> &gt; 
+		<a href="{% url lansite.sro.views.index %}"> СРО </a> &gt;
+		<a href="{% url lansite.sro.views.org_list %}"> Организации </a> &gt;
+		{{ org.name }}
+	</h1> </center>
+{% endblock %}
+<a name="main"/>
+<table width="100%" border="0" bgcolor="lightgrey"><tr><td><table><tr><td>{% block body_main_button %} {% endblock %}</td><td><h2> 1. Основные данные: </h2></td></tr></table></td></tr></table>
+{% block body_main %}
+	<table border="0">
+		<tr>	<td> Краткое наименование: </td>	<td> {{ org.name }} </td>		</tr>
+		<tr>	<td> Полное наименование: </td>		<td> {{ org.fullname }} </td>		</tr>
+		<tr>	<td> ОКОПФ: </td>			<td> {{ org.okopf }} </td>		</tr>
+		<tr>	<td> Дата регистрации в ЕГРЮЛ: </td>	<td> {{ org.egruldate|date }} </td>	</tr>
+		<tr>	<td> ИНН: </td>				<td> {{ org.inn|stringformat:"010d" }} </td>		</tr>
+		<tr>	<td> КПП: </td>				<td> {{ org.kpp }} </td>		</tr>
+		<tr>	<td> ОГРН: </td>			<td> {{ org.ogrn }} </td>		</tr>
+		<tr>	<td> ОКАТО: </td>			<td> {{ org.okato }} </td>		</tr>
+		<tr>	<td> Адрес юридический: </td>		<td> {{ org.laddress }} </td>		</tr>
+		<tr>	<td> Адрес фактический: </td>		<td> {{ org.raddress }} </td>		</tr>
+	</table>
+		<h3 align="center"> Строительство: </h3>
+	<table>
+		<tr>	<td> Реестровый №: </td>		<td> {{ org.sroregno }} </td>		</tr>
+		<tr>	<td> Дата членства в НП: </td>		<td> {{ org.sroregdate|date }} </td>	</tr>
+		<tr>	<td> Дата оплаты взноса в КФ: </td>	<td> {{ org.paydate|date }} </td>	</tr>
+		<tr>	<td> Сумма взноса в КФ: </td>		<td> {{ org.paysum }} </td>		</tr>
+		<tr>	<td> Дата оплаты ВВ: </td>		<td> {{ org.paydatevv|date }} </td>	</tr>
+		<tr>	<td> Коментарии: </td>			<td> {{ org.comments }} </td>		</tr>
+		<tr>	<td> Публиковать: </td>			<td> [{% ifequal org.public 1 %} V {% else %} &nbsp; {% endifequal %}] </td>		</tr>
+	</table>
+{% endblock %}
+{% block body_license %}
+	<table border="0">
+		<tr>	<td> Лицензия: </td>	<td>
+			{% if org.orglicense %}
+				№ {{ org.orglicense.no }} от {{ org.orglicense.datefrom|date }} по {{ org.orglicense.datedue|date }}
+				{% block body_license_edit_button %} {% endblock %}
+				{% block body_license_del_button %} {% endblock %}
+			{% else %}
+				Нет
+				{% block body_license_add_button %} {% endblock %}
+			{% endif %}
+		</td>	</tr>
+	</table>
+{% endblock %}
+{% block body_insurance %}
+	<table border="0">
+		<tr>	<td> Страховка: </td>	<td>
+			{% if org.orginsurance %}
+				Договор № {{ org.orginsurance.insno }} от {{ org.orginsurance.insdate|date }} на {{ org.orginsurance.insum }} руб. в {{ org.orginsurance.insurer }} ({{ insurance.insurername }})
+				{% block body_insurance_edit_button %} {% endblock %}
+				{% block body_insurance_del_button %} {% endblock %}
+			{% else %}
+				Нет
+				{% block body_insurance_add_button %} {% endblock %}
+			{% endif %}
+		</td>	</tr>
+	</table>
+{% endblock %}
+{% block body_prj %}
+	{% if org.prjorg %}
+		<h3 align="center"> Проектирование: </h3>
+		<table border="0">
+			<tr>	<td> Реестровый №: </td>		<td> {{ org.prjorg.regno }} </td>		</tr>
+			<tr>	<td> Дата членства в НП: </td>		<td> {{ org.prjorg.regdate|date }} </td>	</tr>
+			<tr>	<td> Дата оплаты взноса в КФ: </td>	<td> {{ org.prjorg.paydate|date }} </td>	</tr>
+			<tr>	<td> Сумма взноса в КФ: </td>		<td> {{ org.prjorg.paysum }} </td>		</tr>
+			<tr>	<td> Дата оплаты ВВ: </td>		<td> {{ org.prjorg.paydatevv|date }} </td>	</tr>
+			<tr>	<td> Лицензия: </td>			<td> № {{ org.prjorg.licno }} от {{ org.prjorg.licfrom|date }} по {{ org.prjorg.licdue|date }} </td>		</tr>
+			<tr>	<td> Страховка: </td>			<td> {{ org.prjorg.insurer }}, Дог. № {{ org.prjorg.insno }} от {{ org.prjorg.insdate|date }} на {{ org.prjorg.inssum }} руб., с {{ org.prjorg.insfrom|date }} по {{ org.prjorg.insdue|date }} </td>		</tr>
+			<tr>	<td> Публиковать: </td>		<td> [{% ifequal org.prjorg.publish 1 %} V {% else %} &nbsp; {% endifequal %}] </td>		</tr>
+			<tr>	<td> Только проектирование: </td>	<td> [{% ifequal org.prjorg.projonly 1 %} V {% else %} &nbsp; {% endifequal %}] </td>		</tr>
+			<tr>	<td> Коментарии: </td>			<td> {{ org.prjorg.comments }} </td>		</tr>
+			<tr>	<td> Свидетельство: </td>		<td> № {{ org.prjorg.permno }} от {{ org.prjorg.permdate|date }}, прот. № {{ org.prjorg.protocol.no }} от {{ org.prjorg.protocol.date|date }} </td>		</tr>
+		</table>
+		[ <a href="{% url lansite.sro.views.org_prj_pdf org.id %}" title="Печать свидетельства на проектирование"> PDF </a> ]
+	{% endif %}
+{% endblock %}
+<a name="okved"/>
+<table width="100%" border="0" bgcolor="lightgrey"><tr><td><table><tr><td> {% block body_okved_button %} {% endblock %} </td><td><h3> 1.1. ОКВЭД: </h3></td></tr></table></td></tr></table>
+{% block body_okved %}
+	{% ifnotequal org.id None %}
+		{% if org.okveds.all %}
+			<ul>
+			{% for i in org.okveds.all %}
+				<li> {{ i.asstr }} </li>
+			{% endfor %}
+			</ul>
+		{% endif %}
+	{% endifnotequal %}
+{% endblock %}
+<a name="phone"/>
+<table width="100%" border="0" bgcolor="lightgrey"><tr><td><table><tr><td> {% block body_phone_button %} {% endblock %} </td><td><h3> 1.2. Телефоны: </h3></td></tr></table></td></tr></table>
+{% block body_phone %}
+	{% if org.orgphone_set.all %}
+		<ul>
+		{% for i in org.orgphone_set.all %}
+			<li> {{ i.asstr }} </li>
+		{% endfor %}
+		</ul>
+	{% endif %}
+{% endblock %}
+<a name="email"/>
+<table width="100%" border="0" bgcolor="lightgrey"><tr><td><table><tr><td> {% block body_email_button %} {% endblock %} </td><td><h3> 1.3. Адреса электропочты: </h3></td></tr></table></td></tr></table>
+{% block body_email %}
+	{% if org.orgemail_set.all %}
+		<ul>
+		{% for i in org.orgemail_set.all %}
+			<li> <a href="mailto:{{ i.asstr }}"> {{ i.asstr }} </a> </li>
+		{% endfor %}
+		</ul>
+	{% endif %}
+{% endblock %}
+<a name="www"/>
+<table width="100%" border="0" bgcolor="lightgrey"><tr><td><table><tr><td> {% block body_www_button %} {% endblock %} </td><td><h3> 1.4. Адреса сайтов: </h3></td></tr></table></td></tr></table>
+{% block body_www %}
+	{% if org.orgwww_set.all %}
+		<ul>
+		{% for i in org.orgwww_set.all %}
+			<li> <a href="{{ i.asstr }}"> {{ i.asstr }} </a> </li>
+		{% endfor %}
+		</ul>
+	{% endif %}
+{% endblock %}
+<a name="stuff"/>
+<table width="100%" border="0" bgcolor="lightgrey"><tr><td><table><tr><td> {% block body_stuff_button %} {% endblock %} </td><td><h2> 2. Персонал: </h2></td></tr></table></td></tr></table>
+{% block body_stuff %}
+	{% if org.orgstuff_set.all %}
+		<table>
+			<tr>
+				<th> ФИО </th>
+				<th> Должность </th>
+				<th> Руководитель </th>
+				<th> Постоянно </th>
+			</tr>
+		{% for i in org.orgstuff_set.all %}
+			<tr>
+				<td> <a href="{% url lansite.sro.views.person_view i.person.id %}"> {{ i.person.asstr }} </a> </td>
+				<td> {{ i.role.asstr }} </td>
+				<td align="center"> [{% ifequal i.leader 1 %} &radic; {% else %} &nbsp; {% endifequal %}] </td>
+				<td align="center"> [{% ifequal i.permanent 1 %} &radic; {% else %} &nbsp; {% endifequal %}] </td>
+			</tr>
+		{% endfor %}
+		</table>
+	{% endif %}
+{% endblock %}
+<a name="permit"/>
+<table width="100%" border="0" bgcolor="lightgrey"><tr><td><table><tr><td> {% block body_permit_button %} {% endblock %} </td><td><h2> 3. Допуски: </h2></td></tr></table></td></tr></table>
+{% block body_permit %}
+	{% if org.permit_set.all %}
+		<ul>
+		{% for i in org.permit_set.all %}
+			<li> <a href="{% url lansite.sro.views.permit_list i.id %}"> {{ i.permittype.name }}
+			{% ifequal i.permittype.id 1 %}
+				№ {{ org.sroregno }}-{{ i.permitown.regno }} от {{ i.permitown.date|date }}, протокол № {{ i.permitown.meeting.regno }} от {{ i.permitown.meeting.date|date }}
+			{% endifequal %}
+			{% ifequal i.permittype.id 2 %}
+				от {{ i.permitstatement.date|date }}
+			{% endifequal %}
+			{% ifequal i.permittype.id 3 %}
+				№ {{ i.permitalien.regno }} от {{ i.permitalien.date|date }}, выдано {{ i.permitalien.sro.name }}, протокол № {{ i.permitalien.protono }} от {{ i.permitalient.protodate|date }}
+			{% endifequal %}
+			</a> </li>
+		{% endfor %}
+		</ul>
+	{% endif %}
+{% endblock %}
+<a name="event"/>
+<table width="100%" border="0" bgcolor="lightgrey"><tr><td><table><tr><td> {% block body_event_button %} {% endblock %} </td><td><h2> 4. События: </h2></td></tr></table></td></tr></table>
+{% block body_event %}
+	{% if event %}
+		<table>
+			<tr>
+				<th> Дата </th>
+				<th> Тип </th>
+				<th> Комментарии </th>
+			</tr>
+		{% for i in event %}
+			<tr>
+				<td> {{ i.date|date }} </td>
+				<td> {{ i.type.name }} </td>
+				<td> {{ i.comments }} </td>
+			</tr>
+		{% endfor %}
+		</table>
+	{% endif %}
+{% endblock %}
+{% block body_svid %}
+{% endblock %}
+{% block body_extract %}
+{% endblock %}
+</body>
+</html>

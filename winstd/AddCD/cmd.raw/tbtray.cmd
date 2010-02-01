@@ -1,0 +1,1 @@
+\bin\TBTray-1.2-setup.exe
