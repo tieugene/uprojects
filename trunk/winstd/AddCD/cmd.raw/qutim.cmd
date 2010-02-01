@@ -1,0 +1,1 @@
+\bin\qutIM-0.2.0-2.exe

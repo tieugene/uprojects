@@ -4,3 +4,33 @@
 * -Гладкое прокручивание списков
 * -отбрасывание теней значками на рабочем столе
 * -сглаживать неровности экранных шрифтов
+== A129 ==
+All:
+	* mkiso.sh
+	* sn-file dependent installer
+	* remove sns from svn
+Win:
+	* move svc* to $OEM$
+AddOn:
+	* check menu.lst on column count
+	* modes: auto|handle
+	* remove links from desktop:
+		* KMPlayer
+		* PDFCreator
+		* XnView
+		* Avira AntiVir Control Center
+	* Tune PSQL/pktsetup.ini
+= Done =
+== AddOnCD =
+	* checklist
+	* buttons => menu
+	* check file on exist
+	* struct:
+		* autorun.inf
+		* autorun.exe (AutoIt2Exe)
+		* menu.lst
+		* bin/ (setup files)
+		* reg/
+		* autoit/ (w/ autoit.exe)
+		* cmd.auto/
+		* cmd.raw/

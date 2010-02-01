@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<title>LanSite.СРО.Журнал</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<link rel="stylesheet" href="base.css" type="text/css" />
+</head>
+<body>
+<center> <h1> <a href="{% url lansite.views.index %}">LanSite</a> &gt; <a href="{% url lansite.sro.views.index %}"> СРО </a> &gt; Журнал </h1> </center>
+<hr/>
+	<table border="1">
+	<thead>
+		<tr>
+			<th> <u> № </u> </th>
+			<th> <u> id </u> </th>
+			<th> <u> date </u> </th>
+			<th> <u> time </u> </th>
+			<th> <u> user_id </u> </th>
+			<th> <u> content_type_id </u> </th>
+			<th> <u> object_id </u> </th>
+			<th> <u> object_repr </u> </th>
+			<th> <u> change_message </u> </th>
+			<th> <u> action_flag </u> </th>
+		</tr>
+	</thead>
+{% if log %}
+	<tbody>
+	{% for i in log %}
+		<tr>
+			<td> {{ forloop.counter }} </td>
+			<td> {{ i.id }} </td>
+			<td> {{ i.action_time|date }} </td>
+			<td> {{ i.action_time|time:"H:i:s" }} </td>
+			<td> {{ i.user_id }} </td>
+			<td> {{ i.content_type_id }} </td>
+			<td> {{ i.object_id }} </td>
+			<td> {{ i.object_repr }} </td>
+			<td> {{ i.change_message }} </td>
+			<td>
+				{% ifequal i.action_flag 1 %} + {% endifequal %}
+				{% ifequal i.action_flag 2 %} E {% endifequal %}
+				{% ifequal i.action_flag 3 %} X {% endifequal %}
+			</td>
+		</tr>
+	{% endfor %}
+	</tbody>
+{% endif %}
+	</table>
+<hr/>
+</body>
+</html>
