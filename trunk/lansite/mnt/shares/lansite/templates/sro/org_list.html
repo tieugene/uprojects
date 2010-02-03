@@ -34,6 +34,8 @@ function confirmDelete(delUrl) {
 				{{ form.insurer }}
 			</th>
 			<th> <input type="submit" value="Все" title="Снять фильтр"/> </th>
+			<th> С </th>
+			<th> П </th>
 		</tr>
 		</form>
 	</thead>
@@ -46,17 +48,28 @@ function confirmDelete(delUrl) {
 			<td> {% if org.okato %} {{ org.okato }} {% endif %} </td>
 			<td> {% if org.orginsurance %} {{ org.orginsurance.insurer }} {% endif %} </td>
 			<td> {% if perms.sro.delete_org %} <input type="button" value="X" title="Удалить" onClick="confirmDelete('{% url lansite.sro.views.org_del org.id %}')"/>  {% endif %} </td>
+			<td> {% if org.prjorg %} {% ifequal org.prjorg.projonly 1 %} {% else %} &radic; {% endifequal %} {% else %} &radic; {% endif %} </td>
+			<td> {% if org.prjorg %} &radic; {% endif %} </td>
 		</tr>
 	{% endfor %}
 	</tbody>
 {% endif %}
 	</table>
 <hr/>
-<p>
-	[ <a title="Список организаций для размещения на вебсайте" href="{% url lansite.sro.views.org_publish %}"> Просмотр </a> ]
-	[ <a title="Размещение на вебсайте" href="{% url lansite.sro.views.org_upload %}"> Публикация </a> ]
+<table width="100%">
+<tr> <th align="left"> Строительство </th> <th align="right"> Проектирование </th> </tr>
+<tr>
+	<td align="left">
+	[ <a title="Список организаций для размещения на вебсайте moozs.ru" href="{% url lansite.sro.views.org_publish_s %}"> Просмотр </a> ]
+	[ <a title="Размещение на вебсайте moozs.ru" href="{% url lansite.sro.views.org_upload_s %}"> Публикация </a> ]
 	[ <a title="Список членов в табличном виде" href="{% url lansite.sro.views.org_table %}"> Таблица </a> ]
 	[ <a title="URL для рассылки электромыла всем" href="{% url lansite.sro.views.org_mailto %}"> Мыло всем </a> ]
-</p>
+	</td>
+	<td align="right">
+	[ <a title="Список организаций для размещения на вебсайте mooasp.ru" href="{% url lansite.sro.views.org_publish_p %}"> Просмотр </a> ]
+	[ <a title="Размещение на вебсайте mooasp.ru" href="{% url lansite.sro.views.org_upload_p %}"> Публикация </a> ]
+	</td>
+</tr>
+</table>
 </body>
 </html>
