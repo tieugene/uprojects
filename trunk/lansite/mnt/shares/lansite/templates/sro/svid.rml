@@ -8,8 +8,8 @@
 <template pageSize="(21cm, 29.7cm)" title="{{ data.sroregno }}" author="{{ data.user }}" subject="Svid" showBoundary="0">
 		<pageTemplate id="main">
 			<frame id="main"	x1="3.0cm" y1="19.5cm" width="15cm" height="2.9cm"/>
-			<frame id="footer1"	x1="3.0cm" y1="16cm" width="15cm" height="3.5cm"/>
-			<frame id="footer2"	x1="3.0cm" y1="10cm" width="15cm" height="2.05cm"/>
+			<frame id="footer1"	x1="3.0cm" y1="16cm" width="15cm" height="3.6cm"/>
+			<frame id="footer2"	x1="3.0cm" y1="10cm" width="15cm" height="2.04cm"/>
 			<frame id="footer3"	x1="3.0cm" y1="2cm" width="14cm" height="1cm"/>
 		</pageTemplate>
 		<pageTemplate id="even">
