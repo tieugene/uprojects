@@ -15,6 +15,7 @@ P.style1	{
 	font-size:	12pt;
 	font-weight:	bold;
 	text-align:	center;
+
 }
 P.style2	{
 	font-size:	10pt;
@@ -24,6 +25,7 @@ P.style2	{
 P.style3	{
 	font-size:	8pt;
 	text-align:	center;
+	margin-top: -18px
 }
 P.style4	{
 	font-size:	12pt;
@@ -35,32 +37,47 @@ P.style5	{
 	text-align:	left;
 }
 P.style61	{
-	font-size:	10pt;
+	font-size:	7pt;
 	font-weight:	bold;
 	text-align:	left;
+	
 }
 P.style62	{
-	font-size:	10pt;
+	font-size:	7pt;
 	text-align:	left;
+	margin-top: -11px
+
+}
+
+P.style7	{
+	font-size:	12pt;
+	font-weight:	bold;
+	text-align:	center;
+}
+P.style8	{
+	font-size:	7pt;
+	font-weight:	bold;
+	text-align:	right;
 }
 </style>
 </head>
 <body>
-<p class="style1"> ВЫПИСКА </p>
-<p class="style1"> из реестра членов Некоммерческого партнерства саморегулируемой организации «Межрегиональное объединение организаций железнодорожного строительства» </p>
+<p class="style8"> Утверждено Решением Правления НП СРО «МООЖС»  (Протокол №1 от 12.01.2010 года)</p>
+<p class="style7"> ВЫПИСКА </p>
+<p class="style7"> из реестра членов Некоммерческого партнерства саморегулируемой организации «Межрегиональное объединение организаций железнодорожного строительства» </p>
 <p class="style2"> (зарегистрировано в Управлении Министерства юстиции РФ по Санкт-Петербургу и Ленинградской области 18 марта 2009 года за учетным номером в ведомственном реестре зарегистрированных некоммерческих организаций: 7814031644; ИНН 7840018373; ОГРН 1097800001892 от 17 марта 2009 года; регистрационный номер в государственном реестре саморегулируемых организаций: <u>СРО-С-043-28092009</u>; место нахождение: 191040, Санкт-Петербург, ул. Марата, д. 42) </p>
 <table border="0"><tr><td>
 <p class="style1"> <u> {{ date|date }} </u> </p>
-<p class="style3"><sup>(Дата)</sup></p>
+<p class="style3">(Дата)</p>
 </td></tr></table>
 <p class="style4"> Настоящая выписка содержит сведения о члене НП СРО «МООЖС»: </p>
 <p class="style1"> <u> {{ org.okopf.name }} {{ org.fullname }} </u> </p>
-<p class="style3"> (Полное наименование орагнизации) </p>
+<p class="style3"> (Полное наименование организации) </p>
 <p class="style1"> <u> {{ org.sroregno }} </u> </p>
 <p class="style3"> (Реестровый номер) </p>
 <table width="100%" border="1">
 <tr>
-	<td> <p class="style5"> ОГРН </p> </td>
+	<td width="30%"> <p class="style5"> ОГРН </p> </td>
 	<td> <p class="style5"> {{ org.ogrn }} </p> </td>
 </tr>
 <tr>
@@ -108,7 +125,7 @@ P.style62	{
 	<td> <p class="style5"> Решение Правления НП «МООЖС», протокол №{{ perm.permitown.meeting.regno }} </p> </td>
 </tr>
 <tr>
-	<td> <p class="style5"> Перечень видов работ, на которые член НП СРО «МООЖС» имеет Свидетельство о допуске к работам. </p> </td>
+	<td> <p class="style5"> Перечень видов работ, на которые член НП СРО «МООЖС» имеет Свидетельство о допуске к работам.</p> </td>
 	<td>
 		{% for stage in perm.permitstage_set.all %}
 			<p class="style61"> {{ stage.stage.id }}. {{ stage.stage.name }} </p>
@@ -167,7 +184,7 @@ P.style62	{
 	<td> <p class="style5"> Исполнительный директор <br/> НП СРО «МООЖС» </p> </td>
 	<td align="right"> <p class="style5">  Д.В. Сережин </p> </td>
 </tr>
-<tr><td colspan="2" align="center"> <p class="style5">  МП </p> </td></tr>
+<tr><td colspan="2" align="center"> <p class="style7">  МП </p> </td></tr>
 </table>
 </body>
 </html>
