@@ -24,11 +24,13 @@ DELETE FROM sro2_orgsro;
 DELETE FROM sro2_orgevent;
 DELETE FROM sro2_orglicense;
 DELETE FROM sro2_orginsurance;
-DELETE FROM sro2_protocol;
 DELETE FROM sro2_stagelisttype;
 DELETE FROM sro2_stagelist;
 DELETE FROM sro2_permitstage;
 DELETE FROM sro2_permitstagejob;
+DELETE FROM sro2_protocol;
+DELETE FROM sro2_statement;
+DELETE FROM sro2_permit;
 INSERT INTO sro2_insurer (id, name, fullname) SELECT id, name, fullname FROM sro_insurer;
 INSERT INTO sro2_okato (id, name) SELECT id, name FROM sro_okato;
 INSERT INTO sro2_okopf (id, name, shortname, namedp, disabled, parent_id) SELECT id, name, shortname, namedp, disabled, parent_id FROM sro_okopf;
@@ -65,7 +67,12 @@ INSERT INTO sro2_stagelist (id, orgsro_id, type_id) SELECT id, org_id, 3 - permi
 INSERT INTO sro2_permitstage (id, stagelist_id, stage_id) SELECT id, permit_id, stage_id FROM sro_permitstage;
 INSERT INTO sro2_permitstagejob (id, permitstage_id, job_id) SELECT id, permitstage_id, job_id FROM sro_permitstagejob;
 INSERT INTO sro2_statement (id, stagelist_id, date) SELECT id, permit_id, date FROM sro_permitstatement;
-INSERT INTO sro2_permit (id, stagelist_id, no, date, datedue, protocol_id) SELECT id, permit_id, regno, date, datedue, meeting_id FROM sro_permitown;
-/*INSERT INTO sro2_protocol (id, sro_id, no, date) SELECT id, 1, regno, date FROM sro_meeting;*/
+INSERT INTO sro2_protocol (id, sro_id, no, date) SELECT id, 1, regno, date FROM sro_meeting;
+INSERT INTO sro2_permit (id, stagelist_id, no, date, datedue, protocol_id) SELECT sro_permitown.id, sro_permitown.permit_id, sro_org.sroregno || '-' || sro_permitown.regno, sro_permitown.date, sro_permitown.datedue, sro_permitown.meeting_id FROM sro_permitown JOIN sro_permit ON sro_permitown.permit_id=sro_permit.id JOIN sro_org ON sro_org.id=sro_permit.org_id;
 -- 2. Projecting
+INSERT INTO sro2_orgsro (id, org_id, sro_id, regno, regdate, paydate, paysum, paydatevv, comments, publish) SELECT id + (SELECT MAX(id) FROM sro_org), org_id, 2, regno, regdate, paydate, paysum, paydatevv, comments, publish FROM sro_prjorg;
+--INSERT INTO sro2_orglicense (orgsro_id, no, datefrom, datedue) SELECT id + (SELECT MAX(id) FROM sro_org), licno, licfrom, licdue FROM sro_prjorg WHERE (licfrom NOT NULL) AND (licdue NOT NULL);
+--SELECT licno FROM sro_prjorg JOIN sro2_orglicense ON sro_prjorg.licno=sro2_orglicense.no
+INSERT INTO sro2_orginsurance (orgsro_id, insurer_id, no, date, sum, datefrom, datedue) SELECT id + (SELECT MAX(id) FROM sro_org), insurer_id, insno, insdate, inssum, insfrom, insdue FROM sro_prjorg WHERE insurer_id NOT NULL AND insno NOT NULL AND insdate NOT NULL AND inssum NOT NULL;
+-- stagelist, permitstage, protocol, permit
 COMMIT;
