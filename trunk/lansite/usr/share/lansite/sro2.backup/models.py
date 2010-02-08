@@ -412,7 +412,7 @@ class	OrgSro(models.Model):
 	regno		= models.PositiveIntegerField(null=True, blank=True, unique=True, verbose_name=u'Реестровый №')
 	regdate		= models.DateField(null=True, blank=True, verbose_name=u'Дата членства в НП')
 	paydate		= models.DateField(null=True, blank=True, verbose_name=u'Дата оплаты взноса в КФ')
-	paysum		= models.PositiveIntegerField(null=True, blank=True, verbose_name=u'Сумма взноса в КФ')
+	paysum		= models.PositiveIntegerField(null=True, blank=False, verbose_name=u'Сумма взноса в КФ')
 	paydatevv	= models.DateField(null=True, blank=True, verbose_name=u'Дата оплаты вступительного взноса')
 	comments	= models.TextField(null=True, blank=True, verbose_name=u'Коментарии')
 	publish		= models.BooleanField(null=False, blank=False, default=False, verbose_name=u'Публиковать')
@@ -464,7 +464,7 @@ class	OrgLicense(models.Model):
 		verbose_name_plural = u'Организация.СРО.Лицензии'
 
 class	OrgInsurance(models.Model):
-	orgsro		= models.OneToOneField(OrgSro, verbose_name=u'Организация.СРО')
+	orgsro		= models.OneToOneField(Org, verbose_name=u'Организация.СРО')
 	insurer		= models.ForeignKey(Insurer, null=True, blank=True, verbose_name=u'Страховщик')
 	no		= models.CharField(null=False, blank=False, unique=True, max_length=50, verbose_name=u'Номер договора')
 	date		= models.DateField(null=False, blank=False, verbose_name=u'Дата договора')
@@ -595,4 +595,5 @@ modellist = (
 	Insurer, Okato, Okopf, Okved, SroType, Sro, Stage, Job, Speciality, SpecialityStage,
 	Skill, EventType, Role, Person, PersonSkill, Org, OrgOkved, OrgPhone, OrgEmail, OrgWWW,
 	OrgStuff, OrgSro, OrgEvent, OrgLicense, OrgInsurance, Protocol, StageListType, StageList, PermitStage, PermitStageJob,
+	Statement, Permit
 )

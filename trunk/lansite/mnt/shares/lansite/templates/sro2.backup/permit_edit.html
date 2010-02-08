@@ -1,0 +1,19 @@
+{% extends "sro2/permit_base.html" %}
+{% block sidebar %}
+	<center> <h1>
+		<a href="{% url lansite.views.index %}">LanSite</a> &gt;
+		<a href="{% url lansite.sro2.views.index %}"> СРО </a> &gt;
+		<a href="{% url lansite.sro2.views.org_list %}"> Организации </a> &gt;
+		Разрешение
+	</h1> </center>
+{% endblock %}
+{% block main %}
+	<form action="." method="post">
+	<table>
+		<tr> <td> Тип: </td> <td> {{ permit.permit.permittype }} </td> </tr>
+		{{ form.as_table }}
+	</table>
+	<input type="submit" value="Записать"/> </td>
+	<input type="button" value="Отказаться" onClick="window.location.href='{% url lansite.sro2.views.permit_list permit.permit.id %}'"/>
+	</form>
+{% endblock %}

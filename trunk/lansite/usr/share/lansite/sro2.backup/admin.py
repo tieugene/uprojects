@@ -72,6 +72,7 @@ class	PersonInLine(admin.TabularInline):
 class	PersonSkillInLine(admin.TabularInline):
 	model		= PersonSkill
 	extra		= 1
+	#raw_id_fields	= ('skill',)
 
 class	OrgInLine(admin.TabularInline):
 	model		= Org
@@ -205,8 +206,11 @@ class	RoleAdmin(admin.ModelAdmin):
 class	PersonAdmin(admin.ModelAdmin):
 	list_display	= ('lastname', 'firstname', 'midname',)
 	ordering	= ('lastname', 'firstname', 'midname',)
-	#inlines		= (PersonSkillInLine, OrgStuffInLine,)
-	inlines		= (PersonSkillInLine,)
+	inlines		= (PersonSkillInLine, OrgStuffInLine,)
+	#raw_id_fields	= ('skills',)
+	#related_search_fields = {
+	#	'skills': ('^id', 'name'),
+	#}
 
 class	OrgAdmin(admin.ModelAdmin):
 	list_display	= ('name', 'fullname')
@@ -229,8 +233,7 @@ class	StageListTypeAdmin(admin.ModelAdmin):
 class	StageListAdmin(admin.ModelAdmin):
 	list_display	= ('orgsro', 'type',)
 	ordering	= ('orgsro', 'type',)
-	#inlines		= (PermitStageInLine, StatementInLine, PermitInLine,)
-	inlines		= (PermitStageInLine,)
+	inlines		= (PermitStageInLine, StatementInLine, PermitInLine,)
 
 class	PermitStageAdmin(admin.ModelAdmin):
 	list_display	= ('stagelist', 'stage',)
@@ -261,6 +264,3 @@ admin.site.register(Org,		OrgAdmin)
 admin.site.register(OrgSro,		OrgSroAdmin)
 admin.site.register(StageListType,	StageListTypeAdmin)
 admin.site.register(StageList,		StageListAdmin)
-admin.site.register(PermitStage,	PermitStageAdmin)
-admin.site.register(Statement,		StatementAdmin)
-admin.site.register(Permit,		PermitAdmin)
