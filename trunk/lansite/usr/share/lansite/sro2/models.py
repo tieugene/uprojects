@@ -409,7 +409,7 @@ class	OrgStuff(models.Model):
 class	OrgSro(models.Model):
 	org		= models.ForeignKey(Org, verbose_name=u'Организация')
 	sro		= models.ForeignKey(Sro, verbose_name=u'СРО')
-	regno		= models.PositiveIntegerField(null=True, blank=True, unique=True, verbose_name=u'Реестровый №')
+	regno		= models.CharField(max_length=20, null=True, blank=True, verbose_name=u'Реестровый №')
 	regdate		= models.DateField(null=True, blank=True, verbose_name=u'Дата членства в НП')
 	paydate		= models.DateField(null=True, blank=True, verbose_name=u'Дата оплаты взноса в КФ')
 	paysum		= models.PositiveIntegerField(null=True, blank=True, verbose_name=u'Сумма взноса в КФ')
@@ -447,8 +447,8 @@ class	OrgEvent(models.Model):
 		verbose_name_plural	= u'Организация.СРО.События'
 
 class	OrgLicense(models.Model):
-	orgsro		= models.OneToOneField(OrgSro, verbose_name=u'Организация.СРО')
-	no		= models.CharField(null=False, blank=False, max_length=100, unique=True, verbose_name=u'Номер лицензии')
+	orgsro		= models.ForeignKey(OrgSro, verbose_name=u'Организация.СРО')
+	no		= models.CharField(null=False, blank=False, unique=True, max_length=100, verbose_name=u'Номер лицензии')	# unique=True
 	datefrom	= models.DateField(null=False, blank=False, verbose_name=u'Выдана')
 	datedue		= models.DateField(null=False, blank=False, verbose_name=u'Действительна до')
 
@@ -464,9 +464,9 @@ class	OrgLicense(models.Model):
 		verbose_name_plural = u'Организация.СРО.Лицензии'
 
 class	OrgInsurance(models.Model):
-	orgsro		= models.OneToOneField(OrgSro, verbose_name=u'Организация.СРО')
-	insurer		= models.ForeignKey(Insurer, null=True, blank=True, verbose_name=u'Страховщик')
-	no		= models.CharField(null=False, blank=False, unique=True, max_length=50, verbose_name=u'Номер договора')
+	orgsro		= models.ForeignKey(OrgSro, verbose_name=u'Организация.СРО')
+	insurer		= models.ForeignKey(Insurer, null=False, blank=False, verbose_name=u'Страховщик')
+	no		= models.CharField(null=False, blank=False, max_length=50, verbose_name=u'Номер договора')
 	date		= models.DateField(null=False, blank=False, verbose_name=u'Дата договора')
 	sum		= models.PositiveIntegerField(null=False, blank=False, verbose_name=u'Страховая сумма')
 	datefrom	= models.DateField(null=True, blank=True, verbose_name=u'Страховка с')
@@ -484,9 +484,8 @@ class	OrgInsurance(models.Model):
 		verbose_name_plural = u'Организация.Страховки'
 
 class	Protocol(models.Model):
-	""" FIXME: no=char"""
 	sro		= models.ForeignKey(Sro, verbose_name=u'СРО')
-	no		= models.PositiveIntegerField(null=False, blank=False, unique=False, verbose_name=u'№')
+	no		= models.CharField(max_length=30, null=False, blank=False, unique=False, verbose_name=u'№')
 	date		= models.DateField(null=False, blank=False, verbose_name=u'Дата')
 
 	def	asstr(self):
