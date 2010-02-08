@@ -1,14 +1,15 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 '''
-kill all sro_* tables
 '''
 
 import sys
 if (sys.version_info[:2] < (2,6):
 	import sqlite
+	py26 = False
 else:
 	import sqlite3 as sqlite
+	py26 = True
 
 reload(sys)
 sys.setdefaultencoding( "utf-8" )
@@ -19,7 +20,7 @@ def	main():
 	l = list()
 	c.execute('SELECT name FROM sqlite_master WHERE type="table"')
 	for t in c:
-		if t[0][:4] == 'sro_':
+		if t[0][:4] == 'sro2_':
 			l.append(t[0])
 	for t in l:
 		c.execute('DROP TABLE main.%s' % t)

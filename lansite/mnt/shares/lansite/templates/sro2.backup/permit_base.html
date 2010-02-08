@@ -1,0 +1,45 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<title>LanSite.СРО.Организации.Разрешение</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<link rel="stylesheet" href="org.css" type="text/css" />
+</head>
+<body>
+{% block sidebar %}
+	<center> <h1>
+		<a href="{% url lansite.views.index %}">LanSite</a> &gt;
+		<a href="{% url lansite.sro2.views.index %}"> СРО </a> &gt;
+		<a href="{% url lansite.sro2.views.org_list %}"> Организации </a> &gt;
+		<a href="{% url lansite.sro2.views.org_view permit.org.id %}"> {{ permit.org.asstr }} </a> &gt;
+		Разрешение
+	</h1> </center>
+{% endblock %}
+<hr/>
+<h1> Основные данные: </h1>
+{% block main %}
+<table border="0">
+	<tr> <td> Организация: </td>	<td> {{ permit.org.asstr }} </td> </tr>
+	<tr> <td> Тип: </td>		<td> {{ permit.permittype.name }} </td> </tr>
+{% ifequal permit.permittype.id 1 %}
+	<tr> <td> №: </td>		<td> {{ permit.permitown.regno }} </td> </tr>
+	<tr> <td> от: </td>		<td> {{ permit.permitown.date|date }} </td> </tr>
+	<tr> <td> Протокол: </td>	<td> № {{ permit.permitown.meeting.regno }} от {{ permit.permitown.meeting.date|date }} </td> </tr>
+{% endifequal %}
+{% ifequal permit.permittype.id 2 %}
+	<tr> <td> от: </td>		<td> {{ permit.permitstatement.date|date }} </td> </tr>
+{% endifequal %}
+{% ifequal permit.permittype.id 3 %}
+	<tr> <td> №: </td>		<td> {{ permit.permitalien.regno }} </td> </tr>
+	<tr> <td> от: </td>		<td> {{ permit.permitalien.date|date }} </td> </tr>
+	<tr> <td> СРО: </td>		<td> {{ permit.permitalien.sro.asstr }} </td> </tr>
+	<tr> <td> Протокол: </td>	<td> № {{ permit.permitalien.protono }} от {{ permit.permitalien.protodatedate|date }} </td> </tr>
+{% endifequal %}
+</table>
+{% endblock %}
+{% block editmain %} {% endblock %}
+<hr/>
+<h1> Виды работ: </h1>
+{% block stages %}
+{% endblock %}
+</body>
+</html>
