@@ -118,6 +118,6 @@
 		<para style="style4"> {{ job.okdp }}: {{ job.name }} </para>
 	{% endfor %}
 {% endfor %}
-	<para style="style4"> Итого: видов работ - {{ data.perm.permitstage_set.count }}, работ - {{ data.jcount }}. </para>
+	<para style="style4"> Итого: видов работ - {{ data.jcount }}. </para>
 </story> 
 </document>
