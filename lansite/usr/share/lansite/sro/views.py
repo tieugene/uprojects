@@ -580,6 +580,10 @@ def	__load_permit(perm_id):
 	data['no']		= u'%d-%02d' % (perm.org.sroregno, perm.permitown.regno)
 	data['date']		= __strdate(perm.permitown.date)
 	data['protodate']	= __strdate(perm.permitown.meeting.date)
+	jcount = 0
+	for s in perm.stages.all():
+		jcount = jcount + Job.objects.filter(stage=s).count()
+	data['jcount'] = jcount
 	return data
 
 def	permit_html(request, perm_id):
