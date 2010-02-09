@@ -158,7 +158,6 @@ class	OkopfAdmin(admin.ModelAdmin):
 	ordering	= ('id',)
 	search_fields	= ('shorname',)
 	inlines		= (OkopfInLine,)
-	#raw_id_fields	= ('parent',)
 
 class	OkvedAdmin(admin.ModelAdmin):
 	list_display	= ('id', 'name', 'parent')
@@ -205,17 +204,14 @@ class	RoleAdmin(admin.ModelAdmin):
 class	PersonAdmin(admin.ModelAdmin):
 	list_display	= ('lastname', 'firstname', 'midname',)
 	ordering	= ('lastname', 'firstname', 'midname',)
-	#inlines		= (PersonSkillInLine, OrgStuffInLine,)
-	inlines		= (PersonSkillInLine,)
+	inlines		= (PersonSkillInLine, OrgStuffInLine,)
+	#inlines		= (PersonSkillInLine,)
 
 class	OrgAdmin(admin.ModelAdmin):
 	list_display	= ('name', 'fullname')
 	ordering	= ('name',)
 	inlines		= (OrgOkvedInLine, OrgPhoneInLine, OrgEmailInLine, OrgWWWInLine, OrgStuffInLine, OrgSroInLine)
 	raw_id_fields	= ('okveds',)
-	#related_search_fields = {
-	#	'okveds': ('^id',),
-	#}
 
 class	OrgSroAdmin(admin.ModelAdmin):
 	list_display	= ('org', 'sro')
@@ -229,8 +225,8 @@ class	StageListTypeAdmin(admin.ModelAdmin):
 class	StageListAdmin(admin.ModelAdmin):
 	list_display	= ('orgsro', 'type',)
 	ordering	= ('orgsro', 'type',)
-	#inlines		= (PermitStageInLine, StatementInLine, PermitInLine,)
-	inlines		= (PermitStageInLine,)
+	inlines		= (PermitStageInLine, StatementInLine, PermitInLine,)
+	#inlines		= (PermitStageInLine,)
 
 class	PermitStageAdmin(admin.ModelAdmin):
 	list_display	= ('stagelist', 'stage',)

@@ -489,7 +489,7 @@ class	Protocol(models.Model):
 	date		= models.DateField(null=False, blank=False, verbose_name=u'Дата')
 
 	def	asstr(self):
-		return u'№ %d от %s' % (self.no, self.date)
+		return u'№ %s от %s' % (self.no, self.date)
 
 	def	__unicode__(self):
 		return self.asstr()
