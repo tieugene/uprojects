@@ -581,8 +581,11 @@ def	__load_permit(perm_id):
 	data['date']		= __strdate(perm.permitown.date)
 	data['protodate']	= __strdate(perm.permitown.meeting.date)
 	jcount = 0
-	for s in perm.stages.all():
-		jcount = jcount + Job.objects.filter(stage=s).count()
+	for stage in PermitStage.objects.filter(permit=perm):
+		count = PermitStageJob.objects.filter(permitstage=stage).count()
+		if (count == 0):
+			count = 1
+		jcount = jcount + count
 	data['jcount'] = jcount
 	return data
 
