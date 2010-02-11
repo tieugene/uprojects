@@ -49,29 +49,32 @@ INSERT INTO sro2_skill (id, name, high) SELECT id, name, high FROM sro_skill;
 INSERT INTO sro2_eventtype (id, name, comments) SELECT id, name, comments FROM sro_eventtype;
 INSERT INTO sro2_role (id, name, comments) SELECT id, name, comments FROM sro_role;
 INSERT INTO sro2_person (id, firstname, midname, lastname, phone) SELECT id, firstname, midname, lastname, phone FROM sro_person;
-INSERT INTO sro2_personskill (id, person_id, speciality_id, skill_id, year, skilldate, school, seniority, seniodate, tested, courseno, coursedate, coursename, courseschool) SELECT id, person_id, speciality_id, skill_id, year, skilldate, school, seniority, seniodate, tested, courseno, coursedate, coursename, courseschool FROM sro_personskill;
+INSERT INTO sro2_personskill (person_id, speciality_id, skill_id, year, skilldate, school, seniority, seniodate, tested, courseno, coursedate, coursename, courseschool) SELECT person_id, speciality_id, skill_id, year, skilldate, school, seniority, seniodate, tested, courseno, coursedate, coursename, courseschool FROM sro_personskill;
 INSERT INTO sro2_org (id, name, fullname, okopf_id, egruldate, inn, kpp, ogrn, okato_id, laddress, raddress, comments) SELECT id, name, fullname, okopf_id, egruldate, inn, kpp, ogrn, okato_id, laddress, raddress, comments FROM sro_org;
-INSERT INTO sro2_orgokved (id, org_id, okved_id) SELECT id, org_id, okved_id FROM sro_orgokved;
-INSERT INTO sro2_orgphone (id, org_id, phone) SELECT id, org_id, phone FROM sro_orgphone;
-INSERT INTO sro2_orgemail (id, org_id, URL) SELECT id, org_id, URL FROM sro_orgemail;
-INSERT INTO sro2_orgwww (id, org_id, URL) SELECT id, org_id, URL FROM sro_orgwww;
-INSERT INTO sro2_orgstuff (id, org_id, role_id, person_id, leader, permanent) SELECT id, org_id, role_id, person_id, leader, permanent FROM sro_orgstuff;
+INSERT INTO sro2_orgokved (org_id, okved_id) SELECT org_id, okved_id FROM sro_orgokved;
+INSERT INTO sro2_orgphone (org_id, phone) SELECT org_id, phone FROM sro_orgphone;
+INSERT INTO sro2_orgemail (org_id, URL) SELECT org_id, URL FROM sro_orgemail;
+INSERT INTO sro2_orgwww (org_id, URL) SELECT org_id, URL FROM sro_orgwww;
+INSERT INTO sro2_orgstuff (org_id, role_id, person_id, leader, permanent) SELECT org_id, role_id, person_id, leader, permanent FROM sro_orgstuff;
 INSERT INTO sro2_stagelisttype (id, name)  VALUES (1, 'Заявление');
 INSERT INTO sro2_stagelisttype (id, name)  VALUES (2, 'Свидетельство');
 -- 1. Building
 INSERT INTO sro2_orgsro (id, org_id, sro_id, regno, regdate, paydate, paysum, paydatevv, comments, publish) SELECT id, id, 1, sroregno, sroregdate, paydate, paysum, paydatevv, comments, public FROM sro_org;
-INSERT INTO sro2_orgevent (id, orgsro_id, type_id, date, comments) SELECT id, org_id, type_id, date, comments FROM sro_orgevent;
-INSERT INTO sro2_orglicense (id, orgsro_id, no, datefrom, datedue) SELECT id, org_id, no, datefrom, datedue FROM sro_orglicense;
-INSERT INTO sro2_orginsurance (id, orgsro_id, insurer_id, no, date, sum, datefrom, datedue) SELECT id, org_id, insurer_id, insno, insdate, insum, datefrom, datetill FROM sro_orginsurance;
+INSERT INTO sro2_orgevent (orgsro_id, type_id, date, comments) SELECT org_id, type_id, date, comments FROM sro_orgevent;
+INSERT INTO sro2_orglicense (orgsro_id, no, datefrom, datedue) SELECT org_id, no, datefrom, datedue FROM sro_orglicense;
+INSERT INTO sro2_orginsurance (orgsro_id, insurer_id, no, date, sum, datefrom, datedue) SELECT org_id, insurer_id, insno, insdate, insum, datefrom, datetill FROM sro_orginsurance;
 INSERT INTO sro2_stagelist (id, orgsro_id, type_id) SELECT id, org_id, 3 - permittype_id FROM sro_permit WHERE permittype_id < 3;	/* statement & permit*/
 INSERT INTO sro2_permitstage (id, stagelist_id, stage_id) SELECT id, permit_id, stage_id FROM sro_permitstage;
-INSERT INTO sro2_permitstagejob (id, permitstage_id, job_id) SELECT id, permitstage_id, job_id FROM sro_permitstagejob;
-INSERT INTO sro2_statement (id, stagelist_id, date) SELECT id, permit_id, date FROM sro_permitstatement;
+INSERT INTO sro2_permitstagejob (permitstage_id, job_id) SELECT permitstage_id, job_id FROM sro_permitstagejob;
+INSERT INTO sro2_statement (stagelist_id, date) SELECT permit_id, date FROM sro_permitstatement;
 INSERT INTO sro2_protocol (id, sro_id, no, date) SELECT id, 1, regno, date FROM sro_meeting;
-INSERT INTO sro2_permit (id, stagelist_id, no, date, datedue, protocol_id) SELECT sro_permitown.id, sro_permitown.permit_id, sro_org.sroregno || '-' || sro_permitown.regno, sro_permitown.date, sro_permitown.datedue, sro_permitown.meeting_id FROM sro_permitown JOIN sro_permit ON sro_permitown.permit_id=sro_permit.id JOIN sro_org ON sro_org.id=sro_permit.org_id;
+INSERT INTO sro2_permit (stagelist_id, no, date, datedue, protocol_id) SELECT sro_permitown.permit_id, sro_org.sroregno || '-' || sro_permitown.regno, sro_permitown.date, sro_permitown.datedue, sro_permitown.meeting_id FROM sro_permitown JOIN sro_permit ON sro_permitown.permit_id=sro_permit.id JOIN sro_org ON sro_org.id=sro_permit.org_id;
 -- 2. Projecting
 INSERT INTO sro2_orgsro (id, org_id, sro_id, regno, regdate, paydate, paysum, paydatevv, comments, publish) SELECT id + (SELECT MAX(id) FROM sro_org), org_id, 2, regno, regdate, paydate, paysum, paydatevv, comments, publish FROM sro_prjorg;
 INSERT INTO sro2_orglicense (orgsro_id, no, datefrom, datedue) SELECT id + (SELECT MAX(id) FROM sro_org), licno, licfrom, licdue FROM sro_prjorg WHERE (licfrom NOT NULL) AND (licdue NOT NULL);
 INSERT INTO sro2_orginsurance (orgsro_id, insurer_id, no, date, sum, datefrom, datedue) SELECT id + (SELECT MAX(id) FROM sro_org), insurer_id, insno, insdate, inssum, insfrom, insdue FROM sro_prjorg WHERE insurer_id NOT NULL AND insno NOT NULL AND insdate NOT NULL AND inssum NOT NULL;
--- stagelist, permitstage, protocol, permit
+INSERT INTO sro2_stagelist (id, orgsro_id, type_id) SELECT id + (SELECT MAX(id) FROM sro_permit), id + (SELECT MAX(id) FROM sro_org), 2 FROM sro_prjorg WHERE permno NOT NULL;
+INSERT INTO sro2_permitstage (stagelist_id, stage_id) SELECT id + (SELECT MAX(id) FROM sro_permit), 100+stage_id FROM sro_prjorgstage;
+INSERT INTO sro2_protocol (id, sro_id, no, date) SELECT id + (SELECT MAX(id) FROM sro_meeting), 2, no, date FROM sro_prjproto;
+INSERT INTO sro2_permit (stagelist_id, no, date, protocol_id) SELECT id + (SELECT MAX(id) FROM sro_permit), permno, permdate, protocol_id + (SELECT MAX(id) FROM sro_meeting) from sro_prjorg;
 COMMIT;
