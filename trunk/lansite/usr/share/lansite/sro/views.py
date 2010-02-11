@@ -493,9 +493,13 @@ def	permit_list(request, perm_id):
 	jcount = 0
 	for ps in PermitStage.objects.filter(permit=perm):
 		myjobs = dict()
-		for j in PermitStageJob.objects.filter(permitstage=ps):
+		joblist = PermitStageJob.objects.filter(permitstage=ps)
+		jc = joblist.count()
+		if jc == 0:
+			jc = 1
+		jcount += jc
+		for j in joblist:
 			myjobs[j.job.id] = True
-			jcount += 1
 		mystages[ps.stage.id] = myjobs
 	stages = []		# [(stage, flag, jobs),]
 	for s in Stage.objects.all():
