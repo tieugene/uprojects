@@ -1,4 +1,4 @@
-{% extends "sro/person_base.html" %}
+{% extends "sro2/person_base.html" %}
 {% block body_skill_button %} {% endblock %}
 {% block body_skill %}
 	<!-- deletable -->
@@ -24,7 +24,7 @@
 				<tr> <td> СоПК. Тема </td>			<td> {% if i.coursename %} {{ i.coursename }} {% endif %} </td> </tr>
 				<tr> <td> СоПК. Уч. зав. </td>			<td> {% if i.courseschool %} {{ i.courseschool }} {% endif %} </td> </tr>
 			</table> </td>
-			<td> {% if perms.sro.delete_personskill %} <input type="button" value="X" title="Удалить" onClick="confirmDelete('{% url lansite.sro.views.person_skill_del person.id, i.id %}#stuff')"/> {% endif %} </td>
+			<td> {% if perms.sro.delete_personskill %} <input type="button" value="X" title="Удалить" onClick="confirmDelete('{% url lansite.sro2.views.person_skill_del sro.id person.id, i.id %}#stuff')"/> {% endif %} </td>
 		</tr>
 	{% endfor %}
 	</table>
@@ -51,12 +51,12 @@
 	</table>
 	</form>
 </td>
-{% if perms.sro.add_speciality or perms.sro.add_skill %}
+{% if perms.sro2.add_speciality or perms.sro2.add_skill %}
 <td valign="top">
 	<table border="0"> 
 		<tr> <td >
-			{% if perms.sro.add_speciality %}
-			<form action="add_speciality/" method="POST">
+			{% if perms.sro2.add_speciality %}
+			<form action="{% url lansite.sro2.views.person_skill_add_speciality sro.id person.id %}" method="POST">
 				<div class="fieldWrapper">
 					<input type="submit" value="<" title="Добавить новую специальность" value="<"/>
 					{{ form_speciality.name.errors }}
@@ -64,8 +64,8 @@
 				</div>
 			</form>
 			{% endif %}
-			{% if perms.sro.add_skill %}
-			<form action="add_skill/" method="POST">
+			{% if perms.sro2.add_skill %}
+			<form action="{% url lansite.sro2.views.person_skill_add_skill sro.id person.id %}" method="POST">
 				<div class="fieldWrapper">
 					<input type="submit" value="<" title="Добавить новую квалификацию"/>
 					{{ form_skill.name.errors }}
@@ -80,5 +80,5 @@
 </tr>
 </table>
 {% endif %}
-<input type="button" value="Закончить" onClick="window.location.href='{% url lansite.sro.views.person_view person.id %}#skill'"/>
+<input type="button" value="Закончить" onClick="window.location.href='{% url lansite.sro2.views.person_view sro.id person.id %}#skill'"/>
 {% endblock %}

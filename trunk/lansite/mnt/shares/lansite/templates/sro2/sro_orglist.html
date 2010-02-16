@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<title>LanSite.СРО2.{{ sro.name }}.Организации</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<link rel="stylesheet" href="base.css" type="text/css" />
+</head>
+<body>
+<script langauge="JavaScript" type="text/javascript">
+function confirmDelete(delUrl) {
+	if (confirm("Are you sure you want to delete")) {
+		document.location = delUrl;
+	}
+}
+</script>
+
+<center> <h1> <a href="{% url lansite.views.index %}"> LanSite </a> &gt; <a href="{% url lansite.sro2.views.index %}"> СРО2 </a> &gt; <a href="{% url lansite.sro2.views.index_sro sro.id %}"> {{ sro.name }} </a> &gt; Организации </h1> </center>
+<hr/>
+{% if perms.sro.add_org %}
+<input type="button" value="+" title="Добавить" onClick="window.location.href='{% url lansite.sro2.views.sro_org_add sro.id %}'"/>
+{% endif %}
+	<table border="0">
+	<thead>
+		<form method="POST">
+		<tr>
+			<th> <u>№</u> </th>
+			<th> <u> Наименование </u> </th>
+			<th>
+				<p><u> ОКАТО </u></p>
+				{{ form.okato }}
+			</th>
+			<th>
+				<p><u> Страхователь </u></p>
+				{{ form.insurer }}
+			</th>
+			<th> <input type="submit" value="Все" title="Снять фильтр"/> </th>
+		</tr>
+		</form>
+	</thead>
+{% if orgsro_list %}
+	<tbody>
+	{% for orgsro in orgsro_list %}
+		<tr>
+			<td> {{ forloop.counter }} </td>
+			<td> <a href="{% url lansite.sro2.views.orgsro_view orgsro.id %}" title="{{ orgsro.org.fullname }}">{{ orgsro.org.name }} </td>
+			<td> {% if orgsro.org.okato %} {{ orgsro.org.okato }} {% endif %} </td>
+			<td> {% if orgsro.orginsurance %} {{ orgsro.orginsurance.insurer }} {% endif %} </td>
+			<td> {% if perms.sro2.delete_orgsro %} <input type="button" value="X" title="Удалить" onClick="confirmDelete('{% url lansite.sro2.views.orgsro_del orgsro.id %}')"/>  {% endif %} </td>
+		</tr>
+	{% endfor %}
+	</tbody>
+{% endif %}
+	</table>
+<hr/>
+<p>
+	[ <a title="Список организаций для размещения на вебсайте" href="{% url lansite.sro2.views.sro_publish sro.id %}"> Просмотр </a> ]
+	[ <a title="Размещение на вебсайте" href="{% url lansite.sro2.views.sro_upload sro.id %}"> Публикация </a> ]
+	[ <a title="Список членов в табличном виде" href="{% url lansite.sro2.views.sro_table sro.id %}"> Таблица </a> ]
+	[ <a title="URL для рассылки электромыла всем" href="{% url lansite.sro2.views.sro_mailto sro.id %}"> Мыло всем </a> ]
+</p>
+</body>
+</html>

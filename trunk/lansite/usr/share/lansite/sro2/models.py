@@ -123,6 +123,9 @@ class	Sro(models.Model):
 	regno		= models.CharField(max_length=20, blank=False, unique=True, verbose_name=u'Рег. №')
 	type		= models.ForeignKey(SroType, blank=False, verbose_name=u'Тип')
 	own		= models.BooleanField(blank=False, default=False, verbose_name=u'Своё')
+	boss		= models.CharField(max_length=20, null=True, blank=True, verbose_name=u'Босс')
+	ftp		= models.CharField(max_length=50, null=True, blank=True, verbose_name=u'FTP')
+	path		= models.CharField(max_length=100, null=True, blank=True, verbose_name=u'Path')
 
 	def	asstr(self):
 		return self.name
@@ -428,6 +431,7 @@ class	OrgSro(models.Model):
 		ordering = ('org',)
 		verbose_name		= u'Организация.СРО'
 		verbose_name_plural	= u'Организации.СРО'
+		unique_together		= [('org', 'sro')]
 
 class	OrgEvent(models.Model):
 	orgsro		= models.ForeignKey(OrgSro, verbose_name=u'Организация.СРО')
@@ -447,7 +451,7 @@ class	OrgEvent(models.Model):
 		verbose_name_plural	= u'Организация.СРО.События'
 
 class	OrgLicense(models.Model):
-	orgsro		= models.ForeignKey(OrgSro, verbose_name=u'Организация.СРО')
+	orgsro		= models.OneToOneField(OrgSro, verbose_name=u'Организация.СРО')
 	no		= models.CharField(null=False, blank=False, unique=True, max_length=100, verbose_name=u'Номер лицензии')	# unique=True
 	datefrom	= models.DateField(null=False, blank=False, verbose_name=u'Выдана')
 	datedue		= models.DateField(null=False, blank=False, verbose_name=u'Действительна до')
@@ -464,7 +468,7 @@ class	OrgLicense(models.Model):
 		verbose_name_plural = u'Организация.СРО.Лицензии'
 
 class	OrgInsurance(models.Model):
-	orgsro		= models.ForeignKey(OrgSro, verbose_name=u'Организация.СРО')
+	orgsro		= models.OneToOneField(OrgSro, verbose_name=u'Организация.СРО')
 	insurer		= models.ForeignKey(Insurer, null=False, blank=False, verbose_name=u'Страховщик')
 	no		= models.CharField(null=False, blank=False, max_length=50, verbose_name=u'Номер договора')
 	date		= models.DateField(null=False, blank=False, verbose_name=u'Дата договора')
@@ -578,7 +582,7 @@ class	Permit(models.Model):
 	no		= models.CharField(max_length=50, null=False, blank=False, unique=False, verbose_name=u'Рег. №')
 	date		= models.DateField(null=True, blank=True, verbose_name=u'Дата')
 	datedue		= models.DateField(null=True, blank=True, verbose_name=u'Дата аннулирования')
-	protocol	= models.ForeignKey(Protocol, null=True, blank=True, verbose_name=u'Заседание')
+	protocol	= models.ForeignKey(Protocol, null=True, blank=True, verbose_name=u'Заседание')	# FIXME: must be self sro only
 
 	def	asstr(self):
 		return u'%s: № %s от %s' % (self.stagelist, self.no, self.date)

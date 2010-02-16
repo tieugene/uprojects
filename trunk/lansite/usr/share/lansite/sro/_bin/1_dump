@@ -1,3 +1,0 @@
-#!/bin/sh
-# dump all of db (sro)
-../../manage.py dumpdata --format=json --indent=1 sro > ../../sro.json

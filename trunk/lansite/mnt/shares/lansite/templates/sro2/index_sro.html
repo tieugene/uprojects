@@ -1,22 +1,21 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-	<title>LanSite.СРО2</title>
+	<title>LanSite.СРО2.{{ sro.name }}</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<link rel="stylesheet" href="base.css" type="text/css" />
 </head>
 <body>
 <center>
-	<h1> <a href="{% url lansite.views.index %}"> LanSite </a> &gt; СРО2 </h1>
+	<h1> <a href="{% url lansite.views.index %}"> LanSite </a> &gt; <a href="{% url lansite.sro2.views.index %}"> СРО2 </a> &gt; {{ sro.name }} </h1>
 	<table width="100%" border="0">
 		<tr align="center" bgcolor="lightgrey">
-		{% for sro in sro_list %}
-			<td> <a href="{% url lansite.sro2.views.index_sro sro.id %}"> {{ sro.name }} </a> </td>
-		{% endfor %}
+			<td> <a href="{% url lansite.sro2.views.sro_list sro.id %}"> Организации </a> </td>
+			<td> <a href="{% url lansite.sro2.views.person_list sro.id %}"> Люди </a> </td>
+			<td> <a href="{% url lansite.sro2.views.protocol_list sro.id %}"> Протоколы </a> </td>
 			<td> <a href="{% url lansite.sro2.views.journal %}"> Журнал </a> </td>
 		</tr>
 	</table>
 </center>
-<p> Пользователь: {% if user.is_authenticated %} {{ user.username }} (<a href="../logout/"> Logout </a>) {% else %} anonymous (<a href="../login/"> Login </a>) {% endif %} </p>
 </body>
 </html>

@@ -1,3 +1,3 @@
-{% extends "sro/person_base.html" %}
-{% block body_main_button %}	{% if perms.sro.change_person %}	<input type="button" value="Изменить" onClick="window.location.href='{% url lansite.sro.views.person_main person.id %}#main'"/> {% endif %} {% endblock %}
-{% block body_skill_button %}	{% if perms.sro.add_personskill or perms.sro.delete_personskill or perms.sro.change_personskill %}	<input type="button" value="Изменить" onClick="window.location.href='{% url lansite.sro.views.person_skill person.id %}#skill'"/> {% endif %} {% endblock %}
+{% extends "sro2/person_base.html" %}
+{% block body_main_button %}	{% if perms.sro2.change_person %}	<input type="button" value="Изменить" onClick="window.location.href='{% url lansite.sro2.views.person_main sro.id person.id %}#main'"/> {% endif %} {% endblock %}
+{% block body_skill_button %}	{% if perms.sro2.add_personskill or perms.sro2.delete_personskill or perms.sro.change_personskill %}	<input type="button" value="Изменить" onClick="window.location.href='{% url lansite.sro2.views.person_skill sro.id person.id %}#skill'"/> {% endif %} {% endblock %}
