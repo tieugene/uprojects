@@ -1,0 +1,20 @@
+{% extends "sro2/orgsro_base.html" %}
+{% block body_phone %}
+	<table border="0">
+	{% for i in orgsro.org.orgphone_set.all %}
+		<tr>
+			<td> {{ i.asstr }} </td>
+			<td> {% if perms.sro2.delete_orgphone %} <input type="button" value="X" onClick="confirmDelete('{% url lansite.sro2.views.orgsro_phone_del orgsro.id, i.id %}#phone')"/> {% endif %} </td>
+		</tr>
+	{% endfor %}
+	{% if perms.sro2.add_orgphone %}
+		<form action=".#phone" method="POST">
+		<tr>
+			<td> {{ form.as_p }} </td>
+			<td> <input type="submit" value="+" /> </td>
+		</tr>
+		</form>
+	{% endif %}
+	</table>
+<input type="button" value="Закончить" onClick="window.location.href='{% url lansite.sro2.views.orgsro_view orgsro.id %}#phone'"/>
+{% endblock %}

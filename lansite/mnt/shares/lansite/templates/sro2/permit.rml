@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <!DOCTYPE document SYSTEM "rml_1_0.dtd">
-<document filename="{{ data.no }}.pdf">
+<document filename="{{ data.stagelist.permit.no }}.pdf">
 <docinit>
 	<registerFont fontName="Sans" fontFile="/mnt/shares/lansite/media/arial.ttf"/>
 	<registerFont fontName="Sans-Bold" fontFile="/mnt/shares/lansite/media/arialbd.ttf"/>
 </docinit>
-<template pageSize="(21cm, 29.7cm)" title="{{ data.no }}" author="{{ data.user }}" subject="Permit" showBoundary="0">
+<template pageSize="(21cm, 29.7cm)" title="{{ data.stagelist.permit.no }}" author="{{ data.user }}" subject="Permit" showBoundary="0">
 		<pageTemplate id="main">
 			<frame id="main"	x1="3cm" y1="7.3cm" width="15cm" height="12cm"/>
 			<frame id="footer"	x1="4.0cm" y1="5cm" width="13cm" height="2.3cm"/>
@@ -70,7 +70,7 @@
 
 <story>
 	<para style="style1" alignment="center">
-		№ {{ data.no }}
+		№ {{ data.stagelist.permit.no }}
 	</para>
 	<para style="style1" alignment="center">
 		Начало действия с {{ data.date }}
@@ -79,16 +79,16 @@
 		Выдано члену саморегулируемой организации
 	</para>
 	<para style="style1" fontName="Sans-Bold">
-		{{ data.perm.org.okopf.namedp }} {{ data.perm.org.fullname }}
+		{{ data.stagelist.orgsro.org.okopf.namedp }} {{ data.stagelist.orgsro.org.fullname }}
 	</para>
 	<para style="style1">
-		ИНН {{ data.perm.org.inn|stringformat:"010d" }}, ОГРН {{ data.perm.org.ogrn }}, местонахождение: {{ data.perm.org.laddress }}
+		ИНН {{ data.stagelist.orgsro.org.inn|stringformat:"010d" }}, ОГРН {{ data.stagelist.orgsro.org.ogrn }}, местонахождение: {{ data.stagelist.orgsro.org.laddress }}
 	</para>
 	<para style="style1" spaceAfter="0">
 		Основание выдачи Свидетельства:
 	</para>
 	<para style="style1">
-		решение Правления Некоммерческого партнерства саморегулируемой организации «Межрегиональное объединение организаций железнодорожного строительства», протокол №{{ data.perm.permitown.meeting.regno }} от {{ data.protodate }}.
+		решение Правления Некоммерческого партнерства саморегулируемой организации {{ stagelist.orgsro.sro.fullname }}, протокол №{{ data.stagelist.permit.protocol.no }} от {{ data.protodate }}.
 	</para>
 	<para style="style1">
 		Настоящим Свидетельством подтверждается допуск к работам, которые оказывают влияние на безопасность объектов капитального строительства, перечень которых указан в приложении к Свидетельству.
@@ -104,7 +104,7 @@
 		<tr>
 			<td> <para style="style1"> Председатель<br/>Правления </para> </td>
 			<td> <para alignment="center"> ________________ </para> </td>
-			<td> <para style="style1" alignment="right"> Г.Н. Талашкин </para> </td>
+			<td> <para style="style1" alignment="right"> {{ data.stagelist.orgsro.sro.boss }} </para> </td>
 		</tr>
 		<tr> <td/> <td>	<para style="style1" alignment="center"> МП </para> </td> <td/> </tr>
 	</blockTable>
@@ -112,12 +112,12 @@
 	<para style="style5">
 		Перечень видов работ, которые оказывают влияние на безопасность объектов капитального строительства и о допуске к которым член Некоммерческого партнерства саморегулируемой организации "Межрегиональное объединение организаций железнодорожного строительства" имеет Свидетельство:
 	</para>
-{%  for stage in data.perm.permitstage_set.all %}
-	<para style="style3"> {{ stage.stage.id }}. {{ stage.stage.name }} </para>
+{%  for stage in data.stagelist.permitstage_set.all %}
+	<para style="style3"> {{ stage.stage.no }}. {{ stage.stage.name }} </para>
 	{% for job in stage.jobs.all %}
 		<para style="style4"> {{ job.okdp }}: {{ job.name }} </para>
 	{% endfor %}
 {% endfor %}
-	<para style="style4"> Итого: {{ data.perm.permitstage_set.count }} видов работ. </para>
+	<para style="style4"> Итого видов работ: {{ data.jcount }}. </para>
 </story>
 </document>

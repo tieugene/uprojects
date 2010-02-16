@@ -37,9 +37,9 @@ INSERT INTO sro2_okopf (id, name, shortname, namedp, disabled, parent_id) SELECT
 INSERT INTO sro2_okved (id, name, parent_id) SELECT id, name, parent_id FROM sro_okved;
 INSERT INTO sro2_srotype (id, name) VALUES (1, 'Строительство');
 INSERT INTO sro2_srotype (id, name) VALUES (2, 'Проектирование');
-INSERT INTO sro2_sro (id, name, fullname, regno, type_id, own) VALUES (1, 'МООЖС', 'НП СРО "Межрегиональное объединение организаций железнодорожного строительства"', 'СРО-С-043-28092009', 1, 1);
-INSERT INTO sro2_sro (id, name, fullname, regno, type_id, own) VALUES (2, 'МООАСП', 'НП СРО "Межрегиональное объединение организаций архитектурно-строительного проектирования"', 'СРО-П-115-18012010', 2, 1);
-INSERT INTO sro2_sro (id, name, fullname, regno, type_id, own) SELECT id+2, name, fullname, regno, 1, 0 FROM sro_sro;
+INSERT INTO sro2_sro (id, name, fullname, regno, type_id, own, boss, ftp, path) VALUES (1, 'МООЖС', '"Межрегиональное объединение организаций железнодорожного строительства"', 'СРО-С-043-28092009', 1, 1, 'Г. Н. Талашкин', 'ftp.moozs.ru', 'moozs.ru/docs/joom/images');
+INSERT INTO sro2_sro (id, name, fullname, regno, type_id, own, boss, ftp, path) VALUES (2, 'МООАСП', '"Межрегиональное объединение организаций архитектурно-строительного проектирования"', 'СРО-П-115-18012010', 2, 1, 'В. А. Сасалин', 'ftp.moozs.ru', 'mooasp.ru/docs/joom/images/stories/docs');
+-- INSERT INTO sro2_sro (id, name, fullname, regno, type_id, own) SELECT id+2, name, fullname, regno, 1, 0 FROM sro_sro;
 INSERT INTO sro2_stage (id, srotype_id, no, name, hq, hs, mq, ms) SELECT id, 1, id, name, hq, hs, mq, ms FROM sro_stage;
 INSERT INTO sro2_stage (id, srotype_id, no, name, hq, hs, mq, ms) SELECT 100+id, 2, id, name, hq, hs, mq, ms FROM sro_prjstage;
 INSERT INTO sro2_job (id, stage_id, okdp, name) SELECT id, stage_id, okdp, name FROM sro_job;

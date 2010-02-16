@@ -1,0 +1,40 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<title>LanSite.СРО2.{{ stagelist.orgsro.sro.name }}.Организации.{{ stagelist.orgsro.org.name }}.{{ stagelist.type.name }}</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<link rel="stylesheet" href="org.css" type="text/css" />
+</head>
+<body>
+{% block sidebar %}
+	<center> <h1>
+		<a href="{% url lansite.views.index %}"> LanSite </a> &gt;
+		<a href="{% url lansite.sro2.views.index %}"> СРО2 </a> &gt;
+		<a href="{% url lansite.sro2.views.index_sro stagelist.orgsro.sro.id %}"> {{ stagelist.orgsro.sro.name }} </a> &gt;
+		<a href="{% url lansite.sro2.views.sro_list stagelist.orgsro.sro.id %}"> Организации </a> &gt;
+		<a href="{% url lansite.sro2.views.orgsro_view stagelist.orgsro.id %}"> {{ stagelist.orgsro.org.name }} </a> &gt;
+		{{ stagelist.type.name }}
+	</h1> </center>
+{% endblock %}
+<hr/>
+<h1> Основные данные: </h1>
+{% block main %}
+<table border="0">
+	<tr> <td> Организация: </td>	<td> {{ stagelist.orgsro.org.name }} </td> </tr>
+	<tr> <td> Тип: </td>		<td> {{ stagelist.type.name }} </td> </tr>
+{% ifequal permit.permittype.id 1 %}
+	<tr> <td> от: </td>		<td> {{ stagelist.statement.date|date }} </td> </tr>
+{% endifequal %}
+{% ifequal permit.permittype.id 2 %}
+	<tr> <td> №: </td>		<td> {{ stagelist.permit.no }} </td> </tr>
+	<tr> <td> от: </td>		<td> {{ stagelist.permit.date|date }} </td> </tr>
+	<tr> <td> Протокол: </td>	<td> № {{ stagelist.permit.protocol.no }} от {{ stagelist.permit.protocol.date|date }} </td> </tr>
+{% endifequal %}
+</table>
+{% endblock %}
+{% block editmain %} {% endblock %}
+<hr/>
+<h1> Виды работ: </h1>
+{% block stages %}
+{% endblock %}
+</body>
+</html>

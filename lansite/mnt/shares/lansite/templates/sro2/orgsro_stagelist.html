@@ -1,0 +1,39 @@
+{% extends "sro2/orgsro_base.html" %}
+{% block body_permit %}
+	<table>
+		<tr>
+			<th> Тип </th>
+			<th> Документ </th>
+			<th/>
+		</tr>
+	{% for i in orgsro.stagelist_set.all %}
+		<tr>
+			<td> {{ i.type.name }} </td>
+			<td>
+			{% ifequal i.type.id 1 %}
+				от {{ i.statement.date|date }}
+			{% endifequal %}
+			{% ifequal i.type.id 2 %}
+				№ {{ i.permit.no }} от {{ i.permit.date|date }}, протокол № {{ i.permit.protocol.no }} от {{ i.permit.protocol.date|date }}
+			{% endifequal %}
+			</td>
+			<td> {% if perms.sro2.delete_stagelist %} <input type="button" value="X" onClick="confirmDelete('{% url lansite.sro2.views.orgsro_stagelist_del orgsro.id, i.id %}#permit')"/> {% endif %} </td>
+		</tr>
+	{% endfor %}
+	<!-- add -->
+	{% if perms.sro2.add_stagelist %}
+	<form action=".#permit" method="POST">
+	<tr>
+		<td colspan="2">
+			<div class="fieldWrapper">
+				{{ form.type.errors }}
+				{{ form.type }}
+			</div>
+		</td>
+		<td> <input type="submit" value="+" /> </td>
+	</tr>
+	</form>
+	{% endif %}
+	</table>
+	<input type="button" value="Закончить" onClick="window.location.href='{% url lansite.sro2.views.orgsro_view orgsro.id %}#permit'"/>
+{% endblock %}

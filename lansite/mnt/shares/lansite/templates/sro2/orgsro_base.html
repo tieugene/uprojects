@@ -1,0 +1,197 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<title>LanSite.СРО2.{{ sro.name }}.Организации</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<link rel="stylesheet" href="org.css" type="text/css" />
+</head>
+<body>
+<script langauge="JavaScript" type="text/javascript">
+function confirmDelete(delUrl) {
+	if (confirm("Are you sure you want to delete")) {
+		document.location = delUrl;
+	}
+}
+</script>
+
+{% block sidebar %}
+	<center> <h1>
+		<a href="{% url lansite.views.index %}"> LanSite </a> &gt; 
+		<a href="{% url lansite.sro2.views.index %}"> СРО2 </a> &gt;
+		<a href="{% url lansite.sro2.views.index_sro orgsro.sro.id %}"> {{ orgsro.sro.name }} </a> &gt;
+		<a href="{% url lansite.sro2.views.sro_list orgsro.sro.id %}"> Организации </a> &gt;
+		{{ orgsro.org.name }}
+	</h1> </center>
+{% endblock %}
+<a name="org"/>
+<table width="100%" border="0" bgcolor="lightgrey"><tr><td><table><tr><td>{% block body_main_button %} {% endblock %}</td><td><h2> 1. Основные данные: </h2></td></tr></table></td></tr></table>
+{% block body_main %}
+	<table border="0">
+		<tr>	<td> Краткое наименование: </td>	<td> {{ orgsro.org.name }} </td>		</tr>
+		<tr>	<td> Полное наименование: </td>	<td> {{ orgsro.org.fullname }} </td>		</tr>
+		<tr>	<td> ОКОПФ: </td>			<td> {{ orgsro.org.okopf }} </td>		</tr>
+		<tr>	<td> Дата регистрации в ЕГРЮЛ: </td>	<td> {{ orgsro.org.egruldate|date }} </td>	</tr>
+		<tr>	<td> ИНН: </td>			<td> {{ orgsro.org.inn|stringformat:"010d" }} </td>		</tr>
+		<tr>	<td> КПП: </td>			<td> {{ orgsro.org.kpp }} </td>		</tr>
+		<tr>	<td> ОГРН: </td>			<td> {{ orgsro.org.ogrn }} </td>		</tr>
+		<tr>	<td> ОКАТО: </td>			<td> {{ orgsro.org.okato }} </td>		</tr>
+		<tr>	<td> Адрес юридический: </td>		<td> {{ orgsro.org.laddress }} </td>		</tr>
+		<tr>	<td> Адрес фактический: </td>		<td> {{ orgsro.org.raddress }} </td>		</tr>
+		<tr>	<td> Коментарии: </td>			<td> {{ orgsro.org.comments }} </td>	</tr>
+	</table>
+{% endblock %}
+<a name="main"/>
+<table width="100%" border="0" bgcolor="lightgrey"><tr><td><table><tr><td>{% block body_sro_button %} {% endblock %}</td><td><h3> {{ orgsro.sro.name }}: </h3></td></tr></table></td></tr></table>
+{% block body_sro %}
+	<table>
+		<tr>	<td> Реестровый №: </td>		<td> {{ orgsro.regno }} </td>		</tr>
+		<tr>	<td> Дата членства в НП: </td>		<td> {{ orgsro.regdate|date }} </td>	</tr>
+		<tr>	<td> Дата оплаты взноса в КФ: </td>	<td> {{ orgsro.paydate|date }} </td>	</tr>
+		<tr>	<td> Сумма взноса в КФ: </td>		<td> {{ orgsro.paysum }} </td>		</tr>
+		<tr>	<td> Дата оплаты ВВ: </td>		<td> {{ orgsro.paydatevv|date }} </td>	</tr>
+		<tr>	<td> Коментарии: </td>			<td> {{ orgsro.comments }} </td>	</tr>
+		<tr>	<td> Публиковать: </td>		<td> [{% ifequal orgsro.publish 1 %} V {% else %} &nbsp; {% endifequal %}] </td>		</tr>
+	</table>
+{% endblock %}
+<hr width="75%"/>
+<a name="license"/>
+{% block body_license %}
+	<table border="0">
+		<tr>	<td> Лицензия: </td>	<td>
+			{% if orgsro.orglicense %}
+				№ {{ orgsro.orglicense.no }} от {{ orgsro.orglicense.datefrom|date }} по {{ orgsro.orglicense.datedue|date }}
+				{% block body_license_edit_button %} {% endblock %}
+				{% block body_license_del_button %} {% endblock %}
+			{% else %}
+				Нет
+				{% block body_license_add_button %} {% endblock %}
+			{% endif %}
+		</td>	</tr>
+	</table>
+{% endblock %}
+<a name="incurance"/>
+{% block body_insurance %}
+	<table border="0">
+		<tr>	<td> Страховка: </td>	<td>
+			{% if orgsro.orginsurance %}
+				Договор № {{ orgsro.orginsurance.no }} от {{ orgsro.orginsurance.date|date }} на {{ orgsro.orginsurance.sum }} руб. в {{ orgsro.orginsurance.insurer }} ({{ orgsro.orginsurance.insurer.fullname }})
+				{% block body_insurance_edit_button %} {% endblock %}
+				{% block body_insurance_del_button %} {% endblock %}
+			{% else %}
+				Нет
+				{% block body_insurance_add_button %} {% endblock %}
+			{% endif %}
+		</td>	</tr>
+	</table>
+{% endblock %}
+<a name="okved"/>
+<table width="100%" border="0" bgcolor="lightgrey"><tr><td><table><tr><td> {% block body_okved_button %} {% endblock %} </td><td><h3> 1.1. ОКВЭД: </h3></td></tr></table></td></tr></table>
+{% block body_okved %}
+	{% ifnotequal orgsro.org.id None %}
+		{% if orgsro.org.okveds.all %}
+			<ul>
+			{% for i in orgsro.org.okveds.all %}
+				<li> {{ i.asstr }} </li>
+			{% endfor %}
+			</ul>
+		{% endif %}
+	{% endifnotequal %}
+{% endblock %}
+<a name="phone"/>
+<table width="100%" border="0" bgcolor="lightgrey"><tr><td><table><tr><td> {% block body_phone_button %} {% endblock %} </td><td><h3> 1.2. Телефоны: </h3></td></tr></table></td></tr></table>
+{% block body_phone %}
+	{% if orgsro.org.orgphone_set.all %}
+		<ul>
+		{% for i in orgsro.org.orgphone_set.all %}
+			<li> {{ i.asstr }} </li>
+		{% endfor %}
+		</ul>
+	{% endif %}
+{% endblock %}
+<a name="email"/>
+<table width="100%" border="0" bgcolor="lightgrey"><tr><td><table><tr><td> {% block body_email_button %} {% endblock %} </td><td><h3> 1.3. Адреса электропочты: </h3></td></tr></table></td></tr></table>
+{% block body_email %}
+	{% if orgsro.org.orgemail_set.all %}
+		<ul>
+		{% for i in orgsro.org.orgemail_set.all %}
+			<li> <a href="mailto:{{ i.asstr }}"> {{ i.asstr }} </a> </li>
+		{% endfor %}
+		</ul>
+	{% endif %}
+{% endblock %}
+<a name="www"/>
+<table width="100%" border="0" bgcolor="lightgrey"><tr><td><table><tr><td> {% block body_www_button %} {% endblock %} </td><td><h3> 1.4. Адреса сайтов: </h3></td></tr></table></td></tr></table>
+{% block body_www %}
+	{% if orgsro.org.orgwww_set.all %}
+		<ul>
+		{% for i in orgsro.org.orgwww_set.all %}
+			<li> <a href="{{ i.asstr }}"> {{ i.asstr }} </a> </li>
+		{% endfor %}
+		</ul>
+	{% endif %}
+{% endblock %}
+<a name="stuff"/>
+<table width="100%" border="0" bgcolor="lightgrey"><tr><td><table><tr><td> {% block body_stuff_button %} {% endblock %} </td><td><h2> 2. Персонал: </h2></td></tr></table></td></tr></table>
+{% block body_stuff %}
+	{% if orgsro.org.orgstuff_set.all %}
+		<table>
+			<tr>
+				<th> ФИО </th>
+				<th> Должность </th>
+				<th> Руководитель </th>
+				<th> Постоянно </th>
+			</tr>
+		{% for i in orgsro.org.orgstuff_set.all %}
+			<tr>
+				<td> <a href="{% url lansite.sro2.views.person_view orgsro.sro.id i.person.id %}"> {{ i.person.asstr }} </a> </td>
+				<td> {{ i.role.asstr }} </td>
+				<td align="center"> [{% ifequal i.leader 1 %} &radic; {% else %} &nbsp; {% endifequal %}] </td>
+				<td align="center"> [{% ifequal i.permanent 1 %} &radic; {% else %} &nbsp; {% endifequal %}] </td>
+			</tr>
+		{% endfor %}
+		</table>
+	{% endif %}
+{% endblock %}
+<a name="permit"/>
+<table width="100%" border="0" bgcolor="lightgrey"><tr><td><table><tr><td> {% block body_permit_button %} {% endblock %} </td><td><h2> 3. Допуски: </h2></td></tr></table></td></tr></table>
+{% block body_permit %}
+	{% if orgsro.stagelist_set.all %}
+		<ul>
+		{% for i in orgsro.stagelist_set.all %}
+			<li> <a href="{% url lansite.sro2.views.stagelist_list i.id %}"> {{ i.type.name }}
+			{% ifequal i.type.id 1 %}
+				от {{ i.statement.date|date }}
+			{% endifequal %}
+			{% ifequal i.type.id 2 %}
+				№ {{ i.permit.no }} от {{ i.permit.date|date }}, протокол № {{ i.permit.protocol.no }} от {{ i.permit.protocol.date|date }}
+			{% endifequal %}
+			</a> </li>
+		{% endfor %}
+		</ul>
+	{% endif %}
+{% endblock %}
+<a name="event"/>
+<table width="100%" border="0" bgcolor="lightgrey"><tr><td><table><tr><td> {% block body_event_button %} {% endblock %} </td><td><h2> 4. События: </h2></td></tr></table></td></tr></table>
+{% block body_event %}
+	{% if event %}
+		<table>
+			<tr>
+				<th> Дата </th>
+				<th> Тип </th>
+				<th> Комментарии </th>
+			</tr>
+		{% for i in event %}
+			<tr>
+				<td> {{ i.date|date }} </td>
+				<td> {{ i.type.name }} </td>
+				<td> {{ i.comments }} </td>
+			</tr>
+		{% endfor %}
+		</table>
+	{% endif %}
+{% endblock %}
+{% block body_certificate %}
+{% endblock %}
+{% block body_extract %}
+{% endblock %}
+</body>
+</html>
