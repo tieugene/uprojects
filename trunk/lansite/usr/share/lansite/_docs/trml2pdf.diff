@@ -1,0 +1,15 @@
+--- trml2pdf.py.orig	2009-10-18 21:44:40.000000000 +0400
++++ trml2pdf.py	2009-10-20 19:55:39.000000000 +0400
+@@ -483,7 +483,11 @@
+ 		elif node.localName=='condPageBreak':
+ 			return platypus.CondPageBreak(**(utils.attr_get(node, ['height'])))
+ 		elif node.localName=='setNextTemplate':
+-			return platypus.NextPageTemplate(str(node.getAttribute('name')))
++			t = str(node.getAttribute('name')).split(',')
++			if (len(t) > 1):
++				return platypus.NextPageTemplate(t)
++			else:
++				return platypus.NextPageTemplate(t[0])
+ 		elif node.localName=='nextFrame':
+ 			return platypus.CondPageBreak(1000)           # TODO: change the 1000 !
+ 		else:
