@@ -1,0 +1,2 @@
+#!/bin/sh
+sqlite3 /mnt/shares/lansite/db/lansite.db "SELECT licno FROM sro_prjorg JOIN sro_orglicense ON sro_prjorg.licno=sro_orglicense.no"
