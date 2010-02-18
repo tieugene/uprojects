@@ -61,10 +61,11 @@ def	__load_permit(perm_id):
 		jcount = jcount + count
 	return {'stagelist': stagelist, 'date': __strdate(stagelist.permit.date), 'protodate': __strdate(stagelist.permit.protocol.date), 'jcount': jcount}
 
-@login_required
 def	index(request):
 	if not request.user.is_authenticated():
 		return HttpResponseRedirect('../login/?next=%s' % request.path)
+		#return HttpResponseRedirect(reverse('lansite.login') + '?next=%s' % request.path)
+		#return HttpResponseRedirect(reverse('lansite.login') + '?next=%s' % request.path)
 	return render_to_response('sro2/index.html', context_instance=RequestContext(request, {'sro_list': Sro.objects.filter(own=True).order_by('name')}))
 
 @login_required
