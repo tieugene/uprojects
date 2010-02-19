@@ -704,7 +704,7 @@ def	stagelist_dup(request, perm_id):
 				return HttpResponseRedirect(reverse('lansite.sro2.views.stagelist_dup_edit', kwargs={ 'perm_id': perm_id, 'type_id': type.id }))
 	return HttpResponseRedirect(reverse('lansite.sro2.views.stagelist_list', kwargs={ 'perm_id': perm_id }))
 
-#@transaction.commit_manually
+@transaction.commit_manually
 def	stagelist_dup_edit(request, perm_id, type_id):
 	stagelist = StageList.objects.get(pk=perm_id)
 	type = StageListType.objects.get(pk=type_id)
@@ -716,17 +716,17 @@ def	stagelist_dup_edit(request, perm_id, type_id):
 			#try:
 			if (True):
 				# 1. main object
-				permit = StageList(orgsro=stagelist.orgsro, type=type)
-				permit.save()
+				new_stagelist = StageList(orgsro=stagelist.orgsro, type=type)
+				new_stagelist.save()
 				# 2. subobject
 				if (type_id == 1):
 					a = Statement(
-						stagelist=permit,
+						stagelist=new_stagelist,
 						date=form.cleaned_data['date']
 					)
 				else:	# (type_id == 2):
 					a = Permit(
-						stagelist=permit,
+						stagelist=new_stagelist,
 						no=form.cleaned_data['no'],
 						date=form.cleaned_data['date'],
 						protocol=form.cleaned_data['protocol']
@@ -734,7 +734,7 @@ def	stagelist_dup_edit(request, perm_id, type_id):
 				a.save()
 				# 3. copy jobs
 				for ps in stagelist.permitstage_set.all():
-					permitstage = PermitStage(stagelist=permit, stage=ps.stage)
+					permitstage = PermitStage(stagelist=new_stagelist, stage=ps.stage)
 					permitstage.save()
 					for psj in ps.permitstagejob_set.all():
 						PermitStageJob(permitstage=permitstage, job=psj.job).save()
@@ -745,7 +745,7 @@ def	stagelist_dup_edit(request, perm_id, type_id):
 			#else:
 			#	transaction.commit()
 			#	print 'commit'
-				return HttpResponseRedirect(reverse('lansite.sro2.views.stagelist_list', kwargs={ 'perm_id': permit.id }))
+			return HttpResponseRedirect(reverse('lansite.sro2.views.stagelist_list', kwargs={ 'perm_id': new_stagelist.id }))
 	else:
 		form = needform()
 	return render_to_response('sro2/orgsro_stagelist_add.html', RequestContext(request, {'orgsro': stagelist.orgsro, 'type': type, 'form': form}))
