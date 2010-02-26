@@ -41,7 +41,6 @@ INSERT INTO sro2_sro (id, name, fullname, regno, type_id, own, boss, ftp, path) 
 INSERT INTO sro2_sro (id, name, fullname, regno, type_id, own, boss, ftp, path) VALUES (2, 'МООАСП', '"Межрегиональное объединение организаций архитектурно-строительного проектирования"', 'СРО-П-115-18012010', 2, 1, 'В. А. Сасалин', 'ftp.moozs.ru', 'mooasp.ru/docs/joom/images/stories/docs');
 -- INSERT INTO sro2_sro (id, name, fullname, regno, type_id, own) SELECT id+2, name, fullname, regno, 1, 0 FROM sro_sro;
 INSERT INTO sro2_stage (id, srotype_id, no, name, hq, hs, mq, ms) SELECT id, 1, id, name, hq, hs, mq, ms FROM sro_stage;
-INSERT INTO sro2_stage (id, srotype_id, no, name, hq, hs, mq, ms) SELECT 100+id, 2, id, name, hq, hs, mq, ms FROM sro_prjstage;
 INSERT INTO sro2_job (id, stage_id, okdp, name) SELECT id, stage_id, okdp, name FROM sro_job;
 INSERT INTO sro2_speciality (id, name) SELECT id, name FROM sro_speciality;
 INSERT INTO sro2_specialitystage (id, speciality_id, stage_id) SELECT id, speciality_id, stage_id FROM sro_specialitystage;
@@ -70,10 +69,11 @@ INSERT INTO sro2_statement (stagelist_id, date) SELECT permit_id, date FROM sro_
 INSERT INTO sro2_protocol (id, sro_id, no, date) SELECT id, 1, regno, date FROM sro_meeting;
 INSERT INTO sro2_permit (stagelist_id, no, date, datedue, protocol_id) SELECT sro_permitown.permit_id, sro_org.sroregno || '-' || sro_permitown.regno, sro_permitown.date, sro_permitown.datedue, sro_permitown.meeting_id FROM sro_permitown JOIN sro_permit ON sro_permitown.permit_id=sro_permit.id JOIN sro_org ON sro_org.id=sro_permit.org_id;
 -- 2. Projecting
+INSERT INTO sro2_stage (id, srotype_id, no, name, hq, hs, mq, ms) SELECT 100+id, 2, id, name, hq, hs, mq, ms FROM sro_prjstage;
 INSERT INTO sro2_orgsro (id, org_id, sro_id, regno, regdate, paydate, paysum, paydatevv, comments, publish) SELECT id + (SELECT MAX(id) FROM sro_org), org_id, 2, regno, regdate, paydate, paysum, paydatevv, comments, publish FROM sro_prjorg;
 INSERT INTO sro2_orglicense (orgsro_id, no, datefrom, datedue) SELECT id + (SELECT MAX(id) FROM sro_org), licno, licfrom, licdue FROM sro_prjorg WHERE (licfrom NOT NULL) AND (licdue NOT NULL);
 INSERT INTO sro2_orginsurance (orgsro_id, insurer_id, no, date, sum, datefrom, datedue) SELECT id + (SELECT MAX(id) FROM sro_org), insurer_id, insno, insdate, inssum, insfrom, insdue FROM sro_prjorg WHERE insurer_id NOT NULL AND insno NOT NULL AND insdate NOT NULL AND inssum NOT NULL;
-INSERT INTO sro2_stagelist (id, orgsro_id, type_id) SELECT id + (SELECT MAX(id) FROM sro_permit), id + (SELECT MAX(id) FROM sro_org), 2 FROM sro_prjorg WHERE permno NOT NULL;
+INSERT INTO sro2_stagelist (id, orgsro_id, type_id) SELECT id + (SELECT MAX(id) FROM sro_permit), id + (SELECT MAX(id) FROM sro_org), 2 FROM sro_prjorg;
 INSERT INTO sro2_permitstage (stagelist_id, stage_id) SELECT id + (SELECT MAX(id) FROM sro_permit), 100+stage_id FROM sro_prjorgstage;
 INSERT INTO sro2_protocol (id, sro_id, no, date) SELECT id + (SELECT MAX(id) FROM sro_meeting), 2, no, date FROM sro_prjproto;
 INSERT INTO sro2_permit (stagelist_id, no, date, protocol_id) SELECT id + (SELECT MAX(id) FROM sro_permit), permno, permdate, protocol_id + (SELECT MAX(id) FROM sro_meeting) from sro_prjorg;
