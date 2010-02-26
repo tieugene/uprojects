@@ -1,0 +1,4 @@
+#!/bin/sh
+DB="/mnt/shares/lansite/db/lansite.db"
+SQLITE="sqlite3"
+$SQLITE $DB < chkconvert.sql
