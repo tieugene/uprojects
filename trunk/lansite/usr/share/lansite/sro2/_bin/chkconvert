@@ -1,0 +1,23 @@
+#!/bin/sh
+DB="/mnt/shares/lansite/db/lansite.db"
+SQLITE="sqlite3"
+ASKDB="$SQLITE $DB"
+# 1. src
+echo "SRC:"
+echo "	Src.Orgs:			`$ASKDB \"SELECT 'Src.Org', COUNT() FROM sro_org;\"`"
+echo "	Src.Bld.StageLists:		`$ASKDB \"SELECT COUNT() FROM sro_permit;\"`"
+echo "	Src.Bld.StageLists.Stages:	`$ASKDB \"SELECT COUNT() FROM sro_permitstage;\"`"
+echo "	Src.Bld.StageLists.Stages.Jobs:	`$ASKDB \"SELECT COUNT() FROM sro_permitstagejob;\"`"
+echo "	Src.Bld.Proto:			`$ASKDB \"SELECT COUNT() FROM sro_meeting;\"`"
+echo "	Src.Prj.Orgs:			`$ASKDB \"SELECT COUNT() FROM sro_prjorg;\"`"
+echo "	Src.Prj.StageLists:		`$ASKDB \"SELECT COUNT() FROM (SELECT DISTINCT org_id FROM sro_prjorgstage);\"`"
+echo "	Src.Prj.StageLists.Stages:	`$ASKDB \"SELECT COUNT() FROM sro_prjorgstage;\"`"
+echo "	Src.Prj.Proto:			`$ASKDB \"SELECT COUNT() FROM sro_prjproto;\"`"
+# 2. dst
+echo "DST:"
+echo "	Dst.Orgs:			`$ASKDB \"SELECT COUNT() FROM sro2_org;\"`"
+echo "	Dst.StageLists:			`$ASKDB \"SELECT COUNT() FROM sro2_stagelist;\"`"
+echo "	Dst.Bld.Orgs:			`$ASKDB \"SELECT COUNT() FROM sro2_orgsro WHERE (sro_id=1);\"`"
+echo "	Src.Bld.Proto:			`$ASKDB \"SELECT COUNT() FROM sro2_protocol WHERE (sro_id=1);\"`"
+echo "	Dst.Prj.Orgs:			`$ASKDB \"SELECT COUNT() FROM sro2_orgsro WHERE (sro_id=2);\"`"
+echo "	Src.Prj.Proto:			`$ASKDB \"SELECT COUNT() FROM sro2_protocol WHERE (sro_id=2);\"`"
