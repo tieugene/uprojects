@@ -74,7 +74,7 @@ INSERT INTO sro2_orgsro (id, org_id, sro_id, regno, regdate, paydate, paysum, pa
 INSERT INTO sro2_orglicense (orgsro_id, no, datefrom, datedue) SELECT id + (SELECT MAX(id) FROM sro_org), licno, licfrom, licdue FROM sro_prjorg WHERE (licfrom NOT NULL) AND (licdue NOT NULL);
 INSERT INTO sro2_orginsurance (orgsro_id, insurer_id, no, date, sum, datefrom, datedue) SELECT id + (SELECT MAX(id) FROM sro_org), insurer_id, insno, insdate, inssum, insfrom, insdue FROM sro_prjorg WHERE insurer_id NOT NULL AND insno NOT NULL AND insdate NOT NULL AND inssum NOT NULL;
 INSERT INTO sro2_stagelist (id, orgsro_id, type_id) SELECT id + (SELECT MAX(id) FROM sro_permit), id + (SELECT MAX(id) FROM sro_org), 2 FROM sro_prjorg;
-INSERT INTO sro2_permitstage (stagelist_id, stage_id) SELECT id + (SELECT MAX(id) FROM sro_permit), 100+stage_id FROM sro_prjorgstage;
+INSERT INTO sro2_permitstage (stagelist_id, stage_id) SELECT org_id + (SELECT MAX(id) FROM sro_permit), 100+stage_id FROM sro_prjorgstage;
 INSERT INTO sro2_protocol (id, sro_id, no, date) SELECT id + (SELECT MAX(id) FROM sro_meeting), 2, no, date FROM sro_prjproto;
 INSERT INTO sro2_permit (stagelist_id, no, date, protocol_id) SELECT id + (SELECT MAX(id) FROM sro_permit), permno, permdate, protocol_id + (SELECT MAX(id) FROM sro_meeting) from sro_prjorg;
 COMMIT;
