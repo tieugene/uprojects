@@ -123,9 +123,6 @@ class	Sro(models.Model):
 	regno		= models.CharField(max_length=20, blank=False, unique=True, verbose_name=u'Рег. №')
 	type		= models.ForeignKey(SroType, blank=False, verbose_name=u'Тип')
 	own		= models.BooleanField(blank=False, default=False, verbose_name=u'Своё')
-	boss		= models.CharField(max_length=20, null=True, blank=True, verbose_name=u'Босс')
-	ftp		= models.CharField(max_length=50, null=True, blank=True, verbose_name=u'FTP')
-	path		= models.CharField(max_length=100, null=True, blank=True, verbose_name=u'Path')
 
 	def	asstr(self):
 		return self.name
@@ -137,6 +134,24 @@ class	Sro(models.Model):
 		ordering = ('name',)
 		verbose_name = u'СРО'
 		verbose_name_plural = u'СРО'
+
+class	SroOwn(models.Model):
+	sro		= models.OneToOneField(Sro, verbose_name=u'СРО')
+	boss		= models.CharField(max_length=20, null=False, blank=False, verbose_name=u'Босс')
+	jobs		= models.CharField(max_length=100, null=False, blank=False, verbose_name=u'Работы для допусков')
+	ftp		= models.CharField(max_length=50, null=True, blank=True, verbose_name=u'FTP')
+	path		= models.CharField(max_length=100, null=True, blank=True, verbose_name=u'Path')
+
+	def	asstr(self):
+		return self.sro.name
+
+	def	__unicode__(self):
+		return self.asstr()
+
+	class	Meta:
+		ordering = ('sro',)
+		verbose_name = u'СРО.Своё'
+		verbose_name_plural = u'СРО.Свои'
 
 class	Stage(models.Model):
 	id		= models.PositiveSmallIntegerField(primary_key=True, verbose_name=u'Код')

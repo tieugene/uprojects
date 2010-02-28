@@ -176,6 +176,11 @@ class	SroAdmin(admin.ModelAdmin):
 	search_fields	= ('name',)
 	inlines		= (ProtocolInLine,)
 
+class	SroOwnAdmin(admin.ModelAdmin):
+	list_display	= ('sro', 'boss',)
+	ordering	= ('sro',)
+	search_fields	= ('sro',)
+
 class	StageAdmin(admin.ModelAdmin):
 	list_display	= ('id', 'srotype', 'no', 'name', 'hq', 'hs', 'mq', 'ms')
 	ordering	= ('srotype', 'no', 'name')
@@ -247,6 +252,7 @@ admin.site.register(Okopf,		OkopfAdmin)
 admin.site.register(Okved,		OkvedAdmin)
 admin.site.register(SroType,		SroTypeAdmin)
 admin.site.register(Sro,		SroAdmin)
+admin.site.register(SroOwn,		SroOwnAdmin)
 admin.site.register(Stage,		StageAdmin)
 admin.site.register(Speciality,		SpecialityAdmin)
 admin.site.register(Skill,		SkillAdmin)
