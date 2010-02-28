@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 '''
-SRO URLs
+SRO2 URLs
 '''
 from django.conf.urls.defaults import *
 from django.contrib import databrowse

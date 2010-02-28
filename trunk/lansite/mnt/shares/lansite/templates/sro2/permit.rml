@@ -88,7 +88,7 @@
 		Основание выдачи Свидетельства:
 	</para>
 	<para style="style1">
-		решение Правления Некоммерческого партнерства саморегулируемой организации {{ stagelist.orgsro.sro.fullname }}, протокол №{{ data.stagelist.permit.protocol.no }} от {{ data.protodate }}.
+		решение Правления Некоммерческого партнерства саморегулируемой организации {{ data.stagelist.orgsro.sro.fullname }}, протокол №{{ data.stagelist.permit.protocol.no }} от {{ data.protodate }}.
 	</para>
 	<para style="style1">
 		Настоящим Свидетельством подтверждается допуск к работам, которые оказывают влияние на безопасность объектов капитального строительства, перечень которых указан в приложении к Свидетельству.
@@ -104,13 +104,13 @@
 		<tr>
 			<td> <para style="style1"> Председатель<br/>Правления </para> </td>
 			<td> <para alignment="center"> ________________ </para> </td>
-			<td> <para style="style1" alignment="right"> {{ data.stagelist.orgsro.sro.boss }} </para> </td>
+			<td> <para style="style1" alignment="right"> {{ data.stagelist.orgsro.sro.sroown.boss }} </para> </td>
 		</tr>
 		<tr> <td/> <td>	<para style="style1" alignment="center"> МП </para> </td> <td/> </tr>
 	</blockTable>
 <setNextTemplate name="even,odd"/>
 	<para style="style5">
-		Перечень видов работ, которые оказывают влияние на безопасность объектов капитального строительства и о допуске к которым член Некоммерческого партнерства саморегулируемой организации "Межрегиональное объединение организаций железнодорожного строительства" имеет Свидетельство:
+		Перечень видов работ по {{ data.stagelist.orgsro.sro.sroown.jobs }}, которые оказывают влияние на безопасность объектов капитального строительства и о допуске к которым член Некоммерческого партнерства саморегулируемой организации {{ data.stagelist.orgsro.sro.fullname }} имеет Свидетельство:
 	</para>
 {%  for stage in data.stagelist.permitstage_set.all %}
 	<para style="style3"> {{ stage.stage.no }}. {{ stage.stage.name }} </para>
