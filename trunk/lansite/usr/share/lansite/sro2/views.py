@@ -704,7 +704,7 @@ def	stagelist_dup(request, perm_id):
 				return HttpResponseRedirect(reverse('lansite.sro2.views.stagelist_dup_edit', kwargs={ 'perm_id': perm_id, 'type_id': type.id }))
 	return HttpResponseRedirect(reverse('lansite.sro2.views.stagelist_list', kwargs={ 'perm_id': perm_id }))
 
-@transaction.commit_manually
+#@transaction.commit_manually
 def	stagelist_dup_edit(request, perm_id, type_id):
 	stagelist = StageList.objects.get(pk=perm_id)
 	type = StageListType.objects.get(pk=type_id)
