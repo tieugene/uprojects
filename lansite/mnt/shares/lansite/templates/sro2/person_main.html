@@ -31,6 +31,6 @@
 	</tr>
 </table>
 <input type="submit" value="Записать и закрыть" />
-<input type="button" value="Отказаться" onClick="window.location.href='{% url lansite.sro2.views.person_view sro.id person.id %}#main'"/>
+<input type="button" value="Отказаться" onClick="window.location.href='{% url sro2.views.person_view sro.id person.id %}#main'"/>
 </form>
 {% endblock %}

@@ -18,6 +18,23 @@ DATABASE_PASSWORD = ''		# Not used with sqlite3.
 DATABASE_HOST = ''		# Set to empty string for localhost. Not used with sqlite3.
 DATABASE_PORT = ''		# Set to empty string for default. Not used with sqlite3.
 
+SEND_EMAILS = False       # make it True and edit settings bellow if you want to receive emails
+EMAIL_HOST = ''           # smtp.myhost.com
+EMAIL_HOST_USER = ''      # user123
+EMAIL_HOST_PASSWORD = ''  # qwerty
+EMAIL_ADDRESS_FROM = ''   # noreply@myhost.com
+if DEBUG:
+	EMAIL_FAIL_SILENTLY = False
+else:
+	EMAIL_FAIL_SILENTLY = True
+
+LOGIN_URL = '/accounts/login/'
+LOGIN_REDIRECT_URL= '/'
+
+import sys, os
+PROJECT_DIR = os.path.dirname(__file__)
+sys.path.append(PROJECT_DIR)
+
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
 # although not all choices may be available on all operating systems.
@@ -35,22 +52,9 @@ SITE_ID = 1
 # to load the internationalization machinery.
 USE_I18N = True
 
-# Absolute path to the directory that holds media.
-# Example: "/home/media/media.lawrence.com/"
-#MEDIA_ROOT = ''
-MEDIA_ROOT = '/mnt/shares/lansite/media/'
-STATIC_DOC_ROOT = '/mnt/shares/lansite/media/'
+FILE_CHARSET = 'utf-8'
 
-# URL that handles the media served from MEDIA_ROOT. Make sure to use a
-# trailing slash if there is a path component (optional in other cases).
-# Examples: "http://media.lawrence.com", "http://example.com/media/"
-#MEDIA_URL = ''
-MEDIA_URL = 'http://localhost/media/'
-
-# URL prefix for admin media -- CSS, JavaScript and images. Make sure to use a
-# trailing slash.
-# Examples: "http://foo.com/media/", "/media/".
-ADMIN_MEDIA_PREFIX = '/media/'
+SESSION_SAVE_EVERY_REQUEST = False
 
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = '#*9#i03#2cy2p&z9bogb0s5sq+(cay6z!5p$8!i&2=mdqddjwa'
@@ -59,7 +63,6 @@ SECRET_KEY = '#*9#i03#2cy2p&z9bogb0s5sq+(cay6z!5p$8!i&2=mdqddjwa'
 TEMPLATE_LOADERS = (
 	'django.template.loaders.filesystem.load_template_source',
 	'django.template.loaders.app_directories.load_template_source',
-#	'django.template.loaders.eggs.load_template_source',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -67,9 +70,25 @@ MIDDLEWARE_CLASSES = (
 	'django.contrib.sessions.middleware.SessionMiddleware',
 	'django.contrib.auth.middleware.AuthenticationMiddleware',
 	'django.middleware.transaction.TransactionMiddleware',
+	'django.middleware.doc.XViewMiddleware',
+	'todo.middleware.Custom403Middleware',
 )
 
-ROOT_URLCONF = 'lansite.urls'
+AUTHENTICATION_BACKENDS = (
+	'django.contrib.auth.backends.ModelBackend',
+)
+
+
+ROOT_URLCONF = 'urls'
+
+TEMPLATE_CONTEXT_PROCESSORS = (
+	'django.core.context_processors.auth',
+	'django.core.context_processors.debug',
+	'django.core.context_processors.i18n',
+	'django.core.context_processors.media',
+	'context_processors.host',
+	'context_processors.my_media_url',
+)
 
 TEMPLATE_DIRS = (
 	# Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
@@ -86,15 +105,36 @@ INSTALLED_APPS = (
 	'django.contrib.databrowse',
 	'django.contrib.sessions',
 	'django.contrib.sites',
-	#'lansite.run1s',
-	'lansite.sro',
-	'lansite.sro2',
-	#'lansite.insupol',
+	#'insupol',
+	#'run1s',
+	#'sro',
+	'sro2',
+	'todo',
 )
 
-TEMPLATE_CONTEXT_PROCESSORS = (
-	'django.core.context_processors.auth',
-        'django.core.context_processors.debug',
-        'django.core.context_processors.i18n',
-        'django.core.context_processors.media',
-)
+# Absolute path to the directory that holds media.
+# Example: "/home/media/media.lawrence.com/"
+#MEDIA_ROOT = ''
+MEDIA_ROOT = '/mnt/shares/lansite/media/'
+STATIC_DOC_ROOT = '/mnt/shares/lansite/media/'
+
+# URL that handles the media served from MEDIA_ROOT. Make sure to use a
+# trailing slash if there is a path component (optional in other cases).
+# Examples: "http://media.lawrence.com", "http://example.com/media/"
+#MEDIA_URL = ''
+MEDIA_URL = '/lansite_media/'
+
+# URL prefix for admin media -- CSS, JavaScript and images. Make sure to use a
+# trailing slash.
+# Examples: "http://foo.com/media/", "/media/".
+ADMIN_MEDIA_PREFIX = '/media/'
+
+##################################################################################
+# You can create local_settings.py to override the settings.
+# It is recomended to put all your custom settings (database, path, etc.) there
+# if you want to update from Subversion in future.
+##################################################################################
+try:
+	from local_settings import *
+except ImportError:
+	pass

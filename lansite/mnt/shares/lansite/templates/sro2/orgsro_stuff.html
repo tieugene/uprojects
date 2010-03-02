@@ -16,7 +16,7 @@
 			<td> {{ i.role.asstr }} </td>
 			<td align="center"> [{% ifequal i.leader 1 %} V {% else %} &nbsp; {% endifequal %}] </td>
 			<td align="center"> [{% ifequal i.permanent 1 %} V {% else %} &nbsp; {% endifequal %}] </td>
-			<td> {% if perms.sro2.delete_orgstuff %} <input type="button" value="X" title="Удалить" onClick="confirmDelete('{% url lansite.sro2.views.orgsro_stuff_del orgsro.id, i.id %}#stuff')"/> {% endif %} </td>
+			<td> {% if perms.sro2.delete_orgstuff %} <input type="button" value="X" title="Удалить" onClick="confirmDelete('{% url sro2.views.orgsro_stuff_del orgsro.id, i.id %}#stuff')"/> {% endif %} </td>
 		</tr>
 	{% endfor %}
 	<!-- add -->
@@ -61,7 +61,7 @@
 		<tr>
 		{% if perms.sro2.add_person %}
 			<td colspan>
-				<form action="{% url lansite.sro2.views.orgsro_stuff_add_person orgsro.id %}#stuff" method="POST">
+				<form action="{% url sro2.views.orgsro_stuff_add_person orgsro.id %}#stuff" method="POST">
 				<div class="fieldWrapper">
 					{{ form_person.lastname.errors }}
 					Ф:
@@ -83,7 +83,7 @@
 		{% endif %}
 		{% if perms.sro2.add_role %}
 			<td valign="top">
-				<form action="{% url lansite.sro2.views.orgsro_stuff_add_role orgsro.id %}#stuff" method="POST">
+				<form action="{% url sro2.views.orgsro_stuff_add_role orgsro.id %}#stuff" method="POST">
 				<div class="fieldWrapper">
 					{{ form_role.name.label_tag }}:
 					{{ form_role.name.errors }}
@@ -101,5 +101,5 @@
 			<td/>
 		</tr>
 	</table>
-	<input type="button" value="Закончить" onClick="window.location.href='{% url lansite.sro2.views.orgsro_view orgsro.id %}#stuff'"/>
+	<input type="button" value="Закончить" onClick="window.location.href='{% url sro2.views.orgsro_view orgsro.id %}#stuff'"/>
 {% endblock %}

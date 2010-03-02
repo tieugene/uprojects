@@ -15,10 +15,10 @@ function confirmDelete(delUrl) {
 
 {% block sidebar %}
 	<center> <h1>
-		<a href="{% url lansite.views.index %}"> LanSite </a> &gt; 
-		<a href="{% url lansite.sro2.views.index %}"> СРО2 </a> &gt;
-		<a href="{% url lansite.sro2.views.index_sro orgsro.sro.id %}"> {{ orgsro.sro.name }} </a> &gt;
-		<a href="{% url lansite.sro2.views.sro_list orgsro.sro.id %}"> Организации </a> &gt;
+		<a href="{% url views.index %}"> LanSite </a> &gt; 
+		<a href="{% url sro2.views.index %}"> СРО2 </a> &gt;
+		<a href="{% url sro2.views.index_sro orgsro.sro.id %}"> {{ orgsro.sro.name }} </a> &gt;
+		<a href="{% url sro2.views.sro_list orgsro.sro.id %}"> Организации </a> &gt;
 		{{ orgsro.org.name }}
 	</h1> </center>
 {% endblock %}
@@ -142,7 +142,7 @@ function confirmDelete(delUrl) {
 			</tr>
 		{% for i in orgsro.org.orgstuff_set.all %}
 			<tr>
-				<td> <a href="{% url lansite.sro2.views.person_view orgsro.sro.id i.person.id %}"> {{ i.person.asstr }} </a> </td>
+				<td> <a href="{% url sro2.views.person_view orgsro.sro.id i.person.id %}"> {{ i.person.asstr }} </a> </td>
 				<td> {{ i.role.asstr }} </td>
 				<td align="center"> [{% ifequal i.leader 1 %} &radic; {% else %} &nbsp; {% endifequal %}] </td>
 				<td align="center"> [{% ifequal i.permanent 1 %} &radic; {% else %} &nbsp; {% endifequal %}] </td>
@@ -157,7 +157,7 @@ function confirmDelete(delUrl) {
 	{% if orgsro.stagelist_set.all %}
 		<ul>
 		{% for i in orgsro.stagelist_set.all %}
-			<li> <a href="{% url lansite.sro2.views.stagelist_list i.id %}"> {{ i.type.name }}
+			<li> <a href="{% url sro2.views.stagelist_list i.id %}"> {{ i.type.name }}
 			{% ifequal i.type.id 1 %}
 				от {{ i.statement.date|date }}
 			{% endifequal %}

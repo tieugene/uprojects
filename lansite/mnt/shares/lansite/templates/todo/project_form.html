@@ -1,0 +1,44 @@
+<script type="text/javascript"> 
+$(document).ready(function(){
+	$("#id_title").attr("required", "true");
+	$("#id_deadline").attr("mask", "datemask");
+	
+	$('#projectform').formValidation({
+		err_class: "invalidInput",
+		display_alert: false
+	});
+});
+</script> 
+
+<div class="formErrors">
+	{% if form.title.errors %}Не введено название проекта<br />{% endif %}
+</div>
+
+<div class="editformWrapper" style="width:800px">
+<form method="post" id="editform">
+	<table id="editform_table" cellspacing="0">
+	<tr>
+		<th><label for="id_title"><span class="red">*</span> Проект:</label></th>
+		<td>{{form.title}}</td>
+	</tr>
+	<tr>
+		<th style="padding-top: 30px"><label for="id_info">Описание:</label></th>
+		<td>{% include "todo/wysiwyg.html" %} {{form.info}}</td>
+	</tr>
+	<tr>
+		<th style="width:180px"><span class="red">*</span> <label for="id_users">Пользователи:</label><br /><span style="color:#999">(aдминистраторы имеют доступ в любом случае)</span></th>
+		<td>{{form.users}}</td>
+	</tr>
+	<tr>
+		<th></th>
+		<td style="padding-top:10px"><input type="submit" value="Сохранить" class="button" /><a href="{% if add %}{% url projects_list %}{% else %}{% url project_details project.id %}{% endif %}">отмена</a></td>
+	</tr>
+	</table>
+</form>
+</div>
+
+{% if add %}
+<script language="javascript">
+	document.getElementById('id_title').focus();
+</script>
+{% endif %}

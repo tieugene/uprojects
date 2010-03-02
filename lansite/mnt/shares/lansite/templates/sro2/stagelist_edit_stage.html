@@ -51,6 +51,6 @@ function ItemClicked (item) {
 	{% endfor %}
 </table>
 <input type="submit" value="Сохранить и выйти" />
-<input type="button" value="Выйти без сохранения" onClick="window.location.href='{% url lansite.sro2.views.stagelist_list stagelist.id %}'"/> </td>
+<input type="button" value="Выйти без сохранения" onClick="window.location.href='{% url sro2.views.stagelist_list stagelist.id %}'"/> </td>
 </form>
 {% endblock %}
