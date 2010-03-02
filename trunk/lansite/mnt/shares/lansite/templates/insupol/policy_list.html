@@ -1,0 +1,26 @@
+<h1> <a href="../../">LanSite</a> &gt; <a href="../"> InsuPol </a> &gt; Полисы </h1>
+{% if policy_list %}
+	<table border="1">
+	<thead>
+		<tr> <th> Серия-Номер </th> <th> Дата </th> <th> Сумма </th> <th> Начало </th> <th> Окончание </th> <th> Премия </th> <th> КВ </th> <th/> <th/> </tr>
+	</thead>
+	<tbody>
+	{% for policy in policy_list %}
+		<tr>
+			<td> <a href="{{ policy.id }}/"> {{ policy.id }} </a> </td>
+			<td> {{ policy.date }} </td>
+			<td> {{ policy.sumper }} </td>
+			<td> {{ policy.dateeff }} </td>
+			<td> {{ policy.dateexp }} </td>
+			<td> {{ policy.premium }} </td>
+			<td> {{ policy.reward }} </td>
+			<td> <a href="{{ policy.id }}/edit/"> Edit </a> </td>
+			<td> <a href="{{ policy.id }}/del/"> Delete </a> </td>
+		</tr>
+	{% endfor %}
+	</tbody>
+	</table>
+{% else %}
+	<p>No policy are available.</p>
+{% endif %}
+<a href="add/"> Add </a>

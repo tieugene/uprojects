@@ -1,7 +1,7 @@
 {% extends "sro2/stagelist_base.html" %}
 {% block editmain %}
 {% if perms.sro.change_permit %}
-<input type="button" value="Изменить" onClick="window.location.href='{% url lansite.sro2.views.stagelist_edit stagelist.id %}'"/>
+<input type="button" value="Изменить" onClick="window.location.href='{% url sro2.views.stagelist_edit stagelist.id %}'"/>
 {% endif %}
 {% endblock %}
 {% block stages %}
@@ -28,13 +28,13 @@ function SelectAll (state) {
 }
 </script>
 
-<form action="{% url lansite.sro2.views.stagelist_dup stagelist.id %}" method="POST" name="form1">
+<form action="{% url sro2.views.stagelist_dup stagelist.id %}" method="POST" name="form1">
 <p>
 {{ form.type }}
 <input type="submit" value="Дубль" title="Скопировать этот документ в другой"/>
 </p>
 </form>
-<form action="{% url lansite.sro2.views.stagelist_cmp stagelist.id %}" method="POST" name="form1">
+<form action="{% url sro2.views.stagelist_cmp stagelist.id %}" method="POST" name="form1">
 <p>
 {{ form.other }}
 <input type="submit" value="Сравнить" disabled title="Сравнить составы двух документов"/>
@@ -43,8 +43,8 @@ function SelectAll (state) {
 <form action="." method="POST" name="myform">
 {% ifequal stagelist.type.id 2 %}
 <p>
-<input type="button" value="HTML" title="Напечатать разрешение (HTML)" onClick="window.location.href='{% url lansite.sro2.views.stagelist_html stagelist.id %}'"/>
-<input type="button" value="PDF" title="Напечатать разрешение (PDF)" onClick="window.location.href='{% url lansite.sro2.views.stagelist_pdf stagelist.id %}'"/>
+<input type="button" value="HTML" title="Напечатать разрешение (HTML)" onClick="window.location.href='{% url sro2.views.stagelist_html stagelist.id %}'"/>
+<input type="button" value="PDF" title="Напечатать разрешение (PDF)" onClick="window.location.href='{% url sro2.views.stagelist_pdf stagelist.id %}'"/>
 </p>
 {% endifequal %}
 <table border="0">
@@ -62,7 +62,7 @@ function SelectAll (state) {
 			</div>
 		</td>
 		{% if perms.sro2.add_permitstage and perms.sro2.add_permitstagejob and perms.sro2.delete_permitstage and perms.sro2.add_permitstagejob %}
-		<td valign="top"> <input type="button" value="Изменить" onClick="window.location.href='{% url lansite.sro2.views.stagelist_edit_stage stagelist.id, s.id %}'"/> </td>
+		<td valign="top"> <input type="button" value="Изменить" onClick="window.location.href='{% url sro2.views.stagelist_edit_stage stagelist.id, s.id %}'"/> </td>
 		<td align="center" colspan="2" bgcolor="red"> <input type="checkbox" name="set" value="{{ s.id }}"/> </td>
 		{% endif %}
 	<tr>

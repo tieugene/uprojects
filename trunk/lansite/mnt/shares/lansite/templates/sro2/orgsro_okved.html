@@ -4,8 +4,8 @@
 	<table>
 		{% for i in orgsro.org.okveds.all %}
 			<tr>
-				<td> {{ i.okved.asstr }} </td>
-				<td> {% if perms.sro2.delete_orgokved %} <input type="button" value="X" onClick="confirmDelete('{% url lansite.sro2.views.orgsro_okved_del orgsro.id, i.id %}#okved')"/> {% endif %} </td>
+				<td> {{ i.asstr }} </td>
+				<td> {% if perms.sro2.delete_orgokved %} <input type="button" value="X" onClick="confirmDelete('{% url sro2.views.orgsro_okved_del orgsro.id, i.id %}#okved')"/> {% endif %} </td>
 			</tr>
 		{% endfor %}
 		{% if perms.sro2.add_orgokved %}
@@ -19,6 +19,6 @@
 			</tr>
 		{% endif %}
 	</table>
-	<input type="button" value="Закончить" onClick="window.location.href='{% url lansite.sro2.views.orgsro_view orgsro.id %}#okved'"/>
+	<input type="button" value="Закончить" onClick="window.location.href='{% url sro2.views.orgsro_view orgsro.id %}#okved'"/>
 	</form>
 {% endblock %}

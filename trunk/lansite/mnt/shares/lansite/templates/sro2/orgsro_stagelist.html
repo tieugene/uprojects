@@ -17,7 +17,7 @@
 				№ {{ i.permit.no }} от {{ i.permit.date|date }}, протокол № {{ i.permit.protocol.no }} от {{ i.permit.protocol.date|date }}
 			{% endifequal %}
 			</td>
-			<td> {% if perms.sro2.delete_stagelist %} <input type="button" value="X" onClick="confirmDelete('{% url lansite.sro2.views.orgsro_stagelist_del orgsro.id, i.id %}#permit')"/> {% endif %} </td>
+			<td> {% if perms.sro2.delete_stagelist %} <input type="button" value="X" onClick="confirmDelete('{% url sro2.views.orgsro_stagelist_del orgsro.id, i.id %}#permit')"/> {% endif %} </td>
 		</tr>
 	{% endfor %}
 	<!-- add -->
@@ -35,5 +35,5 @@
 	</form>
 	{% endif %}
 	</table>
-	<input type="button" value="Закончить" onClick="window.location.href='{% url lansite.sro2.views.orgsro_view orgsro.id %}#permit'"/>
+	<input type="button" value="Закончить" onClick="window.location.href='{% url sro2.views.orgsro_view orgsro.id %}#permit'"/>
 {% endblock %}

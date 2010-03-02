@@ -7,13 +7,13 @@
 </head>
 <body>
 <center>
-	<h1> <a href="{% url lansite.views.index %}"> LanSite </a> &gt; СРО2 </h1>
+	<h1> <a href="{% url views.index %}"> LanSite </a> &gt; СРО2 </h1>
 	<table width="100%" border="0">
 		<tr align="center" bgcolor="lightgrey">
 		{% for sro in sro_list %}
-			<td> <a href="{% url lansite.sro2.views.index_sro sro.id %}"> {{ sro.name }} </a> </td>
+			<td> <a href="{% url sro2.views.index_sro sro.id %}"> {{ sro.name }} </a> </td>
 		{% endfor %}
-			<td> <a href="{% url lansite.sro2.views.journal %}"> Журнал </a> </td>
+			<td> <a href="{% url sro2.views.journal %}"> Журнал </a> </td>
 		</tr>
 	</table>
 </center>

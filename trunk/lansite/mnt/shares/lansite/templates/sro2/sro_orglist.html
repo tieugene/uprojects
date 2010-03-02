@@ -14,10 +14,10 @@ function confirmDelete(delUrl) {
 }
 </script>
 
-<center> <h1> <a href="{% url lansite.views.index %}"> LanSite </a> &gt; <a href="{% url lansite.sro2.views.index %}"> СРО2 </a> &gt; <a href="{% url lansite.sro2.views.index_sro sro.id %}"> {{ sro.name }} </a> &gt; Организации </h1> </center>
+<center> <h1> <a href="{% url views.index %}"> LanSite </a> &gt; <a href="{% url sro2.views.index %}"> СРО2 </a> &gt; <a href="{% url sro2.views.index_sro sro.id %}"> {{ sro.name }} </a> &gt; Организации </h1> </center>
 <hr/>
 {% if perms.sro.add_org %}
-<input type="button" value="+" title="Добавить" onClick="window.location.href='{% url lansite.sro2.views.sro_org_add sro.id %}'"/>
+<input type="button" value="+" title="Добавить" onClick="window.location.href='{% url sro2.views.sro_org_add sro.id %}'"/>
 {% endif %}
 	<table border="0">
 	<thead>
@@ -42,10 +42,10 @@ function confirmDelete(delUrl) {
 	{% for orgsro in orgsro_list %}
 		<tr>
 			<td> {{ forloop.counter }} </td>
-			<td> <a href="{% url lansite.sro2.views.orgsro_view orgsro.id %}" title="{{ orgsro.org.fullname }}">{{ orgsro.org.name }} </td>
+			<td> <a href="{% url sro2.views.orgsro_view orgsro.id %}" title="{{ orgsro.org.fullname }}">{{ orgsro.org.name }} </td>
 			<td> {% if orgsro.org.okato %} {{ orgsro.org.okato }} {% endif %} </td>
 			<td> {% if orgsro.orginsurance %} {{ orgsro.orginsurance.insurer }} {% endif %} </td>
-			<td> {% if perms.sro2.delete_orgsro %} <input type="button" value="X" title="Удалить" onClick="confirmDelete('{% url lansite.sro2.views.orgsro_del orgsro.id %}')"/>  {% endif %} </td>
+			<td> {% if perms.sro2.delete_orgsro %} <input type="button" value="X" title="Удалить" onClick="confirmDelete('{% url sro2.views.orgsro_del orgsro.id %}')"/>  {% endif %} </td>
 		</tr>
 	{% endfor %}
 	</tbody>
@@ -53,10 +53,10 @@ function confirmDelete(delUrl) {
 	</table>
 <hr/>
 <p>
-	[ <a title="Список организаций для размещения на вебсайте" href="{% url lansite.sro2.views.sro_publish sro.id %}"> Просмотр </a> ]
-	[ <a title="Размещение на вебсайте" href="{% url lansite.sro2.views.sro_upload sro.id %}"> Публикация </a> ]
-	[ <a title="Список членов в табличном виде" href="{% url lansite.sro2.views.sro_table sro.id %}"> Таблица </a> ]
-	[ <a title="URL для рассылки электромыла всем" href="{% url lansite.sro2.views.sro_mailto sro.id %}"> Мыло всем </a> ]
+	[ <a title="Список организаций для размещения на вебсайте" href="{% url sro2.views.sro_publish sro.id %}"> Просмотр </a> ]
+	[ <a title="Размещение на вебсайте" href="{% url sro2.views.sro_upload sro.id %}"> Публикация </a> ]
+	[ <a title="Список членов в табличном виде" href="{% url sro2.views.sro_table sro.id %}"> Таблица </a> ]
+	[ <a title="URL для рассылки электромыла всем" href="{% url sro2.views.sro_mailto sro.id %}"> Мыло всем </a> ]
 </p>
 </body>
 </html>

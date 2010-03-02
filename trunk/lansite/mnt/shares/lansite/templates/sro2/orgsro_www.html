@@ -4,7 +4,7 @@
 	{% for i in orgsro.org.orgwww_set.all %}
 		<tr>
 			<td> {{ i.asstr }} </td>
-			<td> {% if perms.sro2.delete_orgwww %} <input type="button" value="X" onClick="confirmDelete('{% url lansite.sro2.views.orgsro_www_del orgsro.id, i.id %}#www')"/> {% endif %} </td>
+			<td> {% if perms.sro2.delete_orgwww %} <input type="button" value="X" onClick="confirmDelete('{% url sro2.views.orgsro_www_del orgsro.id, i.id %}#www')"/> {% endif %} </td>
 		</tr>
 	{% endfor %}
 	{% if perms.sro.add_orgwww %}
@@ -16,5 +16,5 @@
 		</form>
 	{% endif %}
 	</table>
-<input type="button" value="Закончить" onClick="window.location.href='{% url lansite.sro2.views.orgsro_view orgsro.id %}#www'"/>
+<input type="button" value="Закончить" onClick="window.location.href='{% url sro2.views.orgsro_view orgsro.id %}#www'"/>
 {% endblock %}

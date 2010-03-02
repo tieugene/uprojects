@@ -6,10 +6,10 @@
 </head>
 <body>
 <center> <h1>
-	<a href="{% url lansite.views.index %}"> LanSite </a> &gt; 
-	<a href="{% url lansite.sro2.views.index %}"> СРО2 </a> &gt;
-	<a href="{% url lansite.sro2.views.index_sro sro.id %}"> {{ sro.name }} </a> &gt;
-	<a href="{% url lansite.sro2.views.sro_list sro.id %}"> Организации </a> &gt;
+	<a href="{% url views.index %}"> LanSite </a> &gt; 
+	<a href="{% url sro2.views.index %}"> СРО2 </a> &gt;
+	<a href="{% url sro2.views.index_sro sro.id %}"> {{ sro.name }} </a> &gt;
+	<a href="{% url sro2.views.sro_list sro.id %}"> Организации </a> &gt;
 	Новая
 	</h1> </center>
 <form action=".#org" method="POST">
@@ -17,5 +17,5 @@
 {{ form.as_table }}
 </table>
 <input type="submit" value="Записать и закрыть" />
-<input type="button" value="Отказаться" onClick="window.location.href='{% url lansite.sro2.views.sro_list sro.id %}'"/>
+<input type="button" value="Отказаться" onClick="window.location.href='{% url sro2.views.sro_list sro.id %}'"/>
 </form>

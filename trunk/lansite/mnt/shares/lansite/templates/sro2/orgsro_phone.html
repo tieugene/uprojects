@@ -4,7 +4,7 @@
 	{% for i in orgsro.org.orgphone_set.all %}
 		<tr>
 			<td> {{ i.asstr }} </td>
-			<td> {% if perms.sro2.delete_orgphone %} <input type="button" value="X" onClick="confirmDelete('{% url lansite.sro2.views.orgsro_phone_del orgsro.id, i.id %}#phone')"/> {% endif %} </td>
+			<td> {% if perms.sro2.delete_orgphone %} <input type="button" value="X" onClick="confirmDelete('{% url sro2.views.orgsro_phone_del orgsro.id, i.id %}#phone')"/> {% endif %} </td>
 		</tr>
 	{% endfor %}
 	{% if perms.sro2.add_orgphone %}
@@ -16,5 +16,5 @@
 		</form>
 	{% endif %}
 	</table>
-<input type="button" value="Закончить" onClick="window.location.href='{% url lansite.sro2.views.orgsro_view orgsro.id %}#phone'"/>
+<input type="button" value="Закончить" onClick="window.location.href='{% url sro2.views.orgsro_view orgsro.id %}#phone'"/>
 {% endblock %}
