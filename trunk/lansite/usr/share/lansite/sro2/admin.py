@@ -218,9 +218,15 @@ class	OrgAdmin(admin.ModelAdmin):
 	inlines		= (OrgOkvedInLine, OrgPhoneInLine, OrgEmailInLine, OrgWWWInLine, OrgStuffInLine, OrgSroInLine)
 	raw_id_fields	= ('okveds',)
 
+class	AgentAdmin(admin.ModelAdmin):
+	list_display	= ('name',)
+	ordering	= ('name',)
+
 class	OrgSroAdmin(admin.ModelAdmin):
-	list_display	= ('org', 'sro')
+	list_display	= ('org', 'sro', 'agent',)
 	ordering	= ('org', 'sro')
+	list_filter	= ('sro', 'agent',)
+	search_fields	= ('sro', 'agent')
 	inlines		= (OrgEventInLine, OrgLicenseInLine, OrgInsuranceInLine, StageListInLine)
 
 class	StageListTypeAdmin(admin.ModelAdmin):
@@ -260,6 +266,7 @@ admin.site.register(EventType,		EventTypeAdmin)
 admin.site.register(Role,		RoleAdmin)
 admin.site.register(Person,		PersonAdmin)
 admin.site.register(Org,		OrgAdmin)
+admin.site.register(Agent,		AgentAdmin)
 admin.site.register(OrgSro,		OrgSroAdmin)
 admin.site.register(StageListType,	StageListTypeAdmin)
 admin.site.register(StageList,		StageListAdmin)

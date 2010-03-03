@@ -141,6 +141,7 @@ class	SroOwn(models.Model):
 	jobs		= models.CharField(max_length=100, null=False, blank=False, verbose_name=u'Работы для допусков')
 	ftp		= models.CharField(max_length=50, null=True, blank=True, verbose_name=u'FTP')
 	path		= models.CharField(max_length=100, null=True, blank=True, verbose_name=u'Path')
+	subtitle	= models.CharField(max_length=1000, null=True, blank=True, verbose_name=u'Подтитул')
 
 	def	asstr(self):
 		return self.sro.name
@@ -424,6 +425,19 @@ class	OrgStuff(models.Model):
 		verbose_name_plural	= u'Организация.Должностные лица'
 		unique_together		= [('org', 'role', 'person')]
 
+class	Agent(models.Model):
+	name		= models.CharField(max_length=50, null=False, blank=False, verbose_name=u'Наименование')
+
+	def	asstr(self):
+		return self.name
+
+	def	__unicode__(self):
+		return self.asstr()
+
+	class	Meta:
+		verbose_name		= u'Агент'
+		verbose_name_plural	= u'Агенты'
+
 class	OrgSro(models.Model):
 	org		= models.ForeignKey(Org, verbose_name=u'Организация')
 	sro		= models.ForeignKey(Sro, verbose_name=u'СРО')
@@ -434,6 +448,7 @@ class	OrgSro(models.Model):
 	paydatevv	= models.DateField(null=True, blank=True, verbose_name=u'Дата оплаты вступительного взноса')
 	comments	= models.TextField(null=True, blank=True, verbose_name=u'Коментарии')
 	publish		= models.BooleanField(null=False, blank=False, default=False, verbose_name=u'Публиковать')
+	agent		= models.ForeignKey(Agent, null=True, blank=True, verbose_name=u'Агент')
 	events		= models.ManyToManyField(EventType, through='OrgEvent', verbose_name=u'События')
 
 	def	asstr(self):
@@ -612,5 +627,6 @@ class	Permit(models.Model):
 modellist = (
 	Insurer, Okato, Okopf, Okved, SroType, Sro, Stage, Job, Speciality, SpecialityStage,
 	Skill, EventType, Role, Person, PersonSkill, Org, OrgOkved, OrgPhone, OrgEmail, OrgWWW,
-	OrgStuff, OrgSro, OrgEvent, OrgLicense, OrgInsurance, Protocol, StageListType, StageList, PermitStage, PermitStageJob,
+	OrgStuff, Agent, OrgSro, OrgEvent, OrgLicense, OrgInsurance, Protocol, StageListType, StageList, PermitStage,
+	PermitStageJob, Statement, Permit
 )

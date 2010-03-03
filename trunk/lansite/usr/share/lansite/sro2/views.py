@@ -184,7 +184,6 @@ def	orgsro_extract(request, orgsro_id):
 	#perm = Permit.objects.get(org=org, type=StageListType.objects.get(pk=1))
 	ptype = StageListType.objects.get(pk=2)
 	stagelists = StageList.objects.filter(orgsro=orgsro, type=ptype, permit__date__lte=datetime.today())
-	print stagelists.count()
 	permit = stagelists.latest('permit__date')
 	changes = stagelists.filter(permit__no__lt=permit.permit.no)
 	return render_to_response('sro2/orgsro_extract.html', RequestContext(request, { 'orgsro': orgsro, 'permit': permit, 'changes': changes, 'date': datetime.now() }))
@@ -742,7 +741,6 @@ def	stagelist_dup_edit(request, perm_id, type_id):
 						PermitStageJob(permitstage=permitstage, job=psj.job).save()
 			except:
 				transaction.rollback()
-			#	print "except"
 			#	return HttpResponseRedirect('../../')
 			else:
 				transaction.commit()
