@@ -1,7 +1,7 @@
 {% extends "sro/permit_base.html" %}
 {% block editmain %}
 {% if perms.sro.change_permit %}
-<input type="button" value="Изменить" onClick="window.location.href='{% url lansite.sro.views.permit_edit permit.id %}'"/>
+<input type="button" value="Изменить" onClick="window.location.href='{% url sro.views.permit_edit permit.id %}'"/>
 {% endif %}
 {% endblock %}
 {% block stages %}
@@ -42,8 +42,8 @@ function SelectAll (state) {
 </form>
 <form action="." method="POST" name="myform">
 <p>
-<input type="button" value="HTML" title="Напечатать разрешение (HTML)" onClick="window.location.href='{% url lansite.sro.views.permit_html permit.id %}'"/>
-<input type="button" value="PDF" title="Напечатать разрешение (PDF)" onClick="window.location.href='{% url lansite.sro.views.permit_pdf permit.id %}'"/>
+<input type="button" value="HTML" title="Напечатать разрешение (HTML)" onClick="window.location.href='{% url sro.views.permit_html permit.id %}'"/>
+<input type="button" value="PDF" title="Напечатать разрешение (PDF)" onClick="window.location.href='{% url sro.views.permit_pdf permit.id %}'"/>
 </p>
 <table border="0">
 {% for s, sflag, jobs in stages %}
@@ -60,7 +60,7 @@ function SelectAll (state) {
 			</div>
 		</td>
 		{% if perms.sro.add_permitstage and perms.sro.add_permitstagejob and perms.sro.delete_permitstage and perms.sro.add_permitstagejob %}
-		<td valign="top"> <input type="button" value="Изменить" onClick="window.location.href='{% url lansite.sro.views.permit_edit_stage permit.id, s.id %}'"/> </td>
+		<td valign="top"> <input type="button" value="Изменить" onClick="window.location.href='{% url sro.views.permit_edit_stage permit.id, s.id %}'"/> </td>
 		<td align="center" colspan="2" bgcolor="red"> <input type="checkbox" name="set" value="{{ s.id }}"/> </td>
 		{% endif %}
 	<tr>

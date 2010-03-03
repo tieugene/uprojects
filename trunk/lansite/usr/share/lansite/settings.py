@@ -107,7 +107,7 @@ INSTALLED_APPS = (
 	'django.contrib.sites',
 	#'insupol',
 	#'run1s',
-	#'sro',
+	'sro',
 	'sro2',
 	'todo',
 )

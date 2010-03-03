@@ -24,7 +24,7 @@
 				<tr> <td> СоПК. Тема </td>			<td> {% if i.coursename %} {{ i.coursename }} {% endif %} </td> </tr>
 				<tr> <td> СоПК. Уч. зав. </td>			<td> {% if i.courseschool %} {{ i.courseschool }} {% endif %} </td> </tr>
 			</table> </td>
-			<td> {% if perms.sro.delete_personskill %} <input type="button" value="X" title="Удалить" onClick="confirmDelete('{% url lansite.sro.views.person_skill_del person.id, i.id %}#stuff')"/> {% endif %} </td>
+			<td> {% if perms.sro.delete_personskill %} <input type="button" value="X" title="Удалить" onClick="confirmDelete('{% url sro.views.person_skill_del person.id, i.id %}#stuff')"/> {% endif %} </td>
 		</tr>
 	{% endfor %}
 	</table>
@@ -80,5 +80,5 @@
 </tr>
 </table>
 {% endif %}
-<input type="button" value="Закончить" onClick="window.location.href='{% url lansite.sro.views.person_view person.id %}#skill'"/>
+<input type="button" value="Закончить" onClick="window.location.href='{% url sro.views.person_view person.id %}#skill'"/>
 {% endblock %}

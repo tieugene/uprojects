@@ -14,7 +14,7 @@ function confirmDelete(delUrl) {
 }
 </script>
 
-<center> <h1> <a href="{% url lansite.views.index %}">LanSite</a> &gt; <a href="{% url lansite.sro.views.index %}"> СРО </a> &gt; Люди </h1> </center>
+<center> <h1> <a href="{% url views.index %}">LanSite</a> &gt; <a href="{% url sro.views.index %}"> СРО </a> &gt; Люди </h1> </center>
 <hr/>
 {% if person_list %}
 	<table border="0">
@@ -25,10 +25,10 @@ function confirmDelete(delUrl) {
 	{% for person in person_list %}
 		<tr>
 			<td>  {{ forloop.counter }} </td>
-			<td> <a href="{% url lansite.sro.views.person_view person.id %}"> {{ person.lastname }} </a> </td>
+			<td> <a href="{% url sro.views.person_view person.id %}"> {{ person.lastname }} </a> </td>
 			<td>  {{ person.firstname }} </td>
 			<td>  {{ person.midname }} </td>
-			<td> {% if perms.sro.delete_person %} <input type="button" value="X" title="Удалить" onClick="confirmDelete('{% url lansite.sro.views.person_del person.id %}')"/> {% endif %} </td>
+			<td> {% if perms.sro.delete_person %} <input type="button" value="X" title="Удалить" onClick="confirmDelete('{% url sro.views.person_del person.id %}')"/> {% endif %} </td>
 		</tr>
 	{% endfor %}
 	</tbody>

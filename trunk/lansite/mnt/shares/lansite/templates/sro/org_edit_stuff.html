@@ -16,7 +16,7 @@
 			<td> {{ i.role.asstr }} </td>
 			<td align="center"> [{% ifequal i.leader 1 %} V {% else %} &nbsp; {% endifequal %}] </td>
 			<td align="center"> [{% ifequal i.permanent 1 %} V {% else %} &nbsp; {% endifequal %}] </td>
-			<td> {% if perms.sro.delete_orgstuff %} <input type="button" value="X" title="Удалить" onClick="confirmDelete('{% url lansite.sro.views.org_edit_stuff_del org.id, i.id %}#stuff')"/> {% endif %} </td>
+			<td> {% if perms.sro.delete_orgstuff %} <input type="button" value="X" title="Удалить" onClick="confirmDelete('{% url sro.views.org_edit_stuff_del org.id, i.id %}#stuff')"/> {% endif %} </td>
 		</tr>
 	{% endfor %}
 	<!-- add -->
@@ -101,5 +101,5 @@
 			<td/>
 		</tr>
 	</table>
-	<input type="button" value="Закончить" onClick="window.location.href='{% url lansite.sro.views.org_view org.id %}#stuff'"/>
+	<input type="button" value="Закончить" onClick="window.location.href='{% url sro.views.org_view org.id %}#stuff'"/>
 {% endblock %}

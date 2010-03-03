@@ -4,7 +4,7 @@
 	{% for i in www %}
 		<tr>
 			<td> {{ i.asstr }} </td>
-			<td> {% if perms.sro.delete_orgwww %} <input type="button" value="X" onClick="confirmDelete('{% url lansite.sro.views.org_edit_www_del org.id, i.id %}#www')"/> {% endif %} </td>
+			<td> {% if perms.sro.delete_orgwww %} <input type="button" value="X" onClick="confirmDelete('{% url sro.views.org_edit_www_del org.id, i.id %}#www')"/> {% endif %} </td>
 		</tr>
 	{% endfor %}
 	{% if perms.sro.add_orgwww %}
@@ -16,5 +16,5 @@
 		</form>
 	{% endif %}
 	</table>
-<input type="button" value="Закончить" onClick="window.location.href='{% url lansite.sro.views.org_view org.id %}#www'"/>
+<input type="button" value="Закончить" onClick="window.location.href='{% url sro.views.org_view org.id %}#www'"/>
 {% endblock %}

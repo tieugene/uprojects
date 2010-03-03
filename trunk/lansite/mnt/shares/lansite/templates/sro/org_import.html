@@ -6,7 +6,7 @@
 	<link rel="stylesheet" href="base.css" type="text/css" />
 </head>
 <body>
-<center> <h1> <a href="{% url lansite.views.index %}">LanSite</a> &gt; <a href="{% url lansite.sro.views.index %}"> СРО </a> &gt; Организации </h1> </center>
+<center> <h1> <a href="{% url views.index %}">LanSite</a> &gt; <a href="{% url sro.views.index %}"> СРО </a> &gt; Организации </h1> </center>
 {% if org_list %}
 	<table border="1">
 	<thead>
@@ -65,8 +65,8 @@
 	</tbody>
 	</table>
 {% endif %}
-<input type="submit" value="OK" onClick="window.location.href='{% url lansite.sro.views.org_list %}'"/>
-<input type="button" value="Cancel" onClick="window.location.href='{% url lansite.sro.views.org_list %}'"/>
+<input type="submit" value="OK" onClick="window.location.href='{% url sro.views.org_list %}'"/>
+<input type="button" value="Cancel" onClick="window.location.href='{% url sro.views.org_list %}'"/>
 <hr/>
 Todo:
 <ol>
