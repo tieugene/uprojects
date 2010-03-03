@@ -4,11 +4,11 @@
 {% for s, sflag in stages %}
 	<a name="{{ s.id }}"/>
 	<tr {% if forloop.counter|divisibleby:2 %} bgcolor="lightgrey" {% endif %}>
-		<td> {% ifequal s.id id %} <a href="{% url lansite.sro.views.permit_list permit.id %}#{{ s.id }}"> - </a> {% else %} <a href="{% url lansite.sro.views.permit_view permit.id, s.id %}#{{ s.id }}"> + </a> {% endifequal %} </td>
+		<td> {% ifequal s.id id %} <a href="{% url sro.views.permit_list permit.id %}#{{ s.id }}"> - </a> {% else %} <a href="{% url sro.views.permit_view permit.id, s.id %}#{{ s.id }}"> + </a> {% endifequal %} </td>
 		<td align="center"> {% ifequal sflag 1 %} &radic; {% endifequal %} </td>
 		<td> {{ s.id }} </td>
 		<td> {{ s.name }} </td>
-		<td> <a href="{% url lansite.sro.views.permit_edit permit.id, s.id %}#{{ s.id }}"> Edit </a> </td>
+		<td> <a href="{% url sro.views.permit_edit permit.id, s.id %}#{{ s.id }}"> Edit </a> </td>
 	<tr>
 	{% ifequal s.id id %}
 		{% for j, jflag in jobs %}

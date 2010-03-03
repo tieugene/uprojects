@@ -508,13 +508,13 @@ class	Protocol(models.Model):
 	date		= models.DateField(null=False, blank=False, verbose_name=u'Дата')
 
 	def	asstr(self):
-		return u'№ %s от %s' % (self.no, self.date)
+		return u'%s: № %s от %s' % (self.sro.name, self.no, self.date)
 
 	def	__unicode__(self):
 		return self.asstr()
 
 	class	Meta:
-		ordering = ('date',)
+		ordering = ('sro', 'date',)
 		verbose_name		= u'Протокол'
 		verbose_name_plural	= u'Протоколы'
 
@@ -597,7 +597,7 @@ class	Permit(models.Model):
 	no		= models.CharField(max_length=50, null=False, blank=False, unique=False, verbose_name=u'Рег. №')
 	date		= models.DateField(null=True, blank=True, verbose_name=u'Дата')
 	datedue		= models.DateField(null=True, blank=True, verbose_name=u'Дата аннулирования')
-	protocol	= models.ForeignKey(Protocol, null=True, blank=True, verbose_name=u'Заседание')	# FIXME: must be self sro only
+	protocol	= models.ForeignKey(Protocol, null=True, blank=True, verbose_name=u'Протокол')	# FIXME: must be self sro only
 
 	def	asstr(self):
 		return u'%s: № %s от %s' % (self.stagelist, self.no, self.date)

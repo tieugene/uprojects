@@ -5,7 +5,7 @@
 {{ form.as_table }}
 </table>
 <input type="submit" value="Записать и закрыть" />
-<input type="button" value="Отказаться" onClick={% if org.id %}"window.location.href='{% url lansite.sro.views.org_view org.id %}#main'" {% else %} "window.location.href='{% url lansite.sro.views.org_list %}'" {% endif %}/>
+<input type="button" value="Отказаться" onClick={% if org.id %}"window.location.href='{% url sro.views.org_view org.id %}#main'" {% else %} "window.location.href='{% url sro.views.org_list %}'" {% endif %}/>
 </form>
 
 {% endblock %}

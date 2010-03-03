@@ -5,7 +5,7 @@
 		{% for i in org.okveds.all %}
 			<tr>
 				<td> {{ i.asstr }} </td>
-				<td> {% if perms.sro.delete_orgokved %} <input type="button" value="X" onClick="confirmDelete('{% url lansite.sro.views.org_edit_okved_del org.id, i.id %}#okved')"/> {% endif %} </td>
+				<td> {% if perms.sro.delete_orgokved %} <input type="button" value="X" onClick="confirmDelete('{% url sro.views.org_edit_okved_del org.id, i.id %}#okved')"/> {% endif %} </td>
 			</tr>
 		{% endfor %}
 		{% if perms.sro.add_orgokved %}
@@ -19,6 +19,6 @@
 			</tr>
 		{% endif %}
 	</table>
-	<input type="button" value="Закончить" onClick="window.location.href='{% url lansite.sro.views.org_view org.id %}#okved'"/>
+	<input type="button" value="Закончить" onClick="window.location.href='{% url sro.views.org_view org.id %}#okved'"/>
 	</form>
 {% endblock %}

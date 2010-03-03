@@ -14,10 +14,10 @@ function confirmDelete(delUrl) {
 }
 </script>
 
-<center> <h1> <a href="{% url lansite.views.index %}">LanSite</a> &gt; <a href="{% url lansite.sro.views.index %}"> СРО </a> &gt; Организации </h1> </center>
+<center> <h1> <a href="{% url views.index %}">LanSite</a> &gt; <a href="{% url sro.views.index %}"> СРО </a> &gt; Организации </h1> </center>
 <hr/>
 {% if perms.sro.add_org %}
-<input type="button" value="+" title="Добавить" onClick="window.location.href='{% url lansite.sro.views.org_add %}'"/>
+<input type="button" value="+" title="Добавить" onClick="window.location.href='{% url sro.views.org_add %}'"/>
 {% endif %}
 	<table border="0">
 	<thead>
@@ -44,10 +44,10 @@ function confirmDelete(delUrl) {
 	{% for org in org_list %}
 		<tr>
 			<td> {{ forloop.counter }} </td>
-			<td> <a href="{% url lansite.sro.views.org_view org.id %}" title="{{ org.fullname }}">{{ org.name }} </td>
+			<td> <a href="{% url sro.views.org_view org.id %}" title="{{ org.fullname }}">{{ org.name }} </td>
 			<td> {% if org.okato %} {{ org.okato }} {% endif %} </td>
 			<td> {% if org.orginsurance %} {{ org.orginsurance.insurer }} {% endif %} </td>
-			<td> {% if perms.sro.delete_org %} <input type="button" value="X" title="Удалить" onClick="confirmDelete('{% url lansite.sro.views.org_del org.id %}')"/>  {% endif %} </td>
+			<td> {% if perms.sro.delete_org %} <input type="button" value="X" title="Удалить" onClick="confirmDelete('{% url sro.views.org_del org.id %}')"/>  {% endif %} </td>
 			<td> {% if org.prjorg %} {% ifequal org.prjorg.projonly 1 %} {% else %} &radic; {% endifequal %} {% else %} &radic; {% endif %} </td>
 			<td> {% if org.prjorg %} &radic; {% endif %} </td>
 		</tr>
@@ -60,14 +60,14 @@ function confirmDelete(delUrl) {
 <tr> <th align="left"> Строительство </th> <th align="right"> Проектирование </th> </tr>
 <tr>
 	<td align="left">
-	[ <a title="Список организаций для размещения на вебсайте moozs.ru" href="{% url lansite.sro.views.org_publish_s %}"> Просмотр </a> ]
-	[ <a title="Размещение на вебсайте moozs.ru" href="{% url lansite.sro.views.org_upload_s %}"> Публикация </a> ]
-	[ <a title="Список членов в табличном виде" href="{% url lansite.sro.views.org_table %}"> Таблица </a> ]
-	[ <a title="URL для рассылки электромыла всем" href="{% url lansite.sro.views.org_mailto %}"> Мыло всем </a> ]
+	[ <a title="Список организаций для размещения на вебсайте moozs.ru" href="{% url sro.views.org_publish_s %}"> Просмотр </a> ]
+	[ <a title="Размещение на вебсайте moozs.ru" href="{% url sro.views.org_upload_s %}"> Публикация </a> ]
+	[ <a title="Список членов в табличном виде" href="{% url sro.views.org_table %}"> Таблица </a> ]
+	[ <a title="URL для рассылки электромыла всем" href="{% url sro.views.org_mailto %}"> Мыло всем </a> ]
 	</td>
 	<td align="right">
-	[ <a title="Список организаций для размещения на вебсайте mooasp.ru" href="{% url lansite.sro.views.org_publish_p %}"> Просмотр </a> ]
-	[ <a title="Размещение на вебсайте mooasp.ru" href="{% url lansite.sro.views.org_upload_p %}"> Публикация </a> ]
+	[ <a title="Список организаций для размещения на вебсайте mooasp.ru" href="{% url sro.views.org_publish_p %}"> Просмотр </a> ]
+	[ <a title="Размещение на вебсайте mooasp.ru" href="{% url sro.views.org_upload_p %}"> Публикация </a> ]
 	</td>
 </tr>
 </table>

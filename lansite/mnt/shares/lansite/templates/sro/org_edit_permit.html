@@ -20,7 +20,7 @@
 				№ {{ i.permitalien.regno }} от {{ i.permitalien.date|date }}, выдано {{ i.permitalien.sro.name }}, протокол № {{ i.permitalien.protono }} от {{ i.permitalient.protodate|date }}
 			{% endifequal %}
 			</td>
-			<td> {% if perms.sro.delete_permit %} <input type="button" value="X" onClick="confirmDelete('{% url lansite.sro.views.org_edit_permit_del org.id, i.id %}#permit')"/> {% endif %} </td>
+			<td> {% if perms.sro.delete_permit %} <input type="button" value="X" onClick="confirmDelete('{% url sro.views.org_edit_permit_del org.id, i.id %}#permit')"/> {% endif %} </td>
 		</tr>
 	{% endfor %}
 	<!-- add -->
@@ -38,5 +38,5 @@
 	</form>
 	{% endif %}
 	</table>
-	<input type="button" value="Закончить" onClick="window.location.href='{% url lansite.sro.views.org_view org.id %}#permit'"/>
+	<input type="button" value="Закончить" onClick="window.location.href='{% url sro.views.org_view org.id %}#permit'"/>
 {% endblock %}

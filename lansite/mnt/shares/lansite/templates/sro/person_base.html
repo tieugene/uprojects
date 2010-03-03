@@ -14,9 +14,9 @@ function confirmDelete(delUrl) {
 </script>
 {% block sidebar %}
 	<center> <h1>
-		<a href="{% url lansite.views.index %}"> LanSite </a> &gt; 
-		<a href="{% url lansite.sro.views.index %}"> СРО </a> &gt;
-		<a href="{% url lansite.sro.views.person_list %}"> Люди </a> &gt;
+		<a href="{% url views.index %}"> LanSite </a> &gt; 
+		<a href="{% url sro.views.index %}"> СРО </a> &gt;
+		<a href="{% url sro.views.person_list %}"> Люди </a> &gt;
 		{{ person.getfio }}
 	</h1> </center>
 {% endblock %}
@@ -46,7 +46,7 @@ function confirmDelete(delUrl) {
 	{% if person.orgstuff_set %}
 		<ul>
 		{% for i in person.orgstuff_set.all %}
-			<li> <a href="{% url lansite.sro.views.org_view i.org.id %}"> {{ i.org }} </a> ({{ i.role }}, {% ifequal i.permanent 1 %} Постоянно {% else %} Совместитель {% endifequal %}) </li>
+			<li> <a href="{% url sro.views.org_view i.org.id %}"> {{ i.org }} </a> ({{ i.role }}, {% ifequal i.permanent 1 %} Постоянно {% else %} Совместитель {% endifequal %}) </li>
 		{% endfor %}
 		</ul>
 	{% endif %}

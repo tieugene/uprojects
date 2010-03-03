@@ -26,8 +26,8 @@ def	__log_it(request, object, action, change_message=''):
 	Log this activity
 	'''
 	LogEntry.objects.log_action(
-		user_id         = request.user.id, 
-		content_type_id = ContentType.objects.get_for_model(object).pk, 
+		user_id         = request.user.id,
+		content_type_id = ContentType.objects.get_for_model(object).pk,
 		object_id       = object.pk, 
 		object_repr     = object.asstr(), # Message you want to show in admin action list
 		change_message  = u'SRO2.UI: ' + change_message, # I used same
@@ -143,7 +143,7 @@ def	sro_org_add(request, sro_id):
 			orgsro = OrgSro(org=org, sro=sro)
 			orgsro.save()
 			__log_it(request, orgsro, ADDITION)
-			return HttpResponseRedirect(reverse('lansite.sro2.views.orgsro_view', kwargs={'orgsro_id': orgsro.id}))
+			return HttpResponseRedirect(reverse('sro2.views.orgsro_view', kwargs={'orgsro_id': orgsro.id}))
 	else:
 		form = OrgAddForm(instance=org)
 		okopf =  Okopf.objects.all()
@@ -159,7 +159,7 @@ def	orgsro_del(request, orgsro_id):
 	if (org.orgsro_set.all().count() == 0):
 		__log_it(request, org, DELETION)
 		org.delete()
-	return HttpResponseRedirect(reverse('lansite.sro2.views.sro_list', kwargs={'sro_id': sro_id}))
+	return HttpResponseRedirect(reverse('sro2.views.sro_list', kwargs={'sro_id': sro_id}))
 
 @login_required
 def	orgsro_view(request, orgsro_id):
@@ -198,7 +198,7 @@ def	orgsro_org_edit(request, orgsro_id):
 		if form.is_valid():
 			org = form.save()
 			__log_it(request, org, CHANGE)
-			return HttpResponseRedirect(reverse('lansite.sro2.views.orgsro_view', kwargs={'orgsro_id': orgsro.id}))
+			return HttpResponseRedirect(reverse('sro2.views.orgsro_view', kwargs={'orgsro_id': orgsro.id}))
 	else:
 		form = OrgEditForm(instance=org)
 		okopf = Okopf.objects.all()
@@ -212,7 +212,7 @@ def	orgsro_main_edit(request, orgsro_id):
 		if form.is_valid():
 			orgsro = form.save()
 			__log_it(request, orgsro, CHANGE)
-			return HttpResponseRedirect(reverse('lansite.sro2.views.orgsro_view', kwargs={'orgsro_id': orgsro.id}))
+			return HttpResponseRedirect(reverse('sro2.views.orgsro_view', kwargs={'orgsro_id': orgsro.id}))
 	else:
 		form = OrgSroForm(instance=orgsro)
 	return render_to_response('sro2/orgsro_main.html', RequestContext(request, {'orgsro': orgsro, 'form': form}))
@@ -227,7 +227,7 @@ def	orgsro_license_add(request, orgsro_id):
 			new_item.orgsro = orgsro
 			new_item.save()
 			__log_it(request, new_item, ADDITION)
-			return HttpResponseRedirect(reverse('lansite.sro2.views.orgsro_view', kwargs={'orgsro_id': orgsro.id}))
+			return HttpResponseRedirect(reverse('sro2.views.orgsro_view', kwargs={'orgsro_id': orgsro.id}))
 	else:
 		form = OrgLicenseForm()
 	return render_to_response('sro2/orgsro_license.html', RequestContext(request, {'orgsro': orgsro, 'form': form}))
@@ -241,7 +241,7 @@ def	orgsro_license_edit(request, orgsro_id):
 		if form.is_valid():
 			item = form.save()
 			__log_it(request, item, CHANGE)
-			return HttpResponseRedirect(reverse('lansite.sro2.views.orgsro_view', kwargs={'orgsro_id': orgsro.id}))
+			return HttpResponseRedirect(reverse('sro2.views.orgsro_view', kwargs={'orgsro_id': orgsro.id}))
 	else:
 		form = OrgLicenseForm(instance=item)
 	return render_to_response('sro2/orgsro_license.html', RequestContext(request, {'orgsro': orgsro, 'form': form}))
@@ -252,7 +252,7 @@ def	orgsro_license_del(request, orgsro_id):
 	item = orgsro.orglicense
 	__log_it(request, item, DELETION)
 	item.delete()
-	return HttpResponseRedirect(reverse('lansite.sro2.views.orgsro_view', kwargs={'orgsro_id': orgsro.id}))
+	return HttpResponseRedirect(reverse('sro2.views.orgsro_view', kwargs={'orgsro_id': orgsro.id}))
 
 @login_required
 def	orgsro_insurance_add(request, orgsro_id):
@@ -264,7 +264,7 @@ def	orgsro_insurance_add(request, orgsro_id):
 			new_item.orgsro = orgsro
 			new_item.save()
 			__log_it(request, new_item, ADDITION)
-			return HttpResponseRedirect(reverse('lansite.sro2.views.orgsro_view', kwargs={'orgsro_id': orgsro.id}))
+			return HttpResponseRedirect(reverse('sro2.views.orgsro_view', kwargs={'orgsro_id': orgsro.id}))
 	else:
 		form = OrgInsuranceForm()
 	return render_to_response('sro2/orgsro_insurance.html', RequestContext(request, {'orgsro': orgsro, 'form': form}))
@@ -278,7 +278,7 @@ def	orgsro_insurance_edit(request, orgsro_id):
 		if form.is_valid():
 			item = form.save()
 			__log_it(request, item, CHANGE)
-			return HttpResponseRedirect(reverse('lansite.sro2.views.orgsro_view', kwargs={'orgsro_id': orgsro.id}))
+			return HttpResponseRedirect(reverse('sro2.views.orgsro_view', kwargs={'orgsro_id': orgsro.id}))
 	else:
 		form = OrgInsuranceForm(instance=item)
 	return render_to_response('sro2/orgsro_insurance.html', RequestContext(request, {'orgsro': orgsro, 'form': form}))
@@ -289,13 +289,14 @@ def	orgsro_insurance_del(request, orgsro_id):
 	item = orgsro.orginsurance
 	__log_it(request, item, DELETION)
 	item.delete()
-	return HttpResponseRedirect(reverse('lansite.sro2.views.orgsro_view', kwargs={'orgsro_id': orgsro.id}))
+	return HttpResponseRedirect(reverse('sro2.views.orgsro_view', kwargs={'orgsro_id': orgsro.id}))
 
 @login_required
 def	orgsro_okved_edit(request, orgsro_id):
 	orgsro = OrgSro.objects.get(pk=orgsro_id)
 	if request.method == 'POST':	# add
-		item = OrgOkved(org=orgsro.org, okved=Okved.objects.get(pk=request.POST['okved'])).save()
+		item = OrgOkved(org=orgsro.org, okved=Okved.objects.get(pk=request.POST['okved']))
+		item.save()
 		__log_it(request, item, CHANGE)
 	return render_to_response('sro2/orgsro_okved.html', RequestContext(request, {'orgsro': orgsro, 'okved': Okved.objects.all()}))
 
@@ -306,7 +307,7 @@ def	orgsro_okved_del(request, orgsro_id, item_id):
 	item = OrgOkved.objects.get(pk=item_id)
 	__log_it(request, item, DELETION)
 	item.delete()
-	return HttpResponseRedirect(reverse('lansite.sro2.views.orgsro_okved_edit', kwargs={'orgsro_id': orgsro.id}))
+	return HttpResponseRedirect(reverse('sro2.views.orgsro_okved_edit', kwargs={'orgsro_id': orgsro.id}))
 
 @login_required
 def	orgsro_phone_edit(request, orgsro_id):
@@ -329,7 +330,7 @@ def	orgsro_phone_del(request, orgsro_id, item_id):
 	item = OrgPhone.objects.get(pk=item_id)
 	__log_it(request, item, DELETION)
 	item.delete()
-	return HttpResponseRedirect(reverse('lansite.sro2.views.orgsro_phone_edit', kwargs={'orgsro_id': orgsro.id}))
+	return HttpResponseRedirect(reverse('sro2.views.orgsro_phone_edit', kwargs={'orgsro_id': orgsro.id}))
 
 @login_required
 def	orgsro_email_edit(request, orgsro_id):
@@ -352,7 +353,7 @@ def	orgsro_email_del(request, orgsro_id, item_id):
 	item = OrgEmail.objects.get(pk=item_id)
 	__log_it(request, item, DELETION)
 	item.delete()
-	return HttpResponseRedirect(reverse('lansite.sro2.views.orgsro_email_edit', kwargs={'orgsro_id': orgsro.id}))
+	return HttpResponseRedirect(reverse('sro2.views.orgsro_email_edit', kwargs={'orgsro_id': orgsro.id}))
 
 @login_required
 def	orgsro_www_edit(request, orgsro_id):
@@ -375,7 +376,7 @@ def	orgsro_www_del(request, orgsro_id, item_id):
 	item = OrgWWW.objects.get(pk=item_id)
 	__log_it(request, item, DELETION)
 	item.delete()
-	return HttpResponseRedirect(reverse('lansite.sro2.views.orgsro_www_edit', kwargs={'orgsro_id': orgsro.id}))
+	return HttpResponseRedirect(reverse('sro2.views.orgsro_www_edit', kwargs={'orgsro_id': orgsro.id}))
 
 @login_required
 def	orgsro_stuff_edit(request, orgsro_id = None):
@@ -400,7 +401,7 @@ def	orgsro_stuff_add_person(request, orgsro_id):
 		if form.is_valid():
 			item = form.save()
 			__log_it(request, item, ADDITION)
-	return HttpResponseRedirect(reverse('lansite.sro2.views.orgsro_stuff_edit', kwargs={'orgsro_id': orgsro.id}) + '?person=%d' % item.id)
+	return HttpResponseRedirect(reverse('sro2.views.orgsro_stuff_edit', kwargs={'orgsro_id': orgsro.id}) + '?person=%d' % item.id)
 
 @login_required
 def	orgsro_stuff_add_role(request, orgsro_id):
@@ -410,7 +411,7 @@ def	orgsro_stuff_add_role(request, orgsro_id):
 		if form.is_valid():
 			item = form.save()
 			__log_it(request, item, ADDITION)
-	return HttpResponseRedirect(reverse('lansite.sro2.views.orgsro_stuff_edit', kwargs={'orgsro_id': orgsro.id}) + '?role=%d' % item.id)
+	return HttpResponseRedirect(reverse('sro2.views.orgsro_stuff_edit', kwargs={'orgsro_id': orgsro.id}) + '?role=%d' % item.id)
 
 @login_required
 def	orgsro_stuff_del(request, orgsro_id, item_id):
@@ -418,7 +419,7 @@ def	orgsro_stuff_del(request, orgsro_id, item_id):
 	item = OrgStuff.objects.get(pk=item_id)
 	__log_it(request, item, DELETION)
 	item.delete()
-	return HttpResponseRedirect(reverse('lansite.sro2.views.orgsro_stuff_edit', kwargs={'orgsro_id': orgsro.id}))
+	return HttpResponseRedirect(reverse('sro2.views.orgsro_stuff_edit', kwargs={'orgsro_id': orgsro.id}))
 
 @login_required
 def	orgsro_stagelist_edit(request, orgsro_id):
@@ -427,7 +428,7 @@ def	orgsro_stagelist_edit(request, orgsro_id):
 		form = StageListForm(request.POST)
 		if form.is_valid():
 			type = form.cleaned_data['type']
-			return HttpResponseRedirect(reverse('lansite.sro2.views.orgsro_stagelist_add', kwargs={'orgsro_id': orgsro.id, 'type_id': type.id}))
+			return HttpResponseRedirect(reverse('sro2.views.orgsro_stagelist_add', kwargs={'orgsro_id': orgsro.id, 'type_id': type.id}))
 	else:
 		form = StageListForm()
 	return render_to_response('sro2/orgsro_stagelist.html', RequestContext(request, {'orgsro': orgsro, 'form': form}))
@@ -465,7 +466,7 @@ def	orgsro_stagelist_add(request, orgsro_id, type_id):
 				__log_it(request, stagelist, ADDITION)
 				__log_it(request, item, ADDITION)
 				transaction.commit()
-			return HttpResponseRedirect(reverse('lansite.sro2.views.orgsro_stagelist_edit', kwargs={'orgsro_id': orgsro.id}))
+			return HttpResponseRedirect(reverse('sro2.views.orgsro_stagelist_edit', kwargs={'orgsro_id': orgsro.id}))
 	else:
 		form = needform()
 	return render_to_response('sro2/orgsro_stagelist_add.html', RequestContext(request, {'orgsro': orgsro, 'type': type, 'form': form}))
@@ -476,7 +477,7 @@ def	orgsro_stagelist_del(request, orgsro_id, item_id):
 	item = StageList.objects.get(pk=item_id)
 	__log_it(request, item, DELETION)
 	item.delete()
-	return HttpResponseRedirect(reverse('lansite.sro2.views.orgsro_stagelist_edit', kwargs={'orgsro_id': orgsro.id}))
+	return HttpResponseRedirect(reverse('sro2.views.orgsro_stagelist_edit', kwargs={'orgsro_id': orgsro.id}))
 
 @login_required
 def	orgsro_event_edit(request, orgsro_id):
@@ -502,7 +503,7 @@ def	person_del(request, sro_id, person_id):
 	item = Person.objects.get(pk=person_id)
 	__log_it(request, item, DELETION)
 	item.delete()
-	return HttpResponseRedirect(reverse('lansite.sro2.views.person_list', kwargs={'sro_id': sro_id}))
+	return HttpResponseRedirect(reverse('sro2.views.person_list', kwargs={'sro_id': sro_id}))
 
 @login_required
 def	person_main(request, sro_id, person_id):
@@ -513,7 +514,7 @@ def	person_main(request, sro_id, person_id):
 		if form.is_valid():
 			item = form.save()
 			__log_it(request, item, ADDITION)
-			return HttpResponseRedirect(reverse('lansite.sro2.views.person_list', kwargs={'sro_id': sro_id}))
+			return HttpResponseRedirect(reverse('sro2.views.person_list', kwargs={'sro_id': sro_id}))
 	else:
 		form = PersonMainForm(instance=person)
 	return render_to_response('sro2/person_main.html', RequestContext(request, { 'sro': Sro.objects.get(pk=sro_id), 'person': person, 'person_skill': skill, 'form': form } ))
@@ -549,7 +550,7 @@ def	person_skill_add_speciality(request, sro_id, person_id):
 		if form.is_valid():
 			item = form.save()
 			__log_it(request, item, ADDITION)
-	return HttpResponseRedirect(reverse('lansite.sro2.views.person_skill', kwargs={ 'sro_id': sro_id, 'person_id': person_id }))
+	return HttpResponseRedirect(reverse('sro2.views.person_skill', kwargs={ 'sro_id': sro_id, 'person_id': person_id }))
 
 @login_required
 def	person_skill_add_skill(request, sro_id, person_id):
@@ -558,14 +559,14 @@ def	person_skill_add_skill(request, sro_id, person_id):
 		if form.is_valid():
 			item = form.save()
 			__log_it(request, item, ADDITION)
-	return HttpResponseRedirect(reverse('lansite.sro2.views.person_skill', kwargs={ 'sro_id': sro_id, 'person_id': person_id }))
+	return HttpResponseRedirect(reverse('sro2.views.person_skill', kwargs={ 'sro_id': sro_id, 'person_id': person_id }))
 
 @login_required
 def	person_skill_del(request, sro_id, person_id, item_id):
 	item = PersonSkill.objects.get(pk=item_id)
 	__log_it(request, item, DELETION)
 	item.delete()
-	return HttpResponseRedirect(reverse('lansite.sro2.views.person_skill', kwargs={ 'sro_id': sro_id, 'person_id': person_id }))
+	return HttpResponseRedirect(reverse('sro2.views.person_skill', kwargs={ 'sro_id': sro_id, 'person_id': person_id }))
 
 @transaction.commit_manually
 def	stagelist_list(request, perm_id):
@@ -636,7 +637,7 @@ def	stagelist_edit(request, perm_id):
 		if form.is_valid():
 			item = form.save()
 			__log_it(request, stagelist, CHANGE)
-			return HttpResponseRedirect(reverse('lansite.sro2.views.stagelist_list', kwargs={ 'perm_id': perm_id }))
+			return HttpResponseRedirect(reverse('sro2.views.stagelist_list', kwargs={ 'perm_id': perm_id }))
 	else:
 		form = needform(instance=perm)
 	return render_to_response('sro2/stagelist_edit.html', RequestContext(request, { 'form': form, 'stagelist': perm }))
@@ -668,7 +669,7 @@ def	stagelist_edit_stage(request, perm_id, stage_id):
 		if (result):
 			__log_it(request, ps, CHANGE)
 			transaction.commit()
-		return HttpResponseRedirect(reverse('lansite.sro2.views.stagelist_list', kwargs={ 'perm_id': perm_id }))	# FIXME:
+		return HttpResponseRedirect(reverse('sro2.views.stagelist_list', kwargs={ 'perm_id': perm_id }))	# FIXME:
 	else:	# GET
 		stage = Stage.objects.get(id=stage_id)
 		mystages = PermitStage.objects.filter(stagelist=stagelist, stage=stage_id)
@@ -701,10 +702,10 @@ def	stagelist_dup(request, perm_id):
 		if form.is_valid():
 			type = form.cleaned_data['type']
 			if (type):
-				return HttpResponseRedirect(reverse('lansite.sro2.views.stagelist_dup_edit', kwargs={ 'perm_id': perm_id, 'type_id': type.id }))
-	return HttpResponseRedirect(reverse('lansite.sro2.views.stagelist_list', kwargs={ 'perm_id': perm_id }))
+				return HttpResponseRedirect(reverse('sro2.views.stagelist_dup_edit', kwargs={ 'perm_id': perm_id, 'type_id': type.id }))
+	return HttpResponseRedirect(reverse('sro2.views.stagelist_list', kwargs={ 'perm_id': perm_id }))
 
-#@transaction.commit_manually
+@transaction.commit_manually
 def	stagelist_dup_edit(request, perm_id, type_id):
 	stagelist = StageList.objects.get(pk=perm_id)
 	type = StageListType.objects.get(pk=type_id)
@@ -713,8 +714,9 @@ def	stagelist_dup_edit(request, perm_id, type_id):
 	if request.method == 'POST':
 		form = needform(request.POST)
 		if form.is_valid():
-			#try:
-			if (True):
+			result = False
+			try:
+			#if (True):
 				# 1. main object
 				new_stagelist = StageList(orgsro=stagelist.orgsro, type=type)
 				new_stagelist.save()
@@ -738,14 +740,17 @@ def	stagelist_dup_edit(request, perm_id, type_id):
 					permitstage.save()
 					for psj in ps.permitstagejob_set.all():
 						PermitStageJob(permitstage=permitstage, job=psj.job).save()
-			#except:
-			#	transaction.rollback()
+			except:
+				transaction.rollback()
 			#	print "except"
 			#	return HttpResponseRedirect('../../')
-			#else:
-			#	transaction.commit()
-			#	print 'commit'
-			return HttpResponseRedirect(reverse('lansite.sro2.views.stagelist_list', kwargs={ 'perm_id': new_stagelist.id }))
+			else:
+				transaction.commit()
+				result = True
+			if (result):
+				__log_it(request, a, ADDITION)
+				transaction.commit()
+			return HttpResponseRedirect(reverse('sro2.views.stagelist_list', kwargs={ 'perm_id': new_stagelist.id }))
 	else:
 		form = needform()
 	return render_to_response('sro2/orgsro_stagelist_add.html', RequestContext(request, {'orgsro': stagelist.orgsro, 'type': type, 'form': form}))
