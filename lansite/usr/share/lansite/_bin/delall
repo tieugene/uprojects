@@ -1,0 +1,7 @@
+#!/bin/sh
+TMP=`mktemp`
+echo "BEGIN;" > $TMP
+echo "SHOW TABLES;" | ../manage.py dbshell | grep -v ^Tables_in | while read i; do echo "DELETE FROM $i;" >> $TMP; done
+echo "COMMIT;" >> $TMP
+cat $TMP | ../manage.py dbshell
+rm -f $TMP

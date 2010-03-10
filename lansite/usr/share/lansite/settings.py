@@ -10,12 +10,19 @@ ADMINS = (
 )
 
 MANAGERS = ADMINS
-
+'''
 DATABASE_ENGINE = 'sqlite3'	# 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
 DATABASE_NAME = '/mnt/shares/lansite/db/lansite.db'	# Or path to database file if using sqlite3.
 DATABASE_USER = ''		# Not used with sqlite3.
 DATABASE_PASSWORD = ''		# Not used with sqlite3.
 DATABASE_HOST = ''		# Set to empty string for localhost. Not used with sqlite3.
+DATABASE_PORT = ''		# Set to empty string for default. Not used with sqlite3.
+'''
+DATABASE_ENGINE = 'mysql'	# 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
+DATABASE_NAME = 'lansite'	# Or path to database file if using sqlite3.
+DATABASE_USER = 'lansite'		# Not used with sqlite3.
+DATABASE_PASSWORD = 'lansite'		# Not used with sqlite3.
+DATABASE_HOST = 'localhost'		# Set to empty string for localhost. Not used with sqlite3.
 DATABASE_PORT = ''		# Set to empty string for default. Not used with sqlite3.
 
 SEND_EMAILS = False       # make it True and edit settings bellow if you want to receive emails
@@ -45,7 +52,7 @@ DATE_FORMAT = 'd/m/Y'
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
 LANGUAGE_CODE = 'ru-RU'
-
+DEFAULT_CHARSET = 'utf-8'
 SITE_ID = 1
 
 # If you set this to False, Django will make some optimizations so as not
@@ -105,9 +112,10 @@ INSTALLED_APPS = (
 	'django.contrib.databrowse',
 	'django.contrib.sessions',
 	'django.contrib.sites',
-	#'insupol',
-	#'run1s',
-	'sro',
+#	'gw',
+#	'insupol',
+#	'run1s',
+#	'sro',
 	'sro2',
 	'todo',
 )
