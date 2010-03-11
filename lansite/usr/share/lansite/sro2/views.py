@@ -98,7 +98,7 @@ def	sro_upload(request, sro_id):
 	'''FIXME'''
 	sro = Sro.objects.get(pk=sro_id)
 	orgsro_list = sro.orgsro_set.filter(publish=True).order_by('org__name')
-	ftpname = sro.ftp
+	ftpname = sro.sroown.ftp
 	hosts = netrc.netrc('/mnt/shares/lansite/media/netrc').hosts
 	if (not hosts.has_key(ftpname)):
 		return render_to_response('sro2/upload_msg.html', {'msg': "Check netrc"})
@@ -109,7 +109,7 @@ def	sro_upload(request, sro_id):
 	f.seek(0)
 	login, acct, password = hosts[ftpname]
 	ftp = ftplib.FTP(ftpname, login, password)
-	ftp.storbinary('STOR %s/members.htm' % sro.path, f)
+	ftp.storbinary('STOR %s/members.htm' % sro.sroown.path, f)
 	ftp.quit()
 	f.close()
 	return render_to_response('sro2/upload_msg.html', RequestContext(request, {'msg': "Uploaded OK"}))
@@ -666,8 +666,9 @@ def	stagelist_edit_stage(request, perm_id, stage_id):
 			transaction.commit()
 			result = True
 		if (result):
-			__log_it(request, ps, CHANGE)
-			transaction.commit()
+			if (ps):	# FIXME:
+				__log_it(request, ps, CHANGE)
+				transaction.commit()
 		return HttpResponseRedirect(reverse('sro2.views.stagelist_list', kwargs={ 'perm_id': perm_id }))	# FIXME:
 	else:	# GET
 		stage = Stage.objects.get(id=stage_id)
