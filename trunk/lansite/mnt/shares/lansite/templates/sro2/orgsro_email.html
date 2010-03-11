@@ -4,10 +4,10 @@
 	{% for i in orgsro.org.orgemail_set.all %}
 		<tr>
 			<td> {{ i.asstr }} </td>
-			<td> {% if perms.sro.delete_orgemail %} <input type="button" value="X" onClick="confirmDelete('{% url sro2.views.orgsro_email_del orgsro.id, i.id %}#email')"/> {% endif %} </td>
+			<td> {% if perms.sro2.delete_orgemail %} <input type="button" value="X" onClick="confirmDelete('{% url sro2.views.orgsro_email_del orgsro.id, i.id %}#email')"/> {% endif %} </td>
 		</tr>
 	{% endfor %}
-	{% if perms.sro.add_orgemail %}
+	{% if perms.sro2.add_orgemail %}
 		<form action=".#email" method="POST">
 		<tr>
 			<td> {{ form.as_p }} </td>

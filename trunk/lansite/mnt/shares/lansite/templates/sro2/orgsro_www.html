@@ -7,7 +7,7 @@
 			<td> {% if perms.sro2.delete_orgwww %} <input type="button" value="X" onClick="confirmDelete('{% url sro2.views.orgsro_www_del orgsro.id, i.id %}#www')"/> {% endif %} </td>
 		</tr>
 	{% endfor %}
-	{% if perms.sro.add_orgwww %}
+	{% if perms.sro2.add_orgwww %}
 		<form action=".#email" method="POST">
 		<tr>
 			<td> {{ form.as_p }} </td>

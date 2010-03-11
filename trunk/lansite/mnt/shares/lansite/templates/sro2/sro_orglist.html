@@ -16,7 +16,7 @@ function confirmDelete(delUrl) {
 
 <center> <h1> <a href="{% url views.index %}"> LanSite </a> &gt; <a href="{% url sro2.views.index %}"> СРО2 </a> &gt; <a href="{% url sro2.views.index_sro sro.id %}"> {{ sro.name }} </a> &gt; Организации </h1> </center>
 <hr/>
-{% if perms.sro.add_org %}
+{% if perms.sro2.add_org %}
 <input type="button" value="+" title="Добавить" onClick="window.location.href='{% url sro2.views.sro_org_add sro.id %}'"/>
 {% endif %}
 	<table border="0">

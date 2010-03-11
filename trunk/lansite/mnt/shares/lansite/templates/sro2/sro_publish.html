@@ -148,10 +148,10 @@ function doMenu(item) {
 	{% endif %}
 	<!-- permit -->
 	<table width="100%" border="0" bgcolor="lightgrey"><tr><td><h3> 3. Свидетельства о допуске к работам, оказывающим влияние на безопасность объектов капитального строительства: </h3></td></tr></table>
-	{% if orgsro.org.permit_set.all %}
+	{% if orgsro.stagelist_set.all %}
 		<ul>
 		{% for i in orgsro.stagelist_set.all %}
-			{% ifequal i.type.id 1 %}
+			{% ifequal i.type.id 2 %}
 			<li> № {{ i.permit.no }} от {{ i.permit.date|date }}, протокол № {{ i.permit.protocol.no }} от {{ i.permit.protocol.date|date }} </li>
 			{% endifequal %}
 		{% endfor %}

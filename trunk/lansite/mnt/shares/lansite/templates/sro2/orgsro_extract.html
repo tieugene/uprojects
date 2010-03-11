@@ -24,6 +24,7 @@ P.style2	{
 P.style3	{
 	font-size:	8pt;
 	text-align:	center;
+	margin-top: -18px;
 }
 P.style4	{
 	font-size:	12pt;
@@ -35,19 +36,31 @@ P.style5	{
 	text-align:	left;
 }
 P.style61	{
-	font-size:	10pt;
+	font-size:	7pt;
 	font-weight:	bold;
 	text-align:	left;
 }
 P.style62	{
-	font-size:	10pt;
+	font-size:	7pt;
 	text-align:	left;
+	margin-top: -11px
+}
+P.style7	{
+	font-size:	12pt;
+	font-weight:	bold;
+	text-align:	center;
+}
+P.style8	{
+	font-size:	7pt;
+	font-weight:	bold;
+	text-align:	right;
 }
 </style>
 </head>
 <body>
-<p class="style1"> ВЫПИСКА </p>
-<p class="style1"> из реестра членов Некоммерческого партнерства саморегулируемой организации {{ orgsro.sro.fullname }} </p>
+<p class="style8"> Утверждено Решением Правления НП СРО «{{ orgsro.sro.name }}» (Протокол №1 от 12.01.2010 года)</p>
+<p class="style7"> ВЫПИСКА </p>
+<p class="style7"> из реестра членов Некоммерческого партнерства саморегулируемой организации {{ orgsro.sro.fullname }} </p>
 <p class="style2"> {{ orgsro.sro.sroown.subtitle }} </p>
 <table border="0"><tr><td>
 <p class="style1"> <u> {{ date|date }} </u> </p>
@@ -167,7 +180,7 @@ P.style62	{
 	<td> <p class="style5"> Исполнительный директор <br/> НП СРО «{{ orgsro.sro.name }}» </p> </td>
 	<td align="right"> <p class="style5">  Д.В. Сережин </p> </td>
 </tr>
-<tr><td colspan="2" align="center"> <p class="style5">  МП </p> </td></tr>
+<tr><td colspan="2" align="center"> <p class="style7">  МП </p> </td></tr>
 </table>
 </body>
 </html>

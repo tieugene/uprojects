@@ -1,6 +1,6 @@
 {% extends "sro2/stagelist_base.html" %}
 {% block editmain %}
-{% if perms.sro.change_permit %}
+{% if perms.sro2.change_stagelist %}
 <input type="button" value="Изменить" onClick="window.location.href='{% url sro2.views.stagelist_edit stagelist.id %}'"/>
 {% endif %}
 {% endblock %}
@@ -68,7 +68,7 @@ function SelectAll (state) {
 	<tr>
 {% endfor %}
 	<tr> <td colspan="8"> <hr/> </td> </tr>
-	{% if perms.sro.add_permitstage and perms.sro.add_permitstagejob and perms.sro.delete_permitstage and perms.sro.add_permitstagejob %}
+	{% if perms.sro2.add_permitstage and perms.sro2.add_permitstagejob and perms.sro2.delete_permitstage and perms.sro2.add_permitstagejob %}
 	<tr bgcolor="red">
 		<td colspan="5" rowspan="2"> <b> ОПТОМ: </b> </td>
 		<td align="center"> <input type="button" value="&radic;" title="Выбрать все" onClick="SelectAll(true);"/> </td>

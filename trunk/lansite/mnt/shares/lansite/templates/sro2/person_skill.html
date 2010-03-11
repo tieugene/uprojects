@@ -24,13 +24,13 @@
 				<tr> <td> СоПК. Тема </td>			<td> {% if i.coursename %} {{ i.coursename }} {% endif %} </td> </tr>
 				<tr> <td> СоПК. Уч. зав. </td>			<td> {% if i.courseschool %} {{ i.courseschool }} {% endif %} </td> </tr>
 			</table> </td>
-			<td> {% if perms.sro.delete_personskill %} <input type="button" value="X" title="Удалить" onClick="confirmDelete('{% url sro2.views.person_skill_del sro.id person.id, i.id %}#stuff')"/> {% endif %} </td>
+			<td> {% if perms.sro2.delete_personskill %} <input type="button" value="X" title="Удалить" onClick="confirmDelete('{% url sro2.views.person_skill_del sro.id person.id, i.id %}#stuff')"/> {% endif %} </td>
 		</tr>
 	{% endfor %}
 	</table>
 <hr/>
 	<!-- add -->
-{% if perms.sro.add_personskill %}
+{% if perms.sro2.add_personskill %}
 <table border="0"> <tr>
 <td>
 	<form action="." method="POST">
