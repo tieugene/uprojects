@@ -1,4 +1,5 @@
 #!/bin/sh
+# Delete all records from all record into lansite MySQL database
 TMP=`mktemp`
 echo "BEGIN;" > $TMP
 echo "SHOW TABLES;" | ../manage.py dbshell | grep -v ^Tables_in | while read i; do echo "DELETE FROM $i;" >> $TMP; done

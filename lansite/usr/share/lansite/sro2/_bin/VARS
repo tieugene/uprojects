@@ -1,0 +1,5 @@
+# -*- Shell-script -*-
+SQL="sqlite3"
+DBPATH="/mnt/shares/lansite/db/lansite.db"
+MGR="../../manage.py"
+APP="sro2"

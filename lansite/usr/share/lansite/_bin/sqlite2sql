@@ -1,6 +1,0 @@
-dump sro2
-dump admin
-dump auth
-#dump contenttypes
-#dump sessions
-#dump sites

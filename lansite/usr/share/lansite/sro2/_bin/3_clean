@@ -1,8 +1,4 @@
 #!/bin/sh
-DBPATH="/mnt/shares/lansite/db/lansite.db"
-echo "BEGIN;" > tmp.sql &&\
-for i in `sqlite3 $DBPATH "SELECT name FROM sqlite_master WHERE type='table'" | grep ^sro2`; do echo "DROP TABLE main.$i;" >> tmp.sql; done &&\
-echo "COMMIT;" >> tmp.sql &&\
-echo "VACUUM;" >> tmp.sql &&\
-sqlite3 $DBPATH < tmp.sql &&\
-rm -f tmp.sql
+. ./VARS
+$TMP=`mktemp`
+$MGR sqlclear > $TMP && echo "VACUUM;" >> $TMP && $SQL $DBPATH < $TMP && rm -f $TMP

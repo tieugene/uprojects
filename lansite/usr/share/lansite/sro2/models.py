@@ -28,6 +28,7 @@ class	Okato(models.Model):
 	"""
 	id - by OKATO
 	"""
+	
 	id		= models.PositiveSmallIntegerField(primary_key=True, verbose_name=u'Код')
 	name		= models.CharField(max_length=100, blank=False, unique=False, verbose_name=u'Наименование')
 
@@ -72,7 +73,7 @@ class	Okved(models.Model):
 	id - by OKVED, str
 	"""
 	id		= models.CharField(max_length=6, primary_key=True, verbose_name=u'Код')
-	name		= models.CharField(max_length=255, blank=False, unique=False, verbose_name=u'Наименование')
+	name		= models.CharField(max_length=400, blank=False, unique=False, verbose_name=u'Наименование')
 	parent		= models.ForeignKey('self', null=True, verbose_name=u'Группа')
 
 	def	fmtid(self):
@@ -223,7 +224,7 @@ class	SpecialityStage(models.Model):
 		unique_together		= (('speciality', 'stage',),)
 
 class	Skill(models.Model):
-	name		= models.CharField(max_length=50, blank=False, unique=True, verbose_name=u'Наименование')
+	name		= models.CharField(max_length=100, blank=False, unique=True, verbose_name=u'Наименование')
 	high		= models.BooleanField(blank=False, null=False, default=False, verbose_name=u'Высшее')
 
 	def	asstr(self):
@@ -252,7 +253,7 @@ class	EventType(models.Model):
 		verbose_name_plural = u'Типы событий'
 
 class	Role(models.Model):
-	name		= models.CharField(max_length=40, blank=False, unique=True, verbose_name=u'Наименование')
+	name		= models.CharField(max_length=100, blank=False, unique=True, verbose_name=u'Наименование')
 	comments	= models.CharField(max_length=100, blank=True, verbose_name=u'Коментарии')
 
 	def	asstr(self):
@@ -317,12 +318,13 @@ class	PersonSkill(models.Model):
 
 class	Org(models.Model):
 	name		= models.CharField(null=False, blank=False, max_length=40, unique=False, verbose_name=u'Наименование')
-	fullname	= models.CharField(null=False, blank=False, max_length=100, unique=False, verbose_name=u'Полное наименование')
+	fullname	= models.CharField(null=False, blank=False, max_length=150, unique=False, verbose_name=u'Полное наименование')
 	okopf		= models.ForeignKey(Okopf, null=False, blank=False, verbose_name=u'ОКОПФ')
 	egruldate	= models.DateField(null=True, blank=True, verbose_name=u'Дата регистрации в ЕГРЮЛ')
-	inn		= models.PositiveIntegerField(null=False, blank=False, unique=True, verbose_name=u'ИНН')
+	#inn		= models.PositiveIntegerField(null=False, blank=False, unique=True, verbose_name=u'ИНН')
+	inn		= models.CharField(null=False, blank=False, max_length=12, unique=True, verbose_name=u'ИНН')
 	kpp		= models.PositiveIntegerField(null=True, blank=True, verbose_name=u'КПП')
-	ogrn		= models.PositiveIntegerField(null=False, blank=False, unique=True, verbose_name=u'ОГРН')
+	ogrn		= models.CharField(null=False, blank=False, max_length=13, unique=True, verbose_name=u'ОГРН')
 	okato		= models.ForeignKey(Okato, null=True, blank=True, verbose_name=u'ОКАТО')
 	laddress	= models.CharField(null=False, blank=False, max_length=255, verbose_name=u'Адрес юридический')
 	raddress	= models.CharField(null=True, blank=True, max_length=255, verbose_name=u'Адрес почтовый')
@@ -449,6 +451,7 @@ class	OrgSro(models.Model):
 	comments	= models.TextField(null=True, blank=True, verbose_name=u'Коментарии')
 	publish		= models.BooleanField(null=False, blank=False, default=False, verbose_name=u'Публиковать')
 	agent		= models.ForeignKey(Agent, null=True, blank=True, verbose_name=u'Агент')
+	currperm	= models.ForeignKey('Permit', null=True, blank=True, verbose_name=u'Действующее разрешение')
 	events		= models.ManyToManyField(EventType, through='OrgEvent', verbose_name=u'События')
 
 	def	asstr(self):
