@@ -1,1 +1,1 @@
-mysql --user=root --password=seeGooj5 < 2mysql.sql
+mysql --user=root --password=password < 2mysql.sql
