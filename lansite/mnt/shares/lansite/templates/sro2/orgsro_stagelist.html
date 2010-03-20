@@ -5,6 +5,7 @@
 			<th> Тип </th>
 			<th> Документ </th>
 			<th/>
+			<th/>
 		</tr>
 	{% for i in orgsro.stagelist_set.all %}
 		<tr>
@@ -17,7 +18,16 @@
 				№ {{ i.permit.no }} от {{ i.permit.date|date }}, протокол № {{ i.permit.protocol.no }} от {{ i.permit.protocol.date|date }}
 			{% endifequal %}
 			</td>
-			<td> {% if perms.sro2.delete_stagelist %} <input type="button" value="X" onClick="confirmDelete('{% url sro2.views.orgsro_stagelist_del orgsro.id, i.id %}#permit')"/> {% endif %} </td>
+			<td> {% if perms.sro2.delete_stagelist %} <input type="button" title="Удалить" value="X" onClick="confirmDelete('{% url sro2.views.orgsro_stagelist_del orgsro.id, i.id %}#permit')"/> {% endif %} </td>
+			<td>
+			{% ifequal i.type.id 2 %}
+				{% ifequal i.permit orgsro.currperm %}
+					<s><input type="button" title="Убрать активное" value="-" onClick="window.location.href='{% url sro2.views.orgsro_stagelist_resetdefault orgsro.id %}'"/></s>
+				{% else %}
+					<input type="button" title="Назначить активным" value="&radic;" onClick="window.location.href='{% url sro2.views.orgsro_stagelist_setdefault orgsro.id, i.permit.id %}'"/>
+				{% endifequal %}
+			{% endifequal %}
+			</td>
 		</tr>
 	{% endfor %}
 	<!-- add -->
