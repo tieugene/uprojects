@@ -1,3 +1,2 @@
 #!/bin/sh
 time ../manage.py dumpdata --format=json --indent=1 > ../lansite.json
-#time ../manage.py dumpdata --format=xml --indent=1 > ../lansite.xml

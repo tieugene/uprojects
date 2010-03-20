@@ -143,6 +143,8 @@ class	SroOwn(models.Model):
 	ftp		= models.CharField(max_length=50, null=True, blank=True, verbose_name=u'FTP')
 	path		= models.CharField(max_length=100, null=True, blank=True, verbose_name=u'Path')
 	subtitle	= models.CharField(max_length=1000, null=True, blank=True, verbose_name=u'Подтитул')
+	tplcert		= models.CharField(max_length=20, null=True, blank=True, verbose_name=u'Шаблон свид. о членстве')
+	tplperm		= models.CharField(max_length=20, null=True, blank=True, verbose_name=u'Шаблон свид. о допуске')
 
 	def	asstr(self):
 		return self.sro.name
@@ -319,12 +321,14 @@ class	PersonSkill(models.Model):
 class	Org(models.Model):
 	name		= models.CharField(null=False, blank=False, max_length=40, unique=False, verbose_name=u'Наименование')
 	fullname	= models.CharField(null=False, blank=False, max_length=150, unique=False, verbose_name=u'Полное наименование')
-	okopf		= models.ForeignKey(Okopf, null=False, blank=False, verbose_name=u'ОКОПФ')
+	okopf			= models.ForeignKey(Okopf, null=False, blank=False, verbose_name=u'ОКОПФ')
 	egruldate	= models.DateField(null=True, blank=True, verbose_name=u'Дата регистрации в ЕГРЮЛ')
-	#inn		= models.PositiveIntegerField(null=False, blank=False, unique=True, verbose_name=u'ИНН')
+#	inn		= models.PositiveIntegerField(null=False, blank=False, unique=True, verbose_name=u'ИНН')
+#	kpp		= models.PositiveIntegerField(null=True, blank=True, verbose_name=u'КПП')
+#	ogrn		= models.PositiveIntegerField(null=False, blank=False, unique=True, verbose_name=u'ОГРН')
 	inn		= models.CharField(null=False, blank=False, max_length=12, unique=True, verbose_name=u'ИНН')
-	kpp		= models.PositiveIntegerField(null=True, blank=True, verbose_name=u'КПП')
-	ogrn		= models.CharField(null=False, blank=False, max_length=13, unique=True, verbose_name=u'ОГРН')
+	kpp		= models.CharField(null=True, blank=True, max_length=9, verbose_name=u'КПП')
+	ogrn		= models.CharField(null=False, blank=False, max_length=15, unique=True, verbose_name=u'ОГРН')
 	okato		= models.ForeignKey(Okato, null=True, blank=True, verbose_name=u'ОКАТО')
 	laddress	= models.CharField(null=False, blank=False, max_length=255, verbose_name=u'Адрес юридический')
 	raddress	= models.CharField(null=True, blank=True, max_length=255, verbose_name=u'Адрес почтовый')

@@ -82,7 +82,7 @@
 		{{ data.stagelist.orgsro.org.okopf.namedp }} {{ data.stagelist.orgsro.org.fullname }}
 	</para>
 	<para style="style1">
-		ИНН {{ data.stagelist.orgsro.org.inn|stringformat:"010d" }}, ОГРН {{ data.stagelist.orgsro.org.ogrn }}, местонахождение: {{ data.stagelist.orgsro.org.laddress }}
+		ИНН {{ data.stagelist.orgsro.org.inn }}, ОГРН {{ data.stagelist.orgsro.org.ogrn }}, местонахождение: {{ data.stagelist.orgsro.org.laddress }}
 	</para>
 	<para style="style1" spaceAfter="0">
 		Основание выдачи Свидетельства:
