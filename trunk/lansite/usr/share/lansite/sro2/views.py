@@ -422,6 +422,21 @@ def	orgsro_stuff_del(request, orgsro_id, item_id):
 	return HttpResponseRedirect(reverse('sro2.views.orgsro_stuff_edit', kwargs={'orgsro_id': orgsro.id}))
 
 @login_required
+def	orgsro_stagelist_resetdefault(request, orgsro_id):
+	orgsro = OrgSro.objects.get(pk=orgsro_id)
+	orgsro.currperm = None
+	orgsro.save()
+	return HttpResponseRedirect(reverse('sro2.views.orgsro_stagelist_edit', kwargs={'orgsro_id': orgsro.id}) + "#permit")
+
+@login_required
+def	orgsro_stagelist_setdefault(request, orgsro_id, item_id):
+	orgsro = OrgSro.objects.get(pk=orgsro_id)
+	permit = Permit.objects.get(pk=item_id)
+	orgsro.currperm = permit
+	orgsro.save()
+	return HttpResponseRedirect(reverse('sro2.views.orgsro_stagelist_edit', kwargs={'orgsro_id': orgsro.id}) + "#permit")
+
+@login_required
 def	orgsro_stagelist_edit(request, orgsro_id):
 	orgsro = OrgSro.objects.get(pk=orgsro_id)
 	if request.method == 'POST':
@@ -475,6 +490,10 @@ def	orgsro_stagelist_add(request, orgsro_id, type_id):
 def	orgsro_stagelist_del(request, orgsro_id, item_id):
 	orgsro = OrgSro.objects.get(pk=orgsro_id)
 	item = StageList.objects.get(pk=item_id)
+	ptype = StageListType.objects.get(pk=2)		# permit
+	if (item.type == ptype) and (item.permit == orgsro.currperm):
+		orgsro.currperm = None
+		orgsro.save()
 	__log_it(request, item, DELETION)
 	item.delete()
 	return HttpResponseRedirect(reverse('sro2.views.orgsro_stagelist_edit', kwargs={'orgsro_id': orgsro.id}))

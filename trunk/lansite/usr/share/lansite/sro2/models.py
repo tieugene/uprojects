@@ -566,6 +566,7 @@ class	StageList(models.Model):
 		return self.asstr()
 
 	class	Meta:
+		ordering = ('orgsro', 'type')
 		verbose_name		= u'СписокВидовРабот'
 		verbose_name_plural	= u'СпискиВидовРабот'
 
