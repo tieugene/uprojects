@@ -175,7 +175,8 @@ def	orgsro_certificate(request, orgsro_id):
 	data['orgsro'] = orgsro
 	data['date'] = __strdate(orgsro.regdate)
 	data['bigdate'] = __strdate(orgsro.regdate).upper()
-	return __pdf_render_to_response('sro2/certificate.rml', {'data': data}, filename=str(orgsro.regno) + '.pdf')
+	tpl = orgsro.sro.sroown.tplcert
+	return __pdf_render_to_response('sro2/' + tpl, {'data': data}, filename=str(orgsro.regno) + '.pdf')
 
 @login_required
 def	orgsro_extract(request, orgsro_id):
@@ -693,7 +694,8 @@ def	stagelist_html(request, perm_id):
 def	stagelist_pdf(request, perm_id):
 	data = __load_permit(perm_id)
 	data['user'] = request.user.username
-	return __pdf_render_to_response('sro2/permit.rml', {'data': data}, filename=data['stagelist'].permit.no + '.pdf')
+	tpl = data['stagelist'].orgsro.sro.sroown.tplperm
+	return __pdf_render_to_response('sro2/' + tpl, {'data': data}, filename=data['stagelist'].permit.no + '.pdf')
 
 @login_required
 def	stagelist_dup(request, perm_id):
