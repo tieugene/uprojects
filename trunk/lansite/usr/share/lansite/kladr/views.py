@@ -16,18 +16,11 @@ from django.utils.encoding import StrAndUnicode, force_unicode, smart_unicode, s
 # 3. my
 from models import *
 from forms import *
-from dbf_imp import imp_all
 
 def	index(request):
 	if not request.user.is_authenticated():
 		return HttpResponseRedirect('../login/?next=%s' % request.path)
-		#return HttpResponseRedirect(reverse('lansite.login') + '?next=%s' % request.path)
-		#return HttpResponseRedirect(reverse('lansite.login') + '?next=%s' % request.path)
 	return render_to_response('kladr/index.html', context_instance=RequestContext(request))
 
-def	reset(request):
-	imp_all()
-	return render_to_response('kladr/dummy.html', context_instance=RequestContext(request))
-
-def	update(request):
-	return render_to_response('kladr/dummy.html', context_instance=RequestContext(request))
+def	list(request):
+	return render_to_response('kladr/list.html', context_instance=RequestContext(request, {'data': Kladr.objects.filter(level=1)}))

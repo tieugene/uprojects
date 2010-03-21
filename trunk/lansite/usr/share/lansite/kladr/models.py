@@ -15,10 +15,8 @@ import os
 from django.db import models
 
 class	Short(models.Model):	# SOCRBASE
-	id		= models.PositiveSmallIntegerField(primary_key=True, verbose_name=u'Код')				# KOD_T_ST
-	name		= models.CharField(max_length=10, blank=False, unique=False, verbose_name=u'Наименование')		# SCNAME
-	fullname	= models.CharField(max_length=29, blank=False, unique=False, verbose_name=u'Полное наименование')	# SOCRNAME
-	level		= models.PositiveSmallIntegerField(blank=False, verbose_name=u'Уровень')				# LEVEL
+	name		= models.CharField(max_length=10, blank=False, unique=True, verbose_name=u'Наименование')		# SCNAME
+	fullname	= models.CharField(max_length=29, blank=False, unique=True, verbose_name=u'Полное наименование')	# SOCRNAME
 
 	def	asstr(self):
 		return self.name
@@ -66,3 +64,21 @@ class	Kladr(models.Model):	# KLADR+STREET
 		ordering		= ('id',)
 		verbose_name		= u'КЛАДР'
 		verbose_name_plural	= u'КЛАДРы'
+
+	def	getparents(self):
+		'''
+		return list of all parents
+		'''
+		retvalue = list()
+		p = self.parent
+		while (parent):
+			retvalue.append(p)
+			p = p.parent
+		return retvalue
+
+	def	getsons(self):
+		'''
+		return list of all sons
+		'''
+		retvalue = list()
+		return retvalue
