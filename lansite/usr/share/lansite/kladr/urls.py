@@ -8,6 +8,6 @@ from django.contrib.auth.views import login, logout
 from models import *
 
 urlpatterns = patterns('kladr.views',
-	(r'^$',		'index'),
-	(r'^list/$',	'list'),
+	(r'^$',				'index'),
+	(r'^view/(?P<item_id>\d+)/$',	'view'),
 )
