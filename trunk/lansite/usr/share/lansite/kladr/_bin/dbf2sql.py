@@ -60,14 +60,12 @@ def	__dbfreader(f):
 		yield result
 
 def	__statetype():
-	print u'DELETE FROM kladr_statetype'
 	print u'INSERT INTO kladr_statetype (id, comments) VALUES (1, "Центр района");'
 	print u'INSERT INTO kladr_statetype (id, comments) VALUES (2, "Центр региона");'
 	print u'INSERT INTO kladr_statetype (id, comments) VALUES (3, "Центр района и региона");'
 	print u'INSERT INTO kladr_statetype (id, comments) VALUES (4, "Центральный район");'
 
 def	__short(path):
-	print u'DELETE FROM kladr_short'
 	rd = __dbfreader( open(os.path.join( path, 'SOCRBASE.DBF' ), 'rb') )
 	fields, type = rd.next(), rd.next()
 	short = dict()
@@ -89,7 +87,6 @@ def	__calc_level( code ):
 	return 1
 
 def	__kladr(path, short):
-	print u'DELETE FROM kladr_kladr'
 	rd = __dbfreader( open(os.path.join( path, 'KLADR.DBF' ), 'rb') )
 	fields, type = rd.next(), rd.next()
 	for dbf_row in rd:
@@ -97,13 +94,14 @@ def	__kladr(path, short):
 		if ((r[2][11:]) == '00'):			# actual
 			level = __calc_level(r[2])
 			zip = r[3] if (r[3]) else 'NULL'
+			okato = r[6] if (r[6]) else 'NULL'
 			state = r[7] if int(r[7]) else 'NULL'
 			if (level == 1):
 				parent = 'NULL'
 			else:
 				a = (level * 3) - 4
 				parent = r[2][:a] + '000' + r[2][a+3:] + '00'
-			print u'INSERT INTO kladr_kladr (id, parent_id, name, short_id, level, zip, okato, center_id) VALUES (%s, %s, "%s", %d, %d, %s, %s, %s);' % (r[2] + '00', parent, r[0], short[r[1]], level, zip, r[6], state)
+			print u'INSERT INTO kladr_kladr (id, parent_id, name, short_id, level, zip, okato, center_id) VALUES (%s, %s, "%s", %d, %d, %s, %s, %s);' % (r[2] + '00', parent, r[0], short[r[1]], level, zip, okato, state)
 
 def	__street(path, short):
 	rd = __dbfreader( open(os.path.join( path, 'STREET.DBF' ), 'rb') )
@@ -112,13 +110,17 @@ def	__street(path, short):
 		r = [ unicode( r, 'cp866' ).strip() for r in dbf_row ]
 		if ((r[2][15:]) == '00'):			# actual
 			zip = r[3] if (r[3]) else 'NULL'
-			print u'INSERT INTO kladr_kladr (id, parent_id, name, short_id, level, zip, okato, center_id) VALUES (%s, %s, "%s", %d, 5, %s, %s, NULL);' % (r[2][:15], r[2][:11] + '0000', r[0], short[r[1]], zip, r[6])
+			okato = r[6] if (r[6]) else 'NULL'
+			print u'INSERT INTO kladr_kladr (id, parent_id, name, short_id, level, zip, okato, center_id) VALUES (%s, %s, "%s", %d, 5, %s, %s, NULL);' % (r[2][:15], r[2][:11] + '0000', r[0], short[r[1]], zip, okato)
 
 if (len(sys.argv) != 1):
         print "Usage: %s" % sys.argv[0]
 else:
 	dbpath = '/mnt/shares/lansite/media/KLADR'
 	print u'BEGIN;'
+	print u'DELETE FROM kladr_statetype;'
+	print u'DELETE FROM kladr_short;'
+	print u'DELETE FROM kladr_kladr;'
 	__statetype()
 	print >> sys.stderr, "short"
 	short = __short(dbpath)

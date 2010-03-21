@@ -18,9 +18,7 @@ from models import *
 from forms import *
 
 def	index(request):
-	if not request.user.is_authenticated():
-		return HttpResponseRedirect('../login/?next=%s' % request.path)
-	return render_to_response('kladr/index.html', context_instance=RequestContext(request))
+	return render_to_response('kladr/index.html', context_instance=RequestContext(request, {'data': Kladr.objects.filter(level=1)}))
 
-def	list(request):
-	return render_to_response('kladr/list.html', context_instance=RequestContext(request, {'data': Kladr.objects.filter(level=1)}))
+def	view(request, item_id=None):
+	return render_to_response('kladr/view.html', context_instance=RequestContext(request, {'data': Kladr.objects.get(pk=item_id)}))

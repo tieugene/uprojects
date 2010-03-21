@@ -71,14 +71,8 @@ class	Kladr(models.Model):	# KLADR+STREET
 		'''
 		retvalue = list()
 		p = self.parent
-		while (parent):
+		while (p):
 			retvalue.append(p)
 			p = p.parent
-		return retvalue
-
-	def	getsons(self):
-		'''
-		return list of all sons
-		'''
-		retvalue = list()
+		retvalue.reverse()
 		return retvalue
