@@ -9,5 +9,6 @@ from models import *
 
 urlpatterns = patterns('kladr.views',
 	(r'^$',		'index'),
-	(r'^list/$',	'list'),
+	(r'^reset/$',	'reset'),
+	(r'^update/$',	'update'),
 )

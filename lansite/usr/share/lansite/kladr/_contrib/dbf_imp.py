@@ -21,10 +21,10 @@ def imp_socr(f):
 	Short.objects.all().delete()
 	for dbf_row in rd:
 		r = [ unicode( r, 'cp866' ).strip() for r in dbf_row ]
-		short = Short(id=int(r[3]), name=r[1], fullname=r[2], level=int(r[0]))
-		short.save()
-		#curs.execute("insert into kladr_short(id, name, fullname, level) values (%d, %s, %s, %d)", (int(r[3]), r[1], r[2], int(r[0])))
-		#trs.commit_unless_managed()
+		short = Short.objects.get(name=r[1])
+		if (not short):
+			short = Short(name=r[1], fullname=r[2])
+			short.save()
 	rd.close()
 
 def calc_level( code ):
