@@ -1,0 +1,3 @@
+Country codes: http://www.iso.org/iso/country_codes/iso_3166_code_lists.htm
+	iso_3166-1_list_en.zip
+	list-en1-semic-3.txt
