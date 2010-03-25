@@ -96,7 +96,7 @@ def	sro_list(request, sro_id, page_num):
 			orgsro_list = orgsro_list.filter(org__okato__pk=request.POST['okato'])
 		elif (request.POST['insurer']):
 			orgsro_list = orgsro_list.filter(orginsurance__insurer__pk=request.POST['insurer'])
-	page = get_page(orgsro_list, page_num, '/sro2/sro/%s/list/' % sro_id)
+	page = get_page(orgsro_list, page_num, reverse('sro2.views.sro_list', kwargs={'sro_id': sro_id}))
 	return render_to_response('sro2/sro_orglist.html', RequestContext(request, {'sro': sro, 'page': page, 'form': OrgListForm()}))
 
 @login_required
@@ -521,7 +521,7 @@ def	orgsro_event_del(request, orgsro_id, item_id):
 @login_required
 def	person_list(request, sro_id, page_num):
 	person_list = Person.objects.all().order_by('lastname')
-	page = get_page(person_list, page_num, '/sro2/sro/%s/person/' % sro_id)
+	page = get_page(person_list, page_num, reverse('sro2.views.person_list', kwargs={'sro_id': sro_id}))
 	return render_to_response('sro2/person_list.html', RequestContext(request, { 'sro': Sro.objects.get(pk=sro_id), 'page': page}))
 
 @login_required
