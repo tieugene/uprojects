@@ -1,1 +1,4 @@
-mysql --user=root --password=password < 2mysql.sql
+#!/bin/sh
+# drops all tables
+. ./VARS
+mysql --user=root --password=seeGooj5 < dropall.sql

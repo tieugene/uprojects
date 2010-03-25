@@ -1,3 +1,5 @@
+{% load sro2_extras %}
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
@@ -30,11 +32,11 @@ function confirmDelete(delUrl) {
 	<tbody>
 	{% for person in page.object_list %}
 		<tr>
-			<td>{{ person.page_item_number }}</td>
+			<td> {{ person.page_item_number }} </td>
 			<td> <a href="{% url sro2.views.person_view sro.id person.id %}"> {{ person.lastname }} </a> </td>
-			<td>  {{ person.firstname }} </td>
-			<td>  {{ person.midname }} </td>
-			<td> {% if perms.sro2.delete_person %} <input type="button" value="X" title="Удалить" onClick="confirmDelete('{% url sro2.views.person_del sro.id person.id %}')"/> {% endif %} </td>
+			<td> {{ person.firstname }} </td>
+			<td> {{ person.midname }} </td>
+			<td> {% if person|chkuser:user and perms.sro2.delete_person %} <input type="button" value="X" title="Удалить" onClick="confirmDelete('{% url sro2.views.person_del sro.id person.id %}')"/> {% endif %} </td>
 		</tr>
 	{% endfor %}
 	</tbody>

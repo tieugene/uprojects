@@ -17,7 +17,7 @@ class	OrgAddForm(forms.ModelForm):
 	raddress	= forms.CharField(label='Фактический адрес', widget=forms.Textarea, required=False)
 	class	Meta:
 		model = Org
-		exclude = ('okveds', 'stuffs', 'sro')
+		exclude = ('okveds', 'stuffs', 'sro', 'user')
 
 class	OrgEditForm(forms.ModelForm):
 	fullname	= forms.CharField(label='Полное наименование', widget=forms.Textarea)
@@ -26,7 +26,7 @@ class	OrgEditForm(forms.ModelForm):
 	raddress	= forms.CharField(label='Фактический адрес', widget=forms.Textarea, required=False)
 	class	Meta:
 		model = Org
-		exclude = ('okveds', 'stuffs', 'sro')
+		exclude = ('okveds', 'stuffs', 'sro', 'user')
 
 class	OrgSroForm(forms.ModelForm):
 	regdate		= forms.DateField(input_formats=['%d.%m.%Y', '%d/%m/%Y'], widget=forms.widgets.DateTimeInput(format='%d.%m.%Y'), label='Дата членства в НП', required=False)

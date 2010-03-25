@@ -1,4 +1,9 @@
 #!/bin/sh
+# Delete all records from all record into lansite MySQL database
 . ./VARS
-$TMP=`mktemp`
-$MGR sqlclear > $TMP && echo "VACUUM;" >> $TMP && $SQL $DBPATH < $TMP && rm -f $TMP
+TMP=`mktemp`
+echo "BEGIN;" > $TMP
+echo "SHOW TABLES;" | $MGR dbshell | grep ^$APP | while read i; do echo "DELETE FROM $i;" >> $TMP; done
+echo "COMMIT;" >> $TMP
+cat $TMP | $MGR dbshell
+rm -f $TMP

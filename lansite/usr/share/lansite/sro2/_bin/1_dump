@@ -1,2 +1,0 @@
-#!/bin/sh
-time ../../manage.py dumpdata --format=json --indent=1 sro2 > ../../sro2.json
