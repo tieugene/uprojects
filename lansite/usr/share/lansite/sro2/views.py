@@ -151,6 +151,8 @@ def	sro_org_add(request, sro_id):
 		form = OrgAddForm(request.POST, instance=org)
 		if form.is_valid():
 			org = form.save()
+			org.user=request.user
+			org.save()
 			__log_it(request, org, ADDITION)
 			orgsro = OrgSro(org=org, sro=sro)
 			orgsro.save()
@@ -176,7 +178,7 @@ def	orgsro_del(request, orgsro_id):
 @login_required
 def	orgsro_view(request, orgsro_id):
 	orgsro = OrgSro.objects.get(pk=orgsro_id)
-	return render_to_response('sro2/orgsro_view.html', RequestContext(request, {'orgsro': orgsro}))
+	return render_to_response('sro2/orgsro_view.html', RequestContext(request, {'orgsro': orgsro, 'canedit': checkuser(orgsro.org, request.user)}))
 
 
 @login_required
@@ -412,6 +414,8 @@ def	orgsro_stuff_add_person(request, orgsro_id):
 		form = OrgStuffAddPersonForm(request.POST)
 		if form.is_valid():
 			item = form.save()
+			item.user=request.user
+			item.save()
 			__log_it(request, item, ADDITION)
 	return HttpResponseRedirect(reverse('sro2.views.orgsro_stuff_edit', kwargs={'orgsro_id': orgsro.id}) + '?person=%d' % item.id)
 
@@ -528,7 +532,7 @@ def	person_list(request, sro_id, page_num):
 def	person_view(request, sro_id, person_id):
 	person	= Person.objects.get(pk=person_id)
 	skill	= PersonSkill.objects.filter(person=person)
-	return render_to_response('sro2/person_view.html', RequestContext(request, { 'sro': Sro.objects.get(pk=sro_id), 'person': person, 'person_skill': skill }))
+	return render_to_response('sro2/person_view.html', RequestContext(request, { 'sro': Sro.objects.get(pk=sro_id), 'person': person, 'person_skill': skill, 'canedit': checkuser(person, request.user) }))
 
 @login_required
 def	person_del(request, sro_id, person_id):
@@ -652,7 +656,7 @@ def	stagelist_list(request, perm_id):
 			else:
 				jobs.append((j, False))
 		stages.append((s, sflag, jobs))
-	return render_to_response('sro2/stagelist_list.html', RequestContext(request, { 'stagelist': stagelist, 'stages': stages, 'jcount': jcount, 'form': StageListListForm() }))
+	return render_to_response('sro2/stagelist_list.html', RequestContext(request, { 'stagelist': stagelist, 'stages': stages, 'jcount': jcount, 'form': StageListListForm(), 'canedit': checkuser(stagelist.orgsro.org, request.user) }))
 
 @login_required
 def	stagelist_edit(request, perm_id):
