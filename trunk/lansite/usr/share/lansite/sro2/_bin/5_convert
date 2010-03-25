@@ -1,2 +1,0 @@
-#!/bin/sh
-sqlite3 /mnt/shares/lansite/db/lansite.db < sro_1to2.sql

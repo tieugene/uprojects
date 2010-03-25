@@ -1,6 +1,6 @@
 {% extends "sro2/stagelist_base.html" %}
 {% block editmain %}
-{% if perms.sro2.change_stagelist %}
+{% if canedit and perms.sro2.change_stagelist %}
 <input type="button" value="Изменить" onClick="window.location.href='{% url sro2.views.stagelist_edit stagelist.id %}'"/>
 {% endif %}
 {% endblock %}
@@ -27,7 +27,7 @@ function SelectAll (state) {
 	}
 }
 </script>
-
+{% if canedit %}
 <form action="{% url sro2.views.stagelist_dup stagelist.id %}" method="POST" name="form1">
 <p>
 {{ form.type }}
@@ -47,6 +47,7 @@ function SelectAll (state) {
 <input type="button" value="PDF" title="Напечатать разрешение (PDF)" onClick="window.location.href='{% url sro2.views.stagelist_pdf stagelist.id %}'"/>
 </p>
 {% endifequal %}
+{% endif %}
 <table border="0">
 {% for s, sflag, jobs in stages %}
 	<a name="{{ s.id }}"/>
@@ -61,14 +62,14 @@ function SelectAll (state) {
 				{% endfor %}
 			</div>
 		</td>
-		{% if perms.sro2.add_permitstage and perms.sro2.add_permitstagejob and perms.sro2.delete_permitstage and perms.sro2.add_permitstagejob %}
+		{% if canedit and perms.sro2.add_permitstage and perms.sro2.add_permitstagejob and perms.sro2.delete_permitstage and perms.sro2.add_permitstagejob %}
 		<td valign="top"> <input type="button" value="Изменить" onClick="window.location.href='{% url sro2.views.stagelist_edit_stage stagelist.id, s.id %}'"/> </td>
 		<td align="center" colspan="2" bgcolor="red"> <input type="checkbox" name="set" value="{{ s.id }}"/> </td>
 		{% endif %}
 	<tr>
 {% endfor %}
 	<tr> <td colspan="8"> <hr/> </td> </tr>
-	{% if perms.sro2.add_permitstage and perms.sro2.add_permitstagejob and perms.sro2.delete_permitstage and perms.sro2.add_permitstagejob %}
+	{% if canedit and perms.sro2.add_permitstage and perms.sro2.add_permitstagejob and perms.sro2.delete_permitstage and perms.sro2.add_permitstagejob %}
 	<tr bgcolor="red">
 		<td colspan="5" rowspan="2"> <b> ОПТОМ: </b> </td>
 		<td align="center"> <input type="button" value="&radic;" title="Выбрать все" onClick="SelectAll(true);"/> </td>

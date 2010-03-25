@@ -1,4 +1,3 @@
 #!/bin/sh
-pushd ../..
-./manage.py syncdb
-popd
+. ./VARS
+$MGR syncdb

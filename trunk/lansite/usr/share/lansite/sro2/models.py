@@ -2,12 +2,60 @@
 '''
 SRO2
 
-models: 32
+models: 35
+
+Adding user:
+	* dump
+	* refresh src
+	* loaddata
+	* admin: create filials
+	* admin: set BranchUsers
+	* set initial user in Org and Person
 '''
 
 import os
 
 from django.db import models
+from django.contrib.auth.models import User
+
+def	checkuser(item, user):
+	'''
+	Check wether user can change this object.
+	Can: if user in center branch or in same branch as item.user
+	'''
+	return (((user.branchuser != None) and user.branchuser.branch.center) or ((item.user != None) and item.user.branchuser and user.branchuser and (item.user.branchuser.branch == user.branchuser.branch)))
+
+class	Branch(models.Model):
+	id		= models.PositiveSmallIntegerField(primary_key=True, verbose_name=u'Код')
+	name		= models.CharField(max_length=32, blank=False, unique=True, verbose_name=u'Наименование')
+	center		= models.BooleanField(blank=False, default=False, verbose_name=u'Центральный')
+
+	def	asstr(self):
+		return self.name
+
+	def	__unicode__(self):
+		return self.asstr()
+
+	class	Meta:
+		ordering = ('name',)
+		verbose_name = u'Филиал'
+		verbose_name_plural = u'Филиалы'
+
+class	BranchUser(models.Model):
+	branch		= models.ForeignKey(Branch, null=False, blank=False, verbose_name=u'Филиал')
+	user		= models.OneToOneField(User, null=False, blank=False, verbose_name=u'Пользователь')
+
+	def	asstr(self):
+		return u'%s.%s' % (self.branch, self.user)
+
+	def	__unicode__(self):
+		return self.asstr()
+
+	class	Meta:
+		ordering = ('branch', 'user',)
+		verbose_name = u'Пользователь в филиале'
+		verbose_name_plural = u'Пользователи в филиалах'
+		unique_together		= (('branch', 'user'),)
 
 class	Insurer(models.Model):
 	name		= models.CharField(max_length=100, blank=False, unique=True, verbose_name=u'Наименование')
@@ -278,6 +326,7 @@ class	Person(models.Model):
 	lastname	= models.CharField(max_length=24, blank=False, verbose_name=u'Фамилия')
 	skills		= models.ManyToManyField(Skill, through='PersonSkill', verbose_name=u'Квалификации')
 	phone		= models.CharField(null=True, blank=True, max_length=25, verbose_name=u'Телефон')
+	user		= models.ForeignKey(User, null=True, blank=True, verbose_name=u'Пользователь')
 
 	def	asstr(self):
 		return u'%s %s %s' % (self.lastname, self.firstname, self.midname)
@@ -321,11 +370,8 @@ class	PersonSkill(models.Model):
 class	Org(models.Model):
 	name		= models.CharField(null=False, blank=False, max_length=40, unique=False, verbose_name=u'Наименование')
 	fullname	= models.CharField(null=False, blank=False, max_length=150, unique=False, verbose_name=u'Полное наименование')
-	okopf			= models.ForeignKey(Okopf, null=False, blank=False, verbose_name=u'ОКОПФ')
+	okopf		= models.ForeignKey(Okopf, null=False, blank=False, verbose_name=u'ОКОПФ')
 	egruldate	= models.DateField(null=True, blank=True, verbose_name=u'Дата регистрации в ЕГРЮЛ')
-#	inn		= models.PositiveIntegerField(null=False, blank=False, unique=True, verbose_name=u'ИНН')
-#	kpp		= models.PositiveIntegerField(null=True, blank=True, verbose_name=u'КПП')
-#	ogrn		= models.PositiveIntegerField(null=False, blank=False, unique=True, verbose_name=u'ОГРН')
 	inn		= models.CharField(null=False, blank=False, max_length=12, unique=True, verbose_name=u'ИНН')
 	kpp		= models.CharField(null=True, blank=True, max_length=9, verbose_name=u'КПП')
 	ogrn		= models.CharField(null=False, blank=False, max_length=15, unique=True, verbose_name=u'ОГРН')
@@ -333,6 +379,7 @@ class	Org(models.Model):
 	laddress	= models.CharField(null=False, blank=False, max_length=255, verbose_name=u'Адрес юридический')
 	raddress	= models.CharField(null=True, blank=True, max_length=255, verbose_name=u'Адрес почтовый')
 	comments	= models.TextField(null=True, blank=True, verbose_name=u'Коментарии')
+	user		= models.ForeignKey(User, null=True, blank=True, verbose_name=u'Пользователь')
 	okveds		= models.ManyToManyField(Okved, through='OrgOkved', verbose_name=u'Коды ОКВЭД')
 	stuffs		= models.ManyToManyField(Person, through='OrgStuff', verbose_name=u'Штат')
 	sro		= models.ManyToManyField(Sro, through='OrgSro', verbose_name=u'СРО')
@@ -633,8 +680,8 @@ class	Permit(models.Model):
 		verbose_name_plural	= u'Свидетельства'
 
 modellist = (
-	Insurer, Okato, Okopf, Okved, SroType, Sro, Stage, Job, Speciality, SpecialityStage,
-	Skill, EventType, Role, Person, PersonSkill, Org, OrgOkved, OrgPhone, OrgEmail, OrgWWW,
-	OrgStuff, Agent, OrgSro, OrgEvent, OrgLicense, OrgInsurance, Protocol, StageListType, StageList, PermitStage,
-	PermitStageJob, Statement, Permit
+	Branch, BranchUser, Insurer, Okato, Okopf, Okved, SroType, Sro, Stage, Job,
+	Speciality, SpecialityStage, Skill, EventType, Role, Person, PersonSkill, Org, OrgOkved, OrgPhone,
+	OrgEmail, OrgWWW, OrgStuff, Agent, OrgSro, OrgEvent, OrgLicense, OrgInsurance, Protocol, StageListType,
+	StageList, PermitStage, PermitStageJob, Statement, Permit
 )

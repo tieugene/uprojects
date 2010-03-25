@@ -13,6 +13,10 @@ from django.contrib import admin
 from models import *
 
 # 1. Inlines
+class	BranchUserInLine(admin.TabularInline):
+	model		= BranchUser
+	extra		= 1
+
 class	InsurerInLine(admin.TabularInline):
 	model		= Insurer
 	extra		= 1
@@ -143,6 +147,16 @@ class	PermitInLine(admin.TabularInline):
 	extra = 1
 
 # 2. Odmins
+class	BranchAdmin(admin.ModelAdmin):
+	list_display	= ('id', 'name', 'center')
+	ordering	= ('id',)
+	search_fields	= ('name',)
+	inlines		= (BranchUserInLine,)
+
+class	BranchUserAdmin(admin.ModelAdmin):
+	list_display	= ('branch', 'user',)
+	ordering	= ('branch', 'user',)
+
 class	InsurerAdmin(admin.ModelAdmin):
 	list_display	= ('id', 'name', 'fullname')
 	ordering	= ('name',)
@@ -217,6 +231,7 @@ class	OrgAdmin(admin.ModelAdmin):
 	ordering	= ('name',)
 	inlines		= (OrgOkvedInLine, OrgPhoneInLine, OrgEmailInLine, OrgWWWInLine, OrgStuffInLine, OrgSroInLine)
 	raw_id_fields	= ('okveds',)
+	#readonly_fields
 
 class	AgentAdmin(admin.ModelAdmin):
 	list_display	= ('name',)
@@ -252,6 +267,8 @@ class	PermitAdmin(admin.ModelAdmin):
 	list_display	= ('stagelist', 'no', 'date',)
 	ordering	= ('stagelist', 'no', 'date',)
 
+admin.site.register(Branch,		BranchAdmin)
+admin.site.register(BranchUser,		BranchUserAdmin)
 admin.site.register(Insurer,		InsurerAdmin)
 admin.site.register(Okato,		OkatoAdmin)
 admin.site.register(Okopf,		OkopfAdmin)
