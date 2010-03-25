@@ -8,6 +8,7 @@ from django.contrib.admin.models import LogEntry, ADDITION, CHANGE, DELETION
 from django.contrib.contenttypes.models import ContentType
 from django.core import serializers
 from django.core.urlresolvers import reverse
+from django.core.paginator import Paginator
 from django.db import transaction
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render_to_response
@@ -61,6 +62,16 @@ def	__load_permit(perm_id):
 		jcount = jcount + count
 	return {'stagelist': stagelist, 'date': __strdate(stagelist.permit.date), 'protodate': __strdate(stagelist.permit.protocol.date), 'jcount': jcount}
 
+# Получить страницу для постраничного вывода списков
+def get_page(lst, page_num, base_path):
+	page_num = int(page_num or 1)
+	paginator = Paginator(lst, per_page=50)
+	page = paginator.page(page_num)
+	page.base_path = base_path
+	for i, item in enumerate(page.object_list):
+		item.page_item_number = page.start_index() + i
+	return page
+
 def	index(request):
 	if not request.user.is_authenticated():
 		return HttpResponseRedirect('../login/?next=%s' % request.path)
@@ -77,7 +88,7 @@ def	index_sro(request, sro_id):
 	return render_to_response('sro2/index_sro.html', context_instance=RequestContext(request, {'sro': Sro.objects.get(pk=sro_id)}))
 
 @login_required
-def	sro_list(request, sro_id):
+def	sro_list(request, sro_id, page_num):
 	sro = Sro.objects.get(pk=sro_id)
 	orgsro_list = sro.orgsro_set.all().order_by('org__name')
 	if request.method == 'POST':
@@ -85,7 +96,8 @@ def	sro_list(request, sro_id):
 			orgsro_list = orgsro_list.filter(org__okato__pk=request.POST['okato'])
 		elif (request.POST['insurer']):
 			orgsro_list = orgsro_list.filter(orginsurance__insurer__pk=request.POST['insurer'])
-	return render_to_response('sro2/sro_orglist.html', RequestContext(request, {'sro': sro, 'orgsro_list': orgsro_list, 'form': OrgListForm()}))
+	page = get_page(orgsro_list, page_num, '/sro2/sro/%s/list/' % sro_id)
+	return render_to_response('sro2/sro_orglist.html', RequestContext(request, {'sro': sro, 'page': page, 'form': OrgListForm()}))
 
 @login_required
 def	sro_publish(request, sro_id):
@@ -507,9 +519,10 @@ def	orgsro_event_del(request, orgsro_id, item_id):
 	return HttpResponseRedirect('sro2/dummy.html')
 
 @login_required
-def	person_list(request, sro_id):
+def	person_list(request, sro_id, page_num):
 	person_list = Person.objects.all().order_by('lastname')
-	return render_to_response('sro2/person_list.html', RequestContext(request, { 'sro': Sro.objects.get(pk=sro_id), 'person_list': person_list}))
+	page = get_page(person_list, page_num, '/sro2/sro/%s/person/' % sro_id)
+	return render_to_response('sro2/person_list.html', RequestContext(request, { 'sro': Sro.objects.get(pk=sro_id), 'page': page}))
 
 @login_required
 def	person_view(request, sro_id, person_id):
