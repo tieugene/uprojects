@@ -19,6 +19,7 @@ function confirmDelete(delUrl) {
 {% if perms.sro2.add_org %}
 <input type="button" value="+" title="Добавить" onClick="window.location.href='{% url sro2.views.sro_org_add sro.id %}'"/>
 {% endif %}
+{% include "sro2/pager.html" %}
 	<table border="0">
 	<thead>
 		<form method="POST">
@@ -38,11 +39,11 @@ function confirmDelete(delUrl) {
 		</tr>
 		</form>
 	</thead>
-{% if orgsro_list %}
+{% if page.object_list %}
 	<tbody>
-	{% for orgsro in orgsro_list %}
+	{% for orgsro in page.object_list %}
 		<tr>
-			<td> {{ forloop.counter }} </td>
+			<td>{{ orgsro.page_item_number }}</td>
 			<td> <a href="{% url sro2.views.orgsro_view orgsro.id %}" title="{{ orgsro.org.fullname }}">{{ orgsro.org.name }} </td>
 			<td> {% if orgsro.org.okato %} {{ orgsro.org.okato }} {% endif %} </td>
 			<td> {% if orgsro.orginsurance %} {{ orgsro.orginsurance.insurer }} {% endif %} </td>
@@ -53,6 +54,7 @@ function confirmDelete(delUrl) {
 	</tbody>
 {% endif %}
 	</table>
+{% include "sro2/pager.html" %}
 <hr/>
 <p>
 	[ <a title="Список организаций для размещения на вебсайте" href="{% url sro2.views.sro_publish sro.id %}"> Просмотр </a> ]
