@@ -3,9 +3,26 @@
 from django.db import models
 from polymorphic import PolymorphicModel
 
+class	GwUser(models.Model):
+	user		= models.OneToOneField(User, null=False, blank=False, verbose_name=u'Пользователь')
+
+	def	asstr(self):
+		return self.user
+
+	def	__unicode__(self):
+		return self.asstr()
+
+	class	Meta:
+		ordering = ('user',)
+		verbose_name = u'Пользователь GW'
+		verbose_name_plural = u'Пользователи GW'
+
 class	Object(PolymorphicModel):
 	'''
-	Объект - прародитель всех остальных
+	Объект - прародитель всех остальных.
+	ancestor - объект, от которого данный объект наследует свойства, не определенные в данном объекте (наследование).
+	master	- объект выше по иерархии группировки (включение)
+	links	- группы (кластеры) связанных объектов, в который включен данные объект
 	'''
 	ancestor	= models.ForeignKey('self', null=True, blank=True, related_name='ancestor_set', verbose_name=u'Предок')
 	master		= models.ForeignKey('self', null=True, blank=True, related_name='master_set', verbose_name=u'Хозяин')
@@ -14,7 +31,15 @@ class	Object(PolymorphicModel):
 	class	Meta:
 		verbose_name		= u'Объект'
 		verbose_name_plural	= u'Объекты'
+'''
+class	LinkCluster:
+	pass
 
+class	ObjectLink:
+	cluster:LinkCluster
+	object:Object
+	unique_together = ((cluster, object),)
+'''
 class	AddrShort(models.Model):
 	'''
 	Сокращение для адреса: ул.=улица etc
@@ -217,6 +242,14 @@ class	Org_RU(Org):
 		verbose_name_plural = u'Организации (РФ)'
 
 class	Task(Object):
+	created		= models.DateTimeField(null=False, blank=False, default="NOW()", verbose_name=u'Создана')
+	deadline	= models.DateField(null=True, blank=True, verbose_name=u'Завершить до')
+	subject		= models.CharField(max_length=128, null=False, blank=False, verbose_name=u'Тема')
+	description	= models.TextField(null=True, blank=True, verbose_name=u'Подробности')
+	importance	= models.PositiveSmallIntegerField(null=True, blank=True, verbose_name=u'Важность')
+	done		= models.BooleanField(null=False, blank=False, default=False, verbose_name=u'Завершена')
+	result		= models.BooleanField(null=True, blank=True, default=None, verbose_name=u'Результат')	# ok|forward
+
 	def	__unicode__(self):
 		return self.name
 
@@ -224,14 +257,37 @@ class	Task(Object):
 		verbose_name = u'Задача'
 		verbose_name_plural = u'Задачи'
 
-class	TaskHD(Object):
+class	CategoryHD(Object):
+	name		= models.CharField(max_length=64, null=False, blank=False, unique=True, verbose_name=u'Наименование')
+
+	def	asstr(self):
+		return self.name
+
+	def	__unicode__(self):
+		return self.asstr()
+
+	class	Meta:
+		ordering		= ('name',)
+		verbose_name		= u'Категория HelpDesk'
+		verbose_name_plural	= u'Категории HelpDesk'
+
+class	TaskHD(Task):
 	'''
 	Task.HelpDesk
 	'''
+	author		= models.ForeignKey(GwUser, null=False, blank=False, verbose_name=u'Автор')
+	assignee	= models.ForeignKey(GwUser, null=False, blank=False, verbose_name=u'Исполнитель')
+	category	= models.ForeignKey(CategoryHD, null=True, blank=True, verbose_name=u'Категория')
+'''
+	state
+	comments
+	files
+	DependsOn - tasks not sons
+'''
 
 	def	__unicode__(self):
 		return self.name
 
 	class	Meta:
-		verbose_name = u'Задача'
-		verbose_name_plural = u'Задачи'
+		verbose_name = u'Задача HelpDesk'
+		verbose_name_plural = u'Задачи HelpDesk'
