@@ -65,7 +65,7 @@ def	__load_permit(perm_id):
 # Получить страницу для постраничного вывода списков
 def get_page(lst, page_num, base_path):
 	page_num = int(page_num or 1)
-	paginator = Paginator(lst, per_page=50)
+	paginator = Paginator(lst, per_page=500)
 	page = paginator.page(page_num)
 	page.base_path = base_path
 	for i, item in enumerate(page.object_list):
@@ -162,6 +162,21 @@ def	sro_org_add(request, sro_id):
 		form = OrgAddForm(instance=org)
 		okopf =  Okopf.objects.all()
 	return render_to_response('sro2/sro_org_add.html', RequestContext(request, {'sro': sro, 'org': org, 'form': form}))
+
+@login_required
+def	sro_find(request, sro_id):
+	sro = Sro.objects.get(pk=sro_id)
+	return render_to_response('sro2/sro_find.html', RequestContext(request, {'sro': sro, 'stage_list': Stage.objects.filter(srotype=sro.type)}))
+
+@login_required
+def	sro_find_filter(request, sro_id, stage_id):
+	'''
+	Найти организации, в действующих Свидетельствах которых есть определенный тип работ
+	'''
+	sro = Sro.objects.get(pk=sro_id)
+	stage = Stage.objects.get(pk=stage_id)
+	orgsro_list = sro.orgsro_set.filter(currperm__stagelist__permitstage__stage=stage)
+	return render_to_response('sro2/sro_find_filter.html', RequestContext(request, {'sro': sro, 'stage': stage, 'orgsro_list': orgsro_list}))
 
 @login_required
 def	orgsro_del(request, orgsro_id):
@@ -316,7 +331,6 @@ def	orgsro_okved_edit(request, orgsro_id):
 
 @login_required
 def	orgsro_okved_del(request, orgsro_id, item_id):
-	''' FIXME: '''
 	orgsro = OrgSro.objects.get(pk=orgsro_id)
 	item = OrgOkved.objects.get(pk=item_id)
 	__log_it(request, item, DELETION)

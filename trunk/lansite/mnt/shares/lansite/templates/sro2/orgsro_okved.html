@@ -1,8 +1,15 @@
 {% extends "sro2/orgsro_base.html" %}
+<style type="text/css">
+	a.button {
+		border: 4px double black; /* Параметры границы */
+		background: #fc3; /* Цвет фона */
+		padding: 10px; /* Поля вокруг текста */
+	}
+</style>
 {% block body_okved %}
 	<form action=".#okved" method="post">
 	<table>
-		{% for i in orgsro.org.okveds.all %}
+		{% for i in orgsro.org.orgokved_set.all %}
 			<tr>
 				<td> {{ i.asstr }} </td>
 				<td> {% if perms.sro2.delete_orgokved %} <input type="button" value="X" onClick="confirmDelete('{% url sro2.views.orgsro_okved_del orgsro.id, i.id %}#okved')"/> {% endif %} </td>
@@ -19,6 +26,7 @@
 			</tr>
 		{% endif %}
 	</table>
-	<input type="button" value="Закончить" onClick="window.location.href='{% url sro2.views.orgsro_view orgsro.id %}#okved'"/>
+	<!-- input type="button" value="Закончить" onClick="window.location.href='{% url sro2.views.orgsro_view orgsro.id %}#okved'"/-->
+	<a href="{% url sro2.views.orgsro_view orgsro.id %}#okved"><table border="1"><tr><td bgcolor="lightgrey">Закончить</td></tr><table></a>
 	</form>
 {% endblock %}

@@ -458,9 +458,9 @@ class	OrgWWW(models.Model):
 		unique_together		= [('org', 'URL')]
 
 class	OrgStuff(models.Model):
-	"""
+	'''
 	FIXME: permanent => Fulltime job
-	"""
+	'''
 	org		= models.ForeignKey(Org, verbose_name=u'Организация')
 	role		= models.ForeignKey(Role, verbose_name=u'Должность')
 	person		= models.ForeignKey(Person, verbose_name=u'Человек')
