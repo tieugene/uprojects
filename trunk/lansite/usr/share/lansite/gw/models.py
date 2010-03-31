@@ -1,13 +1,19 @@
 # -*- coding: utf-8 -*-
 
+'''
+Multitask: subtasks w/o subj, desk, etc - just assignee, state
+'''
+
 from django.db import models
+from django.contrib.auth.models import User
 from polymorphic import PolymorphicModel
+from datetime import datetime
 
 class	GwUser(models.Model):
 	user		= models.OneToOneField(User, null=False, blank=False, verbose_name=u'Пользователь')
 
 	def	asstr(self):
-		return self.user
+		return self.user.username
 
 	def	__unicode__(self):
 		return self.asstr()
@@ -102,7 +108,7 @@ class	PhoneWExt(Phone):
 
 class	Contact(Object):
 	addr		= models.ManyToManyField(Address, through='ContactAddr', verbose_name=u'Адреса')
-	phone		= models.ManyToManyField(Address, through='ContactPhone', verbose_name=u'Телефоны')
+	phone		= models.ManyToManyField(Phone, through='ContactPhone', verbose_name=u'Телефоны')
 
 #	def	__unicode__(self):
 #		return self.name
@@ -214,7 +220,7 @@ class	JobRole(models.Model):
 
 class	OrgStuff(models.Model):
 	org		= models.ForeignKey(Org, verbose_name=u'Организация')
-	role		= models.ForeignKey(Role, verbose_name=u'Должность')
+	role		= models.ForeignKey(JobRole, verbose_name=u'Должность')
 	person		= models.ForeignKey(Person, verbose_name=u'Человек')
 
 	def	asstr(self):
@@ -242,13 +248,12 @@ class	Org_RU(Org):
 		verbose_name_plural = u'Организации (РФ)'
 
 class	Task(Object):
-	created		= models.DateTimeField(null=False, blank=False, default="NOW()", verbose_name=u'Создана')
+	author		= models.ForeignKey(GwUser, null=False, blank=False, related_name='author_id', verbose_name=u'Автор')
+	created		= models.DateTimeField(null=False, blank=False, default=datetime.now, verbose_name=u'Создана')
 	deadline	= models.DateField(null=True, blank=True, verbose_name=u'Завершить до')
 	subject		= models.CharField(max_length=128, null=False, blank=False, verbose_name=u'Тема')
 	description	= models.TextField(null=True, blank=True, verbose_name=u'Подробности')
-	importance	= models.PositiveSmallIntegerField(null=True, blank=True, verbose_name=u'Важность')
-	done		= models.BooleanField(null=False, blank=False, default=False, verbose_name=u'Завершена')
-	result		= models.BooleanField(null=True, blank=True, default=None, verbose_name=u'Результат')	# ok|forward
+	done		= models.BooleanField(null=False, blank=False, default=False, verbose_name=u'Завершено')
 
 	def	__unicode__(self):
 		return self.name
@@ -257,7 +262,7 @@ class	Task(Object):
 		verbose_name = u'Задача'
 		verbose_name_plural = u'Задачи'
 
-class	CategoryHD(Object):
+class	ToDoCat(models.Model):
 	name		= models.CharField(max_length=64, null=False, blank=False, unique=True, verbose_name=u'Наименование')
 
 	def	asstr(self):
@@ -268,26 +273,52 @@ class	CategoryHD(Object):
 
 	class	Meta:
 		ordering		= ('name',)
-		verbose_name		= u'Категория HelpDesk'
-		verbose_name_plural	= u'Категории HelpDesk'
+		verbose_name		= u'ToDo.Категория'
+		verbose_name_plural	= u'ToDo.Категории'
 
-class	TaskHD(Task):
-	'''
-	Task.HelpDesk
-	'''
-	author		= models.ForeignKey(GwUser, null=False, blank=False, verbose_name=u'Автор')
-	assignee	= models.ForeignKey(GwUser, null=False, blank=False, verbose_name=u'Исполнитель')
-	category	= models.ForeignKey(CategoryHD, null=True, blank=True, verbose_name=u'Категория')
-'''
-	state
-	comments
-	files
-	DependsOn - tasks not sons
-'''
+class	ToDo(Task):
+	category	= models.ForeignKey(ToDoCat, null=True, blank=True, verbose_name=u'Категория')
 
 	def	__unicode__(self):
 		return self.name
 
 	class	Meta:
-		verbose_name = u'Задача HelpDesk'
-		verbose_name_plural = u'Задачи HelpDesk'
+		verbose_name = u'Задача'
+		verbose_name_plural = u'Задачи'
+
+class	AssignCat(models.Model):
+	name		= models.CharField(max_length=64, null=False, blank=False, unique=True, verbose_name=u'Наименование')
+	description	= models.TextField(null=True, blank=True, verbose_name=u'Подробности')
+
+	def	asstr(self):
+		return self.name
+
+	def	__unicode__(self):
+		return self.asstr()
+
+	class	Meta:
+		ordering		= ('name',)
+		verbose_name		= u'Задание.Категория'
+		verbose_name_plural	= u'Задания.Категории'
+
+class	Assign(Task):
+	'''
+	state
+	comments
+	files
+	DependsOn - tasks not sons
+	'''
+	assignee	= models.ForeignKey(GwUser, null=False, blank=False, related_name='assignee_id', verbose_name=u'Исполнитель')
+	importance	= models.PositiveSmallIntegerField(null=True, blank=True, verbose_name=u'Важность')
+	read		= models.BooleanField(null=False, blank=False, default=False, verbose_name=u'Прочтено')
+	category	= models.ForeignKey(AssignCat, null=True, blank=True, verbose_name=u'Категория')
+
+	def	__unicode__(self):
+		return self.subject
+
+	class	Meta:
+		verbose_name = u'Задание'
+		verbose_name_plural = u'Задания'
+
+# class	Appointment (iCalendar/Meeting)
+# class	Event (iEvent)

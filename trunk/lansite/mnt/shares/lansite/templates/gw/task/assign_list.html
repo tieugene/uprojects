@@ -1,0 +1,27 @@
+{% extends "gw/hd/base_task.html" %}
+{% block body_main %}
+<table width="100%" border="0"> <tr>
+	<td align="left"> <p> <a href="{% url gw.views.hd_cat_list %}"> Категории </a> </p> </td>
+	<td align="right"> <button> <a href=""> Добавить задачу</a> </button> </td>
+</table>
+<hr/>
+<table width="100%" border="1">
+	<form> <tr> <th> Filter </th> <th>  </th> <th>  </th> <th>  </th> <th>  </th> <th>  </th> <th>  </th> <th>  </th> <th>  </th> </tr> </form>
+	<form> <tr> <th> Sort </th> <th>  </th> <th>  </th> <th>  </th> <th>  </th> <th>  </th> <th>  </th> <th>  </th> <th>  </th> </tr> <form>
+	<tr> <th> # </th> <th> Категория </th> <th> Тема </th> <th> Создано </th> <th> Автор </th> <th> Исполнитель </th> <th> Важность </th> <th> Срок </th> <th> Состояние </th> </tr>
+	{% for item in item_list %}
+		<tr>
+		<td> {{ forloop.counter }} </td>
+		<td> {{ item.category }} </td>
+		<td> <a href="{% url gw.views.hd_task_view item.id %}" title="{{ item.description }}"> {{ item.subject }} </a> </td>
+		<td> {{ item.created|date }} </td>
+		<td> {{ item.author }} </td>
+		<td> {{ item.assignee }} </td>
+		<td> {{ item.importance }} </td>
+		<td> {% if item.deadline %} {{ item.deadline }} {% endif %} </td>
+		<td> {{ item.done }}, {{ item.read }} </td>
+		</tr>
+		</a>
+	{% endfor %}
+</table>
+{% endblock %}
