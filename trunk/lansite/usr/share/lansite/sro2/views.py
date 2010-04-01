@@ -115,11 +115,11 @@ def	__ftp_file(ftp, f, s):
 	@param f:string - dest filename
 	@param s:string - string to send
 	'''
-	f = tempfile.TemporaryFile()
-	f.write(s)
-	f.seek(0)
-	ftp.storbinary('STOR %s' % f)
-	f.close()
+	tmp = tempfile.TemporaryFile()
+	tmp.write(s)
+	tmp.seek(0)
+	ftp.storbinary('STOR %s' % f, tmp)
+	tmp.close()
 
 @login_required
 def	sro_upload(request, sro_id):
@@ -134,10 +134,10 @@ def	sro_upload(request, sro_id):
 	login, acct, password = hosts[ftpname]
 	ftp = ftplib.FTP(ftpname, login, password)
 	# 2. Send index
-	__ftp_file(ftp, sro.sroown.path + '/members.html', loader.get_template('sro2/sro_memberlist.html').render(Context({'sro': sro, 'item_list': item_list, 'dt': datetime.now().strftime('%d.%m.%Y %H:%M:%S')})).encode('windows-1251'))
+	__ftp_file(ftp, sro.sroown.path + '/members.htm', loader.get_template('sro2/sro_memberlist.html').render(Context({'sro': sro, 'item_list': item_list, 'dt': datetime.now().strftime('%d.%m.%Y %H:%M:%S')})).encode('windows-1251'))
 	# 3. Send each org:
 	for item in item_list:
-		__ftp_file(ftp, sro.sroown.path + '/member/%d.html' % item.id, loader.get_template('sro2/sro_member').render(Context({'orgsro': item})).encode('windows-1251'))
+		__ftp_file(ftp, sro.sroown.path + '/member/%d.html' % item.id, loader.get_template('sro2/sro_member.html').render(Context({'orgsro': item})).encode('windows-1251'))
 	# 4. close FTP
 	ftp.quit()
 	return render_to_response('sro2/upload_msg.html', RequestContext(request, {'msg': "Uploaded OK"}))
