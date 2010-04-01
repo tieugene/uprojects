@@ -25,7 +25,7 @@ LI	{
 </style>
 </head>
 <body>
-<h1> Реестр членов Некоммерческого партнерства «{{ sro.fullname }} </h1>
+<h1> Реестр членов Некоммерческого партнерства СРО {{ sro.fullname }} </h1>
 <ol>
 {% for item in item_list %}
 	<li> <a href="member/{{ item.id }}.html"> {{ item.org.okopf.shortname }} {{ item.org.fullname }} </a> </li>
