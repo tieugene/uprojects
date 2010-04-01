@@ -108,25 +108,38 @@ def	sro_publish(request, sro_id):
 def	sro_publish_member(request, sro_id, item_id):
 	return render_to_response('sro2/sro_member.html', RequestContext(request, {'orgsro': OrgSro.objects.get(pk=item_id)}))
 
+def	__ftp_file(ftp, f, s):
+	'''
+	Send string to ftp file.
+	@param ftp:ftplib.FTP - ftp connection object
+	@param f:string - dest filename
+	@param s:string - string to send
+	'''
+	f = tempfile.TemporaryFile()
+	f.write(s)
+	f.seek(0)
+	ftp.storbinary('STOR %s' % f)
+	f.close()
+
 @login_required
 def	sro_upload(request, sro_id):
 	'''FIXME'''
 	sro = Sro.objects.get(pk=sro_id)
-	orgsro_list = sro.orgsro_set.filter(publish=True).order_by('org__name')
+	item_list = sro.orgsro_set.filter(publish=True).order_by('org__name')
+	# 1. Open FTP
 	ftpname = sro.sroown.ftp
 	hosts = netrc.netrc('/mnt/shares/lansite/media/netrc').hosts
 	if (not hosts.has_key(ftpname)):
 		return render_to_response('sro2/upload_msg.html', {'msg': "Check netrc"})
-	t = loader.get_template('sro2/sro_publish.html')
-	html = t.render(Context({'orgsro_list': orgsro_list, 'dt': datetime.now().strftime('%d.%m.%Y %H:%M:%S')})).encode('windows-1251')
-	f = tempfile.TemporaryFile()
-	f.write(html)
-	f.seek(0)
 	login, acct, password = hosts[ftpname]
 	ftp = ftplib.FTP(ftpname, login, password)
-	ftp.storbinary('STOR %s/members.htm' % sro.sroown.path, f)
+	# 2. Send index
+	__ftp_file(ftp, sro.sroown.path + '/members.html', loader.get_template('sro2/sro_memberlist.html').render(Context({'sro': sro, 'item_list': item_list, 'dt': datetime.now().strftime('%d.%m.%Y %H:%M:%S')})).encode('windows-1251'))
+	# 3. Send each org:
+	for item in item_list:
+		__ftp_file(ftp, sro.sroown.path + '/member/%d.html' % item.id, loader.get_template('sro2/sro_member').render(Context({'orgsro': item})).encode('windows-1251'))
+	# 4. close FTP
 	ftp.quit()
-	f.close()
 	return render_to_response('sro2/upload_msg.html', RequestContext(request, {'msg': "Uploaded OK"}))
 
 @login_required
