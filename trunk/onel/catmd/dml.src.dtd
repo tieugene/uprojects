@@ -1,0 +1,534 @@
+<!-- v.0.5.1 - Dialog -->
+  <!ELEMENT	dml			(Frame, DiaDummy?, Browser?, Controls, Cnt_Ver?)>		<!-- stream DialogStream -->
+   <!ELEMENT	Frame			(lr*)>
+    <!ELEMENT	lr			EMPTY>						<!-- Dialog layer -->
+   <!ELEMENT	DiaDummy		EMPTY>
+   <!ELEMENT	Browser			(mcols, fcols)>					<!-- "Browser" -->
+    <!--ELEMENT	mcols			(c_1CEDIT | c_1CGROUPBOX | c_BMASKED | c_BUTTON | c_CHECKBOX | c_COMBOBOX | c_LISTBOX | c_RADIO | c_STATIC | c_TABLE | c_browse)*-->	<!-- "Multicolumn" - Многострочная частя в общем -->
+    <!ELEMENT	mcols			(c_browse)>					<!-- "Multicolumn" - Многострочная частя в общем -->
+     <!ELEMENT	c_browse		EMPTY>						<!-- multiline part -->
+    <!ELEMENT	fcols			(f_1CEDIT | f_BMASKED | f_STATIC)*>		<!-- "Fixed" - колонки многострочной части -->
+     <!ELEMENT	f_1CEDIT		(#PCDATA)>
+     <!ELEMENT	f_BMASKED		(#PCDATA)>
+     <!ELEMENT	f_STATIC		(#PCDATA)>
+   <!ELEMENT	Controls		(c_1CEDIT | c_1CGROUPBOX | c_BMASKED | c_BUTTON | c_CHECKBOX | c_COMBOBOX | c_LISTBOX | c_RADIO | c_STATIC | c_TABLE | c_PICTURE | c_SysTreeView32)*>	<!-- Controls - статические контролы -->
+    <!ELEMENT	c_1CEDIT		(#PCDATA)>					<!-- requisition -->
+    <!ELEMENT	c_1CGROUPBOX		EMPTY>						<!--  -->
+    <!ELEMENT	c_BMASKED		(#PCDATA)>					<!-- requisition w/ selection button -->
+    <!ELEMENT	c_BUTTON		(#PCDATA)>					<!-- push button -->
+    <!ELEMENT	c_CHECKBOX		(#PCDATA)>					<!-- checkbox -->
+    <!ELEMENT	c_COMBOBOX		(#PCDATA)>					<!-- combobox -->
+    <!ELEMENT	c_LISTBOX		(#PCDATA)>					<!-- listbox -->
+    <!ELEMENT	c_RADIO			(#PCDATA)>					<!-- radio button -->
+    <!ELEMENT	c_STATIC		(#PCDATA)>					<!-- text -->
+    <!ELEMENT	c_TABLE			EMPTY>						<!-- table -->
+    <!ELEMENT	c_PICTURE		EMPTY>						<!-- picture -->
+    <!ELEMENT	c_SysTreeView32		EMPTY>						<!--  -->
+   <!ELEMENT	Cnt_Ver			EMPTY>
+
+<!ATTLIST	Frame
+	fs	NMTOKEN #REQUIRED			// R # FontSize (as in MXL?)
+	u00	NMTOKEN #FIXED "0"			// D #
+	u01	NMTOKEN #FIXED "0"			// D #
+	u02	NMTOKEN #FIXED "0"			// D #
+	fb	(400|700) #REQUIRED			// R # Font Bold (400=normal, 700=bold)
+	fi	(0|1) #REQUIRED				// R b Font italic (0=no, 1=yes)
+	fu	(0|1) #REQUIRED				// R b Font underlined (0=no, 1=yes)
+	u03	NMTOKEN #FIXED "0"			// D #
+	u04	NMTOKEN #FIXED "204"			// ? #
+	u05	(1|3) #REQUIRED				// R
+	u06	NMTOKEN #FIXED "2"			// D #
+	u07	NMTOKEN #FIXED "1"			// D #
+	u08	(17|34|49) #REQUIRED			// D # new=34, old=17|49
+	fn	NMTOKENS #REQUIRED			// R s FontName
+	w	NMTOKEN #REQUIRED			// R # dialog Width
+	h	NMTOKEN #REQUIRED			// R # dialog Height
+	cap	CDATA #REQUIRED				// R s dialog Caption
+	u09	CDATA #FIXED ""				// D
+	u10	CDATA #FIXED ""				// D
+	sm	NMTOKEN #REQUIRED			// R   saving mode - Режим сохранения настройки
+	u11	CDATA #FIXED ""				// D
+	fd	(0|1) #REQUIRED				// R b Font by defoult - (0=no, 1=yes)
+	at	(0|1) #REQUIRED				// R b AutoTab (0=no, 1=yes) - Атоматический порядок обхода
+	u12	NMTOKEN #FIXED "6"			// D #
+	u13	NMTOKEN #REQUIRED			// ? # 22|25|27|29|30|32
+	bc	NMTOKEN #REQUIRED			// R # Background color (-1=auto, else: 0xBBGGRR)
+	pic	NMTOKEN #REQUIRED			// R # Picture no (номер рисунка) - in dec; 0 or starting from 0x1F000001
+	sm1	NMTOKEN #REQUIRED			// R == <sm>
+	al	NMTOKEN #REQUIRED			// R # Active layer number
+	stb	(0|1) #IMPLIED				// R b Toolbar (Панель инструментов) - (0=no, 1=yes)
+	szbl	(0|1) #IMPLIED				// R b Sizable (Изменять размер) - (0=no, 1=yes)
+>
+<!ATTLIST	lr
+	no	NMTOKEN #REQUIRED			// R # number of layer (start from 0)
+	id	NMTOKENS #REQUIRED			// R s name of layer
+	v	(0|1) #REQUIRED				// R b Layer is Visible (0=no, 1=yes)
+>
+<!ATTLIST	Browser
+	u0	NMTOKEN #REQUIRED			// ? ?
+	u1	(0|1) #REQUIRED				// ? ?
+>
+<!ENTITY % ctrl "					// D/R attr_no type comments
+	no	NMTOKEN #REQUIRED			// ? my # order no
+							// s 01 s <entity name>
+	u00	NMTOKEN #REQUIRED			// ? 02 # ?
+	x	NMTOKEN #REQUIRED			// R 03 # X-coord
+	y	NMTOKEN #REQUIRED			// R 04 # Y-coord
+	w	NMTOKEN #REQUIRED			// R 05 # Width
+	h	NMTOKEN #REQUIRED			// R 06 # Height
+	u01	NMTOKEN #FIXED '0'			// ? 08 b
+	tn	NMTOKEN #REQUIRED			// ? 09 #
+	u02	CDATA #FIXED ''				// ? 10   ?
+							//   21 s <in body> Long Description
+	u04	CDATA #FIXED '0'			// ? 25 # ?
+	u05	CDATA #FIXED '0'			// ? 26 # ?
+	u06	CDATA #FIXED '0'			// ? 27 # ?
+	u07	CDATA #FIXED '0'			// ? 31 # ?
+	fn	NMTOKENS #REQUIRED			// ? 37 s Font Name
+	u13	CDATA #FIXED '-1'			// ? 39 # ?
+	lr	NMTOKEN #REQUIRED			// ? 41 # Layer no
+">
+<!ATTLIST	c_1CEDIT
+	%ctrl;
+	cap	CDATA #REQUIRED				// s 00 s Caption (for BUTTON, CHECKBOX, RADIO, STATIC; "" - for LISTBOX, COMBOBOX, 1CEDIT, TABLE, PICTURE)
+	rq	(0|1) #REQUIRED				// ? 07 # Linked to requisition (1CEDIT, BMASKED, CHECKBOX, )
+	fm	CDATA #REQUIRED				// ? 11 s Formula
+	id	CDATA #REQUIRED				// ? 12 s ID of this (?) field
+	rid	NMTOKEN #REQUIRED			// ? 13 IDREF? UID of linked requisite
+	vtp	(D|N|S|U) #REQUIRED			// ? 14 c value type
+	vln	NMTOKEN #REQUIRED			// ? 15 # Value length
+	vpr	NMTOKEN #REQUIRED			// ? 16 # Value precision
+	uref	IDREF #IMPLIED				// ? 17 IDREF Вида значения
+	pt	(0|1|2|3) #REQUIRED			// ? 18 # Flags NonNegative+Triaded
+	flg	NMTOKEN #REQUIRED			// ? 19 # Flags (main set)
+	msq	CDATA #REQUIRED				// ? 20 s Masque (string) or Linked_with (Catalog)
+	stp	CDATA #REQUIRED				// ? 22 s Short tip
+	fs	NMTOKEN #REQUIRED			// ? 23 # Font size
+	u03	NMTOKEN #FIXED '-11'			// ? 24 # ?
+	fb	(0|400|700) #REQUIRED			// ? 28 # Font Bold (400=no, 700=yes)
+	fi	NMTOKEN #FIXED '0'			// ? 29 b Font Italic
+	fu	NMTOKEN #FIXED '0'			// ? 30 b Font Underline
+	u08	NMTOKEN #REQUIRED			// ? 32 # ? Font CodePage ?
+	u09	NMTOKEN #REQUIRED			// ? 33 # ?
+	u10	NMTOKEN #REQUIRED			// ? 34 # ?
+	u11	NMTOKEN #REQUIRED			// ? 35 # ?
+	u12	NMTOKEN #REQUIRED			// ? 36 # ?
+	fc	NMTOKEN #REQUIRED			// ? 38 # Font Color (-1 | 800000h)
+	pid	NMTOKEN #FIXED '0'			// ? 40 # picture id
+	hkm	NMTOKEN #FIXED '0'			// ? 42[..46] # Hot Key - meta
+	hks	NMTOKEN #FIXED '0'			// ? 42[..46] # Hot Key - scancode
+>
+<!ATTLIST	c_1CGROUPBOX
+	%ctrl;
+	cap	CDATA #REQUIRED				// s 00 s Caption (for BUTTON, CHECKBOX, RADIO, STATIC; "" - for LISTBOX, COMBOBOX, 1CEDIT, TABLE, PICTURE)
+	rq	NMTOKEN #FIXED '0'			// ? 07 # Linked to requisition (1CEDIT, BMASKED, CHECKBOX, )
+	fm	CDATA #FIXED ''				// ? 11 s Formula
+	id	CDATA #REQUIRED				// ? 12 s ID of this (?) field
+	rid	(0|-1) #REQUIRED			// ? 13 IDREF? UID of linked requisite
+	vtp	NMTOKEN #FIXED 'U'			// ? 14 c value type
+	vln	NMTOKEN #FIXED '0'			// ? 15 # Value length
+	vpr	NMTOKEN #FIXED '0'			// ? 16 # Value precision
+							// ? 17 '0'
+	pt	NMTOKEN #FIXED '0'			// ? 18 # Flags NonNegative+Triaded
+	flg	NMTOKEN #REQUIRED			// ? 19 # Flags (main set)
+	msq	CDATA #FIXED ''				// ? 20 s Masque (string) or Linked_with (Catalog)
+	stp	CDATA #FIXED ''				// ? 22 s Short tip
+	fs	NMTOKEN #FIXED '0'			// ? 23 # Font size
+	u03	NMTOKEN #FIXED '-11'			// ? 24 # ?
+	fb	NMTOKEN #FIXED '0'			// ? 28 # Font Bold (400=no, 700=yes)
+	fi	NMTOKEN #FIXED '0'			// ? 29 b Font Italic
+	fu	NMTOKEN #FIXED '0'			// ? 30 b Font Underline
+	u08	NMTOKEN #FIXED '0'			// ? 32 # ?
+	u09	NMTOKEN #FIXED '0'			// ? 33 # ?
+	u10	NMTOKEN #FIXED '0'			// ? 34 # ?
+	u11	NMTOKEN #FIXED '0'			// ? 35 # ?
+	u12	NMTOKEN #FIXED '0'			// ? 36 # ?
+	fc	NMTOKEN #FIXED '-1'			// ? 38 # Font Color
+	pid	NMTOKEN #FIXED '0'			// ? 40 # picture id
+	hkm	NMTOKEN #FIXED '0'			// ? 42[..46] # Hot Key - meta
+	hks	NMTOKEN #FIXED '0'			// ? 42[..46] # Hot Key - scancode
+>
+<!ATTLIST	c_BMASKED
+	%ctrl;
+	cap	CDATA #REQUIRED				// s 00 s Caption (for BUTTON, CHECKBOX, RADIO, STATIC; "" - for LISTBOX, COMBOBOX, 1CEDIT, TABLE, PICTURE)
+	rq	(0|1) #REQUIRED				// ? 07 # Linked to requisition (1CEDIT, BMASKED, CHECKBOX, )
+	fm	CDATA #REQUIRED				// ? 11 s Formula
+	id	CDATA #REQUIRED				// ? 12 s ID of this (?) field
+	rid	NMTOKEN #REQUIRED			// ? 13 IDREF? of linked requisite
+	vtp	(A|B|C|D|E|K|N|O|P|S|T|U) #REQUIRED	// ? 14 c value type
+	vln	NMTOKEN #REQUIRED			// ? 15 # Value length
+	vpr	NMTOKEN #REQUIRED			// ? 16 # Value precision
+	uref	IDREF #IMPLIED				// ? 17 IDREF Вида значения
+	pt	(0|1|2|3) #REQUIRED			// ? 18 # Flags NonNegative+Triaded
+	flg	NMTOKEN #REQUIRED			// ? 19 # Flags (main set)
+	msq	CDATA #REQUIRED				// ? 20 s Masque (string) or Linked_with (Catalog)
+	stp	CDATA #REQUIRED				// ? 22 s Short tip
+	fs	NMTOKEN #REQUIRED			// ? 23 # Font size
+	u03	NMTOKEN #FIXED '-11'			// ? 24 # ?
+	fb	(0|400|700) #REQUIRED			// ? 28 # Font Bold (400=no, 700=yes)
+	fi	NMTOKEN #FIXED '0'			// ? 29 b Font Italic
+	fu	NMTOKEN #FIXED '0'			// ? 30 b Font Underline
+	u08	NMTOKEN #REQUIRED			// ? 32 # ?
+	u09	NMTOKEN #REQUIRED			// ? 33 # ?
+	u10	NMTOKEN #REQUIRED			// ? 34 # ?
+	u11	NMTOKEN #REQUIRED			// ? 35 # ?
+	u12	NMTOKEN #REQUIRED			// ? 36 # ?
+	fc	NMTOKEN #REQUIRED			// ? 38 # Font Color (-1 | 800000h)
+	pid	NMTOKEN #FIXED '0'			// ? 40 # picture id
+	hkm	NMTOKEN #FIXED '0'			// ? 42[..46] # Hot Key - meta
+	hks	NMTOKEN #FIXED '0'			// ? 42[..46] # Hot Key - scancode
+>
+<!ATTLIST	c_browse
+	%ctrl;
+	cap	CDATA #FIXED ''				// s 00 s Caption (for BUTTON, CHECKBOX, RADIO, STATIC; "" - for LISTBOX, COMBOBOX, 1CEDIT, TABLE, PICTURE)
+	rq	NMTOKEN #FIXED '0'			// ? 07 # Linked to requisition (1CEDIT, BMASKED, CHECKBOX, )
+	fm	CDATA #REQUIRED				// ? 11 s Formula
+	id	CDATA #REQUIRED				// ? 12 s ID of this (?) field
+	rid	NMTOKEN #REQUIRED			// ? 13 IDREF? of linked requisite
+	vtp	(B|D|N|S|U) #REQUIRED			// ? 14 c value type
+	vln	NMTOKEN #REQUIRED			// ? 15 # Value length
+	vpr	(0|2) #REQUIRED				// ? 16 # Value precision (new=0, old=2)
+	uref	IDREF #IMPLIED				// ? 17 IDREF Вида значения
+	pt	(0|1) #REQUIRED				// ? 18 # Flags NonNegative+Triaded (new=0, old=1)
+	flg	NMTOKEN #REQUIRED			// ? 19 # Flags (main set)
+	msq	CDATA #FIXED ''				// ? 20 s Masque (string) or Linked_with (Catalog)
+	stp	CDATA #FIXED ''				// ? 22 s Short tip
+	fs	NMTOKEN #FIXED '0'			// ? 23 # Font size
+	u03	NMTOKEN #FIXED '-11'			// ? 24 # ?
+	fb	NMTOKEN #FIXED '0'			// ? 28 # Font Bold (400=no, 700=yes)
+	fi	NMTOKEN #FIXED '0'			// ? 29 b Font Italic
+	fu	NMTOKEN #FIXED '0'			// ? 30 b Font Underline
+	u08	NMTOKEN #FIXED '0'			// ? 32 # ?
+	u09	NMTOKEN #FIXED '0'			// ? 33 # ?
+	u10	NMTOKEN #FIXED '0'			// ? 34 # ?
+	u11	NMTOKEN #FIXED '0'			// ? 35 # ?
+	u12	NMTOKEN #FIXED '0'			// ? 36 # ?
+	fc	NMTOKEN #FIXED '-1'			// ? 38 # Font Color
+	pid	NMTOKEN #REQUIRED			// ? 40 # picture id
+	hkm	NMTOKEN #IMPLIED			// ? 42[..46] # Hot Key - meta
+	hks	NMTOKEN #IMPLIED			// ? 42[..46] # Hot Key - scancode
+>
+<!ATTLIST	c_BUTTON
+	%ctrl;
+	cap	CDATA #REQUIRED				// s 00 s Caption (for BUTTON, CHECKBOX, RADIO, STATIC; "" - for LISTBOX, COMBOBOX, 1CEDIT, TABLE, PICTURE)
+	rq	NMTOKEN #FIXED '0'			// ? 07 # Linked to requisition (1CEDIT, BMASKED, CHECKBOX, )
+	fm	CDATA #REQUIRED				// ? 11 s Formula
+	id	CDATA #REQUIRED				// ? 12 s ID of this (?) field
+	rid	(0|-1) #REQUIRED			// ? 13 IDREF? of linked requisite
+	vtp	(S|U) #REQUIRED				// ? 14 c value type
+	vln	NMTOKEN #FIXED '0'			// ? 15 # Value length
+	vpr	NMTOKEN #FIXED '0'			// ? 16 # Value precision
+							// ? 17 '0'
+	pt	NMTOKEN #FIXED '0'			// ? 18 # Flags NonNegative+Triaded
+	flg	NMTOKEN #REQUIRED			// ? 19 # Flags (main set)
+	msq	CDATA #FIXED ''				// ? 20 s Masque (string) or Linked_with (Catalog)
+	stp	CDATA #REQUIRED				// ? 22 s Short tip
+	fs	NMTOKEN #FIXED '0'			// ? 23 # Font size
+	u03	NMTOKEN #FIXED '-11'			// ? 24 # ?
+	fb	NMTOKEN #FIXED '0'			// ? 28 # Font Bold (400=no, 700=yes)
+	fi	NMTOKEN #FIXED '0'			// ? 29 b Font Italic
+	fu	NMTOKEN #FIXED '0'			// ? 30 b Font Underline
+	u08	NMTOKEN #FIXED '0'			// ? 32 # ?
+	u09	NMTOKEN #FIXED '0'			// ? 33 # ?
+	u10	NMTOKEN #FIXED '0'			// ? 34 # ?
+	u11	NMTOKEN #FIXED '0'			// ? 35 # ?
+	u12	NMTOKEN #FIXED '0'			// ? 36 # ?
+	fc	NMTOKEN #FIXED '-1'			// ? 38 # Font Color
+	pid	NMTOKEN #REQUIRED			// ? 40 # picture id
+	hkm	NMTOKEN #IMPLIED			// ? 42[..46] # Hot Key - meta
+	hks	NMTOKEN #IMPLIED			// ? 42[..46] # Hot Key - scancode
+>
+<!ATTLIST	c_CHECKBOX
+	%ctrl;
+	cap	CDATA #REQUIRED				// s 00 s Caption (for BUTTON, CHECKBOX, RADIO, STATIC; "" - for LISTBOX, COMBOBOX, 1CEDIT, TABLE, PICTURE)
+	rq	(0|1) #REQUIRED				// ? 07 # Linked to requisition (1CEDIT, BMASKED, CHECKBOX, )
+	fm	CDATA #REQUIRED				// ? 11 s Formula
+	id	CDATA #REQUIRED				// ? 12 s ID of this (?) field
+	rid	NMTOKEN #REQUIRED			// ? 13 IDREF? of linked requisite
+	vtp	(N|U|S|U) #REQUIRED			// ? 14 c value type
+	vln	NMTOKEN #REQUIRED			// ? 15 # Value length
+	vpr	NMTOKEN #FIXED '0'			// ? 16 # Value precision
+							// ? 17 '0'
+	pt	(0|1) #REQUIRED				// ? 18 # Flags NonNegative+Triaded
+	flg	NMTOKEN #REQUIRED			// ? 19 # Flags (main set)
+	msq	CDATA #FIXED ''				// ? 20 s Masque (string) or Linked_with (Catalog)
+	stp	CDATA #REQUIRED				// ? 22 s Short tip
+	fs	NMTOKEN #FIXED '0'			// ? 23 # Font size
+	u03	NMTOKEN #FIXED '-11'			// ? 24 # ?
+	fb	NMTOKEN #FIXED '0'			// ? 28 # Font Bold (400=no, 700=yes)
+	fi	NMTOKEN #FIXED '0'			// ? 29 b Font Italic
+	fu	NMTOKEN #FIXED '0'			// ? 30 b Font Underline
+	u08	NMTOKEN #FIXED '0'			// ? 32 # ?
+	u09	NMTOKEN #FIXED '0'			// ? 33 # ?
+	u10	NMTOKEN #FIXED '0'			// ? 34 # ?
+	u11	NMTOKEN #FIXED '0'			// ? 35 # ?
+	u12	NMTOKEN #FIXED '0'			// ? 36 # ?
+	fc	NMTOKEN #FIXED '-1'			// ? 38 # Font Color
+	pid	NMTOKEN #FIXED '0'			// ? 40 # picture id
+	hkm	NMTOKEN #FIXED '0'			// ? 42[..46] # Hot Key - meta
+	hks	NMTOKEN #FIXED '0'			// ? 42[..46] # Hot Key - scancode
+>
+<!ATTLIST	c_COMBOBOX
+	%ctrl;
+	cap	CDATA #REQUIRED				// s 00 s Caption (for BUTTON, CHECKBOX, RADIO, STATIC; "" - for LISTBOX, COMBOBOX, 1CEDIT, TABLE, PICTURE)
+	rq	NMTOKEN #FIXED '0'			// ? 07 # Linked to requisition (1CEDIT, BMASKED, CHECKBOX, )
+	fm	CDATA #REQUIRED				// ? 11 s Formula
+	id	CDATA #REQUIRED				// ? 12 s ID of this (?) field
+	rid	(0|-1) #REQUIRED			// ? 13 IDREF? of linked requisite
+	vtp	(S|U) #REQUIRED				// ? 14 c value type
+	vln	NMTOKEN #FIXED '0'			// ? 15 # Value length
+	vpr	NMTOKEN #FIXED '0'			// ? 16 # Value precision
+							// ? 17 '0'
+	pt	NMTOKEN #FIXED '0'			// ? 18 # Flags NonNegative+Triaded
+	flg	NMTOKEN #REQUIRED			// ? 19 # Flags (main set)
+	msq	CDATA #FIXED ''				// ? 20 s Masque (string) or Linked_with (Catalog)
+	stp	CDATA #REQUIRED				// ? 22 s Short tip
+	fs	NMTOKEN #FIXED '0'			// ? 23 # Font size
+	u03	NMTOKEN #FIXED '-11'			// ? 24 # ?
+	fb	NMTOKEN #FIXED '0'			// ? 28 # Font Bold (400=no, 700=yes)
+	fi	NMTOKEN #FIXED '0'			// ? 29 b Font Italic
+	fu	NMTOKEN #FIXED '0'			// ? 30 b Font Underline
+	u08	NMTOKEN #FIXED '0'			// ? 32 # ?
+	u09	NMTOKEN #FIXED '0'			// ? 33 # ?
+	u10	NMTOKEN #FIXED '0'			// ? 34 # ?
+	u11	NMTOKEN #FIXED '0'			// ? 35 # ?
+	u12	NMTOKEN #FIXED '0'			// ? 36 # ?
+	fc	NMTOKEN #FIXED '-1'			// ? 38 # Font Color
+	pid	NMTOKEN #FIXED '0'			// ? 40 # picture id
+	hkm	NMTOKEN #FIXED '0'			// ? 42[..46] # Hot Key - meta
+	hks	NMTOKEN #FIXED '0'			// ? 42[..46] # Hot Key - scancode
+>
+<!ATTLIST	c_LISTBOX
+	%ctrl;
+	cap	CDATA #REQUIRED				// s 00 s Caption (for BUTTON, CHECKBOX, RADIO, STATIC; "" - for LISTBOX, COMBOBOX, 1CEDIT, TABLE, PICTURE)
+	rq	NMTOKEN #FIXED '0'			// ? 07 # Linked to requisition (1CEDIT, BMASKED, CHECKBOX, )
+	fm	CDATA #REQUIRED				// ? 11 s Formula
+	id	CDATA #REQUIRED				// ? 12 s ID of this (?) field
+	rid	(0|-1) #REQUIRED			// ? 13 IDREF? of linked requisite
+	vtp	(S|U) #REQUIRED				// ? 14 c value type
+	vln	NMTOKEN #FIXED '0'			// ? 15 # Value length
+	vpr	NMTOKEN #FIXED '0'			// ? 16 # Value precision
+							// ? 17 '0'
+	pt	NMTOKEN #FIXED '0'			// ? 18 # Flags NonNegative+Triaded
+	flg	NMTOKEN #REQUIRED			// ? 19 # Flags (main set)
+	msq	CDATA #FIXED ''				// ? 20 s Masque (string) or Linked_with (Catalog)
+	stp	CDATA #REQUIRED				// ? 22 s Short tip
+	fs	NMTOKEN #FIXED '0'			// ? 23 # Font size
+	u03	NMTOKEN #FIXED '-11'			// ? 24 # ?
+	fb	NMTOKEN #FIXED '0'			// ? 28 # Font Bold (400=no, 700=yes)
+	fi	NMTOKEN #FIXED '0'			// ? 29 b Font Italic
+	fu	NMTOKEN #FIXED '0'			// ? 30 b Font Underline
+	u08	NMTOKEN #FIXED '0'			// ? 32 # ?
+	u09	NMTOKEN #FIXED '0'			// ? 33 # ?
+	u10	NMTOKEN #FIXED '0'			// ? 34 # ?
+	u11	NMTOKEN #FIXED '0'			// ? 35 # ?
+	u12	NMTOKEN #FIXED '0'			// ? 36 # ?
+	fc	NMTOKEN #FIXED '-1'			// ? 38 # Font Color
+	pid	NMTOKEN #FIXED '0'			// ? 40 # picture id
+	hkm	NMTOKEN #FIXED '0'			// ? 42[..46] # Hot Key - meta
+	hks	NMTOKEN #FIXED '0'			// ? 42[..46] # Hot Key - scancode
+>
+<!ATTLIST	c_PICTURE
+	%ctrl;
+	cap	CDATA #FIXED ''				// s 00 s Caption (for BUTTON, CHECKBOX, RADIO, STATIC; "" - for LISTBOX, COMBOBOX, 1CEDIT, TABLE, PICTURE)
+	rq	NMTOKEN #FIXED '0'			// ? 07 # Linked to requisition (1CEDIT, BMASKED, CHECKBOX, )
+	fm	CDATA #FIXED ''				// ? 11 s Formula
+	id	CDATA #REQUIRED				// ? 12 s ID of this (?) field
+	rid	(0|-1) #REQUIRED			// ? 13 IDREF? of linked requisite
+	vtp	NMTOKEN #FIXED 'U'			// ? 14 c value type
+	vln	NMTOKEN #FIXED '0'			// ? 15 # Value length
+	vpr	NMTOKEN #FIXED '0'			// ? 16 # Value precision
+							// ? 17 '0'
+	pt	NMTOKEN #FIXED '0'			// ? 18 # Flags NonNegative+Triaded
+	flg	NMTOKEN #REQUIRED			// ? 19 # Flags (main set)
+	msq	CDATA #FIXED ''				// ? 20 s Masque (string) or Linked_with (Catalog)
+	stp	CDATA #FIXED ''				// ? 22 s Short tip
+	fs	NMTOKEN #FIXED '0'			// ? 23 # Font size
+	u03	NMTOKEN #FIXED '-11'			// ? 24 # ?
+	fb	NMTOKEN #FIXED '0'			// ? 28 # Font Bold (400=no, 700=yes)
+	fi	NMTOKEN #FIXED '0'			// ? 29 b Font Italic
+	fu	NMTOKEN #FIXED '0'			// ? 30 b Font Underline
+	u08	NMTOKEN #FIXED '0'			// ? 32 # ?
+	u09	NMTOKEN #FIXED '0'			// ? 33 # ?
+	u10	NMTOKEN #FIXED '0'			// ? 34 # ?
+	u11	NMTOKEN #FIXED '0'			// ? 35 # ?
+	u12	NMTOKEN #FIXED '0'			// ? 36 # ?
+	fc	NMTOKEN #FIXED '-1'			// ? 38 # Font Color
+	pid	NMTOKEN #REQUIRED			// ? 40 # picture id
+	hkm	NMTOKEN #FIXED '0'			// ? 42[..46] # Hot Key - meta
+	hks	NMTOKEN #FIXED '0'			// ? 42[..46] # Hot Key - scancode
+>
+<!ATTLIST	c_RADIO
+	%ctrl;
+	cap	CDATA #REQUIRED				// s 00 s Caption (for BUTTON, CHECKBOX, RADIO, STATIC; "" - for LISTBOX, COMBOBOX, 1CEDIT, TABLE, PICTURE)
+	rq	(0|1) #REQUIRED				// ? 07 # Linked to requisition (1CEDIT, BMASKED, CHECKBOX, )
+	fm	CDATA #REQUIRED				// ? 11 s Formula
+	id	CDATA #REQUIRED				// ? 12 s ID of this (?) field
+	rid	NMTOKEN #REQUIRED			// ? 13 IDREF? of linked requisite
+	vtp	(N|U) #REQUIRED				// ? 14 c value type
+	vln	NMTOKEN #REQUIRED			// ? 15 # Value length
+	vpr	NMTOKEN #FIXED '0'			// ? 16 # Value precision
+							// ? 17 '0'
+	pt	(0|1|2) #REQUIRED			// ? 18 # Flags NonNegative+Triaded
+	flg	NMTOKEN #REQUIRED			// ? 19 # Flags (main set)
+	msq	CDATA #FIXED ''				// ? 20 s Masque (string) or Linked_with (Catalog)
+	stp	CDATA #REQUIRED				// ? 22 s Short tip
+	fs	NMTOKEN #FIXED '0'			// ? 23 # Font size
+	u03	NMTOKEN #FIXED '-11'			// ? 24 # ?
+	fb	NMTOKEN #FIXED '0'			// ? 28 # Font Bold (400=no, 700=yes)
+	fi	NMTOKEN #FIXED '0'			// ? 29 b Font Italic
+	fu	NMTOKEN #FIXED '0'			// ? 30 b Font Underline
+	u08	NMTOKEN #FIXED '0'			// ? 32 # ?
+	u09	NMTOKEN #FIXED '0'			// ? 33 # ?
+	u10	NMTOKEN #FIXED '0'			// ? 34 # ?
+	u11	NMTOKEN #FIXED '0'			// ? 35 # ?
+	u12	NMTOKEN #FIXED '0'			// ? 36 # ?
+	fc	NMTOKEN #FIXED '-1'			// ? 38 # Font Color
+	pid	NMTOKEN #FIXED '0'			// ? 40 # picture id
+	hkm	NMTOKEN #FIXED '0'			// ? 42[..46] # Hot Key - meta
+	hks	NMTOKEN #FIXED '0'			// ? 42[..46] # Hot Key - scancode
+>
+<!ATTLIST	c_STATIC
+	%ctrl;
+	cap	CDATA #REQUIRED				// s 00 s Caption (for BUTTON, CHECKBOX, RADIO, STATIC; "" - for LISTBOX, COMBOBOX, 1CEDIT, TABLE, PICTURE)
+	rq	NMTOKEN #FIXED '0'			// ? 07 # Linked to requisition (1CEDIT, BMASKED, CHECKBOX, )
+	fm	CDATA #REQUIRED				// ? 11 s Formula
+	id	CDATA #REQUIRED				// ? 12 s ID of this (?) field
+	rid	(0|-1) #REQUIRED			// ? 13 IDREF? of linked requisite
+	vtp	(S|U) #REQUIRED				// ? 14 c value type
+	vln	NMTOKEN #FIXED '0'			// ? 15 # Value length
+	vpr	NMTOKEN #FIXED '0'			// ? 16 # Value precision
+							// ? 17 '0'
+	pt	NMTOKEN #FIXED '0'			// ? 18 # Flags NonNegative+Triaded
+	flg	NMTOKEN #REQUIRED			// ? 19 # Flags (main set)
+	msq	CDATA #FIXED ''				// ? 20 s Masque (string) or Linked_with (Catalog)
+	stp	CDATA #REQUIRED				// ? 22 s Short tip
+	fs	NMTOKEN #FIXED '0'			// ? 23 # Font size
+	u03	NMTOKEN #REQUIRED			// ? 24 # ?
+	fb	(0|400|700) #REQUIRED			// ? 28 # Font Bold (400=no, 700=yes)
+	fi	(0|1) #REQUIRED				// ? 29 b Font Italic
+	fu	(0|1) #REQUIRED				// ? 30 b Font Underline
+	u08	NMTOKEN #REQUIRED			// ? 32 # ?
+	u09	NMTOKEN #REQUIRED			// ? 33 # ?
+	u10	NMTOKEN #REQUIRED			// ? 34 # ?
+	u11	NMTOKEN #REQUIRED			// ? 35 # ?
+	u12	NMTOKEN #REQUIRED			// ? 36 # ?
+	fc	NMTOKEN #REQUIRED			// ? 38 # Font Color
+	pid	NMTOKEN #FIXED '0'			// ? 40 # picture id
+	hkm	NMTOKEN #FIXED '0'			// ? 42[..46] # Hot Key - meta
+	hks	NMTOKEN #FIXED '0'			// ? 42[..46] # Hot Key - scancode
+>
+<!ATTLIST	c_SysTreeView32
+	%ctrl;
+	cap	CDATA #FIXED ''				// s 00 s Caption (for BUTTON, CHECKBOX, RADIO, STATIC; "" - for LISTBOX, COMBOBOX, 1CEDIT, TABLE, PICTURE)
+	rq	NMTOKEN #FIXED '0'			// ? 07 # Linked to requisition (1CEDIT, BMASKED, CHECKBOX, )
+	fm	CDATA #FIXED ''				// ? 11 s Formula
+	id	CDATA #FIXED ''				// ? 12 s ID of this (?) field
+	rid	(0|-1) #REQUIRED			// ? 13 IDREF? of linked requisite
+	vtp	NMTOKEN #FIXED 'U'			// ? 14 c value type
+	vln	NMTOKEN #FIXED '0'			// ? 15 # Value length
+	vpr	NMTOKEN #FIXED '0'			// ? 16 # Value precision
+							// ? 17 '0'
+	pt	NMTOKEN #FIXED '0'			// ? 18 # Flags NonNegative+Triaded
+	flg	NMTOKEN #FIXED '0'			// ? 19 # Flags (main set)
+	msq	CDATA #FIXED ''				// ? 20 s Masque (string) or Linked_with (Catalog)
+	stp	CDATA #FIXED ''				// ? 22 s Short tip
+	fs	NMTOKEN #FIXED '0'			// ? 28 # Font Bold (400=no, 700=yes)
+	u03	NMTOKEN #FIXED '-11'			// ? 24 # ?
+	fb	NMTOKEN #FIXED '0'			// ? 28 # Font Bold (400=no, 700=yes)
+	fi	NMTOKEN #FIXED '0'			// ? 29 b Font Italic
+	fu	NMTOKEN #FIXED '0'			// ? 30 b Font Underline
+	u08	NMTOKEN #FIXED '0'			// ? 32 # ?
+	u09	NMTOKEN #FIXED '0'			// ? 33 # ?
+	u10	NMTOKEN #FIXED '0'			// ? 34 # ?
+	u11	NMTOKEN #FIXED '0'			// ? 35 # ?
+	u12	NMTOKEN #FIXED '0'			// ? 36 # ?
+	fc	NMTOKEN #FIXED '-1'			// ? 38 # Font Color
+	pid	NMTOKEN #FIXED '0'			// ? 40 # picture id
+	hkm	NMTOKEN #FIXED '0'			// ? 42[..46] # Hot Key - meta
+	hks	NMTOKEN #FIXED '0'			// ? 42[..46] # Hot Key - scancode
+>
+<!ATTLIST	c_TABLE
+	%ctrl;
+	cap	CDATA #REQUIRED				// s 00 s Caption (for BUTTON, CHECKBOX, RADIO, STATIC; "" - for LISTBOX, COMBOBOX, 1CEDIT, TABLE, PICTURE)
+	rq	NMTOKEN #FIXED '0'			// ? 07 # Linked to requisition (1CEDIT, BMASKED, CHECKBOX, )
+	fm	CDATA #REQUIRED				// ? 11 s Formula
+	id	CDATA #REQUIRED				// ? 12 s ID of this (?) field
+	rid	(0|-1) #REQUIRED			// ? 13 IDREF? of linked requisite
+	vtp	(S|U) #REQUIRED				// ? 14 c value type
+	vln	NMTOKEN #REQUIRED			// ? 15 # Value length
+	vpr	NMTOKEN #FIXED '0'			// ? 16 # Value precision
+							// ? 17 '0'
+	pt	NMTOKEN #FIXED '0'			// ? 18 # Flags NonNegative+Triaded
+	flg	NMTOKEN #REQUIRED			// ? 19 # Flags (main set)
+	msq	CDATA #FIXED ''				// ? 20 s Masque (string) or Linked_with (Catalog)
+	stp	CDATA #FIXED ''				// ? 22 s Short tip
+	fs	NMTOKEN #FIXED '0'			// ? 23 # Font size
+	u03	NMTOKEN #FIXED '-11'			// ? 24 # ?
+	fb	NMTOKEN #FIXED '0'			// ? 28 # Font Bold (400=no, 700=yes)
+	fi	NMTOKEN #FIXED '0'			// ? 29 b Font Italic
+	fu	NMTOKEN #FIXED '0'			// ? 30 b Font Underline
+	u08	NMTOKEN #FIXED '0'			// ? 32 # ?
+	u09	NMTOKEN #FIXED '0'			// ? 33 # ?
+	u10	NMTOKEN #FIXED '0'			// ? 34 # ?
+	u11	NMTOKEN #FIXED '0'			// ? 35 # ?
+	u12	NMTOKEN #FIXED '0'			// ? 36 # ?
+	fc	NMTOKEN #FIXED '-1'			// ? 38 # Font Color
+	pid	NMTOKEN #REQUIRED			// ? 40 # picture id
+	hkm	NMTOKEN #FIXED '0'			// ? 42[..46] # Hot Key - meta
+	hks	NMTOKEN #FIXED '0'			// ? 42[..46] # Hot Key - scancode
+>
+<!ENTITY	% fcol "				// D/R attr_no type comments
+	no	NMTOKEN #REQUIRED			// ? my # order number
+	cap	CDATA #REQUIRED				// E 01 s Caption
+	w	NMTOKEN #REQUIRED			// E 02 # Width
+							// R 03 s <as entity name>
+	tn	NMTOKEN #REQUIRED			// R 04 # Tab order Number (4xxx)
+	u0	CDATA #FIXED ''				// D 05   unknown #0
+	fm	CDATA #REQUIRED				// R 06 s Formula
+	id	CDATA #REQUIRED				// R 07 s ID of this (?) field
+	rid	NMTOKEN #REQUIRED			// R 08 IDREF? of linked requisite
+	vln	NMTOKEN #REQUIRED			// R 10 # Value length
+	u1	(1|2) #REQUIRED				// D 14   unknown #1 - 1 - in new, 2 - in old
+	u2	CDATA #REQUIRED				// D 15   unknown #2 - normaly - '', but in old versions - not empty
+	flg	CDATA #REQUIRED				// R 17 # Flags (main set) - new - digit, old - empty
+							// R 19 s <in body> - Long description
+	stp	CDATA #REQUIRED				// R 20 s Short tip
+">
+<!ATTLIST	f_1CEDIT
+	%fcol;
+	typ	(1|2|3) #REQUIRED			// R 00 # Type
+	vtp	(0|1|2|3) #REQUIRED			// R 09 # value type
+	vpr	(0|1|2|3|4|9) #REQUIRED			// R 11 # Value precision
+							// D 12 0
+	pt	(0|1|2|3) #REQUIRED			// R 13 # Flags NonNegative+Triaded
+	aln	(0|4) #REQUIRED				// D 16 # Head allign  (new=0, old=4)
+	msq	CDATA #REQUIRED				// R 18 s Masque (string) or Linked_with (Catalog)
+	u3	NMTOKEN #IMPLIED			// D 21 # unknown #3 - new=0, old=absent
+>
+<!ATTLIST	f_BMASKED
+	%fcol;
+	typ	(1|2) #REQUIRED				// R 00 # Type
+	vtp	NMTOKEN #REQUIRED			// R 09 # value type
+	vpr	(0|2|3) #REQUIRED			// R 11 # Value precision
+	uref	IDREF #IMPLIED				// R 12 IDREF Вида значения (Вид справочника, документа, перечисления или счета)
+	pt	(0|1|2|3) #REQUIRED			// R 13 # Flags NonNegative+Triaded
+	aln	(0|16|32|36) #REQUIRED			// D 16 # Head allign (new=0, old=16|32|36)
+	msq	CDATA #REQUIRED				// R 18 s Masque (string) or Linked_with (Catalog)
+	u3	NMTOKEN #IMPLIED			// D 21 # unknown #3 - old=absent
+>
+<!ATTLIST	f_STATIC
+	%fcol;
+	typ	(1|2|3|4) #REQUIRED			// R 00 # Type
+	vtp	(0|2) #REQUIRED				// R 09 # value type
+	vpr	NMTOKEN #FIXED "0"			// D 11 # Value precision
+							// D 12 0
+	pt	NMTOKEN #FIXED "0"			// D 13 # Flags NonNegative+Triaded
+	aln	(0|1|2) #REQUIRED			// R 16 # Head allign
+	msq	CDATA #FIXED ""				// D 18 s Masque (string) or Linked_with (Catalog)
+	u3	NMTOKEN #FIXED "0"			// D 21 # unknown #3
+>
+
+<!ATTLIST	Cnt_Ver
+	v	NMTOKEN #FIXED "10001"			// D
+>

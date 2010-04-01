@@ -1,0 +1,49 @@
+.AUTODEPEND
+
+!ifndef BCROOT
+BCROOT=C:\Borland\BCC55
+!endif
+
+DEST=catmd.exe
+CPP=bcc32
+LNK=
+
+CFLAGS=-I"c:\Borland\Bcc55\include"
+LDFLAGS=-L"c:\Borland\Bcc55\lib"
+
+OBJS = \
+	cc.obj \
+	commands.obj \
+	dialog.obj \
+	dump_data.obj \
+	expand.obj \
+	gallery.obj \
+	guiddata.obj \
+	main.obj \
+	menu.obj \
+	mdole_w.obj \
+	mms.obj \
+	mxl.obj \
+	mxl_in.obj \
+	mxl_out.obj \
+	panel.obj \
+	pic.obj \
+	pole.obj \
+	prn_data.obj \
+	rights.obj \
+	storage.obj \
+	tree.obj \
+	ts.obj
+
+.cpp.obj:
+	$(CPP) -c $(CFLAGS) {$*.cpp }
+
+$(DEST): $(OBJS)
+	$(CPP) $(LDFLAGS) $(OBJS) zllbor.lib
+
+all: $(DEST)
+
+clean:
+	-del *.obj
+	-del *.tds
+	-del $(DEST)

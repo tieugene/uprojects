@@ -1,0 +1,35 @@
+5C04:
+	* split Dialogs (xml & DTD)
+	* split Tables (xml & DTD)
+	* Dialog viewer
+	* Table viewer
+	* Metadata viewer
+Hot:
+	* passworded MDs
+	* MXL-In-Dialog
+	* unknown block in Rights (UserDef/Page.2/)
+	* tune Panels - normal grouping of buttons
+	* Comands + Panels + Menu = integration
+Now:
+	* fix MXL (size, c.2, v.7)
+	* fix TagStream (size %4)
+	* разобраться с btn (какого они повторяются, what is it id?)
+	* tune DTD (stronger)
+	* Dox
+Optional:
+	* Directory autodel
+	* including zlib
+	* Panel.X		extention
+	* Gallery - split by pictures
+Fix:
+	* TagStream:
+		- misplaced size
+	* MXL:
+		- rel.25 (ver=7), rel.? (ver=2)
+		- dump OLE/Diagrams/Pics to file
+		- process "TinD" props
+		- "short" tables
+	* unpack:
+		- real unpacked size
+		- errors
+Maybe:

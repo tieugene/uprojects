@@ -1,0 +1,18 @@
+* Order:
+  * open *.tml
+  * parse into objects
+  * show
+* Modules:
+  * main (main.py)
+  * dispatcher (.py)
+  * parser (parcer.py)
+  * class declaration (?)
+  * shower (ui.py)
+* Architecture
+  * main
+  * dispatcher
+  * inner classes
+  * GUI classes
+  * GUI dispatcher
+
+What to do:

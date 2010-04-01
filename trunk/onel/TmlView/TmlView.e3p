@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE Project SYSTEM "Project-3.8.dtd">
+<!-- Project file for project TmlView -->
+<!-- Saved: 2006-01-08, 15:11:28 -->
+<!-- Copyright (C) 2006 Eugene A. Pivnev, ti.eugene@gmail.com -->
+<Project version="3.8">
+  <ProgLanguage mixed="0">Python</ProgLanguage>
+  <UIType>Qt</UIType>
+  <Description>1C's MXL files (converted into 1L's *.tml) viewer.</Description>
+  <Version>0.1</Version>
+  <Author>Eugene A. Pivnev</Author>
+  <Email>ti.eugene@gmail.com</Email>
+  <Sources>
+    <Source>
+      <Name>main.py</Name>
+    </Source>
+    <Source>
+      <Name>parser.py</Name>
+    </Source>
+    <Source>
+      <Name>z_example.py</Name>
+    </Source>
+    <Source>
+      <Name>onec.py</Name>
+    </Source>
+    <Source>
+      <Name>propitem.py</Name>
+    </Source>
+    <Source>
+      <Name>table_core.py</Name>
+    </Source>
+    <Source>
+      <Name>propdialog.py</Name>
+    </Source>
+    <Source>
+      <Name>table_ui.py</Name>
+    </Source>
+    <Source>
+      <Name>dialog_core.py</Name>
+    </Source>
+    <Source>
+      <Name>dialog_ui.py</Name>
+    </Source>
+  </Sources>
+  <Forms>
+    <Form>
+      <Name>z_example.ui</Name>
+    </Form>
+  </Forms>
+  <Translations>
+  </Translations>
+  <Interfaces>
+  </Interfaces>
+  <Others>
+    <Other>
+      <Name>TODO</Name>
+    </Other>
+    <Other>
+      <Name>tml.src.dtd</Name>
+    </Other>
+    <Other>
+      <Name>README</Name>
+    </Other>
+    <Other>
+      <Name>dml.src.dtd</Name>
+    </Other>
+  </Others>
+  <MainScript>
+    <Name>main.py</Name>
+  </MainScript>
+  <Vcs>
+    <VcsType>None</VcsType>
+  </Vcs>
+  <FiletypeAssociations>
+    <FiletypeAssociation pattern="*.ui.h" type="FORMS" />
+    <FiletypeAssociation pattern="*.ui" type="FORMS" />
+    <FiletypeAssociation pattern="*.idl" type="INTERFACES" />
+    <FiletypeAssociation pattern="*.ptl" type="SOURCES" />
+    <FiletypeAssociation pattern="*.py" type="SOURCES" />
+  </FiletypeAssociations>
+</Project>

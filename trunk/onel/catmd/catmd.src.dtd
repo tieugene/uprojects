@@ -1,0 +1,1483 @@
+<!-- v.0.5.2 -->
+<!ELEMENT	md			(Metadata | UserDef | TypedText | Picture | GlobalDatas | AccountCharts | AccountChartLists | CalcJournals | CalcVars | Documents | Journals | Operations | OperationLists | ProvLists | Reports | SubFolders | SubLists | Subcontos)*>
+ <!ELEMENT	Metadata		(ts | guids | mms)*>				<!-- storage /Metadata -->
+  <!ELEMENT	ts			(#PCDATA)>					<!-- stream UserDef/TagStream -->
+  <!ELEMENT	guids			(g*)>						<!-- stream UserDef/GUIDData -->
+   <!ELEMENT	g			EMPTY>						<!-- global UIDs -->
+ <!ELEMENT	UserDef			(WorkPlaceType | RigthType)*>			<!-- storage /UserDef -->
+  <!ELEMENT	WorkPlaceType		(UsersInterfaceType | SubUsersInterfaceType)*>	<!-- storage /UserDef/Page.1 - Интерфейсы -->
+   <!ELEMENT	UsersInterfaceType	(menus | panels | cmds)*>			<!-- storage /UserDef/Page.1/Page.X Интерфейс №X (основной) -->
+    <!ELEMENT	menus			(menu*)>					<!-- stream /UserDef/Page.1/Page.#/Page.1 - Menus -->
+     <!ELEMENT	menu			(menu | mitem | sep)*>				<!-- menu -->
+     <!ELEMENT	sep			EMPTY>						<!-- for menu | toolbar -->
+      <!ELEMENT	mitem			EMPTY>						<!-- menu item -->
+    <!ELEMENT	panels			(pnl | btn | sep | panelpic)*>			<!-- stream /UserDef/Page.1/Page.#/Page.2 - Toolbars -->
+     <!ELEMENT	pnl			EMPTY>						<!-- toolbar -->
+     <!ELEMENT	btn			EMPTY>						<!-- button -->
+     <!ELEMENT	panelpic		EMPTY>						<!-- picture -->
+    <!ELEMENT	cmds			(cmd*)>						<!-- stream /UserDef/Page.1/Page.#/Comands - commands -->
+     <!ELEMENT	cmd			EMPTY>						<!-- command -->
+   <!ELEMENT	SubUsersInterfaceType	(menus | panels | scmds)*>			<!-- storage /UserDef/Page.1/Page.X Интерфейс №X (подчиненный) -->
+    <!ELEMENT	scmds			(scmd*)>					<!-- stream /UserDef/Page.1/Page.#/Comands - commands -->
+     <!ELEMENT	scmd			EMPTY>						<!-- command -->
+  <!ELEMENT	RigthType		(rights*)>					<!-- storage /UserDef/Page.2 - Права -->
+   <!ELEMENT	rights			(r_01 | r_03 | r_06 | r_09 | r_0B | r_10 | r_11 | r_12 | r_17 | r_18 | r_19 | r_1A | r_1B | r_1C)*>	<!-- stream /UserDef/Page.2/Page.X - права # -->
+    <!ELEMENT	r_01			EMPTY>						<!-- rights block - Константа -->
+    <!ELEMENT	r_03			EMPTY>						<!-- rights block - Справочник -->
+    <!ELEMENT	r_06			EMPTY>						<!-- rights block - Регистр -->
+    <!ELEMENT	r_09			EMPTY>						<!-- rights block - Документ -->
+    <!ELEMENT	r_0B			EMPTY>						<!-- rights block - Журнал документов -->
+    <!ELEMENT	r_10			EMPTY>						<!-- rights block - Отчет -->
+    <!ELEMENT	r_11			EMPTY>						<!-- rights block - Конфигурация -->
+    <!ELEMENT	r_12			EMPTY>						<!-- rights block - Календарь -->
+    <!ELEMENT	r_17			EMPTY>						<!-- rights block - Журнал расчетов -->
+    <!ELEMENT	r_18			EMPTY>						<!-- rights block - Обработка -->
+    <!ELEMENT	r_19			EMPTY>						<!-- rights block - План счетов -->
+    <!ELEMENT	r_1A			EMPTY>						<!-- rights block - Операция -->
+    <!ELEMENT	r_1B			EMPTY>						<!-- rights block - Проводка -->
+    <!ELEMENT	r_1C			EMPTY>						<!-- rights block - Типовая операция -->
+ <!ELEMENT	TypedText		(ModuleText | CalcAlg | UserHelp | Transact)*>	<!-- storage /TypedText -->
+  <!ELEMENT	ModuleText		(mdpt?)>					<!-- storage /TypedText/ModuleText_Number1 - Глобальный модуль -->
+  <!ELEMENT	CalcAlg			(mdpt?)>					<!-- storage /TypedText/CalcAlg_Number# - Модули расчетов видов расчетов -->
+  <!ELEMENT	UserHelp		(mdpt?)>					<!-- storage /TypedText/UserHelp_Number# - Описания -->
+  <!ELEMENT	Transact		(mdpt?)>					<!-- storage /TypedText/Transact_Number# - Модули проведения документов (Модули документов?) -->
+ <!ELEMENT	Picture			(glr | pic)*>					<!-- storage /Picture -->
+  <!ELEMENT	glr			(iblk | nblk)*>					<!-- stream /Picture/Gallery -->
+   <!ELEMENT	iblk			(idx*)>						<!-- index block -->
+    <!ELEMENT	idx			EMPTY>						<!-- index -->
+   <!ELEMENT	nblk			(iname*)>					<!-- index names block -->
+    <!ELEMENT	iname			EMPTY>						<!-- index names -->
+  <!ELEMENT	pic			EMPTY>						<!-- stream /Picture/__Picture.# -->
+ <!ELEMENT	GlobalDatas		(GlobalData?)>
+  <!ELEMENT	GlobalData		(WorkBook)>
+ <!ELEMENT	AccountCharts		(AccountChart*)>
+  <!ELEMENT	AccountChart		(WorkBook)>
+ <!ELEMENT	AccountChartLists	(AccountChartList*)>
+  <!ELEMENT	AccountChartList	(WorkBook)>
+ <!ELEMENT	CalcJournals		(CalcJournal*)>
+  <!ELEMENT	CalcJournal		(WorkBook)>
+ <!ELEMENT	CalcVars		(CalcVar*)>
+  <!ELEMENT	CalcVar			(WorkBook)>
+ <!ELEMENT	Documents		(Document*)>
+  <!ELEMENT	Document		(WorkBook)>
+ <!ELEMENT	Journals		(Journal*)>
+  <!ELEMENT	Journal			(WorkBook)>
+ <!ELEMENT	Operations		(Operation*)>
+  <!ELEMENT	Operation		(WorkBook)>
+ <!ELEMENT	OperationLists		(OperationList*)>
+  <!ELEMENT	OperationList		(WorkBook)>
+ <!ELEMENT	ProvLists		(ProvList*)>
+  <!ELEMENT	ProvList		(WorkBook)>
+ <!ELEMENT	Reports			(Report*)>
+  <!ELEMENT	Report			(WorkBook)>
+ <!ELEMENT	SubFolders		(SubFolder*)>
+  <!ELEMENT	SubFolder		(WorkBook)>
+ <!ELEMENT	SubLists		(SubList*)>
+  <!ELEMENT	SubList			(WorkBook)>
+ <!ELEMENT	Subcontos		(Subconto*)>
+  <!ELEMENT	Subconto		(WorkBook)>
+   <!ELEMENT	WorkBook		(cp | ds | mdpt | moxel)*>			<!-- cp, ds?, mdpt?, moxcel* -->
+<!-- Streams -->
+  <!--ELEMENT	cc			(ccn*)-->					<!-- stream Container.Contents -->
+   <!--ELEMENT	ccn			(#PCDATA)-->					<!-- cc elements -->
+  <!ELEMENT	cp			(MoxelName,MoxelPos,UUID,Entry,MoxelNextMode)>	<!-- stream Container.Profile -->
+   <!ELEMENT	MoxelName		EMPTY>						<!-- cp elements -->
+   <!ELEMENT	MoxelPos		EMPTY>						<!-- cp elements -->
+   <!ELEMENT	UUID			EMPTY>						<!-- cp elements -->
+   <!ELEMENT	Entry			EMPTY>						<!-- cp elements -->
+   <!ELEMENT	MoxelNextMode		EMPTY>						<!-- cp elements -->
+  <!ELEMENT	mdpt			(#PCDATA)>					<!-- stream MD Program Text -->
+  <!ELEMENT	idesc			(#PCDATA)>					<!-- stream Inplace description -->
+  <!ELEMENT	ds			EMPTY>						<!-- stream DialogStream -->
+<!-- Metadata/Main Metadata Stream -->
+  <!ELEMENT	mms			(MainDataContDef, TaskItem, GenJrnlFldDef?, DocSelRefObj, DocNumDef, Consts, SbCnts, Registers, mDocuments, Journalisters, EnumList, ReportList, CJ, Calendars, Algorithms, RecalcRules, mCalcVars, Groups, DocumentStreams, Buh, CRC)>
+   <!ELEMENT	MainDataContDef		EMPTY>
+   <!ELEMENT	TaskItem		EMPTY>						<!-- TaskItem == Configuretion | Properties -->
+   <!ELEMENT	GenJrnlFldDef		(gjfd*)>					<!-- GenJrnlFldDef == Configuration | Documents | Общие реквизиты -->
+    <!ELEMENT	gjfd			EMPTY>
+   <!ELEMENT	DocSelRefObj		(dsro*)>					<!-- DocSelRefObj == Журналы документов | Графы отбора -->
+    <!ELEMENT	dsro			(refer*)>
+     <!ELEMENT	refer			EMPTY>
+   <!ELEMENT	DocNumDef		(dnd*)>
+    <!ELEMENT	dnd			(refer*)>
+   <!ELEMENT	Consts			(const*)>					<!-- Consts -->
+    <!ELEMENT	const			(druler?)>
+     <!ELEMENT	druler			EMPTY>						<!-- Distribution rules -->
+   <!ELEMENT	SbCnts			(sbcnt*)>					<!-- SbCnts -->
+    <!ELEMENT	sbcnt			(param*, form*, sbcnt_u?)>
+     <!ELEMENT	param			EMPTY>
+     <!ELEMENT	form			EMPTY>
+     <!ELEMENT	sbcnt_u			(#PCDATA)>					<!-- Distribution rules -->
+   <!ELEMENT	Registers		(rgstr*)>					<!-- Registers -->
+    <!ELEMENT	rgstr			(prop*, fig*, rfld*)>
+     <!ELEMENT	prop			EMPTY>						<!-- Props -->
+     <!ELEMENT	fig			EMPTY>						<!-- Figures -->
+     <!ELEMENT	rfld			EMPTY>						<!-- Flds -->
+   <!ELEMENT	mDocuments		(doc*)>						<!--  -->
+    <!ELEMENT	doc			(refer*, hfld*, tfld*)>
+     <!ELEMENT	hfld			EMPTY>						<!-- Head Fields -->
+     <!ELEMENT	tfld			EMPTY>						<!-- Table Fields -->
+   <!ELEMENT	Journalisters		(journ*)>					<!-- Journalisters -->
+    <!ELEMENT	journ			(refer*, jfld*, form*)>
+     <!ELEMENT	jfld			(refer*)>
+   <!ELEMENT	EnumList		(enuml*)>					<!-- EnumList -->
+    <!ELEMENT	enuml			(enumv*)>
+     <!ELEMENT	enumv			EMPTY>						<!-- EnumValue -->
+   <!ELEMENT	ReportList		(rprt*)>					<!--  -->
+    <!ELEMENT	rprt			EMPTY>						<!--  -->
+   <!ELEMENT	CJ			(cjey*)>					<!--  -->
+    <!ELEMENT	cjey			(cjprm*, cjfld*, form*)>			<!--  -->
+     <!ELEMENT	cjprm			EMPTY>						<!--  -->
+     <!ELEMENT	cjfld			EMPTY>						<!--  -->
+   <!ELEMENT	Calendars		(clndr*, holi)>					<!--  -->
+    <!ELEMENT	clndr			(day*)>						<!--  -->
+     <!ELEMENT	day			EMPTY>						<!--  -->
+    <!ELEMENT	holi			EMPTY>						<!--  -->
+   <!ELEMENT	Algorithms		(algo*)>					<!--  -->
+    <!ELEMENT	algo			(refer*, ingrp*)>				<!--  -->
+     <!ELEMENT	ingrp			EMPTY>						<!-- InGroups -->
+   <!ELEMENT	RecalcRules		(rrul*)>					<!--  -->
+    <!ELEMENT	rrul			(refer*, refer1*)>				<!--  -->
+     <!ELEMENT	refer1			EMPTY>						<!--  -->
+   <!ELEMENT	mCalcVars		(clcv*)>					<!--  -->
+    <!ELEMENT	clcv			EMPTY>						<!--  -->
+   <!ELEMENT	Groups			(group*)>					<!--  -->
+    <!ELEMENT	group			(alg*)>						<!--  -->
+     <!ELEMENT	alg			EMPTY>						<!--  -->
+   <!ELEMENT	DocumentStreams		(dstrm*)>					<!--  -->
+    <!ELEMENT	dstrm			(dsreg*, dsdoc*)>
+     <!ELEMENT	dsreg			EMPTY>						<!--  -->
+     <!ELEMENT	dsdoc			EMPTY>						<!--  -->
+   <!ELEMENT	Buh			(buh_u*, aprm*, plan*, pprm*, oprm*, bfrms*, sbknd*, todef*, cpdef*, phfd*, OperJournal)>	<!-- Buh -->
+    <!ELEMENT	buh_u			EMPTY>						<!--  -->
+    <!ELEMENT	aprm			EMPTY>						<!--  -->
+    <!ELEMENT	plan			(accnt*)>					<!--  -->
+     <!ELEMENT	accnt			(accsk*)>					<!--  -->
+      <!ELEMENT	accsk			EMPTY>						<!--  -->
+    <!ELEMENT	pprm			EMPTY>						<!--  -->
+    <!ELEMENT	oprm			EMPTY>						<!--  -->
+    <!ELEMENT	bfrms			(bfrm*)>					<!--  -->
+     <!ELEMENT	bfrm			EMPTY>						<!--  -->
+    <!ELEMENT	sbknd			(sbknd_u?)>					<!--  -->
+     <!ELEMENT	sbknd_u			EMPTY>						<!--  -->
+    <!ELEMENT	todef			(todef_u?)>					<!--  -->
+     <!ELEMENT	todef_u			EMPTY>						<!--  -->
+    <!ELEMENT	cpdef			EMPTY>						<!--  -->
+    <!ELEMENT	phfd			EMPTY>						<!--  -->
+    <!ELEMENT	OperJournal		(journ*)>					<!--  -->
+   <!ELEMENT	CRC			EMPTY>						<!--  -->
+<!-- MXL -->
+  <!ELEMENT	moxel			EMPTY>						<!-- mxl -->
+
+<!ENTITY %	uid "
+	uid	ID #REQUIRED			// R ID UID
+">
+<!ENTITY %	urefr "
+	uref	IDREF #REQUIRED			// R IDREF UID reference
+">
+<!--ATTLIST cc			// Container.Contents
+	nm	CDATA #REQUIRED	// name
+	sz	CDATA #REQUIRED	// size
+	v	CDATA #REQUIRED
+-->
+<!--ATTLIST ccn			// Container.Contents node
+	v_0	CDATA #REQUIRED	// cc0
+	v_1	CDATA #REQUIRED	// cc1
+	v_2	CDATA #REQUIRED	// cc2
+	v_3	CDATA #REQUIRED	// cc3
+-->
+<!-- /Metadata -->
+<!ATTLIST	Metadata
+	nm	NMTOKEN #FIXED "Metadata"		// D name
+	c0	NMTOKEN #FIXED "MetaDataContainer"	// D CC0
+	c2	NMTOKEN #FIXED "Metadata"		// D CC2
+	c3	CDATA #FIXED ""				// D CC3
+>
+<!ATTLIST ts
+	nm	NMTOKEN #FIXED "TagStream"		// D name
+	c0	NMTOKEN #FIXED "TagStream"		// D CC0
+	c2	NMTOKEN #FIXED "TagStream"		// D CC2
+	c3	CDATA #FIXED ""				// D CC3
+	sz	NMTOKEN #REQUIRED			// D size - #
+	hash	NMTOKEN #REQUIRED			// R hash string - 32-digit (16 bytes, 128 bits) hex digit
+	short	CDATA #IMPLIED				// R short description
+	logo	CDATA #IMPLIED				// R logo bmp filename
+	splash	CDATA #IMPLIED				// R splash screen bmp filename
+>
+<!ATTLIST guids
+	nm	NMTOKEN #FIXED "GUIDData"		// D name
+	c0	NMTOKEN #FIXED "GuidHistoryContainer"	// D CC0
+	c2	NMTOKEN #FIXED "GUIDData"		// D CC2
+	c3	CDATA #FIXED ""				// D CC3
+	sz	NMTOKEN #REQUIRED			// D size - #
+>
+<!ATTLIST g
+	no	NMTOKEN #REQUIRED			// R order no
+	v	NMTOKEN #REQUIRED			// R 32-digits (16 bytes, 128 bits) hex value
+>
+<!-- /UserDef -->
+<!ATTLIST	UserDef
+	nm	NMTOKEN #FIXED "UserDef"		// D name
+	c0	NMTOKEN #FIXED "UserDefContainer"	// D CC0
+	c2	NMTOKEN #FIXED "UserDef"		// D CC2
+	c3	CDATA #FIXED ""				// D CC3
+>
+<!ATTLIST	WorkPlaceType
+	nm	NMTOKEN #FIXED "Page.1"			// D name
+	c0	NMTOKEN #FIXED "WorkPlaceType"		// D CC0
+	c2	CDATA #FIXED ""				// D CC2
+	c3	CDATA #FIXED ""				// D CC3
+>
+<!ATTLIST	UsersInterfaceType
+	no	NMTOKEN #REQUIRED			//   number (digit)
+	nm	NMTOKEN #REQUIRED			// D name - Page.X
+	c0	NMTOKEN #FIXED "UsersInterfaceType"	// D CC0
+	c2	NMTOKENS #REQUIRED			// R CC2 - interface name
+	c3	CDATA #FIXED ""				// D CC3
+>
+<!ATTLIST menus
+	nm	NMTOKEN #FIXED "Page.1"			// D name
+	c0	NMTOKEN #FIXED "MenuEditorType"		// D CC0
+	c2	CDATA #REQUIRED				// D CC2 = Редактор меню
+	c3	CDATA #FIXED ""				// D CC3
+	sz	NMTOKEN #REQUIRED			// D size
+>
+<!ATTLIST menu
+	nm	CDATA #REQUIRED				// R name
+>
+<!ATTLIST mitem
+	id	NMTOKEN #REQUIRED			// R IDREF? - command uid
+	nm	CDATA #REQUIRED				// R name
+>
+<!ATTLIST panels
+	nm	NMTOKEN #FIXED "Page.2"			// D name
+	c0	NMTOKEN #FIXED "ToolbarEditorType"	// D CC0
+	c2	CDATA #REQUIRED				// D CC2 = Редактор панелей инструментов
+	c3	CDATA #FIXED ""				// D CC3
+	sz	NMTOKEN #REQUIRED			// D size
+>
+<!ATTLIST pnl
+	name	CDATA #REQUIRED				// R name
+	qty	NMTOKEN #REQUIRED			// ? # - buttons qty
+	pos	(59419|59420|59421|59422) #REQUIRED	// R # - position = 0xE81B + 0 (top) | 1 (left) | 2 (right) | 3 (button)
+	show	(0|1) #REQUIRED				// R show (0=no)
+	newline	(0|1) #REQUIRED				// R from new line (0=no)
+>
+<!ATTLIST btn						// ??? where button name ??? picture ???
+	id	NMTOKEN #REQUIRED			// R IDREF? - command uid (?)
+>
+<!ATTLIST panelpic					//
+	file	CDATA #REQUIRED				//
+>
+<!ATTLIST cmds
+	nm	NMTOKEN #FIXED "Commands"		// D name
+	sz	NMTOKEN #REQUIRED			// D size - #
+	cnm	CDATA #FIXED ""				// R CommandName
+	nop	(0|1) #REQUIRED				// R NonOperations - Отключить меню "Операции" (0=no)
+	nau	(0|1) #REQUIRED				// R NoAuth - Использовать при отключенной авторизации (0=no)
+	cqty	NMTOKEN #REQUIRED			// D CommandsQty - кол-во команд
+>
+<!ATTLIST cmd
+	id	NMTOKEN #REQUIRED			//   ID (?) = 0x0000Cxxx
+	stip	CDATA #REQUIRED				// R Short Tip (Короткая подсказка)
+	tip	CDATA #REQUIRED				// R Tip (Подсказка)
+	mk	NMTOKEN #REQUIRED			// R metakey = 0x11 (Alt) | 0x09 (Ctrl) | 0x05 (Shift)
+	sc	NMTOKEN #REQUIRED			// R scancode
+	cmd	NMTOKENS #REQUIRED			// R command
+	ad	CDATA #REQUIRED				// R addon
+>
+<!ATTLIST	SubUsersInterfaceType
+	no	NMTOKEN #REQUIRED			// ? number (digit) - uniq through *UserInterfaceTypes (?)
+	nm	NMTOKEN #REQUIRED			// D name - Page.<no>
+	c0	NMTOKEN #FIXED "SubUsersInterfaceType"	// D CC0
+	c2	CDATA #REQUIRED				// R CC2 - interface name (not NMTOKENS Bcouse of rus name)
+	c3	CDATA #FIXED ""				// D CC3
+>
+<!ATTLIST scmds
+	nm	NMTOKEN #FIXED "Commands"		// D name
+	sz	NMTOKEN #REQUIRED			// D size - #
+	pnm	NMTOKENS #IMPLIED			// ? parentname - for SUI only
+	cnm	CDATA #REQUIRED				// R CommandName (can B "")
+	nop	(0|1) #REQUIRED				// R NonOperations - Отключить меню "Операции" (0=no)
+	nau	(0|1) #REQUIRED				// R NoAuth - Использовать при отключенной авторизации (0=no)
+	cqty	NMTOKEN #REQUIRED			// D CommandsQty - кол-во команд
+>
+<!ATTLIST scmd
+	cmd	NMTOKENS #REQUIRED			// R command
+	ad	CDATA #REQUIRED				// R addon
+>
+<!ATTLIST	RigthType
+	nm	NMTOKEN #FIXED "Page.2"			// D name
+	c0	NMTOKEN #FIXED "RigthType"		// D CC0
+	c2	CDATA #FIXED ""				// D CC2
+	c3	CDATA #FIXED ""				// D CC3
+>
+<!ATTLIST rights
+	nm	NMTOKEN #REQUIRED			// D name - Page.#
+	c0	NMTOKEN #FIXED "RightsEditorType"	// D CC0
+	c2	CDATA #REQUIRED				// R CC2 - role name
+	c3	CDATA #FIXED ""				// D CC3
+	sz	NMTOKEN #REQUIRED			// D # size - #
+	sign	NMTOKEN #FIXED "6"			// ? # signature
+	dummy2	CDATA #REQUIRED				// ? s some text
+>
+<!--
+	v_01
+	v_02
+	v_03
+	v_04
+	v_05
+	v_06
+	v_07
+	v_08
+	v_09
+	v_10
+	v_11
+	v_12
+	v_13
+	v_14
+	v_15
+	v_16
+	v_17
+	v_18
+	v_19
+	v_20
+	v_21
+	v_22
+	v_23
+	v_24
+	v_25
+	v_26
+	v_27
+	v_28
+	v_29
+	v_30
+	v_31
+	v_32
+	v_33
+	v_34
+	v_35
+	v_36
+	v_37
+	v_38
+	v_39
+	v_40
+-->
+<!ATTLIST r_01
+	uref	IDREF #IMPLIED				// R IDREF - uid (if 0 - global)
+	v_01	(0|1) #REQUIRED				// R чтение
+	v_04	(0|1) #REQUIRED				// R корректировка
+>
+<!ATTLIST r_03
+	uref	IDREF #IMPLIED				// R IDREF - uid (if 0 - global)
+	v_01	(0|1) #REQUIRED
+	v_03	(0|1) #REQUIRED
+	v_04	(0|1) #REQUIRED
+	v_05	(0|1) #REQUIRED
+	v_06	(0|1) #REQUIRED
+	v_1A	(0|1) #REQUIRED
+	v_1C	(0|1) #REQUIRED
+>
+<!ATTLIST r_06
+	uref	IDREF #IMPLIED				// R IDREF - uid (if 0 - global)
+	v_01	(0|1) #REQUIRED
+>
+<!ATTLIST r_09
+	uref	IDREF #IMPLIED				// R IDREF - uid (if 0 - global)
+	v_01	(0|1) #REQUIRED
+	v_03	(0|1) #REQUIRED
+	v_04	(0|1) #REQUIRED
+	v_05	(0|1) #REQUIRED
+	v_06	(0|1) #REQUIRED
+	v_07	(0|1) #REQUIRED
+	v_08	(0|1) #REQUIRED
+	v_09	(0|1) #IMPLIED
+	v_0E	(0|1) #REQUIRED
+	v_0F	(0|1) #REQUIRED
+	v_11	(0|1) #REQUIRED
+	v_17	(0|1) #IMPLIED
+	v_18	(0|1) #IMPLIED
+	v_19	(0|1) #IMPLIED
+	v_1A	(0|1) #REQUIRED
+	v_1C	(0|1) #REQUIRED
+	v_25	(0|1) #IMPLIED
+>
+<!ATTLIST r_0B
+	uref	IDREF #IMPLIED				// R IDREF - uid (if 0 - global)
+	v_01	(0|1) #REQUIRED
+	v_0C	(0|1) #IMPLIED
+	v_0D	(0|1) #IMPLIED
+>
+<!ATTLIST r_10
+	uref	IDREF #IMPLIED				// R IDREF - uid (if 0 - global)
+	v_02	(0|1) #REQUIRED
+>
+<!ATTLIST r_11
+	uref	IDREF #IMPLIED				// R IDREF - uid (if 0 - global)
+	v_0A	(0|1) #REQUIRED
+	v_0B	(0|1) #REQUIRED
+	v_10	(0|1) #REQUIRED
+	v_12	(0|1) #REQUIRED
+	v_19	(0|1) #REQUIRED
+	v_1B	(0|1) #REQUIRED
+	v_1D	(0|1) #REQUIRED
+	v_1E	(0|1) #REQUIRED
+	v_1F	(0|1) #REQUIRED
+	v_22	(0|1) #REQUIRED
+	v_23	(0|1) #REQUIRED
+	v_29	(0|1) #REQUIRED
+	v_2A	(0|1) #REQUIRED
+	v_2B	(0|1) #REQUIRED
+	v_2C	(0|1) #REQUIRED
+	v_2E	(0|1) #IMPLIED
+>
+<!ATTLIST r_12
+	uref	IDREF #IMPLIED				// R IDREF - uid (if 0 - global)
+	v_01	(0|1) #REQUIRED
+	v_03	(0|1) #REQUIRED
+	v_2D	(0|1) #IMPLIED
+>
+<!ATTLIST r_17
+	uref	IDREF #IMPLIED				// R IDREF - uid (if 0 - global)
+	v_01	(0|1) #REQUIRED
+	v_03	(0|1) #REQUIRED
+	v_13	(0|1) #REQUIRED
+	v_14	(0|1) #REQUIRED
+>
+<!ATTLIST r_18
+	uref	IDREF #IMPLIED				// R IDREF - uid (if 0 - global)
+	v_02	(0|1) #REQUIRED
+>
+<!ATTLIST r_19
+	uref	IDREF #IMPLIED				// R IDREF - uid (if 0 - global)
+	v_01	(0|1) #REQUIRED
+	v_03	(0|1) #REQUIRED
+	v_04	(0|1) #REQUIRED
+	v_05	(0|1) #REQUIRED
+	v_06	(0|1) #REQUIRED
+	v_1A	(0|1) #REQUIRED
+	v_1C	(0|1) #REQUIRED
+>
+<!ATTLIST r_1A
+	uref	IDREF #IMPLIED				// R IDREF - uid (if 0 - global)
+	v_01	(0|1) #REQUIRED
+	v_20	(0|1) #REQUIRED
+	v_24	(0|1) #REQUIRED
+	v_27	(0|1) #REQUIRED
+	v_28	(0|1) #REQUIRED
+>
+<!ATTLIST r_1B
+	uref	IDREF #IMPLIED				// R IDREF - uid (if 0 - global)
+	v_21	(0|1) #REQUIRED
+	v_24	(0|1) #REQUIRED
+	v_26	(0|1) #REQUIRED
+>
+<!ATTLIST r_1C
+	uref	IDREF #IMPLIED				// R IDREF - uid (if 0 - global)
+	v_01	(0|1) #REQUIRED
+	v_02	(0|1) #REQUIRED
+	v_03	(0|1) #REQUIRED
+	v_04	(0|1) #REQUIRED
+	v_05	(0|1) #REQUIRED
+	v_06	(0|1) #REQUIRED
+	v_07	(0|1) #IMPLIED
+>
+<!-- /TypedText -->
+<!ATTLIST	TypedText
+	nm	NMTOKEN #FIXED "TypedText"		// D name
+	c0	NMTOKEN #FIXED "TypedTextContainer"	// D CC0
+	c2	NMTOKEN #FIXED "TypedText"		// D CC2
+	c3	CDATA #FIXED ""				// D CC3
+>
+<!ATTLIST	ModuleText
+	%urefr;						//  (const 1)
+	nm	NMTOKEN #FIXED "ModuleText_Number1"	// D name
+	c0	NMTOKEN #FIXED "ModuleContainer"	// D CC0
+	c2	NMTOKEN #FIXED "ModuleText_Number1"	// D CC2
+	c3	CDATA #FIXED ""				// D CC3
+>
+<!ATTLIST	CalcAlg
+	%urefr;
+	nm	NMTOKEN #REQUIRED			// D name = CalcAlg_Number#
+	c0	NMTOKEN #FIXED "ModuleContainer"	// D CC0
+	c2	NMTOKEN #REQUIRED			// D CC2 = CalcAlg_Number#
+	c3	CDATA #FIXED ""				// D CC3
+>
+<!ATTLIST	UserHelp
+	%urefr;
+	nm	NMTOKEN #REQUIRED			// D name = CalcAlg_Number#
+	c0	NMTOKEN #FIXED "ModuleContainer"	// D CC0
+	c2	NMTOKEN #REQUIRED			// D CC2 = CalcAlg_Number#
+	c3	CDATA #FIXED ""				// D CC3
+>
+<!ATTLIST	Transact
+	%urefr;
+	nm	NMTOKEN #REQUIRED			// D name = Transact_Number#
+	c0	NMTOKEN #FIXED "ModuleContainer"	// D CC0
+	c2	NMTOKEN #REQUIRED			// D CC2 = Transact_Number#
+	c3	CDATA #FIXED ""				// D CC3
+>
+<!ATTLIST mdpt
+	nm	NMTOKENS #FIXED "MD Programm text"	// D name
+	c0	(TextDocument|MetaDataDescription) #REQUIRED	// D CC0
+	c2	NMTOKENS #REQUIRED			// D CC2 - Module text | MD Programm Text
+	c3	CDATA #FIXED ""				// D CC3
+	sz	NMTOKEN #REQUIRED			// D size - #
+	file	CDATA #REQUIRED				// R filename
+>
+<!-- /Picture -->
+<!ATTLIST	Picture
+	nm	NMTOKEN #FIXED "Picture"		// D name
+	c0	NMTOKEN #FIXED "PictureContainer"	// D CC0
+	c2	NMTOKEN #FIXED "Picture"		// D CC2
+	c3	CDATA #FIXED ""				// D CC3
+>
+<!ATTLIST glr
+	nm	NMTOKEN #FIXED "Gallery"		// D name
+	c0	NMTOKEN #FIXED "PictureGalleryContainer"	// D CC0
+	c2	NMTOKEN #FIXED "Gallery"		// D CC2
+	c3	CDATA #FIXED ""				// D CC3
+	sz	NMTOKEN #REQUIRED			// D stream size
+	sign	NMTOKEN #FIXED "01014C49"		// ? sign ?
+	iqty	NMTOKEN #REQUIRED			// D IcoQty - Qty of icons (real)
+	u1	NMTOKEN #REQUIRED			// ? ?
+	u2	NMTOKEN #FIXED "0008"			// ? ?
+	iw	NMTOKEN #FIXED "80"			// ? Icon width
+	ih	NMTOKEN #FIXED "80"			// ? Icon Height
+	u3	NMTOKEN #FIXED "FFFFFFFF"		// ? attr3
+	cdep	NMTOKEN #REQUIRED			// ? Color depth - #
+	u4	NMTOKEN #FIXED "FFFFFFFF"		//   attr4
+	u5	NMTOKEN #FIXED "FFFFFFFF"		//   attr5
+	u6	NMTOKEN #IMPLIED	 		//   attr6 - new="FF000001", old=absent
+	idxqty	NMTOKEN #REQUIRED			//   Indexes Qty - #
+	idxend	NMTOKEN #REQUIRED			//   Indexes End
+	fn	CDATA #IMPLIED				//   filename
+>
+<!ATTLIST idx
+	val	NMTOKEN #REQUIRED			// R IDREF? - picture index (start from 10000000h
+>
+<!ATTLIST iname
+	nm	CDATA #REQUIRED				// R picture name
+	idx	NMTOKEN #REQUIRED			// R IDREF? - picture index (start from 10000000h)
+>
+<!ATTLIST pic
+	nm	CDATA #REQUIRED				// D name = __Picture.1XXXXXXX
+	sz	NMTOKEN #REQUIRED			// D size
+	uid	NMTOKEN #REQUIRED			// R ID - uid (hex, start from 10000000h)
+	fn	CDATA #REQUIRED				// R filename
+>
+<!-- /others -->
+<!ATTLIST	GlobalDatas
+	nm	NMTOKEN #FIXED "GlobalData"		// D name
+	c0	NMTOKEN #FIXED "GlobalDataContainer"	// D CC0
+	c2	NMTOKEN #FIXED "GlobalData"		// D CC2
+	c3	CDATA #FIXED ""				// D CC3
+>
+<!ATTLIST	GlobalData
+	%urefr;
+	nm	NMTOKEN #FIXED "GlobalData_Number1"	// D name
+	c0	NMTOKEN #FIXED "TypedObjectContainer"	// D CC0
+	c2	NMTOKEN #FIXED "GlobalData_Number1"	// D CC2
+	c3	CDATA #FIXED ""				// D CC3
+>
+<!ATTLIST	AccountCharts
+	nm	NMTOKEN #FIXED "AccountChart"		// D name
+	c0	NMTOKEN #FIXED "AccountChartContainer"	// D CC0
+	c2	NMTOKEN #FIXED "AccountChart"		// D CC2
+	c3	CDATA #FIXED ""				// D CC3
+>
+<!ATTLIST	AccountChart
+	%urefr;
+	nm	NMTOKEN #REQUIRED			// D name = <entity>__Number<no>
+	c0	NMTOKEN #FIXED "TypedObjectContainer"	// D CC0
+	c2	NMTOKEN #REQUIRED			// D name = <entity>__Number<no>
+	c3	CDATA #FIXED ""				// D CC3
+>
+<!ATTLIST	AccountChartLists
+	nm	NMTOKEN #FIXED "AccountChartList"	// D name
+	c0	NMTOKEN #FIXED "AccountChartListContainer"	// D CC0
+	c2	NMTOKEN #FIXED "AccountChartList"	// D CC2
+	c3	CDATA #FIXED ""				// D CC3
+>
+<!ATTLIST	AccountChartList
+	%urefr;
+	nm	NMTOKEN #REQUIRED			// D name = <entity>__Number<no>
+	c0	NMTOKEN #FIXED "TypedObjectContainer"	// D CC0
+	c2	NMTOKEN #REQUIRED			// D name = <entity>__Number<no>
+	c3	CDATA #FIXED ""				// D CC3
+>
+<!ATTLIST	CalcJournals
+	nm	NMTOKEN #FIXED "CalcJournal"		// D name
+	c0	NMTOKEN #FIXED "CalcJournalContainer"	// D CC0
+	c2	NMTOKEN #FIXED "CalcJournal"		// D CC2
+	c3	CDATA #FIXED ""				// D CC3
+>
+<!ATTLIST	CalcJournal
+	%urefr;
+	nm	NMTOKEN #REQUIRED			// D name = <entity>__Number<no>
+	c0	NMTOKEN #FIXED "TypedObjectContainer"	// D CC0
+	c2	NMTOKEN #REQUIRED			// D name = <entity>__Number<no>
+	c3	CDATA #FIXED ""				// D CC3
+>
+<!ATTLIST	CalcVars
+	nm	NMTOKEN #FIXED "CalcVar"		// D name
+	c0	NMTOKEN #FIXED "CalcVarContainer"	// D CC0
+	c2	NMTOKEN #FIXED "CalcVar"		// D CC2
+	c3	CDATA #FIXED ""				// D CC3
+>
+<!ATTLIST	CalcVar
+	%urefr;
+	nm	NMTOKEN #REQUIRED			// D name = <entity>__Number<no>
+	c0	NMTOKEN #FIXED "TypedObjectContainer"	// D CC0
+	c2	NMTOKEN #REQUIRED			// D name = <entity>__Number<no>
+	c3	CDATA #FIXED ""				// D CC3
+>
+<!ATTLIST	Documents
+	nm	NMTOKEN #FIXED "Document"		// D name
+	c0	NMTOKEN #FIXED "DocumentContainer"	// D CC0
+	c2	NMTOKEN #FIXED "Document"		// D CC2
+	c3	CDATA #FIXED ""				// D CC3
+>
+<!ATTLIST	Document
+	%urefr;
+	nm	NMTOKEN #REQUIRED			// D name = <entity>__Number<no>
+	c0	NMTOKEN #FIXED "TypedObjectContainer"	// D CC0
+	c2	NMTOKEN #REQUIRED			// D name = <entity>__Number<no>
+	c3	CDATA #FIXED ""				// D CC3
+>
+<!ATTLIST	Journals
+	nm	NMTOKEN #FIXED "Journal"		// D name
+	c0	NMTOKEN #FIXED "JournalContainer"	// D CC0
+	c2	NMTOKEN #FIXED "Journal"		// D CC2
+	c3	CDATA #FIXED ""				// D CC3
+>
+<!ATTLIST	Journal
+	%urefr;
+	nm	NMTOKEN #REQUIRED			// D name = <entity>__Number<no>
+	c0	NMTOKEN #FIXED "TypedObjectContainer"	// D CC0
+	c2	NMTOKEN #REQUIRED			// D name = <entity>__Number<no>
+	c3	CDATA #FIXED ""				// D CC3
+>
+<!ATTLIST	Operations
+	nm	NMTOKEN #FIXED "Operation"		// D name
+	c0	NMTOKEN #FIXED "OperationContainer"	// D CC0
+	c2	NMTOKEN #FIXED "Operation"		// D CC2
+	c3	CDATA #FIXED ""				// D CC3
+>
+<!ATTLIST	Operation
+	%urefr;
+	nm	NMTOKEN #REQUIRED			// D name = <entity>__Number<no>
+	c0	NMTOKEN #FIXED "TypedObjectContainer"	// D CC0
+	c2	NMTOKEN #REQUIRED			// D name = <entity>__Number<no>
+	c3	CDATA #FIXED ""				// D CC3
+>
+<!ATTLIST	OperationLists
+	nm	NMTOKEN #FIXED "OperationList"		// D name
+	c0	NMTOKEN #FIXED "OperationListContainer"	// D CC0
+	c2	NMTOKEN #FIXED "OperationList"		// D CC2
+	c3	CDATA #FIXED ""				// D CC3
+>
+<!ATTLIST	OperationList
+	%urefr;
+	nm	NMTOKEN #REQUIRED			// D name = <entity>__Number<no>
+	c0	NMTOKEN #FIXED "TypedObjectContainer"	// D CC0
+	c2	NMTOKEN #REQUIRED			// D name = <entity>__Number<no>
+	c3	CDATA #FIXED ""				// D CC3
+>
+<!ATTLIST	ProvLists
+	nm	NMTOKEN #FIXED "ProvList"		// D name
+	c0	NMTOKEN #FIXED "ProvListContainer"	// D CC0
+	c2	NMTOKEN #FIXED "ProvList"		// D CC2
+	c3	CDATA #FIXED ""				// D CC3
+>
+<!ATTLIST	ProvList
+	%uid;
+	nm	NMTOKEN #REQUIRED			// D name = <entity>__Number<no>
+	c0	NMTOKEN #FIXED "TypedObjectContainer"	// D CC0
+	c2	NMTOKEN #REQUIRED			// D name = <entity>__Number<no>
+	c3	CDATA #FIXED ""				// D CC3
+>
+<!ATTLIST	Reports
+	nm	NMTOKEN #FIXED "Report"			// D name
+	c0	NMTOKEN #FIXED "ReportContainer"	// D CC0
+	c2	NMTOKEN #FIXED "Report"			// D CC2
+	c3	CDATA #FIXED ""				// D CC3
+>
+<!ATTLIST	Report
+	%urefr;
+	nm	NMTOKEN #REQUIRED			// D name = <entity>__Number<no>
+	c0	NMTOKEN #FIXED "TypedObjectContainer"	// D CC0
+	c2	NMTOKEN #REQUIRED			// D name = <entity>__Number<no>
+	c3	CDATA #FIXED ""				// D CC3
+>
+<!ATTLIST	SubFolders
+	nm	NMTOKEN #FIXED "SubFolder"		// D name
+	c0	NMTOKEN #FIXED "SubcontoGroupFolder"	// D CC0
+	c2	NMTOKEN #FIXED "SubFolder"		// D CC2
+	c3	CDATA #FIXED ""				// D CC3
+>
+<!ATTLIST	SubFolder
+	%urefr;
+	nm	NMTOKEN #REQUIRED			// D name = <entity>__Number<no>
+	c0	NMTOKEN #FIXED "TypedObjectContainer"	// D CC0
+	c2	NMTOKEN #REQUIRED			// D name = <entity>__Number<no>
+	c3	CDATA #FIXED ""				// D CC3
+>
+<!ATTLIST	SubLists
+	nm	NMTOKEN #FIXED "SubList"		// D name
+	c0	NMTOKEN #FIXED "SublistContainer"	// D CC0
+	c2	NMTOKEN #FIXED "SubList"		// D CC2
+	c3	CDATA #FIXED ""				// D CC3
+>
+<!ATTLIST	SubList
+	%urefr;
+	nm	NMTOKEN #REQUIRED			// D name = <entity>__Number<no>
+	c0	NMTOKEN #FIXED "TypedObjectContainer"	// D CC0
+	c2	NMTOKEN #REQUIRED			// D name = <entity>__Number<no>
+	c3	CDATA #FIXED ""				// D CC3
+>
+<!ATTLIST	Subcontos
+	nm	NMTOKEN #FIXED "Subconto"		// D name
+	c0	NMTOKEN #FIXED "SubcontoContainer"	// D CC0
+	c2	NMTOKEN #FIXED "Subconto"		// D CC2
+	c3	CDATA #FIXED ""				// D CC3
+>
+<!ATTLIST	Subconto
+	%urefr;
+	nm	NMTOKEN #REQUIRED			// D name = <entity>__Number<no>
+	c0	NMTOKEN #FIXED "TypedObjectContainer"	// D CC0
+	c2	NMTOKEN #REQUIRED			// D name = <entity>__Number<no>
+	c3	CDATA #FIXED ""				// D CC3
+>
+<!ATTLIST	WorkBook
+	nm	NMTOKEN #FIXED "WorkBook"		// D name
+	c0	NMTOKEN #FIXED "WorkBookContainer"	// D CC0
+	c2	NMTOKEN #FIXED "WorkBook"		// D CC2
+	c3	CDATA #FIXED ""				// D CC3
+>
+<!ATTLIST cp
+	nm	NMTOKEN #FIXED "Container.Profile"	// D name
+	sz	NMTOKEN #REQUIRED			// D size
+>
+<!ATTLIST MoxelName
+	nm	CDATA #REQUIRED				// R - "" | <name> | "Moxel WorkPlace" | "\0x01Blank" (> "")
+	blank	(1) #IMPLIED				// R 1 if nm == "\0x01Blank"
+	u0	CDATA #FIXED ""				// D
+>
+<!ATTLIST MoxelPos
+	nm	(0|2|5) #REQUIRED			// R - <name>: 0|2; "Moxel WorkPlace": 0; "\0x01Blank": 0|2|5
+	u0	CDATA #FIXED ""				// D
+>
+<!ATTLIST UUID
+	nm	NMTOKEN #FIXED "D41D8CD98F00B204E9800998ECF8427E"	// D
+	u0	CDATA #FIXED ""				// D
+>
+<!ATTLIST Entry
+	nm	(0|1) #REQUIRED				// D # (old=0, new=1)
+	u0	CDATA #FIXED ""				// D
+>
+<!ATTLIST MoxelNextMode
+	nm	(1|2) #REQUIRED				// D # (old=2, new=1)
+	u0	CDATA #FIXED ""				// D
+>
+<!-- Dialog stream -->
+<!ATTLIST ds
+	nm	NMTOKENS #FIXED "Dialog Stream"		// D name
+	c0	NMTOKEN #FIXED "DialogEditor"		// D CC0
+	c2	NMTOKENS #FIXED "Dialog Form"		// D CC2
+	c3	CDATA #FIXED ""				// D CC3
+	sz	NMTOKEN #REQUIRED			// D size
+	file	CDATA #REQUIRED				// S file name
+>
+<!-- Main Metadata Stream -->
+<!ENTITY %	no "
+	no	NMTOKEN #REQUIRED			// ? # order no
+">
+<!ENTITY %	id "
+	id	CDATA #REQUIRED				// R s name
+">
+<!ENTITY %	com "
+	com	CDATA #REQUIRED				// R s Comments
+">
+<!ENTITY %	syn "
+	syn	CDATA #REQUIRED				// R s Synonym
+">
+<!ENTITY %	typ "
+	typ	(A|B|C|D|E|K|N|O|P|S|T|U) #REQUIRED	// R c A=Вид расчета, B=Справочник, C=Календарь, D=Дата, E=Перечисление, K=Вид субконто, N=Число, O=Документ, P=План счетов, S=Строка, T=Счет, U=Неопределенный
+">
+<!ENTITY %	len "
+	len	NMTOKEN #REQUIRED			// R # Value len
+">
+<!ENTITY %	prc "
+	prc	NMTOKEN #REQUIRED			// R # Value pricision
+">
+<!ENTITY %	uref "
+	uref	IDREF #IMPLIED				// ? IDREF Value code (must select for misc types)
+">
+<!ENTITY %	tri "
+	tri	(0|1) #REQUIRED				// R b Triaded (Разделять триады) (0=no, 1=yes)
+">
+<!ENTITY %	per "
+	per	(0|1|2|3|4) #REQUIRED			// R b Periodic (Периодический) (0=All of this kind, 1=yearly, 2=quartely, 3=monthly, 4=dayly)
+">
+<!ENTITY %	pos "
+	pos	(0|1) #REQUIRED				// R b Positive (Неотрицательное) (0=no, 1=yes)
+">
+<!ENTITY %	sel "
+	sel	(0|1) #REQUIRED				// R b Selection (Отбор) (0=no, 1=yes)
+">
+<!ENTITY %	uniq "
+	uniq	(0|1) #REQUIRED				// R b Uniq control (Контроль уникальности) (0=no, 1=yes)
+">
+<!ENTITY %	ctyp "
+	ctyp	(1|2) #REQUIRED				// R n Code type (1=String, 2=Number)
+">
+<!ENTITY %	anum "
+	anum	(1|2) #REQUIRED				// R n Auto numeration (1=handle, 2=auto)
+">
+<!ENTITY %	ureffs "
+	ureffs	IDREF #REQUIRED				// R IDREF FormCodeForSelection (Форма - для выбора)
+">
+<!ENTITY %	ureffm "
+	ureffm	IDREF #REQUIRED				// R IDREF FormCodeMain (Форма - Основная)
+">
+
+<!ATTLIST mms
+	nm	NMTOKENS #FIXED 'Main MetaData Stream'	// D s name
+	c0	NMTOKEN #FIXED 'MetaDataStream'		// D s CC0
+	c2	NMTOKENS #FIXED 'Main MetaData Stream'	// D s CC2
+	c3	CDATA #FIXED ''				// D   CC3
+	sz	NMTOKEN #REQUIRED			// D # size
+>
+<!ATTLIST MainDataContDef
+	u0	NMTOKEN #REQUIRED			// ? #
+	u1	NMTOKEN #FIXED '10011'			// ? #
+	u2	NMTOKEN #FIXED '7120'			// ? #
+>
+<!ATTLIST TaskItem
+	%uid;						// ? ID (= 1)
+	%id;
+	%com;
+	%syn;
+	u0	CDATA #FIXED ''				// ?
+	lng	(0|1) #REQUIRED				// R b Main language (0=En, 1=Ru)
+	u1	NMTOKEN #REQUIRED			// ? #
+	ddel	(0|1) #REQUIRED				// R b Direct del (Разрешить непосредственное удаление объектов) (0=no, 1=yes)
+	rnd	(0|1) #REQUIRED				// R b Round rule (0 = 1.5=>2, 1 = 1.5=>1)
+	u2	CDATA #REQUIRED				// ? # == u1
+>
+<!ATTLIST gjfd
+	%no;
+	%uid;
+	%id;
+	%com;
+	%syn;
+	%typ;
+	%len;
+	%prc;
+	%uref;
+	%tri;
+	%pos;
+	%sel;
+>
+<!ATTLIST dsro
+	%no;
+	%uid;
+	%id;
+	%com;
+	%syn;
+	semp	(0|1) #REQUIRED				// R b SelectEmpty (Отбор пустых значений) (0=no, 1=yes)
+	%typ;
+	%uref;
+>
+<!ATTLIST refer
+	%no;
+	uref	IDREF #REQUIRED				// R IDREF - uid reference
+>
+<!ATTLIST dnd
+	%no;
+	%uid;
+	%id;
+	%com;
+	%syn;
+	%len;
+	%per;
+	%ctyp;
+	u0	NMTOKEN #FIXED '2'
+	%uniq;
+>
+<!ATTLIST const
+	%no;
+	%uid;
+	%id;
+	%com;
+	%syn;
+	%typ;
+	%len;
+	%prc;
+	%uref;
+	%pos;
+	%tri;
+	%per;
+>
+<!ATTLIST druler
+	u1	NMTOKEN #FIXED 'L'			// ? c ?
+	u2	CDATA #FIXED ''				// ? ? ?
+	u3	NMTOKEN #FIXED '1'			// ? ? ?
+>
+<!ATTLIST sbcnt
+	%no;
+	%uid;
+	%id;
+	%com;
+	%syn;
+	urefp	IDREF #IMPLIED				// R IDREF Dependant (Код подчиненного справочника (или родительского?))
+	clen	NMTOKEN #REQUIRED			// R # Code Len (Длина кода)
+	cser	(1|2) #REQUIRED				// R # CodeSeries (Серии кодов) (1=В пределах подчинения, 2=Во всем справочнике)
+	%ctyp;
+	%anum;
+	nlen	NMTOKEN #REQUIRED			// R # Name len
+	mpre	(0|1) #REQUIRED				// R b Main presentaion (0=Code, 1=Name)
+	toed	(0|1|2) #REQUIRED			// R # To edit... (0=in_list, 1=in_dialog, 2=both)
+	lvls	NMTOKEN #REQUIRED			// R # Levels
+	%ureffs;
+	%ureffm;
+	uf	(0|1) #REQUIRED				// R b UniForm (Одна форма для элемента и группы) (0=no, 1=yes ?)
+	%uniq;
+	gup	(0|1) #REQUIRED				// R b GroupsUp (Размещать группы сверху) (0=no, 1=yes)
+>
+<!ATTLIST param
+	%no;
+	%uid;
+	%id;
+	%com;
+	%syn;
+	%typ;
+	%len;
+	%prc;
+	%uref;
+	%pos;
+	%tri;
+	%per;
+	ufi	(0|1) #REQUIRED 			// R b UseForItem (Использовать для элемента)
+	ufg	(0|1) #REQUIRED 			// R b UseForGroup (Использовать для группы)
+	srt	(0|1) #REQUIRED 			// R b Sort (Сортировка)
+	hchg	(0|1) #REQUIRED 			// R b HandChgd (Ручное изменение)
+	dchg	(0|1) #REQUIRED 			// R b DocChgd (Изменяется документами)
+	cbr	(0|1) #REQUIRED 			// R b ChoiceByReq (Отбор по реквизиту)
+>
+<!ATTLIST form
+	%no;
+	%uid;
+	%id;
+	%com;
+	%syn;
+>
+<!ATTLIST sbcnt_u					// like const_u
+	v_0	NMTOKENS #FIXED 'Distribution ruler'	// ? s ?
+	v_1	NMTOKEN #FIXED 'L'			// ? c ?
+	v_2	CDATA #FIXED ''				// ? ? ?
+	v_3	NMTOKEN #FIXED '1'			// ? ? ?
+>
+<!ATTLIST rgstr
+	%no;
+	%uid;
+	%id;
+	%com;
+	%syn;
+	rtyp	(0|1) #REQUIRED				// R b RegisterType (Тип регистра) (0=Остатки, 1=Обороты)
+	rper	CDATA #REQUIRED				// R c RegisterPeriodicity (Периодичность (для оборотных регистров) | ' ') (M=Месяц, C=Декада, W=Неделя, D=День, Q=Квартал, Y=Год)
+	spid	(0|1) #REQUIRED				// R b SpeedProcessing (Быстрая обработка движений) (0=no, 1=yes)
+	u0	NMTOKEN #FIXED '1'			// ? # ? 0
+>
+<!ATTLIST prop
+	%no;
+	%uid;
+	%id;
+	%com;
+	%syn;
+	%typ;
+	%len;
+	%prc;
+	%uref;
+	u0	NMTOKEN #FIXED '0'
+	%tri;
+	smov	(0|1) #REQUIRED				// R b SelectMoves (Отбор движений) (0=no, 1=yes)
+	ssum	(0|1) #REQUIRED				// R b SelectSummaries (Отбор итогов) (0=no, 1=yes)
+>
+<!ATTLIST fig
+	%no;
+	%uid;
+	%id;
+	%com;
+	%syn;
+	%typ;
+	%len;
+	%prc;
+	u0	NMTOKEN #FIXED '0'			// ? ? ?
+	u1	NMTOKEN #FIXED '0'			// ? ? ?
+	%tri;
+>
+<!ATTLIST rfld
+	%no;
+	%uid;
+	%id;
+	%com;
+	%syn;
+	%typ;
+	%len;
+	%prc;
+	%uref;
+	%pos;
+	%tri;
+	%per;
+>
+<!ATTLIST doc
+	%no;
+	%uid;
+	%id;
+	%com;
+	%syn;
+	clen	NMTOKEN #REQUIRED			// R # Code Len (Длина кода)
+	%per;
+	%ctyp;
+	%anum;
+	urefj	IDREF #IMPLIED				// R IDREF JournalCode (Код журнала)
+	u0	(-1|0|1) #REQUIRED			// ? # ?
+	%uniq;
+	urefn	IDREF #IMPLIED				// R IDREF NumeratorCode (Код нумератора)
+	trad	(0|1) #REQUIRED				// R b Trade (Оперативный учет) (0=no, 1=yes)
+	clc	(0|1) #REQUIRED				// R b Calc (Расчет учет) (0=no, 1=yes)
+	acc	(0|1) #REQUIRED				// R b Accounting (Бухгалтерский учет) (0=no, 1=yes)
+	ffa	(0|1) #REQUIRED				// R b FoundForAny (Может являться основанием для любого вида) (0=no, 1=yes)
+	crop	(0|1|2) #REQUIRED			// R # CreateOperation (Создавать операцию) (0=Всегда, 1=Выборочно, 2=Только при проведении)
+	aln	(0|1) #REQUIRED				// R b AutoLineNum (Автоматическая нумерация строк) (0=no, 1=yes)
+	amd	(0|1) #REQUIRED				// R b AutoMoveDel (Автоматическое удаление движений) (0=no, 1=yes)
+	u1	NMTOKEN #REQUIRED			// R # ?
+	eprv	(0|1) #REQUIRED				// R b EnableProv (Разрешить проведение док) (0=no, 1=yes)
+	u2	CDATA #FIXED ''				// R ? 
+	u3	CDATA #FIXED ''				// R ? 
+	u4	CDATA #FIXED ''				// R ? 
+	u5	(0|1) #REQUIRED				// R ? 
+>
+<!ATTLIST hfld
+	%no;
+	%uid;
+	%id;
+	%com;
+	%syn;
+	%typ;
+	%len;
+	%prc;
+	%uref;
+	%pos;
+	%tri;
+>
+<!ATTLIST tfld
+	%no;
+	%uid;
+	%id;
+	%com;
+	%syn;
+	%typ;
+	%len;
+	%prc;
+	%uref;
+	%pos;
+	%tri;
+	csum	(0|1) #REQUIRED				// R b ColSummary == Итог по колонке (0=no, 1=yes)
+>
+<!ATTLIST journ
+	%no;
+	%uid;
+	%id;
+	%com;
+	%syn;
+	u0	(-1|0) #REQUIRED			// ? # ? (0 - old, -1 - new)
+	jtyp	CDATA #REQUIRED				// R b JournType (тип журнала) (0=обычный, 1=дополнительный)
+	%ureffs;
+	%ureffm;
+	cmn	(0|1) #REQUIRED				// R b Common ((0=?, 1=Общий)
+	u1	NMTOKEN #REQUIRED			// ? # ?
+	u2	CDATA #FIXED ''				// ? ? ?
+	u3	CDATA #FIXED ''				// ? ? ?
+	u4	CDATA #FIXED ''				// ? ? ?
+>
+<!ATTLIST jfld
+	%no;
+	%uid;
+	%id;
+	%com;
+	%syn;
+>
+
+<!ATTLIST enuml
+	%no;
+	%uid;
+	%id;
+	%com;
+	%syn;
+>
+<!ATTLIST enumv
+	%no;
+	%uid;
+	%id;
+	%com;
+	%syn;
+	prs	CDATA #REQUIRED				// R s Presentation
+>
+<!ATTLIST rprt
+	%no;
+	%uid;
+	%id;
+	%com;
+	%syn;
+>
+<!ATTLIST cjey
+	%no;
+	%uid;
+	%id;
+	%com;
+	%syn;
+	uref	IDREF #REQUIRED				// R IDREF RefCode (код справочника)
+	%per;
+	cdat	NMTOKEN #REQUIRED			// R # CountDate (Дата отсчета)
+	%len;
+	%prc;
+	tow	(0|1) #REQUIRED				// R b ToWrite (Записывать) (0=На конец расчетного периода, 1=На начало)
+	%ureffs;
+	%ureffm;
+	u0	NMTOKEN #FIXED 'FF'
+>
+<!ATTLIST cjprm
+	%no;
+	%uid;
+	%id;
+	%com;
+	%syn;
+	%typ;
+	%len;
+	%prc;
+	%uref;
+	%pos;
+	%tri;
+>
+<!ATTLIST cjfld
+	%no;
+	uref	IDREF #REQUIRED				// R IDREF - Код реквизита справочника для графы отбора
+>
+
+<!ATTLIST clndr
+	%no;
+	%uid;
+	%id;
+	%com;
+	%syn;
+	strt	NMTOKEN #REQUIRED			// R # StartDate (Стартовая дата)
+>
+<!ATTLIST day
+	%no;
+	v	CDATA #REQUIRED				// R # DayLen (Длина дня * 100)
+>
+<!ATTLIST holi
+	v0	(11|1498|2927|3000) #REQUIRED		// ? # ? (old - 2927, new - 11)
+	v1	CDATA #FIXED ''				// ? ? ?
+	v2	CDATA #FIXED ''				// ? ? ?
+	v3	CDATA #FIXED ''				// ? ? ?
+>
+<!ATTLIST algo
+	%no;
+	%uid;
+	%id;
+	%com;
+	%syn;
+	pri	NMTOKEN #REQUIRED			// R # Priority
+	u0	NMTOKEN #REQUIRED			// ? # ?
+	u1	NMTOKEN #REQUIRED			// ? # ?
+	u2	NMTOKEN #FIXED '0'			// ? ? ?
+	u3	CDATA #FIXED ''				// ? ? ?
+	u4	CDATA #FIXED ''				// ? ? ?
+	u5	CDATA #FIXED ''				// ? ? ?
+>
+<!ATTLIST ingrp
+	%no;
+	uref	IDREF #REQUIRED				// R IDREF
+>
+<!ATTLIST rrul
+	%no;
+	%uid;
+	%id;
+	%com;
+	%syn;
+	rtyp	(0|1|2) #REQUIRED			// R # RecalcType (тип перерасчета) (0=только в текущем периоде журнала расчета, 1=в том же периоде журнала расчета, 2=в следующих n периодах)
+	inp	CDATA #REQUIRED				// R # InNextPeriods (в следующих # периодах)
+	u0	NMTOKEN #FIXED '0'			// ? # ?
+	u1	CDATA #FIXED ''				// ? ? ?
+	u2	CDATA #FIXED ''				// ? ? ?
+	u3	CDATA #FIXED ''				// ? ? ?
+	u4	NMTOKEN #FIXED '0'			// ? # ?
+	u5	CDATA #FIXED ''				// ? ? ?
+	u6	CDATA #FIXED ''				// ? ? ?
+	u7	CDATA #FIXED ''				// ? ? ?
+>
+<!ATTLIST refer1
+	%no;
+	uref	IDREF #REQUIRED				// R IDREF
+>
+<!ATTLIST clcv
+	%no;
+	%uid;
+	%id;
+	%com;
+	%syn;
+>
+<!ATTLIST group
+	%no;
+	%uid;
+	%id;
+	%com;
+	%syn;
+>
+<!ATTLIST alg
+	%no;
+	uref	IDREF #REQUIRED				// R IDREF of algo
+>
+<!ATTLIST dstrm
+	%no;
+	%uid;
+	%id;
+	%com;
+	%syn;
+	u0	NMTOKEN #FIXED '0'			// ? # ?
+	u1	NMTOKEN #FIXED '0'			// ? # ?
+>
+<!ATTLIST dsreg
+	%no;
+	uref	IDREF #REQUIRED				// R IDREF of register
+>
+<!ATTLIST dsdoc
+	%no;
+	uref	IDREF #REQUIRED				// R IDREF of document
+>
+<!ATTLIST Buh
+	%uid;
+	u01	CDATA #FIXED ''				// ? ? ?
+	u02	CDATA #FIXED ''				// ? ? ?
+	u03	CDATA #FIXED ''				// ? ? ?
+	toed	(0|1|2) #REQUIRED			// R # To edit... (0=in_list, 1=in_dialog, 2=both)
+	%ureffs;					//     план счетов
+	%ureffm;					//     план счетов
+	anl	NMTOKEN #REQUIRED			// R # AccountNameLen (Длина наименования счета)
+	acl	NMTOKEN #REQUIRED			// R # AccountCodeLen (Длина кода счета)
+	msq	NMTOKEN #REQUIRED			// R # MaxScQty (Максимальное количествово субконто)
+	odl	NMTOKEN #REQUIRED			// R # OpDescLen - Длина содержания операции
+	osl	NMTOKEN #REQUIRED			// R # OpSumLen - Длина суммы операции
+	osp	NMTOKEN #REQUIRED			// R # OpSumPrecision - Точность суммы операции
+	psl	NMTOKEN #REQUIRED			// R # ProvSumLen - Длина суммы проводки
+	psp	NMTOKEN #REQUIRED			// R # ProvSumPrecision - Точность суммы проводки
+	pvsl	NMTOKEN #REQUIRED			// R # ProvValSumLen - Длина валютной суммы проводки
+	pvsp	NMTOKEN #REQUIRED			// R # ProvValSumPrecision - Точность валютной суммы проводки
+	pql	NMTOKEN #REQUIRED			// R # ProvQtyLen - Длинна количества проводки
+	pqp	NMTOKEN #REQUIRED			// R # ProvQtyPrecision - Точность количества проводки
+	u04	NMTOKEN #FIXED '0'			// R # ?
+	u05	NMTOKEN #FIXED '0'			// R # ?
+	urefv1	NMTOKEN #REQUIRED			// R IDREF? - ProvListForm
+	urefv2	NMTOKEN #REQUIRED			// R IDREF? - ProvListForm
+	urefv	IDREF #IMPLIED				// R IDREF ValRefCode - Код справочника валют
+	urefc	IDREF #IMPLIED				// R IDREF CourseReqCode - Код реквизита курс
+	u08	NMTOKEN #REQUIRED			// R # ?
+	coom	(0|1) #REQUIRED				// R b ChoiceOnOpSum - Отбор по сумме операции (0=no, 1=yes)
+	cooj	(0|1) #REQUIRED				// R b ChoiceOnOpSubj - Отбор по содержанию операции (0=no, 1=yes)
+	osc	(0|1|2|3|4) #REQUIRED			// R # OpSumCalc - Расчет суммы операции; n (0 - Не рассчитывать, 1 - По всем проводкам, 2 - По всем проводкам в валютной сумме, 3 - По первой проводке, 4 - По первой проводке в валютной сумме)
+	epc	(0|1) #REQUIRED				// R b EnableProvChoice - Разрешить отбор проводок (0=no, 1=yes)
+	pcl	NMTOKEN #FIXED '0'			// R # ProvChoiceLevels - Количество уровней для отбора проводок (0 - по всем)
+	otri	(0|1) #REQUIRED				// R b OpTriaded - Разделять триады операции (0=no, 1=yes)
+	pst	(0|1) #REQUIRED				// R b ProvSumTriaded - Разделять триады суммы проводки (0=no, 1=yes)
+	pvst	(0|1) #REQUIRED				// R b ProvValSumTriaded - Разделять триады валютной суммы проводки (0=no, 1=yes)
+	pqt	(0|1) #REQUIRED				// R b ProvQtyTriaded - Разделять триады количества проводки (0=no, 1=yes)
+	cps	(0|1) #REQUIRED				// R b ChoiceProvSum - Отбор по сумме проводки (0=no, 1=yes)
+	cpv	(0|1) #REQUIRED				// R b ChoiceProvVal - Отбор по валюте проводки (0=no, 1=yes)
+	cpvs	(0|1) #REQUIRED				// R b ChoiceProvValSum - Отбор по валютной сумме проводки (0=no, 1=yes)
+	cpq	(0|1) #REQUIRED				// R b ChoiceProvQty - Отбор по количеству проводки (0=no, 1=yes)
+	urefa	IDREF #IMPLIED				// R IDREF AccountMultCode - Код реквизита кратность в плане счетов
+	cxp	(0|1) #REQUIRED				// R b ComplexProv - Сложные проводки (0=no, 1=yes)
+	scm	NMTOKEN #FIXED '1'			// R # SumCalcMode - Выбор режима расчета суммы (0)
+	cpod	(0|1) #REQUIRED				// R b ChoiceProvOnDC - Отбор проводок по Дебету/Кредиту (0=no, 1=yes)
+	edo	(0|1|2) #REQUIRED			// R # EditDocOp - Редактировать операций документов; n (0 - Разрешить, 1 - Запретить, 2 - Выборочно)
+	copa	(0|1) #REQUIRED				// R b ChoiceOnProvAccountPlan - Отбор по планам счетов проводки (0=no, 1=yes)
+	aoq	NMTOKEN #FIXED '0'			// R # AnalithicOnlyQty - Количичественный учет только по аналитике (0)
+	urefs	IDREF #IMPLIED				// R IDREF SepReqCode - Код реквизита проводки - Разделитель учета
+	urefp	IDREF #IMPLIED				// R IDREF MainAccountPlan - Код основного плана счетов
+	u09	NMTOKEN #FIXED '1'			// R # ?
+	u10	NMTOKEN #FIXED '1'			// R # ?
+	u11	NMTOKEN #FIXED '1'			// R # ?
+>
+<!ATTLIST	buh_u
+	%no;
+	u0	NMTOKEN #REQUIRED			// ? IDREF? ? but can be <0
+	u1	CDATA #FIXED ''				// ? ? ?
+	u2	(0|1) #REQUIRED				// ? # ? (old=1, new=0)
+>
+<!ATTLIST	aprm
+	%no;
+	%uid;
+	%id;
+	%com;
+	%syn;
+	%typ;
+	%len;
+	%prc;
+	%uref;
+	%pos;
+	%tri;
+	u0	NMTOKEN #FIXED '0'			// ? # ?
+	%per;
+>
+<!ATTLIST	plan
+	%no;
+	%uid;
+	%id;
+	%com;
+	%syn;
+	ct1	CDATA #REQUIRED				// R s CodeTemplate1 - Шаблон кода; s (###.##.#)
+	ct2	CDATA #REQUIRED				// R s CodeTemplate2 - Шаблон кода; s (###.##.#)
+>
+<!ATTLIST	accnt
+	%no;
+	%uid;
+	iid	NMTOKEN #REQUIRED			// ? s InnerID - Вн.идентификатор (like "_dummy123"
+	nam	CDATA #REQUIRED				// R s Name - Наименование
+	u0	CDATA #FIXED ''				// ? ? ?
+	acc	NMTOKENS #REQUIRED			// R s Account - Счет
+	isv	(0|1) #REQUIRED				// R b IsValute - Валютный; n (0 - нет, 1 - да)
+	isq	(0|1) #REQUIRED				// R b IsQty - Количественный; n (0 - нет, 1 - да)
+	isob	(0|1) #REQUIRED				// R b IsOutBalance - Забалансовый; n (0 - нет, 1 - да)
+	isg	(0|1) #REQUIRED				// R b IsGroup - ЭтоГруппа; n (0 - нет, 1 - да)
+	aat	(1|2|3) #REQUIRED			// R # AccountActivityType; n (1 - А, 2 - П, 3 - АП)
+>
+<!ATTLIST	accsk
+	%no;
+	nid	NMTOKEN #REQUIRED			// ? # ?
+	%id;						// == "id_<uid>" (uid = self or not)
+	u0	CDATA #FIXED ''				// ? ? ?
+	u1	CDATA #FIXED ''				// ? ? ?
+	u2	(B|U) #REQUIRED				// ? c ?
+	u3	NMTOKEN #FIXED '0'			// ? # ?
+	u4	NMTOKEN #FIXED '0'			// ? # ?
+	u5	NMTOKEN #FIXED '0'			// ? # ?
+	u6	NMTOKEN #FIXED '0'			// ? # ?
+	u7	NMTOKEN #FIXED '0'			// ? # ?
+	urefs	IDREF #REQUIRED				// R IDREF SubcontoCode - Код субконто
+	oo	(0|1) #REQUIRED				// R b OborotyOnly - Только обороты; n (0 - нет, 1 - да)
+	uos	(0|1) #REQUIRED				// R b UchetOnSummary - Учет по сумме; n (0 - нет, 1 - да)
+	uovs	(0|1) #REQUIRED				// R b UchetOnValuteSummary - Учет по валютной сумме; n (0 - нет, 1 - да)
+	uoq	(0|1) #REQUIRED				// R b UchetOnQty - Учет по количеству; n (0 - нет, 1 - да)
+>
+<!ATTLIST	pprm
+	%no;
+	%uid;
+	%id;
+	%com;
+	%syn;
+	%typ;
+	%len;
+	%prc;
+	%uref;
+	%tri;
+	%pos;
+	chce	(0|1) #REQUIRED				// R b Choice - Отбор; n (0 - нет, 1 - да)
+>
+<!ATTLIST	oprm
+	%no;
+	%uid;
+	%id;
+	%com;
+	%syn;
+	%typ;
+	%len;
+	%prc;
+	%uref;
+	%tri;
+	%pos;
+	chce	(0|1) #REQUIRED				// R b Choice - Отбор; n (0 - нет, 1 - да)
+>
+<!ATTLIST	bfrms
+	%no;
+>
+<!ATTLIST	bfrm
+	%no;
+	%uid;
+	%id;
+	%com;
+	%syn;
+>
+<!ATTLIST	sbknd
+	%no;
+	%uid;
+	%id;
+	%com;
+	%syn;
+	%typ;
+	%len;
+	%prc;
+	%uref;
+	%tri;
+	%pos;
+	chce	(0|1) #REQUIRED				// R b Choice - Отбор; n (0 - нет, 1 - да)
+	urefp	IDREF #IMPLIED				// R IDREF Price - Код реквизита справочника - Цена (UID?)
+	urefv	IDREF #IMPLIED				// R IDREF ValutePrice - Код реквизита справочника - Валютная цена (UID?)
+	u0	(0|1) #REQUIRED				// ? b ?
+	u1	(0|1) #REQUIRED				// ? b ?
+>
+<!ATTLIST	sbknd_u
+	%no;
+	u0	NMTOKEN #REQUIRED			// ? # ?
+	u1	CDATA #REQUIRED				// ? s ?
+	u2	NMTOKEN #FIXED '0'			// ? # ?
+>
+<!ATTLIST	todef
+	%no;
+	%uid;
+	u1	CDATA #FIXED ''				// ? # ?
+	u2	CDATA #FIXED ''				// ? # ?
+	u3	CDATA #FIXED ''				// ? # ?
+>
+<!ATTLIST	todef_u
+	u0	NMTOKEN #FIXED '1250'			// ? # ?
+	u1	CDATA #FIXED ''				// ? ? ?
+	u2	CDATA #FIXED ''				// ? ? ?
+	u3	CDATA #FIXED ''				// ? ? ?
+>
+<!ATTLIST	cpdef
+	%no;
+	%uid;
+	u1	CDATA #FIXED ''				// ? # ?
+	u2	CDATA #FIXED ''				// ? # ?
+	u3	CDATA #FIXED ''				// ? # ?
+>
+<!ATTLIST	phfd
+	%no;
+	%uid;
+	u01	NMTOKEN #REQUIRED			// ? s ?
+	u02	CDATA #FIXED ''				// ? # ?
+	u03	CDATA #FIXED ''				// ? # ?
+	u04	NMTOKEN #REQUIRED			// ? c ?
+	u05	NMTOKEN #FIXED '0'			// ? # ?
+	u06	NMTOKEN #FIXED '0'			// ? # ?
+	u07	NMTOKEN #REQUIRED			// ? # ? (old=0|#, new=0)
+	u08	NMTOKEN #FIXED '0'			// ? # ?
+	u09	NMTOKEN #FIXED '0'			// ? # ?
+	u10	NMTOKEN #FIXED '0'			// ? # ?
+>
+<!ATTLIST CRC
+	v	NMTOKEN #REQUIRED			// ? # CRC
+>
+<!-- MXL -->
+<!ATTLIST moxel
+	nm	NMTOKEN #REQUIRED			// ? s name - ("Page.#")
+	c0	NMTOKEN #IMPLIED			// D s CC0; #FIXED 'Moxcel.Worksheet'
+	c2	CDATA #IMPLIED				// R s CC2 - MXL name; can B abcent
+	c3	CDATA #IMPLIED				// D   CC3; #FIXED ''
+	sz	NMTOKEN #REQUIRED			// D # size
+	file	CDATA #REQUIRED				// S filename.tml
+>
