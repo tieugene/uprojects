@@ -1,0 +1,454 @@
+<html><head><script src="/__utm.js" type="text/javascript">&nbsp;</script><title>Qt-interest Archive - Mysql, Unicode, Qt4.1</title>
+<style type="text/css">
+<!--
+h3.fn,span.fn { margin-left: 1cm; text-indent: -1cm; }
+a:link { color: #004faf; text-decoration: none }
+a:visited { color: #672967; text-decoration: none }
+body { background: #ffffff; color: black; }
+-->
+</style>
+</head><body>
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+<tr bgcolor="#E5E5E5">
+<td valign=center>
+<a href="http://www.trolltech.com/">
+<font color="#004faf">Trolltech Home</font></a> |
+<a href="http://lists.trolltech.com/qt-interest/"> 
+<font color="#004faf">Qt-interest Home</font></a> |
+<a href="recent-index-0.html">
+<font color="#004faf">Recent Threads</font></a> |
+<a href="thread-index-0.html">
+<font color="#004faf">All Threads</font></a> |
+<a href="author.html">
+<font color="#004faf">Author</font></a> |
+<a href="date.html">
+<font color="#004faf">Date</font></a>
+</td>
+<td align="right" valign="center"><img src="/logo32.png" align="right" width="64" height="32" border="0"></td></tr>
+<tr bgcolor="#E5E5E5">
+<td valign=center colspan="2">
+<a href="thread-index-6.html">All threads index page 7</a>
+</tr>
+</table><h1 align="center">Qt-interest Archive, February 2006<br>Mysql, Unicode, Qt4.1</h1>
+
+<hr>
+<a name="msg01317">Message</a> 1 in thread<p>
+<!-- MHonArc v2.6.10 -->
+<!--X-Subject: Mysql, Unicode, Qt4.1 -->
+<!--X-From-R13: Evzba Rrgurevqtr <fvzbaNjvqtvg.pbz> -->
+<!--X-Date: Wed, 22 Feb 2006 12:13:55 +0000 -->
+<!--X-Message-Id: 20060222121355.aw067fu7sww8gock@uk.widgit.com -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+
+
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>Subject</em>: Mysql, Unicode, Qt4.1</li>
+<li><em>From</em>: Simon Detheridge &lt;<a href="mailto:simon@DOMAIN.HIDDEN">simon@xxxxxxxxxx</a>&gt;</li>
+<li><em>Date</em>: Wed, 22 Feb 2006 12:13:55 +0000</li>
+<li><em>Delivered-to</em>: qt-interest@trolltech.com</li>
+<li><em>List-help</em>: &lt;<a href="mailto:qt-interest-request@trolltech.com?subject=help">mailto:qt-interest-request@trolltech.com?subject=help</a>&gt;</li>
+<li><em>List-post</em>: &lt;<a href="mailto:qt-interest@trolltech.com">mailto:qt-interest@trolltech.com</a>&gt;</li>
+<li><em>List-subscribe</em>: &lt;<a href="mailto:qt-interest-request@trolltech.com?subject=subscribe">mailto:qt-interest-request@trolltech.com?subject=subscribe</a>&gt;</li>
+<li><em>List-unsubscribe</em>: &lt;<a href="mailto:qt-interest-request@trolltech.com?subject=unsubscribe">mailto:qt-interest-request@trolltech.com?subject=unsubscribe</a>&gt;</li>
+<li><em>Resent-from</em>: <a href="mailto:qt-interest@DOMAIN.HIDDEN">qt-interest@xxxxxxxxxxxxx</a></li>
+<li><em>Resent-message-id</em>: &lt;N1n_h.A.HhE.gVF_DB@esparsett&gt;</li>
+<li><em>Resent-sender</em>: <a href="mailto:qt-interest-request@DOMAIN.HIDDEN">qt-interest-request@xxxxxxxxxxxxx</a></li>
+<li><em>To</em>: Qt Interest Mailing List &lt;<a href="mailto:qt-interest@DOMAIN.HIDDEN">qt-interest@xxxxxxxxxxxxx</a>&gt;</li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<p>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<pre>Hi,
+
+I have a mysql database with mixed languages in different tables, 
+including different character sets. On the mysql server they are all 
+stored as UCS2 tables.
+
+When I attempt to load, display, or manipulate my Greek table, all the 
+characters come out as question marks.
+
+This is not a font problem. I can write the contents of a table out to 
+a unicode text file, and I still get question marks. (0x3f 0x00 in 
+unicode!)
+
+I've tried doing this:
+QTextCodec::setCodecForLocale ( QTextCodec::codecForName ( &quot;UTF-8&quot; ) ) ;
+QTextCodec::setCodecForCStrings ( QTextCodec::codecForName ( &quot;UTF-8&quot; ) ) ;
+
+at the start of my application. It didn't help.
+
+I'm using the classes QSqlQueryModel, QSqlQuery, QSqlTableModel and 
+QSqlDatabase to pull the data from the database. Any ideas?
+
+-- 
+ [ signature omitted ] 
+</pre>
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+
+<!--X-User-Footer-End-->
+
+<a name="msg01336">Message</a> 2 in thread<p>
+<!-- MHonArc v2.6.10 -->
+<!--X-Subject: Re: Mysql, Unicode, Qt4.1 -->
+<!--X-From-R13: Pb Fubefra <obNgubefra&#45;pbafhygvat.qx> -->
+<!--X-Date: Wed, 22 Feb 2006 19:59:32 +0100 -->
+<!--X-Message-Id: 200602221959.32961.bo@thorsen&#45;consulting.dk -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 20060222121355.aw067fu7sww8gock@uk.widgit.com -->
+<!--X-Head-End-->
+
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+
+
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>Subject</em>: Re: Mysql, Unicode, Qt4.1</li>
+<li><em>From</em>: Bo Thorsen &lt;<a href="mailto:bo@DOMAIN.HIDDEN">bo@xxxxxxxxxxxxxxxxxxxxx</a>&gt;</li>
+<li><em>Date</em>: Wed, 22 Feb 2006 19:59:32 +0100</li>
+<li><em>Delivered-to</em>: qt-interest@trolltech.com</li>
+<li><em>List-help</em>: &lt;<a href="mailto:qt-interest-request@trolltech.com?subject=help">mailto:qt-interest-request@trolltech.com?subject=help</a>&gt;</li>
+<li><em>List-post</em>: &lt;<a href="mailto:qt-interest@trolltech.com">mailto:qt-interest@trolltech.com</a>&gt;</li>
+<li><em>List-subscribe</em>: &lt;<a href="mailto:qt-interest-request@trolltech.com?subject=subscribe">mailto:qt-interest-request@trolltech.com?subject=subscribe</a>&gt;</li>
+<li><em>List-unsubscribe</em>: &lt;<a href="mailto:qt-interest-request@trolltech.com?subject=unsubscribe">mailto:qt-interest-request@trolltech.com?subject=unsubscribe</a>&gt;</li>
+<li><em>Organization</em>: Thorsen Consulting ApS</li>
+<li><em>Resent-from</em>: <a href="mailto:qt-interest@DOMAIN.HIDDEN">qt-interest@xxxxxxxxxxxxx</a></li>
+<li><em>Resent-message-id</em>: &lt;AlU6iD.A.k2C.5QL_DB@esparsett&gt;</li>
+<li><em>Resent-sender</em>: <a href="mailto:qt-interest-request@DOMAIN.HIDDEN">qt-interest-request@xxxxxxxxxxxxx</a></li>
+<li><em>To</em>: <a href="mailto:qt-interest@DOMAIN.HIDDEN">qt-interest@xxxxxxxxxxxxx</a></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<p>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<pre>Wednesday 22 February 2006 13:13 Simon Detheridge wrote:
+&gt; Hi,
+&gt;
+&gt; I have a mysql database with mixed languages in different tables,
+&gt; including different character sets. On the mysql server they are all
+&gt; stored as UCS2 tables.
+&gt;
+&gt; When I attempt to load, display, or manipulate my Greek table, all the
+&gt; characters come out as question marks.
+&gt;
+&gt; This is not a font problem. I can write the contents of a table out to
+&gt; a unicode text file, and I still get question marks. (0x3f 0x00 in
+&gt; unicode!)
+&gt;
+&gt; I've tried doing this:
+&gt; QTextCodec::setCodecForLocale ( QTextCodec::codecForName ( &quot;UTF-8&quot; ) ) ;
+&gt; QTextCodec::setCodecForCStrings ( QTextCodec::codecForName ( &quot;UTF-8&quot; ) ) ;
+&gt;
+&gt; at the start of my application. It didn't help.
+&gt;
+&gt; I'm using the classes QSqlQueryModel, QSqlQuery, QSqlTableModel and
+&gt; QSqlDatabase to pull the data from the database. Any ideas?
+
+Why would you set UTF-8 if you have UCS2 stored in the tables?
+
+Bo.
+
+-- 
+ [ signature omitted ] 
+</pre>
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+
+<!--X-User-Footer-End-->
+
+<a name="msg01375">Message</a> 3 in thread<p>
+<!-- MHonArc v2.6.10 -->
+<!--X-Subject: Re: Mysql, Unicode, Qt4.1 -->
+<!--X-From-R13: Evzba Rrgurevqtr <fvzbaNjvqtvg.pbz> -->
+<!--X-Date: Thu, 23 Feb 2006 10:00:46 +0000 -->
+<!--X-Message-Id: 20060223100046.k92fj97bwgkw8808@uk.widgit.com -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 20060222121355.aw067fu7sww8gock@uk.widgit.com -->
+<!--X-Reference: 200602221959.32961.bo@thorsen&#45;consulting.dk -->
+<!--X-Reference: 20060223094432.e09h2gskggwg8sks@uk.widgit.com -->
+<!--X-Head-End-->
+
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+
+
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>Subject</em>: Re: Mysql, Unicode, Qt4.1</li>
+<li><em>From</em>: Simon Detheridge &lt;<a href="mailto:simon@DOMAIN.HIDDEN">simon@xxxxxxxxxx</a>&gt;</li>
+<li><em>Date</em>: Thu, 23 Feb 2006 10:00:46 +0000</li>
+<li><em>Delivered-to</em>: qt-interest@trolltech.com</li>
+<li><em>List-help</em>: &lt;<a href="mailto:qt-interest-request@trolltech.com?subject=help">mailto:qt-interest-request@trolltech.com?subject=help</a>&gt;</li>
+<li><em>List-post</em>: &lt;<a href="mailto:qt-interest@trolltech.com">mailto:qt-interest@trolltech.com</a>&gt;</li>
+<li><em>List-subscribe</em>: &lt;<a href="mailto:qt-interest-request@trolltech.com?subject=subscribe">mailto:qt-interest-request@trolltech.com?subject=subscribe</a>&gt;</li>
+<li><em>List-unsubscribe</em>: &lt;<a href="mailto:qt-interest-request@trolltech.com?subject=unsubscribe">mailto:qt-interest-request@trolltech.com?subject=unsubscribe</a>&gt;</li>
+<li><em>Resent-from</em>: <a href="mailto:qt-interest@DOMAIN.HIDDEN">qt-interest@xxxxxxxxxxxxx</a></li>
+<li><em>Resent-message-id</em>: &lt;DGkgjC.A.6KC.1eY_DB@esparsett&gt;</li>
+<li><em>Resent-sender</em>: <a href="mailto:qt-interest-request@DOMAIN.HIDDEN">qt-interest-request@xxxxxxxxxxxxx</a></li>
+<li><em>To</em>: <a href="mailto:qt-interest@DOMAIN.HIDDEN">qt-interest@xxxxxxxxxxxxx</a></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<p>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<pre>Quoting Bo Thorsen &lt;bo@xxxxxxxxxxxxxxxxxxxxx&gt;:
+
+&gt; Why would you set UTF-8 if you have UCS2 stored in the tables?
+&gt;
+&gt; Bo.
+
+Because Mysql should be able to convert without any problems, and 
+because Qt does not support talking UCS2 to mysql. (It assumes 
+everything is a charstring. UCS2 is 2-bytes-per-character.) I've tried 
+setting ucs2 on the connection explicitly in the mysql driver and 
+recompiling. Unsuprisingly, it crashes.
+
+Nevertheless, I can talk to it from several other non-qt applications 
+that use UTF8. I don't think this is the problem.
+
+Simon
+
+-- 
+ [ signature omitted ] 
+</pre>
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+
+<!--X-User-Footer-End-->
+
+<a name="msg01430">Message</a> 4 in thread<p>
+<!-- MHonArc v2.6.10 -->
+<!--X-Subject: Re: Mysql, Unicode, Qt4.1 -->
+<!--X-From-R13: Dnvare Enoryxn <fnoryxnNvhr.ghjvra.np.ng> -->
+<!--X-Date: Fri, 24 Feb 2006 08:25:06 +0100 -->
+<!--X-Message-Id: 200602240825.06907.sabelka@iue.tuwien.ac.at -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 20060222121355.aw067fu7sww8gock@uk.widgit.com -->
+<!--X-Reference: 20060223094432.e09h2gskggwg8sks@uk.widgit.com -->
+<!--X-Reference: 20060223100046.k92fj97bwgkw8808@uk.widgit.com -->
+<!--X-Head-End-->
+
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+
+
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>Subject</em>: Re: Mysql, Unicode, Qt4.1</li>
+<li><em>From</em>: Rainer Sabelka &lt;<a href="mailto:sabelka@DOMAIN.HIDDEN">sabelka@xxxxxxxxxxxxxxxx</a>&gt;</li>
+<li><em>Date</em>: Fri, 24 Feb 2006 08:25:06 +0100</li>
+<li><em>Delivered-to</em>: qt-interest@trolltech.com</li>
+<li><em>List-help</em>: &lt;<a href="mailto:qt-interest-request@trolltech.com?subject=help">mailto:qt-interest-request@trolltech.com?subject=help</a>&gt;</li>
+<li><em>List-post</em>: &lt;<a href="mailto:qt-interest@trolltech.com">mailto:qt-interest@trolltech.com</a>&gt;</li>
+<li><em>List-subscribe</em>: &lt;<a href="mailto:qt-interest-request@trolltech.com?subject=subscribe">mailto:qt-interest-request@trolltech.com?subject=subscribe</a>&gt;</li>
+<li><em>List-unsubscribe</em>: &lt;<a href="mailto:qt-interest-request@trolltech.com?subject=unsubscribe">mailto:qt-interest-request@trolltech.com?subject=unsubscribe</a>&gt;</li>
+<li><em>Resent-from</em>: <a href="mailto:qt-interest@DOMAIN.HIDDEN">qt-interest@xxxxxxxxxxxxx</a></li>
+<li><em>Resent-message-id</em>: &lt;yKgTMB.A.zK.bTr_DB@esparsett&gt;</li>
+<li><em>Resent-sender</em>: <a href="mailto:qt-interest-request@DOMAIN.HIDDEN">qt-interest-request@xxxxxxxxxxxxx</a></li>
+<li><em>To</em>: <a href="mailto:qt-interest@DOMAIN.HIDDEN">qt-interest@xxxxxxxxxxxxx</a></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<p>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<pre>On Thursday 23 February 2006 11:00, Simon Detheridge wrote:
+&gt; I've tried
+&gt; setting ucs2 on the connection explicitly in the mysql driver and
+&gt; recompiling. Unsuprisingly, it crashes.
+&gt;
+&gt; Nevertheless, I can talk to it from several other non-qt applications
+&gt; that use UTF8. I don't think this is the problem.
+
+I think it depends on whhich version of mysql you are using (I'm using 
+4.1.13).
+I had to patch the mysql driver (qsql_mysql.cpp) to make unicode working. This 
+is my modified codec() function:
+
+static QTextCodec* codec(MYSQL* mysql)
+{
+#if MYSQL_VERSION_ID &gt;= 40113
+    mysql_set_character_set(mysql, &quot;utf8&quot;);
+#endif
+#if MYSQL_VERSION_ID &gt;= 32321
+    QTextCodec* heuristicCodec = 
+QTextCodec::codecForName(mysql_character_set_name(mysql));
+    if (heuristicCodec)
+        return heuristicCodec;
+#endif
+    return QTextCodec::codecForLocale();
+}
+
+
+Note that the codec() is only used for CHAR and VARCHAR, and not for TEXT 
+fields. Somehow, the driver cannot distinguish between TEXT and BLOB and a 
+plain QByteArray is retured in both cases (see task 100518).
+
+
+Regards,
+-Rainer
+
+--
+ [ signature omitted ] 
+</pre>
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+
+<!--X-User-Footer-End-->
+
+<a name="msg01454">Message</a> 5 in thread<p>
+<!-- MHonArc v2.6.10 -->
+<!--X-Subject: Re: Mysql, Unicode, Qt4.1 -->
+<!--X-From-R13: Evzba Rrgurevqtr <fvzbaNjvqtvg.pbz> -->
+<!--X-Date: Fri, 24 Feb 2006 12:09:40 +0000 -->
+<!--X-Message-Id: 20060224120940.0o32kgszcw4gg4os@uk.widgit.com -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 20060222121355.aw067fu7sww8gock@uk.widgit.com -->
+<!--X-Reference: 20060223094432.e09h2gskggwg8sks@uk.widgit.com -->
+<!--X-Reference: 20060223100046.k92fj97bwgkw8808@uk.widgit.com -->
+<!--X-Reference: 200602240825.06907.sabelka@iue.tuwien.ac.at -->
+<!--X-Head-End-->
+
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+
+
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>Subject</em>: Re: Mysql, Unicode, Qt4.1</li>
+<li><em>From</em>: Simon Detheridge &lt;<a href="mailto:simon@DOMAIN.HIDDEN">simon@xxxxxxxxxx</a>&gt;</li>
+<li><em>Date</em>: Fri, 24 Feb 2006 12:09:40 +0000</li>
+<li><em>Cc</em>: <a href="mailto:qt-interest@DOMAIN.HIDDEN">qt-interest@xxxxxxxxxxxxx</a></li>
+<li><em>Delivered-to</em>: qt-interest@trolltech.com</li>
+<li><em>List-help</em>: &lt;<a href="mailto:qt-interest-request@trolltech.com?subject=help">mailto:qt-interest-request@trolltech.com?subject=help</a>&gt;</li>
+<li><em>List-post</em>: &lt;<a href="mailto:qt-interest@trolltech.com">mailto:qt-interest@trolltech.com</a>&gt;</li>
+<li><em>List-subscribe</em>: &lt;<a href="mailto:qt-interest-request@trolltech.com?subject=subscribe">mailto:qt-interest-request@trolltech.com?subject=subscribe</a>&gt;</li>
+<li><em>List-unsubscribe</em>: &lt;<a href="mailto:qt-interest-request@trolltech.com?subject=unsubscribe">mailto:qt-interest-request@trolltech.com?subject=unsubscribe</a>&gt;</li>
+<li><em>Resent-from</em>: <a href="mailto:qt-interest@DOMAIN.HIDDEN">qt-interest@xxxxxxxxxxxxx</a></li>
+<li><em>Resent-message-id</em>: &lt;V8he4D.A.Z8F.jdv_DB@esparsett&gt;</li>
+<li><em>Resent-sender</em>: <a href="mailto:qt-interest-request@DOMAIN.HIDDEN">qt-interest-request@xxxxxxxxxxxxx</a></li>
+<li><em>To</em>: Rainer Sabelka &lt;<a href="mailto:sabelka@DOMAIN.HIDDEN">sabelka@xxxxxxxxxxxxxxxx</a>&gt;</li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<p>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<pre>Thanks,
+
+I'm using version 5.0.16.
+
+That helped a lot. Using your patch the question marks have gone away. 
+Luckily I'm not using any TEXT/BLOB fields for my application.
+
+Regards,
+Simon
+
+-- 
+ [ signature omitted ] 
+</pre>
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+
+<!--X-User-Footer-End-->
+

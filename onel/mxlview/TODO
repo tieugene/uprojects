@@ -1,0 +1,79 @@
++0. Simply compile
++1. Resources: mxlview;			Results: load mxl into mem
++2. Resources: +parser;			Results: +parse, ret ptrs
++3. Resources: +core;			Results: +core compile
++4. Resources: +decoder (simly);	Results: xml out
+ 5. Resources: +decoder (right);	Results: xml out
+ 6. Resources: +gui;			Results: compile w/ gui
+ 7. Resources:;				Results: view
+
+Hot:
+====
+* core:
+ + Flags
+ + enums:
+  + Props.Allign.H - v
+  + Props.Allign.V - v
+  + Props.TxtProp.Control - v
+  + Props.TxtProp.Type - v
+  + Obj.Type
+ . Defined.Angle
+ . PString>char (>wchar)
+ . func(const a) const;
+ + inline enums
+ . Font.*
+ . Color > RGB
+ . Pattern > ? bitmap
+ . Frame > ? bitmap
+ . ocParm()
+* decoder:
+ + flag > defined
+ . enums
+ . colors
+ . bulks
+ . strings into utf-8
+* toxml:
+ . char * vs string
+ . utf-8
+ . undefined - drop
+
+Plan:
+=====
+. core.enums (& decoder.enums)
+. core.Color
+. decoder.flag
+. decoder.utf8 (& toxml.utf8)
+. toxml.undefined_drop
+
+Bugs:
+====
+// core.h:
+...
+class	Props {
+	public:
+		struct	{
+			enum	{
+				Left,
+				HCenter,
+				Right,
+				Width
+			}	H;
+...
+		}	Allign;
+...
+};
+--------
+// decoder.cpp
+...
+#include "core.h"
+...
+void	DecodeProps(MXL_Prop *data, Props &out)	{
+	...
+	switch (data->PosHA & 0x1F) {
+		case(0):
+			out.Allign.H = <???>;
+			break;
+		...
+	}
+	...
+};

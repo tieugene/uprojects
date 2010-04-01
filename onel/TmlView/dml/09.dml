@@ -1,0 +1,37 @@
+<?xml version = '1.0' encoding = 'windows-1251'?>
+<!DOCTYPE dml SYSTEM "dml.dtd">
+<dml>
+<Frame fs="-11" u00="0" u01="0" u02="0" fb="400" fi="0" fu="0" u03="0" u04="204" u05="1" u06="2" u07="1" u08="34" fn="MS Sans Serif" w="653" h="183" cap=" " u09="" u10="" sm="0" u11="" fd="1" at="1" u12="6" u13="25" bc="-1" pic="0" sm1="0" al="0" stb="1" szbl="1">
+<lr no="0" id="Main" v="1"/>
+</Frame>
+<Browser u0="1" u1="1">
+<mcols>
+<c_browse no="0" cap="" u00="1353711616" x="102" y="17" w="535" h="140" rq="0" u01="0" tn="4151" u02="" fm="" id="" rid="0" vtp="U" vln="0" vpr="0" pt="0" flg="0" msq="" stp="" fs="0" u03="-11" u04="0" u05="0" u06="0" fb="0" fi="0" fu="0" u07="0" u08="0" u09="0" u10="0" u11="0" u12="0" fn="MS Sans Serif" fc="-1" u13="-1" pid="0" lr="Main" hkm="0" hks="0"/>
+</mcols>
+<fcols>
+<f_STATIC no="0" typ="3" cap=" " w="20" tn="4152" u0="" fm="" id="Пиктограмма" rid="-2567" vtp="0" vln="0" vpr="0" pt="0" u1="2" u2="" aln="0" flg="0" msq="" stp="" u3="0"/>
+<f_1CEDIT no="1" typ="2" cap="Код" w="46" tn="4153" u0="" fm="" id="Код" rid="-2568" vtp="1" vln="5" vpr="0" pt="0" u1="2" u2="" aln="0" flg="0" msq="" stp="" u3="0"/>
+<f_1CEDIT no="2" typ="2" cap="Наименование" w="155" tn="4154" u0="" fm="" id="Наименование" rid="-2569" vtp="2" vln="25" vpr="0" pt="0" u1="2" u2="" aln="0" flg="0" msq="" stp="" u3="0"/>
+<f_BMASKED no="3" typ="1" cap="Item" w="90" tn="4155" u0="" fm="" id="Item" rid="100" vtp="11" vln="0" vpr="0" uref="_27" pt="0" u1="2" u2="" aln="0" flg="32" msq="" stp="" u3="0"/>
+<f_BMASKED no="4" typ="1" cap="Supplier" w="23" tn="4156" u0="" fm="" id="Supplier" rid="101" vtp="11" vln="0" vpr="0" uref="_16" pt="0" u1="2" u2="" aln="0" flg="32" msq="" stp="" u3="0"/>
+<f_1CEDIT no="5" typ="1" cap="Цена" w="65" tn="4157" u0="" fm="" id="Price" rid="103" vtp="1" vln="10" vpr="2" pt="3" u1="2" u2="" aln="0" flg="0" msq="" stp="" u3="0"/>
+<f_BMASKED no="6" typ="1" cap="Дата" w="65" tn="4158" u0="" fm="" id="PriceDate" rid="104" vtp="3" vln="0" vpr="0" pt="0" u1="2" u2="" aln="0" flg="32" msq="" stp="" u3="0"/>
+<f_1CEDIT no="7" typ="1" cap="Discount" w="35" tn="4159" u0="" fm="" id="Discount" rid="105" vtp="1" vln="5" vpr="2" pt="1" u1="2" u2="" aln="0" flg="0" msq="" stp="" u3="0"/>
+<f_1CEDIT no="8" typ="1" cap="Profit" w="41" tn="4160" u0="" fm="" id="Profit" rid="106" vtp="1" vln="6" vpr="2" pt="0" u1="2" u2="" aln="0" flg="0" msq="" stp="" u3="0"/>
+<f_1CEDIT no="9" typ="1" cap="X" w="27" tn="4161" u0="" fm="" id="Disabled" rid="109" vtp="1" vln="1" vpr="0" pt="1" u1="2" u2="" aln="0" flg="2097152" msq="" stp="" u3="0"/>
+<f_1CEDIT no="10" typ="1" cap="Comments" w="185" tn="4162" u0="" fm="" id="Comments" rid="124" vtp="2" vln="99" vpr="0" pt="0" u1="2" u2="" aln="0" flg="0" msq="" stp="" u3="0"/>
+</fcols>
+</Browser>
+<Controls>
+<c_BUTTON no="0" cap="#" u00="1342177291" x="172" y="162" w="15" h="15" rq="0" u01="0" tn="4152" u02="" fm="RenumberRef(CurrentItem().Parent)" id="" rid="-1" vtp="U" vln="0" vpr="0" pt="0" flg="0" msq="" stp="Renumber" fs="0" u03="-11" u04="0" u05="0" u06="0" fb="0" fi="0" fu="0" u07="0" u08="0" u09="0" u10="0" u11="0" u12="0" fn="MS Sans Serif" fc="-1" u13="-1" pid="0" lr="Main" hkm="0" hks="0"/>
+<c_BUTTON no="1" cap="Dn" u00="1342177291" x="152" y="162" w="15" h="15" rq="0" u01="0" tn="4153" u02="" fm="MoveItem(Контекст, &quot;PriceRGS&quot;, 1)" id="" rid="-1" vtp="U" vln="0" vpr="0" pt="0" flg="0" msq="" stp="Move item step down" fs="0" u03="-11" u04="0" u05="0" u06="0" fb="0" fi="0" fu="0" u07="0" u08="0" u09="0" u10="0" u11="0" u12="0" fn="MS Sans Serif" fc="-1" u13="-1" pid="0" lr="Main" hkm="0" hks="0"/>
+<c_BUTTON no="2" cap="Up" u00="1342177291" x="132" y="162" w="15" h="15" rq="0" u01="0" tn="4154" u02="" fm="MoveItem(Контекст, &quot;PriceRGS&quot;, -1)" id="" rid="-1" vtp="U" vln="0" vpr="0" pt="0" flg="0" msq="" stp="Move item step up" fs="0" u03="-11" u04="0" u05="0" u06="0" fb="0" fi="0" fu="0" u07="0" u08="0" u09="0" u10="0" u11="0" u12="0" fn="MS Sans Serif" fc="-1" u13="-1" pid="0" lr="Main" hkm="0" hks="0"/>
+<c_BUTTON no="3" cap="?" u00="1342177291" x="112" y="162" w="15" h="15" rq="0" u01="0" tn="4155" u02="" fm="HowMuchRef(&quot;PriceRGS&quot;)" id="" rid="-1" vtp="U" vln="0" vpr="0" pt="0" flg="0" msq="" stp="" fs="0" u03="-11" u04="0" u05="0" u06="0" fb="0" fi="0" fu="0" u07="0" u08="0" u09="0" u10="0" u11="0" u12="0" fn="MS Sans Serif" fc="-1" u13="-1" pid="0" lr="Main" hkm="0" hks="0"/>
+<c_BUTTON no="4" cap="CheckE" u00="1342177291" x="72" y="162" w="35" h="15" rq="0" u01="0" tn="4156" u02="" fm="CheckE(&quot;PriceRGS&quot;, Контекст)" id="" rid="-1" vtp="U" vln="0" vpr="0" pt="0" flg="0" msq="" stp="Проверить незаполненные" fs="0" u03="-11" u04="0" u05="0" u06="0" fb="0" fi="0" fu="0" u07="0" u08="0" u09="0" u10="0" u11="0" u12="0" fn="MS Sans Serif" fc="-1" u13="-1" pid="0" lr="Main" hkm="0" hks="0"/>
+<c_BUTTON no="5" cap="Fill" u00="1342177291" x="52" y="162" w="15" h="15" rq="0" u01="0" tn="4157" u02="" fm="FillAttrOwn()" id="" rid="-1" vtp="U" vln="0" vpr="0" pt="0" flg="16" msq="" stp="" fs="0" u03="-11" u04="0" u05="0" u06="0" fb="0" fi="0" fu="0" u07="0" u08="0" u09="0" u10="0" u11="0" u12="0" fn="MS Sans Serif" fc="-1" u13="-1" pid="0" lr="Main" hkm="0" hks="0">Заполнить значением тек. атрибута тек. элемента атрибуты всех элементов тек. группы</c_BUTTON>
+<c_BUTTON no="6" cap="XUL" u00="1342177291" x="27" y="162" w="20" h="15" rq="0" u01="0" tn="4158" u02="" fm="XUL(&quot;rgs_test&quot;); XUL(&quot;rgs_sale&quot;)" id="" rid="-1" vtp="U" vln="0" vpr="0" pt="0" flg="0" msq="" stp="" fs="0" u03="-11" u04="0" u05="0" u06="0" fb="0" fi="0" fu="0" u07="0" u08="0" u09="0" u10="0" u11="0" u12="0" fn="MS Sans Serif" fc="-1" u13="-1" pid="0" lr="Main" hkm="0" hks="0"/>
+<c_BUTTON no="7" cap="" u00="1342177291" x="7" y="162" w="15" h="15" rq="0" u01="0" tn="4159" u02="" fm="Print()" id="" rid="-1" vtp="U" vln="0" vpr="0" pt="0" flg="1024" msq="" stp="Печать" fs="0" u03="-11" u04="0" u05="0" u06="0" fb="0" fi="0" fu="0" u07="0" u08="0" u09="0" u10="0" u11="0" u12="0" fn="MS Sans Serif" fc="-1" u13="-1" pid="268435457" lr="Main" hkm="0" hks="0"/>
+<c_SysTreeView32 no="8" cap="" u00="1352663047" x="7" y="17" w="91" h="140" rq="0" u01="0" tn="4160" u02="" fm="" id="" rid="0" vtp="U" vln="0" vpr="0" pt="0" flg="0" msq="" stp="" fs="0" u03="-11" u04="0" u05="0" u06="0" fb="0" fi="0" fu="0" u07="0" u08="0" u09="0" u10="0" u11="0" u12="0" fn="MS Sans Serif" fc="-1" u13="-1" pid="0" lr="Main" hkm="0" hks="0"/>
+</Controls>
+<Cnt_Ver v="10001"/>
+</dml>

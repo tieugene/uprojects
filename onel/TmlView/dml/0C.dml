@@ -1,0 +1,18 @@
+<?xml version = '1.0' encoding = 'windows-1251'?>
+<!DOCTYPE dml SYSTEM "dml.dtd">
+<dml>
+<Frame fs="-11" u00="0" u01="0" u02="0" fb="400" fi="0" fu="0" u03="0" u04="204" u05="1" u06="2" u07="1" u08="34" fn="MS Sans Serif" w="265" h="82" cap=" " u09="" u10="" sm="0" u11="" fd="1" at="1" u12="6" u13="25" bc="-1" pic="0" sm1="0" al="0" stb="1" szbl="1">
+<lr no="0" id="Основной" v="1"/>
+</Frame>
+<Controls>
+<c_BUTTON no="0" cap="Закрыть" u00="1342177291" x="67" y="62" w="54" h="14" rq="0" u01="0" tn="4152" u02="" fm="#Закрыть" id="" rid="-1" vtp="U" vln="0" vpr="0" pt="0" flg="0" msq="" stp="" fs="0" u03="-11" u04="0" u05="0" u06="0" fb="0" fi="0" fu="0" u07="0" u08="0" u09="0" u10="0" u11="0" u12="0" fn="MS Sans Serif" fc="-1" u13="-1" pid="0" lr="Основной" hkm="0" hks="0"/>
+<c_BUTTON no="1" cap="ОК" u00="1342181387" x="7" y="62" w="54" h="14" rq="0" u01="0" tn="4153" u02="" fm="#Записать? Закрыть" id="" rid="-1" vtp="U" vln="0" vpr="0" pt="0" flg="0" msq="" stp="" fs="0" u03="-11" u04="0" u05="0" u06="0" fb="0" fi="0" fu="0" u07="0" u08="0" u09="0" u10="0" u11="0" u12="0" fn="MS Sans Serif" fc="-1" u13="-1" pid="0" lr="Основной" hkm="0" hks="0"/>
+<c_STATIC no="2" cap="CGS2:" u00="1342177792" x="67" y="47" w="22" h="14" rq="0" u01="0" tn="4154" u02="" fm="" id="" rid="0" vtp="U" vln="0" vpr="0" pt="0" flg="192" msq="" stp="" fs="0" u03="-11" u04="0" u05="0" u06="0" fb="0" fi="0" fu="0" u07="0" u08="0" u09="0" u10="0" u11="0" u12="0" fn="MS Sans Serif" fc="-1" u13="-1" pid="0" lr="Основной" hkm="0" hks="0"/>
+<c_STATIC no="3" cap="CGS1:" u00="1342177792" x="7" y="47" w="22" h="14" rq="0" u01="0" tn="4155" u02="" fm="" id="" rid="0" vtp="U" vln="0" vpr="0" pt="0" flg="192" msq="" stp="" fs="0" u03="-11" u04="0" u05="0" u06="0" fb="0" fi="0" fu="0" u07="0" u08="0" u09="0" u10="0" u11="0" u12="0" fn="MS Sans Serif" fc="-1" u13="-1" pid="0" lr="Основной" hkm="0" hks="0"/>
+<c_STATIC no="4" cap="Описание:" u00="1342177792" x="7" y="32" w="38" h="14" rq="0" u01="0" tn="4156" u02="" fm="" id="" rid="0" vtp="U" vln="0" vpr="0" pt="0" flg="192" msq="" stp="" fs="0" u03="-11" u04="0" u05="0" u06="0" fb="0" fi="0" fu="0" u07="0" u08="0" u09="0" u10="0" u11="0" u12="0" fn="MS Sans Serif" fc="-1" u13="-1" pid="0" lr="Основной" hkm="0" hks="0"/>
+<c_STATIC no="5" cap="Наименование:" u00="1342177792" x="102" y="17" w="54" h="14" rq="0" u01="0" tn="4157" u02="" fm="" id="" rid="0" vtp="U" vln="0" vpr="0" pt="0" flg="192" msq="" stp="" fs="0" u03="-11" u04="0" u05="0" u06="0" fb="0" fi="0" fu="0" u07="0" u08="0" u09="0" u10="0" u11="0" u12="0" fn="MS Sans Serif" fc="-1" u13="-1" pid="0" lr="Основной" hkm="0" hks="0"/>
+<c_1CEDIT no="6" cap="Код" u00="1350565888" x="32" y="17" w="62" h="14" rq="1" u01="0" tn="4158" u02="" fm="" id="Код" rid="-2568" vtp="N" vln="5" vpr="0" pt="0" flg="0" msq="" stp="" fs="0" u03="-11" u04="0" u05="0" u06="0" fb="0" fi="0" fu="0" u07="0" u08="0" u09="0" u10="0" u11="0" u12="0" fn="MS Sans Serif" fc="-1" u13="-1" pid="0" lr="Основной" hkm="0" hks="0"/>
+<c_STATIC no="7" cap="Код:" u00="1342177792" x="7" y="17" w="18" h="14" rq="0" u01="0" tn="4159" u02="" fm="" id="" rid="0" vtp="U" vln="0" vpr="0" pt="0" flg="192" msq="" stp="" fs="0" u03="-11" u04="0" u05="0" u06="0" fb="0" fi="0" fu="0" u07="0" u08="0" u09="0" u10="0" u11="0" u12="0" fn="MS Sans Serif" fc="-1" u13="-1" pid="0" lr="Основной" hkm="0" hks="0"/>
+</Controls>
+<Cnt_Ver v="10001"/>
+</dml>
