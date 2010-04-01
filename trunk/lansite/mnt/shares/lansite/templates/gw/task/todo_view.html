@@ -1,0 +1,18 @@
+{% extends "gw/task/todo_base.html" %}
+{% block body_main %}
+<script langauge="JavaScript" type="text/javascript"> function confirmDelete(delUrl) { if (confirm("Are you sure you want to delete")) { document.location = delUrl; } } </script>
+<table>
+	<tr> <th> Категория: </th> <td> {{ item.category }} </td> </tr>
+	<tr> <th> Создано: </th> <td> {{ item.created }} </td> </tr>
+	<tr> <th> Срок: </th> <td> {{ item.deadline }} </td> </tr>
+	<tr> <th> Сделано: </th> <td> {{ item.done }} </td> </tr>
+	<tr> <th> Тема: </th> <td> {{ item.subject }} </td> </tr>
+	<tr> <th> Подробности: </th> <td> {{ item.description }} </td> </tr>
+</table>
+<hr/>
+<button> <a  href="{% url lansite.gw.views.todo_edit item.id %}" target="_blank"> Изменить </a> </button>
+<button> Сделать подзадачей </button>
+<button> Создать подзадачу </button>
+<button> Конвертировать в Задание </button>
+<button onClick="confirmDelete('{% url lansite.gw.views.todo_del item.id %}')"> Удалить </button>
+{% endblock %}

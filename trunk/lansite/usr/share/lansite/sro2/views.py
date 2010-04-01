@@ -102,8 +102,11 @@ def	sro_list(request, sro_id, page_num):
 @login_required
 def	sro_publish(request, sro_id):
 	sro = Sro.objects.get(pk=sro_id)
-	orgsro_list = sro.orgsro_set.filter(publish=True).order_by('org__name')
-	return render_to_response('sro2/sro_publish.html', RequestContext(request, {'sro': sro, 'orgsro_list': orgsro_list, 'dt': datetime.now().strftime('%d.%m.%Y %H:%M:%S')}))
+	return render_to_response('sro2/sro_memberlist.html', RequestContext(request, {'sro': sro, 'item_list': sro.orgsro_set.filter(publish=True).order_by('org__name'), 'dt': datetime.now().strftime('%d.%m.%Y %H:%M:%S')}))
+
+@login_required
+def	sro_publish_member(request, sro_id, item_id):
+	return render_to_response('sro2/sro_member.html', RequestContext(request, {'orgsro': OrgSro.objects.get(pk=item_id)}))
 
 @login_required
 def	sro_upload(request, sro_id):

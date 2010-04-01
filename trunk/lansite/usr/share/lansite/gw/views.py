@@ -25,16 +25,16 @@ def	task_list(request):
 	return render_to_response('gw/task/task_list.html', context_instance=RequestContext(request, {'item_list': Task.objects.all()}))
 
 def	todocat_list(request):
-	return render_to_response('gw/task/todocat_list.html', context_instance=RequestContext(request, {'item_list': ToDoCat.objects.all()}))
+	return render_to_response('gw/task/todocat_list.html', context_instance=RequestContext(request, {'item_list': ToDoCat.objects.filter(author=GwUser.objects.get(pk=request.user.id))}))
 
 def	todocat_add(request):
 	if request.method == 'POST':
 		form = ToDoCatForm(request.POST)
 		if form.is_valid():
-			item = form.save()
-			#item.author = request.user
-			#item.created = datetime.now()
-			return HttpResponseRedirect(reverse('gw.views.todocat_list'))
+			item = form.save(commit=False)
+			item.author = GwUser.objects.get(pk=request.user.id)
+			item.save()
+			return HttpResponseRedirect(reverse('lansite.gw.views.todocat_list'))
 	else:	# GET
 		form = ToDoCatForm()
 	return render_to_response('gw/task/todocat_edit.html', context_instance=RequestContext(request, {'form': form}))
@@ -63,20 +63,32 @@ def	todo_add(request):
 	if request.method == 'POST':
 		form = ToDoForm(request.POST)
 		if form.is_valid():
-			item = form.save()
-			return HttpResponseRedirect(reverse('gw.views.todo_list'))
+			item = form.save(commit=False)
+			item.author = GwUser.objects.get(pk=request.user.id)
+			item.created = datetime.now()
+			item.save()
+			return HttpResponseRedirect(reverse('lansite.gw.views.todo_list'))
 	else:	# GET
 		form = ToDoForm()
 	return render_to_response('gw/task/todo_edit.html', context_instance=RequestContext(request, {'form': form}))
 
 def	todo_view(request, item_id):
-	return render_to_response('gw/task/todo_view.html', context_instance=RequestContext(request, {'item_list': ToDo.objects.all()}))
+	return render_to_response('gw/task/todo_view.html', context_instance=RequestContext(request, {'item': ToDo.objects.get(pk=item_id)}))
 
 def	todo_edit(request, item_id):
-	return render_to_response('gw/task/todo_edit.html', context_instance=RequestContext(request, {'item_list': ToDo.objects.all()}))
+	item = ToDo.objects.get(pk=item_id)
+	if request.method == 'POST':
+		form = ToDoForm(request.POST, instance=item)
+		if form.is_valid():
+			item = form.save()
+			return HttpResponseRedirect(reverse('lansite.gw.views.todo_view', kwargs={'item_id': item.id}))
+	else:	# GET
+		form = ToDoForm(instance=item)
+	return render_to_response('gw/task/todo_edit.html', context_instance=RequestContext(request, {'form': form}))
 
 def	todo_del(request, item_id):
-	return HttpResponseRedirect(reverse('gw.views.todo_list'))
+	ToDo.objects.get(pk=item_id).delete()
+	return HttpResponseRedirect(reverse('lansite.gw.views.todo_list'))
 
 def	assigncat_list(request):
 	return render_to_response('gw/task/todocat_list.html', context_instance=RequestContext(request, {'item_list': TaskCat.objects.all()}))

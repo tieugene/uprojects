@@ -9,16 +9,17 @@
 <center>
 	<h1> LanSite </h1>
 	<table width="100%" border="0"> <tr align="center" bgcolor="lightgrey">
+		<!--td> <a href="gw"> GW </a> </td-->
 		<!--td> <a href="insupol"> InsuPol </a> </td-->
 		<!--td> <a href="run1s"> Run1s </a> </td-->
-		<!--td> <a href="sro"> СРО </a> </td-->
-		<!-- td> <a href="sro2"> СРО2 </a> </td -->
-		<!-- td> <a href="todo"> ToDo </a> </td -->
-		<td> <a href="{% url kladr.views.index %}"> КЛАДР </a> </td>
+		<td> <a href="sro2"> СРО2 </a> </td>
+		<td> <a href="todo"> ToDo </a> </td>
+		<!-- td> <a href="ref"> Справочники </a> </td -->
+		<!-- td> <a href="gw"> GW </a> </td -->
 		<td> <a href="admin"> Администрирование </a> </td>
 	</tr> </table>
 </center>
 
-<p> Пользователь: {% if user.is_authenticated %} {{ user.username }} (<a href="logout/"> Logout </a>) {% else %} anonymous {% endif %} </p>
+<p> Пользователь: {% if user.is_authenticated %} {{ user.username }} <button> <a href="logout/"> Logout </a> </button> {% else %} anonymous {% endif %} </p>
 </body>
 </html>
