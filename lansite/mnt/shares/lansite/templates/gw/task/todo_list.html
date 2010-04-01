@@ -2,21 +2,21 @@
 {% block body_main %}
 <table width="100%" border="0"> <tr>
 	<td align="left"> <p> <a href="{% url gw.views.todocat_list %}"> Категории </a> </p> </td>
-	<td align="right"> <button> <a href="{% url gw.views.todo_add %}"> Добавить ToDo </a> </button> </td>
+	<td align="right"> <button> <a href="{% url gw.views.todo_add %}" target="_blank"> Добавить ToDo </a> </button> </td>
 </table>
 <hr/>
-<table width="100%" border="1">
-	<form> <tr> <th> Filter </th> <th>  </th> <th>  </th> <th>  </th> <th>  </th> <th>  </th> </tr> </form>
-	<form> <tr> <th> Sort </th> <th>  </th> <th>  </th> <th>  </th> <th>  </th> <th>  </th> </tr> <form>
+<table border="1" cellspacing="0" cellpadding="0">
+	<form> <tr> <th> Filter </th> <th> + </th> <th> - </th> <th> - </th> <th> + </th> <th> + </th> </tr> </form>
+	<form> <tr> <th> Sort </th> <th> + </th> <th> + </th> <th> + </th> <th> + </th> <th> + </th> </tr> <form>
 	<tr> <th> # </th> <th> Категория </th> <th> Тема </th> <th> Создано </th> <th> Срок </th> <th> Состояние </th> </tr>
 	{% for item in item_list %}
 		<tr>
 		<td> {{ forloop.counter }} </td>
-		<td> {{ item.category }} </td>
+		<td> {% if item.category %} {{ item.category }} {% endif %} </td>
 		<td> <a href="{% url gw.views.todo_view item.id %}" title="{{ item.description }}"> {{ item.subject }} </a> </td>
 		<td> {{ item.created|date }} </td>
 		<td> {% if item.deadline %} {{ item.deadline }} {% endif %} </td>
-		<td> {{ item.done }} </td>
+		<td> {%if item.done %} &radic; {% endif %} </td>
 		</tr>
 		</a>
 	{% endfor %}

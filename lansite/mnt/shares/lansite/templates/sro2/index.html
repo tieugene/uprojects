@@ -17,6 +17,6 @@
 		</tr>
 	</table>
 </center>
-<p> Пользователь: {% if user.is_authenticated %} {{ user.username }} (<a href="../logout/"> Logout </a>) {% else %} anonymous (<a href="../login/"> Login </a>) {% endif %} </p>
+<p> Пользователь: {% if user.is_authenticated %} {{ user.username }} <button> <a href="../logout/"> Logout </a> </button> {% else %} anonymous <button> <a href="../login/"> Login </a> </button> {% endif %} </p>
 </body>
 </html>

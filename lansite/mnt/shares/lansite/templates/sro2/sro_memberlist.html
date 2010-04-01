@@ -1,0 +1,37 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<title>Список членов {{ sro.name }}</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style  type="text/css">
+body	{
+	font-family:		Serif;
+	font-size:		9pt;
+	background-color:	white;
+	color:			black;
+}
+
+H1	{
+	font-size:		12pt;
+	font-weight:		bold;
+	background-color:	grey;
+	color:			white;
+	text-align:		center;
+}
+
+LI	{
+	font-size:		12pt;
+}
+</style>
+</head>
+<body>
+<h1> Реестр членов Некоммерческого партнерства «{{ sro.fullname }} </h1>
+<ol>
+{% for item in item_list %}
+	<li> <a href="member/{{ item.id }}.html"> {{ item.org.okopf.shortname }} {{ item.org.fullname }} </a> </li>
+{% endfor %}
+</ol>
+<hr/>
+<p> <i> Updated: {{ dt }} </i> </p>
+</body>
+</html>

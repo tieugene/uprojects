@@ -248,7 +248,7 @@ class	Org_RU(Org):
 		verbose_name_plural = u'Организации (РФ)'
 
 class	Task(Object):
-	author		= models.ForeignKey(GwUser, null=False, blank=False, related_name='author_id', verbose_name=u'Автор')
+	author		= models.ForeignKey(GwUser, null=False, blank=False, verbose_name=u'Автор')
 	created		= models.DateTimeField(null=False, blank=False, default=datetime.now, verbose_name=u'Создана')
 	deadline	= models.DateField(null=True, blank=True, verbose_name=u'Завершить до')
 	subject		= models.CharField(max_length=128, null=False, blank=False, verbose_name=u'Тема')
@@ -263,6 +263,7 @@ class	Task(Object):
 		verbose_name_plural = u'Задачи'
 
 class	ToDoCat(models.Model):
+	author		= models.ForeignKey(GwUser, null=False, blank=False, verbose_name=u'Автор')
 	name		= models.CharField(max_length=64, null=False, blank=False, unique=True, verbose_name=u'Наименование')
 
 	def	asstr(self):
@@ -287,6 +288,7 @@ class	ToDo(Task):
 		verbose_name_plural = u'Задачи'
 
 class	AssignCat(models.Model):
+	author		= models.ForeignKey(GwUser, null=False, blank=False, verbose_name=u'Автор')
 	name		= models.CharField(max_length=64, null=False, blank=False, unique=True, verbose_name=u'Наименование')
 	description	= models.TextField(null=True, blank=True, verbose_name=u'Подробности')
 

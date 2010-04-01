@@ -6,6 +6,7 @@ from models import *
 class	ToDoCatForm(forms.ModelForm):
 	class	Meta:
 		model = ToDoCat
+		fields = ('name',)
 
 class	ToDoForm(forms.ModelForm):
 	class	Meta:
