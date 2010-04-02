@@ -10,7 +10,7 @@ ADMINS = (
 )
 
 MANAGERS = ADMINS
-
+'''
 DATABASE_ENGINE = 'sqlite3'	# 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
 DATABASE_NAME = '/mnt/shares/lansite/db/lansite.db'	# Or path to database file if using sqlite3.
 DATABASE_USER = ''		# Not used with sqlite3.
@@ -24,7 +24,7 @@ DATABASE_USER = 'lansite'		# Not used with sqlite3.
 DATABASE_PASSWORD = 'lansite'		# Not used with sqlite3.
 DATABASE_HOST = 'localhost'		# Set to empty string for localhost. Not used with sqlite3.
 DATABASE_PORT = ''		# Set to empty string for default. Not used with sqlite3.
-'''
+
 SEND_EMAILS = False       # make it True and edit settings bellow if you want to receive emails
 EMAIL_HOST = ''           # smtp.myhost.com
 EMAIL_HOST_USER = ''      # user123
@@ -116,9 +116,8 @@ INSTALLED_APPS = (
 #	'insupol',
 #	'run1s',
 #	'sro',
-#	'sro2',
-#	'todo',
-	'kladr',
+	'sro2',
+	'todo',
 )
 
 # Absolute path to the directory that holds media.
