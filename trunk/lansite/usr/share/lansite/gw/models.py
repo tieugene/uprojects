@@ -26,26 +26,28 @@ class	GwUser(models.Model):
 class	Object(PolymorphicModel):
 	'''
 	Объект - прародитель всех остальных.
-	ancestor - объект, от которого данный объект наследует свойства, не определенные в данном объекте (наследование).
-	master	- объект выше по иерархии группировки (включение)
-	links	- группы (кластеры) связанных объектов, в который включен данные объект
+	group	- подчиненные объекты
 	'''
-	ancestor	= models.ForeignKey('self', null=True, blank=True, related_name='ancestor_set', verbose_name=u'Предок')
-	master		= models.ForeignKey('self', null=True, blank=True, related_name='master_set', verbose_name=u'Хозяин')
-	#links		= models.ManyToManyField(self, throughnull=True,  blank=True,  unique=False, verbose_name=u'Связи')
 
 	class	Meta:
 		verbose_name		= u'Объект'
 		verbose_name_plural	= u'Объекты'
-'''
-class	LinkCluster:
-	pass
 
-class	ObjectLink:
-	cluster:LinkCluster
-	object:Object
-	unique_together = ((cluster, object),)
-'''
+class	Group(models.Model):
+	master		= models.OneToOneField(Object, primary_key=True, verbose_name=u'Хозяин группы')
+	items		= models.ManyToManyField(Object, through='GroupObject', related_name='item_set', verbose_name=u'Объекты')
+
+	class	Meta:
+		verbose_name		= u'Группа объектов'
+		verbose_name_plural	= u'Группы объектов'
+
+class	GroupObject(models.Model):
+	group		= models.ForeignKey(Group, null=False, blank=False, verbose_name=u'Группа')
+	object		= models.ForeignKey(Object, null=False, blank=False, verbose_name=u'Объект')
+
+	class	Meta:
+		unique_together = (('group', 'object'),)
+
 class	AddrShort(models.Model):
 	'''
 	Сокращение для адреса: ул.=улица etc
@@ -256,7 +258,7 @@ class	Task(Object):
 	done		= models.BooleanField(null=False, blank=False, default=False, verbose_name=u'Завершено')
 
 	def	__unicode__(self):
-		return self.name
+		return self.subject
 
 	class	Meta:
 		verbose_name = u'Задача'
@@ -283,12 +285,17 @@ class	ToDo(Task):
 	def	__unicode__(self):
 		return self.name
 
+	def	getclassname(self):
+		return 'ToDo'
+
+	def	getclassid(self):
+		return 1
+
 	class	Meta:
 		verbose_name = u'Задача'
 		verbose_name_plural = u'Задачи'
 
 class	AssignCat(models.Model):
-	author		= models.ForeignKey(GwUser, null=False, blank=False, verbose_name=u'Автор')
 	name		= models.CharField(max_length=64, null=False, blank=False, unique=True, verbose_name=u'Наименование')
 	description	= models.TextField(null=True, blank=True, verbose_name=u'Подробности')
 
@@ -305,7 +312,6 @@ class	AssignCat(models.Model):
 
 class	Assign(Task):
 	'''
-	state
 	comments
 	files
 	DependsOn - tasks not sons
@@ -317,6 +323,12 @@ class	Assign(Task):
 
 	def	__unicode__(self):
 		return self.subject
+
+	def	getclassname(self):
+		return 'Assign'
+
+	def	getclassid(self):
+		return 2
 
 	class	Meta:
 		verbose_name = u'Задание'

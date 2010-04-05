@@ -6,6 +6,6 @@
 		{{ form.as_table }}
 	</table>
 	<input type="submit" value="Записать"/>
-	<input type="button" value="Отказаться" onClick="window.location.href='{% url gw.views.todocat_list %}'"/>
+	<a class="button" href="{% url gw.views.todo_list %}"> Отказаться </a>
 	</form>
 {% endblock %}
