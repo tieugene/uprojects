@@ -1,0 +1,196 @@
+#summary Server - LDAP+DNS
+
+|| <[Inst_S_LDAP_PAM PAM] || [TOC TOC] || [Inst_S_LDAP_DHCP DHCP]> ||
+
+= DNS =
+
+== Sources ==
+
+ * [http://www.opennet.ru/docs/RUS/bind2ldap One]
+ * [http://bind9-ldap.bayour.com/dnszonehowto.html Two]
+
+== Packages ==
+
+ * bind
+ * bind-chroot
+ * bind-sdb
+Note: after installing bind-sdb check permissions (:ldap) on /etc/openldap/slapd.conf
+
+== Files ==
+
+ * /etc/openldap/schema/dnszone.schema - don't touch
+
+== Install ==
+
+=== LDAP ===
+
+ # /etc/openldap/slapd.conf (inserted by bind-sdb):
+  {{{
+include		/etc/openldap/schema/dnszone.schema	# dns
+}}}
+ # restart:
+  {{{service ldap restart}}}
+ # DNS.ldif (zone and server - forward and RR):
+  {{{
+dn: ou=DNS,dc=ldap
+objectClass: top
+objectClass: organizationalUnit
+ou: DNS
+
+dn: zoneName=lan,ou=DNS,dc=ldap
+objectClass: top
+objectClass: dNSZone
+zoneName: lan
+relativeDomainName: lan
+
+dn: relativeDomainName=@,zoneName=lan,ou=DNS,dc=ldap
+objectClass: top
+objectClass: dNSZone
+zoneName: lan
+relativeDomainName: @
+nSRecord: server.lan.
+sOARecord: server.lan. hostmaster.lan. 1 8H 2H 1W 1D
+
+dn: relativeDomainName=localhost,zoneName=lan,ou=DNS,dc=ldap
+objectClass: top
+objectClass: dNSZone
+zoneName: lan
+relativeDomainName: localhost
+dNSClass: IN
+aRecord: 127.0.0.1
+
+dn: relativeDomainName=server,zoneName=lan,ou=DNS,dc=ldap
+objectClass: top
+objectClass: dNSZone
+zoneName: lan
+relativeDomainName: server
+dNSClass: IN
+aRecord: 192.168.0.1
+
+dn: zoneName=0.168.192.in-addr.arpa,ou=DNS,dc=ldap
+objectClass: top
+objectClass: dNSZone
+zoneName: 0.168.192.in-addr.arpa
+relativeDomainName: 0.168.192.in-addr.arpa
+
+dn: relativeDomainName=@,zoneName=0.168.192.in-addr.arpa,ou=DNS,dc=ldap
+objectClass: top
+objectClass: dNSZone
+zoneName: 0.168.192.in-addr.arpa
+relativeDomainName: @
+nSRecord: server.lan.
+sOARecord: server.lan. hostmaster.lan. 1 8H 2H 1W 1D
+
+dn: relativeDomainName=1,zoneName=0.168.192.in-addr.arpa,ou=DNS,dc=ldap
+objectClass: top
+objectClass: dNSZone
+zoneName: 0.168.192.in-addr.arpa
+relativeDomainName: 1
+pTRRecord: server.lan.
+}}}
+ # {{{ldapadd -x -D "cn=odmin,dc=ldap" -w secred -h localhost -p 389 -f DNS.ldif}}}
+ # add new host
+  {{{
+dn: relativeDomainName=gw,zoneName=lan,ou=DNS,dc=ldap
+objectClass: top
+objectClass: dNSZone
+zoneName: lan
+relativeDomainName: gw
+dNSClass: IN
+aRecord: 192.168.0.254
+
+dn: relativeDomainName=254,zoneName=0.168.192.in-addr.arpa,ou=DNS,dc=ldap
+objectClass: top
+objectClass: dNSZone
+zoneName: 0.168.192.in-addr.arpa
+relativeDomainName: 254
+pTRRecord: gw.lan.
+}}}
+ # and another one:
+  {{{
+dn: relativeDomainName=host002,zoneName=lan,ou=DNS,dc=ldap
+objectClass: top
+objectClass: dNSZone
+zoneName: lan
+relativeDomainName: host002
+dNSClass: IN
+aRecord: 192.168.0.2
+
+dn: relativeDomainName=2,zoneName=0.168.192.in-addr.arpa,ou=DNS,dc=ldap
+objectClass: top
+objectClass: dNSZone
+zoneName: 0.168.192.in-addr.arpa
+relativeDomainName: 2
+pTRRecord: host002.lan.
+}}}
+ # or bulk hosts creation:
+  {{{
+#!/bin/sh
+# bulkhosts.sh - bulk ldap hosts creation
+MIN=2
+MAX=99
+for ((n=MIN;n<=$MAX;n++)); do
+    i=$(printf "%03d" $n)
+    echo "\
+dn: relativeDomainName=host$i,zoneName=lan,ou=DNS,dc=ldap
+objectClass: top
+objectClass: dNSZone
+zoneName: lan
+relativeDomainName: host$i
+dNSClass: IN
+aRecord: 192.168.0.$n
+
+dn: relativeDomainName=$n,zoneName=0.168.192.in-addr.arpa,ou=DNS,dc=ldap
+objectClass: top
+objectClass: dNSZone
+zoneName: 0.168.192.in-addr.arpa
+relativeDomainName: $n
+pTRRecord: host$i.lan.
+" | ldapadd -x -D "cn=odmin,dc=ldap" -w secred -h localhost
+done
+}}}
+
+=== BIND ===
+
+ # {{{cp /usr/share/doc/bind-.../sample/etc/* /var/named/chroot/etc}}}
+ # {{{cp /usr/share/doc/bind-.../sample/var/named/[ln]* /var/named/chroot/var/named}}}
+ # {{{cd /var/named/chroot/var/named; wget ftp://ftp.rs.internic.net/domain/named.root}}}
+ # /var/named/chroot/etc/named.conf:
+  {{{
+options {
+        directory               "/var/named";
+        dump-file               "data/cache_dump.db";
+        statistics-file         "data/named_stats.txt";
+        memstatistics-file      "data/named_mem_stats.txt";
+        query-source address    * port 53;
+        forwarders {
+            192.168.0.254;      # gw
+            194.85.105.17;      # ns.ripn.net.
+        };
+};
+logging {
+        channel default_debug {
+                file "data/named.run";
+                severity dynamic;
+        };
+};
+include "/etc/named.root.hints";
+include "/etc/named.rfc1912.zones";
+zone "lan." IN {
+        type master;
+        database "ldap ldap://127.0.0.1/zoneName=lan,ou=DNS,dc=ldap 178600";
+        allow-update { none; };
+};
+zone "0.168.192.in-addr.arpa." IN {
+	type master;
+        database "ldap ldap://127.0.0.1/zoneName=0.168.192.in-addr.arpa,ou=DNS,dc=ldap 178600";
+        allow-update { none; };
+};
+}}}
+ # /etc/sysconfig/named:
+  {{{
+...
+ENABLE_SDB=yes
+}}}
+ # chkconfig named on && service named restart
+ # checking: resolveip <hostname>/<ip>

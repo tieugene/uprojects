@@ -1,0 +1,15 @@
+#summary Server - HTTP
+
+= Ingridients =
+Packages:
+  * httpd
+  * mod_authz_ldap
+Files:
+  * /etc/httpd/conf.d/authz_ldap.conf
+Data:
+  * /var/www/
+
+= Setting up =
+
+----
+|| <[Inst_S_LDAP_FTP_en FTP] || [TOC TOC] || [Inst_S_NTP_en NTP]> ||

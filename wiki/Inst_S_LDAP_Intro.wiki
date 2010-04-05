@@ -1,0 +1,7 @@
+#summary Server - LDAP-based service
+
+|| <[Inst_S_Core Core] || [TOC TOC] || [Inst_S_LDAP LDAP]> ||
+
+= LDAP-based services =
+
+Now we start tune up LDAP and services based on it.

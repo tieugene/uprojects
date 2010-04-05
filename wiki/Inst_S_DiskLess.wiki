@@ -1,0 +1,112 @@
+#summary Diskless workstations
+
+= Ingridients =
+Help:
+  * [http://www.rhd.ru/docs/manuals/enterprise/RHEL-4-Manual/sysadmin-guide/ch-pxe.html One]
+Packages:
+  Server:
+    * system-config-netboot
+  Client:
+    * busybox-anaconda
+Services:
+  * nfs
+  * tftp
+  * syslog?
+Configs:
+  * /etc/exports
+Data:
+  * /var/lib/netboot/
+  * /tftpboot/linux-install/
+
+= Setting up =
+== Client ==
+  # install system:
+    # mandatory:
+      * kernel ;-)
+      * busybox-anaconda
+      * dhclient
+      * openssh-server
+      * xorg-x11-drv-vga/i810/ati
+      * xorg-x11-fonts-misc
+      * xorg-x11-xinit
+    # option:
+      * cups
+      * sane
+      * hplip
+  # remove unused packages (rpmtop)
+  # stop (or remove) unused daemons:
+    # autofs
+    # avahi-daemon
+    # hddtemp
+    # mdmonitor
+    # irqbalance
+    # smartd
+  # prepare as X-terminal:
+    # /etc/inittab:
+      {{{
+id:5:initdefault:
+...
+# Run xdm in runlevel 5
+#x:5:once:/etc/X11/prefdm -nodaemon
+x:5:once:/usr/bin/X -query <x-terminal server>
+}}}
+    # /etc/X11/xorg.conf:
+      {{{
+...
+Section "Files"
+        FontPath        "/usr/share/X11/fonts/misc"
+EndSection
+...
+}}}
+    # /etc/cups/cupsd.conf:
+      {{{
+???
+}}}
+    # /etc/sane/saned.conf:
+      {{{
+192.168.1.0/24
+}}}
+    # /etc/xinetd.d/sane-port
+      {{{
+disable = no
+}}}
+    # syslog
+      {{{
+???
+}}}
+== Server ==
+  # install needed pkg:
+    {{{yum install system-config-netboot}}}
+  # create DL root catalog:
+    {{{mkdir /var/lib/netboot/root}}}
+  # get client image:
+    {{{rsync -v -a -e ssh --exclude='/proc/*' --exclude='/sys/*' --exclude='/dev/*' --exclude='/var/log/*' --exclude='/var/run/*' <clientip:/> /var/lib/netboot/root}}}
+  # add to /etc/exports:
+    {{{
+/var/lib/netboot/root          *(ro,async,no_root_squash)
+/var/lib/netboot/snapshot      *(rw,async,no_root_squash)
+}}}
+  # /etc/sysconfig/rsyslog:
+    {{{
+SYSLOGD_OPTIONS="-m 0 -r"
+...
+}}}
+  # LDAP:
+    # cn=LTSP,cn=192.168.0.0,cn=config,cn=server.example.ru,ou=DHCP,dc=com,dc=ru:
+      dhcpStatement: filename "/linux-install/pxelinux.0"
+  # Prepare DL root:
+    # GUI (system-config-netboot):
+      # name=Xterm; desc=...
+      # server IP: 192.168.0.1; dir=/var/lib/netboot
+      # kernel - ok
+    # CLI (e.g., has to be tested):
+      {{{pxeos -a -i "X, cups, sane, hplip" -p NFS -D 1 -s server -L /var/lib/netboot -k kernel-2.6.25.6-27.fc8 Xterm}}}
+  # add machine[s]:
+    # GUI (system-config-network):
+      # <hostname>
+      # snapshot - <hostname>
+      # remote log: Enable, server
+    # CLI:
+      {{{pxeboot -a -e eth0 -O Xterm -r 24313 <hostname>}}}
+----
+|| <[Inst_S_CUPS_en CUPS] || [TOC TOC] || [Inst_S_Asterisk_en Asterisk]> ||

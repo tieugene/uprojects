@@ -1,0 +1,6 @@
+#summary Server: NFS
+
+= Setting up =
+  * vi /etc/exports:
+    * /mnt/shares 192.168.0.0/24(rw,no_root_squash)
+  * chkconfig nfs on && service nfs start ;-)

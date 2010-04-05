@@ -1,0 +1,7 @@
+#summary Server
+
+|| <[Intro Intro] || [TOC TOC] || [Inst_S_Core Core]> ||
+
+= Server =
+
+This server will central point of LAN. It concentrate all available services and make all authorization things to them. But gateway and application services (X-terminal-server) will be at other hosts.

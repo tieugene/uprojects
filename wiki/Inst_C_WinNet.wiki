@@ -1,0 +1,10 @@
+#summary One-sentence summary of this page.
+
+= Setting up =
+My comp > props > Change
+ # Domain: _WINDOMAIN_
+ # login: _root_
+ # password _<password>_
+Do twicely
+
+Maybe: poledit - Администрирование - Локальная политика - НАзначение прав пользователей - Локальный вход в систему - <Domain>/Прошедшие проверку

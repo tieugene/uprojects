@@ -1,0 +1,108 @@
+#summary Server - LDAP+DHCP
+
+|| <[Inst_S_LDAP_DNS DNS] || [TOC TOC] || [Inst_S_LDAP_SAMBA Samba]> ||
+
+= DHCP =
+
+== Sources ==
+
+ * [http://www.citforum.ru/operating_systems/linux/schema_ldap AltLinux]
+
+== Packages ==
+
+ * dhcp
+
+Note: dhcpd must support LDAP handling. CentOS 5.3 users can install it from [ftp://mirror.yandex.ru/fedora/linux/updates/8/i386.newkey/dhcp-3.0.6-12.fc8.i386.rpm Fedora 8] repo - just remove conflicting dhc... packages.
+Or: http://packages.sw.be/dhcp-ldap/dhcp-ldap-3.0.5-1.el5.test.i386.rpm
+
+= Files =
+
+ * /etc/dhcpd.conf /etc/openldap/schema/dhcp.schema - don't touch
+ * /etc/sysconfig/network
+
+= Setting up =
+
+ # /etc/sysconfig/network:
+  {{{
+...
+HOSTNAME=server.lan
+...
+}}}
+ # service network restart
+ # /etc/openldap/slapd.conf:
+  {{{
+include		/etc/openldap/schema/dhcp.schema
+index           dhcpHWAddress 	eq
+index           dhcpClassData	eq
+}}}
+ # service ldap restart
+ # /etc/dhcpd.conf:
+  {{{
+ldap-server "localhost";
+ldap-port 389;
+ldap-username "cn=odmin,dc=ldap";
+ldap-password "secred";
+ldap-base-dn "cn=server.lan,ou=DHCP,dc=ldap";
+ldap-method static;
+}}}
+ # DHCP.ldif (ou, common config, subnet):
+  {{{
+dn: ou=DHCP,dc=ldap
+objectClass: top
+objectClass: organizationalUnit
+ou: DHCP
+
+dn: cn=server.lan,ou=DHCP,dc=ldap
+objectClass: top
+objectClass: dhcpServer
+cn: server.lan
+dhcpServiceDN: cn=config,cn=server.lan,ou=DHCP,dc=ldap
+
+dn: cn=config,cn=server.lan,ou=DHCP,dc=ldap
+cn: config
+objectClass: top
+objectClass: dhcpService
+objectClass: dhcpOptions
+dhcpPrimaryDN: cn=server.lan,ou=DHCP,dc=ldap
+dhcpOption: domain-name "lan"
+dhcpOption: domain-name-servers 192.168.0.1
+dhcpOption: time-offset -5
+dhcpOption: ntp-servers 192.168.0.1
+dhcpOption: broadcast-address 192.168.0.255
+dhcpOption: log-servers 192.168.0.1
+dhcpStatements: default-lease-time 21600
+dhcpStatements: max-lease-time 43200
+dhcpStatements: ddns-update-style none
+dhcpStatements: use-host-decl-names on
+
+dn: cn=192.168.0.0,cn=config,cn=server.lan,ou=DHCP,dc=ldap
+cn: 192.168.0.0
+objectClass: top
+objectClass: dhcpSubnet
+objectClass: dhcpOptions
+dhcpNetMask: 24
+dhcpOption: routers 192.168.0.1
+dhcpOption: routers 192.168.0.254
+dhcpOption: subnet-mask 255.255.255.0
+}}}
+ # new host group - simple workstations:
+  {{{
+dn: cn=Static,cn=192.168.0.0,cn=config,cn=server.lan,ou=DHCP,dc=ldap
+objectClass: top
+objectClass: dhcpGroup
+cn: Static
+}}}
+ # and new host in this group:
+  {{{
+dn: cn=host002,cn=Static,cn=192.168.0.0,cn=config,cn=server.lan,ou=DHCP,dc=ldap
+objectClass: top
+objectClass: dhcpHost
+cn: host002
+dhcpHWAddress: ethernet 00:11:22:33:44:55
+dhcpStatements: fixed-address host002
+}}}
+ # chkconfig dhcpd on && service dhcpd restart
+
+= ToDo =
+
+ * Try to merge dhcp and dns records

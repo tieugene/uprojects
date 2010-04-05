@@ -1,0 +1,20 @@
+#summary Client - LDAP PAM
+= PAM (client) =
+== Packages ==
+ * nss_ldap
+== Configs ==
+ # enable ldap auth ==
+  {{{authconfig --enableldap --enableldapauth --disablenis --enablecache --ldapserver=localhost --ldapbasedn=dc=com,dc=ru --updateall}}}
+ # /etc/ldap.conf
+  {{{
+host 127.0.0.1
+rootbinddn cn=Manager,dc=com,dc=ru
+port 389
+scope sub
+bind_policy soft
+pam_filter objectclass=posixAccount
+pam_login_attribute uid
+nss_base_passwd       ou=Users,dc=com,dc=ru?sub?objectClass=posixAccount
+nss_base_shadow       ou=Users,dc=com,dc=ru?sub?objectClass=posixAccount
+nss_base_group        ou=Groups,dc=com,dc=ru?sub?objectClass=posixGroup
+}}}

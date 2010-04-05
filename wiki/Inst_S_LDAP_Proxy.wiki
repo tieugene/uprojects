@@ -1,0 +1,20 @@
+#summary One-sentence summary of this page.
+
+= Packages =
+ * squid
+= Files =
+ * /etc/squid/squid.conf
+= Setting up =
+/etc/squid/squid.conf (diffs from default):
+{{{
+...
+auth_param basic program /usr/lib/squid/squid_ldap_auth -P -b "ou=Users,dc=com,dc=ru" -v 3 -f (uid=%s) -h localhost
+...
+acl password proxy_auth REQUIRED
+...
+http_access allow password
+...
+http_access deny all
+}}}
+----
+|| <[Inst_S_LDAP_SMTP_en SMTP] || [TOC TOC] || [Inst_S_LDAP_XMPP_en Jabber]> ||

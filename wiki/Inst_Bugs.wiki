@@ -1,0 +1,7 @@
+#summary Bugs
+
+= Known bugs =
+ * Jabberd
+  * не лезет в LDAP за vCard
+----
+|| <[Inst_ToDo_en ToDo] || [TOC TOC] || [...]> ||

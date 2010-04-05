@@ -1,0 +1,18 @@
+#summary ToDo
+
+= ToDo list =
+ * DNS
+  * merge direct nad reverse zone records (one record per host)
+ * DHCP
+  * merge w/ DNS records
+ * Hosts
+  * merge w/ DNS and DHCP
+ * Squid
+  * SquidGuard
+ * backup
+ * svn for configs
+ * UPS
+ * SMS
+ * Fax
+----
+|| << [Inst_C_XMPP_en Client.Jabber] || [TOC TOC] || [Inst_Bugs_en Bugs] >> ||
