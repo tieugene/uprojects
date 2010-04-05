@@ -8,6 +8,7 @@ from django.contrib.admin.models import LogEntry, ADDITION, CHANGE, DELETION
 from django.contrib.contenttypes.models import ContentType
 from django.core.urlresolvers import reverse
 from django.db import transaction
+from django.db.models import Q
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render_to_response
 from django.template import loader, Context, RequestContext
@@ -18,7 +19,27 @@ from datetime import datetime
 from models import *
 from forms import *
 
+def	__log_it(request, object, action, change_message=''):
+	'''
+	Log this activity
+	'''
+	LogEntry.objects.log_action(
+		user_id         = request.user.id,
+		content_type_id = ContentType.objects.get_for_model(object).pk,
+		object_id       = object.pk, 
+		object_repr     = object.asstr(), # Message you want to show in admin action list
+		change_message  = u'GW.UI: ' + change_message, # I used same
+		action_flag     = action	# django.contrib.admin.models: ADDITION/CHANGE/DELETION
+	)
+
+
+@login_required
 def	index(request):
+	return render_to_response('gw/index.html')
+	if not request.user.is_authenticated():
+		return HttpResponseRedirect('../login/?next=%s' % request.path)
+		#return HttpResponseRedirect(reverse('lansite.login') + '?next=%s' % request.path)
+		#return HttpResponseRedirect(reverse('lansite.login') + '?next=%s' % request.path)
 	return render_to_response('gw/index.html')
 
 def	task_list(request):
@@ -27,16 +48,22 @@ def	task_list(request):
 def	task_add(request):
 	pass
 
-def	task_view(request):
+def	task_view(request, item_id):
+	# user_type = ContentType.objects.get_for_model(User)
+	cid = Task.objects.get(pk=item_id).getclassid()
+	if (cid == 1):
+		v = 'lansite.gw.views.todo_view'
+	if (cid == 2):
+		v = 'lansite.gw.views.assign_view'
+	return HttpResponseRedirect(reverse(v, kwargs = {'item_id': item_id}))
+
+def	task_edit(request, item_id):
 	pass
 
-def	task_edit(request):
+def	task_del(request, item_id):
 	pass
 
-def	task_del(request):
-	pass
-
-def	task_done(request):
+def	task_done(request, item_id):
 	pass
 
 def	todocat_add(request):
@@ -84,7 +111,8 @@ def	todocat_add_todo(request, item_id):
 	return render_to_response('gw/task/todo_edit.html', context_instance=RequestContext(request, {'form': form}))
 
 def	todo_list(request):
-	return render_to_response('gw/task/todo_list.html', context_instance=RequestContext(request, {'item_list': ToDo.objects.all(), 'cat_list': ToDoCat.objects.filter(author=GwUser.objects.get(pk=request.user.id))}))
+	author = GwUser.objects.get(pk=request.user.id)
+	return render_to_response('gw/task/todo_list.html', context_instance=RequestContext(request, {'item_list': ToDo.objects.filter(author=author), 'cat_list': ToDoCat.objects.filter(author=author)}))
 
 def	todo_add(request):
 	if request.method == 'POST':
@@ -135,7 +163,7 @@ def	assigncat_add(request):
 	return render_to_response('gw/task/assigncat_edit.html', context_instance=RequestContext(request, {'form': form}))
 
 def	assigncat_view(request, item_id):
-	return render_to_response('gw/task/assigncat_view.html', context_instance=RequestContext(request, {'item': AssignCat.objects.ket(pk=item_id)}))
+	return render_to_response('gw/task/assigncat_view.html', context_instance=RequestContext(request, {'item': AssignCat.objects.get(pk=item_id)}))
 
 def	assigncat_edit(request, item_id):
 	item = AssignCat.objects.get(pk=item_id)
@@ -153,78 +181,138 @@ def	assigncat_del(request, item_id):
 	return HttpResponseRedirect(reverse('gw.views.assign_list'))
 
 def	assign_list(request):
-	return render_to_response('gw/task/assign_list.html', context_instance=RequestContext(request, {'item_list': Assign.objects.all(), 'cat_list': AssignCat.objects.all()}))
+	author = GwUser.objects.get(pk=request.user.id)
+	return render_to_response('gw/task/assign_list.html', context_instance=RequestContext(request, {'cat_list': AssignCat.objects.all(), 'item_list': Assign.objects.filter(Q(author=author) | Q(assignee=author))}))
 
 def	assign_add(request):
 	'''
 	Create action
 	'''
-	return render_to_response('gw/task/assign_edit.html')
+	if request.method == 'POST':
+		form = AssignForm(request.POST)
+		if form.is_valid():
+			item = form.save(commit=False)
+			item.author = GwUser.objects.get(pk=request.user.id)
+			item.created = datetime.now()
+			item.save()
+			__log_it(request, item, ADDITION)
+			return HttpResponseRedirect(reverse('lansite.gw.views.assign_list'))
+	else:	# GET
+		form = AssignForm()
+	return render_to_response('gw/task/assign_edit.html', context_instance=RequestContext(request, {'form': form}))
 
 def	assign_view(request, item_id):
 	'''
 	Main dispatcher.
 	Actions:
-		* New: Accept
-		* Accepted: Route; MkDep; Invalid; Duplicate; Done
-		* Completed: Approve; ReOpen
-		* Approved: ReOpen
+		* New: assignee:Accept
+		* Accepted: assignee:Route; MkDep; Invalid; Duplicate; Done
+		* Completed: author:Approve; author:ReOpen
+		* Approved: author:ReOpen
 	'''
-	return render_to_response('gw/task/assign_view.html')
+	return render_to_response('gw/task/assign_view.html', context_instance=RequestContext(request, {
+		'item': Assign.objects.get(pk=item_id),
+		'form1': UserListForm(),
+		'form2': LineCommentForm(),
+		'form3': AssignDupForm(),
+	}))
 
 def	assign_edit(request, item_id):
-	return render_to_response('gw/task/assign_edit.html')
+	item = Assign.objects.get(pk=item_id)
+	if request.method == 'POST':
+		form = AssignForm(request.POST, instance=item)
+		if form.is_valid():
+			item = form.save()
+			return HttpResponseRedirect(reverse('lansite.gw.views.assign_list'))
+	else:	# GET
+		form = AssignForm(instance=item)
+	return render_to_response('gw/task/assign_edit.html', context_instance=RequestContext(request, {'form': form}))
 
 def	assign_del(request, item_id):
-	'''
-	Create action
-	'''
-	return render_to_response('gw/task/assign_list.html')
+	item = Assign.objects.get(pk=item_id)
+	__log_it(request, item, DELETION)
+	item.delete()
+	return HttpResponseRedirect(reverse('gw.views.assign_list'))
 
 def	assign_route(request, item_id):
 	'''
 	Route action: set assignee to new; set state to new;
 	'''
-	return render_to_response('gw/task/assign_view.html')
+	item = Assign.objects.get(pk=item_id)
+	if request.method == 'POST':
+		if request.POST['user']:
+			uid = int(request.POST['user'])
+			if (uid != request.user.id):
+				item.assignee = GwUser.objects.get(pk=uid)
+				item.read = False
+				item.save()
+				__log_it(request, item, CHANGE, u'Routed to %s' % item.assignee)
+				return HttpResponseRedirect(reverse('lansite.gw.views.assign_list'))
+	return assign_view(request, item_id)
 
 def	assign_invalid(request, item_id):
 	'''
 	Invalid action: set state to done, w/ comments
 	'''
-	return render_to_response('gw/task/assign_view.html')
+	# FIXME:
+	#__log_it(request, item, CHANGE, u'Invalid: %s' % item.assignee)
+	return assign_done(request, item_id)
 
 def	assign_duped(request, item_id):
 	'''
 	Duplicate action set state to done, w/ comments
 	'''
-	return render_to_response('gw/task/assign_view.html')
+	# FIXME:
+	#__log_it(request, item, CHANGE, u'Duplicated: %s' % item.assignee)
+	return assign_done(request, item_id)
 
 def	assign_accept(request, item_id):
 	'''
 	Accept action: set state to done
 	'''
-	return render_to_response('gw/task/assign_view.html')
+	item = Assign.objects.get(pk=item_id)
+	item.read = True
+	item.save()
+	__log_it(request, item, CHANGE, u'Accepted')
+	return HttpResponseRedirect(reverse('lansite.gw.views.assign_view', kwargs={'item_id': item.id}))
 
 def	assign_done(request, item_id):
 	'''
 	Done action
 	'''
-	return render_to_response('gw/task/assign_view.html')
+	item = Assign.objects.get(pk=item_id)
+	item.done = True
+	item.read = False
+	item.save()
+	__log_it(request, item, CHANGE, u'Done')
+	return HttpResponseRedirect(reverse('lansite.gw.views.assign_view', kwargs={'item_id': item.id}))
 
 def	assign_approve(request, item_id):
 	'''
 	Approve action
 	'''
-	return render_to_response('gw/task/assign_view.html')
+	__log_it(request, item, CHANGE, u'Approved')
+	return assign_accept(request, item_id)
 
 def	assign_reopen(request, item_id):
 	'''
 	ReOpen action
 	'''
-	return render_to_response('gw/task/assign_view.html')
+	item = Assign.objects.get(pk=item_id)
+	item.done = False
+	item.read = False
+	item.save()
+	__log_it(request, item, CHANGE, u'Reopened')
+	return HttpResponseRedirect(reverse('lansite.gw.views.assign_view', kwargs={'item_id': item.id}))
 
 def	assign_mkdep(request, item_id):
 	'''
 	MkDep action
+	'''
+	return render_to_response('gw/task/assign_view.html')
+
+def	assign_history(request, item_id):
+	'''
+	History
 	'''
 	return render_to_response('gw/task/assign_view.html')

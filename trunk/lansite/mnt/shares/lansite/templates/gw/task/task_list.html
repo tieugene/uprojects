@@ -10,7 +10,7 @@
 		<td> {{ forloop.counter }} </td>
 		<td> {{ item.getclassname }} </td>
 		<td> {{ item.category }} </td>
-		<td> <a href="{% url gw.views.task_list %}" title="{{ item.description }}"> {{ item.subject }} </a> </td>
+		<td> <a href="{% url gw.views.task_view item.id %}" title="{{ item.description }}"> {{ item.subject }} </a> </td>
 		<td> {{ item.created|date }} </td>
 		<td> {{ item.author }} </td>
 		<td> {% if item.assignee %} {{ item.assignee }} {% endif %} </td>

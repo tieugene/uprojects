@@ -3,13 +3,13 @@
 <table>
 	<tr> <th> Категория: </th> <td> {{ item.category }} </td> </tr>
 	<tr> <th> Создано: </th> <td> {{ item.created }} </td> </tr>
-	<tr> <th> Срок: </th> <td> {{ item.deadline }} </td> </tr>
-	<tr> <th> Сделано: </th> <td> {{ item.done }} </td> </tr>
+	<tr> <th> Срок: </th> <td> {% if item.deadline %} {{ item.deadline }} {% endif %} </td> </tr>
+	<tr> <th> Сделано: </th> <td> {% if item.done %} &radic; {% endif %} </td> </tr>
 	<tr> <th> Тема: </th> <td> {{ item.subject }} </td> </tr>
 	<tr> <th> Подробности: </th> <td> {{ item.description }} </td> </tr>
 </table>
 <hr/>
-<a class="button" href="{% url lansite.gw.views.todo_edit item.id %}" target="_blank"> Изменить </a>
+<a class="button" href="{% url lansite.gw.views.todo_edit item.id %}"> Изменить </a>
 <a class="button"> Сделать подзадачей </a>
 <a class="button"> Создать подзадачу </a>
 <a class="button"> Конвертировать в Задание </a>
