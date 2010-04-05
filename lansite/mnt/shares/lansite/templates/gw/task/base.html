@@ -16,9 +16,10 @@
 <body>
 <center> <h1>
 	<a href="{% url views.index %}"> LanSite </a> &gt;
-	<a href="{% url gw.views.index %}"> GW </a> &gt;
+	<a href="{% url gw.views.index %}"> GW </a>
 	{% block topbar %} {% endblock %}
 </h1> </center>
+<p> User: {{ user }} </p>
 <hr/>
 {% block body_main %}
 {% endblock %}

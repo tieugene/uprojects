@@ -30,7 +30,7 @@
 					<td> {{ item.created|date }} </td>
 					<td> {{ item.author }} </td>
 					<td> {{ item.assignee }} </td>
-					<td> {{ item.importance }} </td>
+					<td> {% if item.importance %} {{ item.importance }} {% endif %} </td>
 					<td> {% if item.deadline %} {{ item.deadline }} {% endif %} </td>
 					<td align="center"> {%if item.done %} &radic; {% endif %} {%if item.read %} &radic; {% endif %} </td>
 					<td>
