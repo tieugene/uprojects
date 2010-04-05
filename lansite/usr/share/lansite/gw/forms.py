@@ -13,3 +13,13 @@ class	ToDoForm(forms.ModelForm):
 		model = ToDo
 		#exclude = ('ancestor', 'master', 'author', 'created')
 		fields = ('deadline', 'subject', 'description', 'done', 'category')
+
+class	ToDoOfCatForm(forms.ModelForm):
+	class	Meta:
+		model = ToDo
+		fields = ('deadline', 'subject', 'description', 'done',)
+
+class	AssignCatForm(forms.ModelForm):
+	class	Meta:
+		model = AssignCat
+
