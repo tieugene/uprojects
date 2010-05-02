@@ -1,0 +1,10 @@
+Options:
+	-r	show raw
+	-a	show all
+	-d	delimiter
+	-s	show server
+	-b	show db
+	-u	show user
+	-p	show password
+	-c	show crc
+	-S	set server
