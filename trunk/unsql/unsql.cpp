@@ -1,46 +1,87 @@
+// unsql.cpp version 0.0.2
+/* Todo:
+	server:	{{"Server","
+	db:	"},{"DB","
+	UID:	"},{"UID","
+	pwd:	"},{"PWD","
+	crc:	"},{"Checksum","
+	eof:	"}} (or buflen - 3)
+*/	
 #include <stdio.h>
-#include <string.h>
+#include <stdlib.h>
+#include <unistd.h>
 
-char	*findkey(char *key0, char *key1, char *src, char *dst) {
-	char *start = NULL, *end = NULL;
-	int i;
+int	main ( int argc, char **argv )
+{
+        FILE		*fp;
+	int		op = 0;
+	bool		action[6] = {false, false, false, false, false, false};
+	char		delimiter = '\t', *buffer;
+	static char	key[] = "19465912879oiuxc ensdfaiuo3i73798kjl";
+	long		fsize;
 
-	start = strstr(src, key0);
-	if (start) {
-		start += strlen(key0);
-		end = strstr(start, key1);
-		if (end) {
-			i = end - start;
-			strncpy(dst, start, i);
-			dst[i] = '\0';
-		} else printf("end not found\n");
-	} else printf("start not found\n");
-	return dst;
-}
-
-int	main ( int argc, const char *argv[] ) {
-        FILE *f;
-	int i, ch;
-	static char key[] = "19465912879oiuxc ensdfaiuo3i73798kjl";
-	static char *k[6] = {
-		"{{\"Server\",\"",
-		"\"},{\"DB\",\"",
-		"\"},{\"UID\",\"",
-		"\"},{\"PWD\",\"",
-		"\"},{\"Checksum\",\"",
-		"\"}}"
+	// 1. get options
+	while ((op = getopt(argc, argv, "radsbupcS:B:U:P:C:")) != -1) {
+		switch (op){
+			case 'r':
+				action[0] = true;
+				break;
+			case 'a':
+				action[1] = action[2] = action[3] = action[4] = action[5] = true;
+				break;
+			case 'd':
+				delimiter = optarg[0];
+				break;
+			case 's':
+				action[1] = true;
+				break;
+			case 'b':
+				action[2] = true;
+				break;
+			case 'u':
+				action[3] = true;
+				break;
+			case 'p':
+				action[4] = true;
+				break;
+			case 'c':
+				action[5] = true;
+				break;
+			case '?':
+				printf("Error found !\n");
+				break;
+			default:
+				printf("Default\n");
+		};
 	};
-	static char buffer[100];
-	static char result[5][100];
-
-	if ( argc < 2 ) { printf("Usage: unsql <infile>\n"); return -1; }
-	if (! (f = fopen(argv[1],"rb"))) { printf("Cannot open file %s for reading", argv[1]); return -1; }
-	for (i=0; (ch = fgetc(f)) != EOF; ++i)
-		buffer[i] = ch ^ key [ i % 36 ];
-	fclose( f);
-	buffer[i] = '\0';
-	for (i=0; i < 5; ++i)
-		findkey(k[i], k[i + 1], buffer, result[i]);
-	printf("%s\n%s\t%s\t%s\t%s\t%s\n", buffer, result[0], result[1], result[2], result[3], result[4]);
+	// 2. read file
+	// 2.1. open
+	if (! (fp=fopen(argv[argc - 1],"rb"))) {
+		printf("Cannot open input file %s for reading\n", argv[1]);
+		return -1;
+	}
+	// 2.2. get file size
+	fseek(fp, 0L, SEEK_END);
+	fsize = ftell(fp);
+	rewind(fp);
+	// 2.3. make buffer
+	buffer = (char *) malloc(fsize);
+	if (buffer == NULL) {
+		printf("Cannot allocate memory for buffer\n");
+		return -2;
+	};
+	// 2.4. read and close
+	if (fread(buffer, sizeof(char), fsize, fp) != fsize) {
+		printf("Cannot allocate memory for buffer\n");
+		return -3;
+	};
+	fclose(fp);
+	// 3. decode file
+	for (int i=0; i < fsize; i++) {
+		buffer[i] ^= key[i % 36];
+	};
+	// 4. split on parts
+	printf("%s\n", buffer);
+	free(buffer);
 	return 0;
 }
