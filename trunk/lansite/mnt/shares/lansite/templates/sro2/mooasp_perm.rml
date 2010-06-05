@@ -112,7 +112,7 @@
 	<para style="style5">
 		Перечень видов работ по {{ data.stagelist.orgsro.sro.sroown.jobs }}, которые оказывают влияние на безопасность объектов капитального строительства и о допуске к которым член Некоммерческого партнерства саморегулируемой организации {{ data.stagelist.orgsro.sro.fullname }} имеет Свидетельство:
 	</para>
-{%  for stage in data.stagelist.permitstage_set.all %}
+{%  for stage in data.itemlist %}
 	<para style="style3"> {{ stage.stage.no }}. {{ stage.stage.name }} </para>
 	{% for job in stage.jobs.all %}
 		<para style="style4"> {{ job.okdp }}: {{ job.name }} </para>

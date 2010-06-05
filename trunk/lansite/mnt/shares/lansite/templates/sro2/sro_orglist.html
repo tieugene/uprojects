@@ -5,7 +5,15 @@
 <head>
 	<title>LanSite.СРО2.{{ sro.name }}.Организации</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-	<link rel="stylesheet" href="base.css" type="text/css" />
+	<style type="text/css">
+		A.button {
+			border: outset;
+			background: lightgrey;
+			padding: 2px;
+			text-decoration: none;
+			color: black;
+		}
+	</style>
 </head>
 <body>
 <script langauge="JavaScript" type="text/javascript">
@@ -24,7 +32,7 @@ function confirmDelete(delUrl) {
 </h1> </center>
 <hr/>
 {% if perms.sro2.add_org %}
-[ <a title="Добавить" href="{% url sro2.views.sro_org_add sro.id %}"> + </a> ]
+<a class="button" title="Добавить" href="{% url sro2.views.sro_org_add sro.id %}"> + </a>
 {% endif %}
 {% include "sro2/pager.html" %}
 	<table border="0">
@@ -33,6 +41,7 @@ function confirmDelete(delUrl) {
 		<tr>
 			<th> <u>№</u> </th>
 			<th> <u> Наименование </u> </th>
+			<th> <u> ИНН </u> </th>
 			<th>
 				<p><u> ОКАТО </u></p>
 				{{ form.okato }}
@@ -52,6 +61,7 @@ function confirmDelete(delUrl) {
 		<tr>
 			<td> {{ orgsro.page_item_number }} </td>
 			<td> <a href="{% url sro2.views.orgsro_view orgsro.id %}" title="{{ orgsro.org.fullname }}">{{ orgsro.org.name }} </td>
+			<td> {{ orgsro.org.inn }} </td>
 			<td> {% if orgsro.org.okato %} {{ orgsro.org.okato }} {% endif %} </td>
 			<td> {% if orgsro.orginsurance %} {{ orgsro.orginsurance.insurer }} {% endif %} </td>
 			<td> {% if orgsro.publish %} &radic; {% endif %} </td>
@@ -64,10 +74,10 @@ function confirmDelete(delUrl) {
 {% include "sro2/pager.html" %}
 <hr/>
 <p>
-	[ <a title="Список организаций для размещения на вебсайте" href="{% url sro2.views.sro_publish sro.id %}"> Просмотр </a> ]
-	[ <a title="Размещение на вебсайте" href="{% url sro2.views.sro_upload sro.id %}"> Публикация </a> ]
-	[ <a title="Список членов в табличном виде" href="{% url sro2.views.sro_table sro.id %}"> Таблица </a> ]
-	[ <a title="URL для рассылки электромыла всем" href="{% url sro2.views.sro_mailto sro.id %}"> Мыло всем </a> ]
+	<a class="button" title="Список организаций для размещения на вебсайте" href="{% url sro2.views.sro_publish sro.id %}"> Просмотр </a>
+	<a class="button" title="Размещение на вебсайте" href="{% url sro2.views.sro_upload sro.id %}"> Публикация </a>
+	<a class="button" title="Список членов в табличном виде" href="{% url sro2.views.sro_table sro.id %}"> Таблица </a>
+	<a class="button" title="URL для рассылки электромыла всем" href="{% url sro2.views.sro_mailto sro.id %}"> Мыло всем </a>
 </p>
 </body>
 </html>
