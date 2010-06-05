@@ -54,16 +54,17 @@ def	__strdate(d):
 
 def	__load_permit(perm_id):
 	stagelist = StageList.objects.get(pk=perm_id)
+	itemlist = stagelist.permitstage_set.all().order_by("stage")
 	jcount = 0
 	for stage in PermitStage.objects.filter(stagelist=stagelist):
 		count = PermitStageJob.objects.filter(permitstage=stage).count()
 		if (count == 0):
 			count = 1
 		jcount = jcount + count
-	return {'stagelist': stagelist, 'date': __strdate(stagelist.permit.date), 'protodate': __strdate(stagelist.permit.protocol.date), 'jcount': jcount}
+	return {'stagelist': stagelist, 'itemlist': itemlist, 'date': __strdate(stagelist.permit.date), 'protodate': __strdate(stagelist.permit.protocol.date), 'jcount': jcount}
 
 # Получить страницу для постраничного вывода списков
-def get_page(lst, page_num, base_path):
+def	get_page(lst, page_num, base_path):
 	page_num = int(page_num or 1)
 	paginator = Paginator(lst, per_page=500)
 	page = paginator.page(page_num)
@@ -691,7 +692,7 @@ def	stagelist_list(request, perm_id):
 @login_required
 def	stagelist_edit(request, perm_id):
 	stagelist = StageList.objects.get(pk=perm_id)
-	type_id = stagelist.type.id
+	type_id = int(stagelist.type.id)
 	if (type_id == 1):
 		perm = stagelist.statement
 		needform = StatementForm

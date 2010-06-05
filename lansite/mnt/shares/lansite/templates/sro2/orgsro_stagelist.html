@@ -22,9 +22,9 @@
 			<td>
 			{% ifequal i.type.id 2 %}
 				{% ifequal i.permit orgsro.currperm %}
-					<s><input type="button" title="Убрать активное" value="-" onClick="window.location.href='{% url sro2.views.orgsro_stagelist_resetdefault orgsro.id %}'"/></s>
+					<a class="button" title="Сделать недействующим" href="{% url sro2.views.orgsro_stagelist_resetdefault orgsro.id %}"> &nbsp; <s> &radic; </s> &nbsp; </a>
 				{% else %}
-					<input type="button" title="Назначить активным" value="&radic;" onClick="window.location.href='{% url sro2.views.orgsro_stagelist_setdefault orgsro.id, i.permit.id %}'"/>
+					<a class="button" title="Назначить действующим" href="{% url sro2.views.orgsro_stagelist_setdefault orgsro.id, i.permit.id %}"> &nbsp; &radic; &nbsp; </a>
 				{% endifequal %}
 			{% endifequal %}
 			</td>
@@ -45,5 +45,5 @@
 	</form>
 	{% endif %}
 	</table>
-	<input type="button" value="Закончить" onClick="window.location.href='{% url sro2.views.orgsro_view orgsro.id %}#permit'"/>
+	<a class="button" href="{% url sro2.views.orgsro_view orgsro.id %}#permit"> Закончить </a>
 {% endblock %}

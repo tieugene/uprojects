@@ -1,7 +1,7 @@
 {% extends "sro2/stagelist_base.html" %}
 {% block editmain %}
 {% if canedit and perms.sro2.change_stagelist %}
-<input type="button" value="Изменить" onClick="window.location.href='{% url sro2.views.stagelist_edit stagelist.id %}'"/>
+<a class="button" href="{% url sro2.views.stagelist_edit stagelist.id %}"> Изменить </a>
 {% endif %}
 {% endblock %}
 {% block stages %}
@@ -43,8 +43,8 @@ function SelectAll (state) {
 <form action="." method="POST" name="myform">
 {% ifequal stagelist.type.id 2 %}
 <p>
-<input type="button" value="HTML" title="Напечатать разрешение (HTML)" onClick="window.location.href='{% url sro2.views.stagelist_html stagelist.id %}'"/>
-<input type="button" value="PDF" title="Напечатать разрешение (PDF)" onClick="window.location.href='{% url sro2.views.stagelist_pdf stagelist.id %}'"/>
+<a class="button" title="Напечатать разрешение (HTML)" href="{% url sro2.views.stagelist_html stagelist.id %}"> HTML </a>
+<a class="button" title="Напечатать разрешение (PDF)" href="{% url sro2.views.stagelist_pdf stagelist.id %}"> PDF </a>
 </p>
 {% endifequal %}
 {% endif %}

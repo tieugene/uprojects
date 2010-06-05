@@ -83,7 +83,7 @@
 		<tr> <td colspan="3" align="center"> МП </td> </tr>
 	</table>
 	<p style="page-break-before: always"/>
-	{% for stage in data.stagelist.permitstage_set.all %}
+	{% for stage in data.itemlist %}
 		<p class="style6"> {{ stage.stage.no }}. {{ stage.stage.name }} </p>
 		{% for job in stage.jobs.all %}
 			<p class="style7"> {{ job.okdp }}: {{ job.name }} </p>

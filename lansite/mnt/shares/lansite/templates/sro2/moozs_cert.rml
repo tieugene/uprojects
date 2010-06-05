@@ -56,7 +56,7 @@
 
 <story>
 	<para style="style1" alignment="center">
-		№ {{ data.orgsro.regno }}
+		{{ data.orgsro.regno }}
 	</para>
 	<nextFrame/>
 	<para style="style2" alignment="center">
