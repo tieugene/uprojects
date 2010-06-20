@@ -24,7 +24,7 @@ CPP=g++
 VER=0.0.3
 
 CFLAGS =  -Wall
-LDFLAGS = 
+LDFLAGS =
 
 $(DEST): $(SRC)
 	$(CPP) -o $(DEST) $(CFLAGS) $(LDFLAGS) $(SRC)
