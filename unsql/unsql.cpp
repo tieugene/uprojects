@@ -59,33 +59,16 @@ int	main ( int argc, char **argv )
 	}
 	// 2. read file
 	// 2.1. open
-<<<<<<< .mine
-	if (! (fp=fopen(argv[argc - 1],"rb"))) { printf("Cannot open input file %s for reading\n", argv[1]); return -1; }
-=======
 	if (! (fp=fopen(argv[argc - 1],"rb"))) { fprintf(stderr, "Error opening input file %s for reading\n", argv[1]); return -1; }
->>>>>>> .r344
 	// 2.2. get file size
 	fseek(fp, 0L, SEEK_END); fsize = ftell(fp); rewind(fp);
 	// 2.3. make buffer
-<<<<<<< .mine
-	if ((buffer = (char *) malloc(fsize)) == NULL) { printf("Cannot allocate memory for buffer\n"); return -2; };
-=======
 	buffer = (char *) malloc(fsize);
 	if (buffer == NULL) { fprintf(stderr, "Error allocating memory for buffer\n"); return -2; };
->>>>>>> .r344
 	// 2.4. read and close
-<<<<<<< .mine
-	if (fread(buffer, sizeof(char), fsize, fp) != fsize) { printf("Cannot allocate memory for buffer\n"); return -3; };
-=======
 	if (fread(buffer, sizeof(char), fsize, fp) != fsize) { fprintf(stderr, "Error reading file\n"); return -3; };
->>>>>>> .r344
 	fclose(fp);
 	// 3. decode file
-<<<<<<< .mine
-	for (int i=0; i < fsize; i++) { buffer[i] ^= key[i % 36]; };
-	// 4. split on parts
-	printf("%s\n", buffer);
-=======
 	for (unsigned int i=0; i < fsize; i++) { buffer[i] ^= key[i % 36]; }
 	if (action[5])
 		printf("%s\n", buffer);
@@ -135,8 +118,6 @@ int	main ( int argc, char **argv )
 		free(outbuffer);
 	}
 	// x. the end
->>>>>>> .r344
-	// *. the end
 	free(buffer);
 	return 0;
 }
