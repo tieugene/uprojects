@@ -1,0 +1,22 @@
+#summary City Navigator - Points of Interests.
+
+= Introduction =
+
+Points of Interests.
+
+= Details =
+
+  * Кинотеатры
+  * театры
+  * музеи
+  * магазины
+  * банки
+  * почта
+  * метро
+  * автобусы
+  * троллейбусы
+  * трамваи
+  * маршрутки
+  * электрички
+  * такси
+  * телефоны
