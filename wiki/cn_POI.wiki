@@ -1,5 +1,7 @@
 #summary City Navigator - Points of Interests.
 
+[cn TOC]
+
 = Introduction =
 
 Points of Interests.
