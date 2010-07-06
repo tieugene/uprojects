@@ -1,5 +1,7 @@
 #summary City Navigator - Notes.
 
+[cn TOC]
+
 = Корневые объекты =
   * Address
   * geo
