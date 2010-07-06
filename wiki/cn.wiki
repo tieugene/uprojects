@@ -7,4 +7,12 @@ City Navigator subproject.
 
 = Details =
 
-Here will be details.
+This is project to create system helping people who live in big cities find anything in their city :-).
+
+Now - TOC:
+
+  * [cn_ToDo ToDo list]
+  * [cn_Notes Notes]
+  * [cn_BP Business-Plan]
+  * [cn_URLs Interesting URLs]
+  * [cn_POI Point-Of-Interests]
