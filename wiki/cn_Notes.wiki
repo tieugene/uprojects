@@ -1,0 +1,7 @@
+#summary City Navigator - Notes.
+
+= Корневые объекты =
+  * Address
+  * geo
+  * phone
+  * person
