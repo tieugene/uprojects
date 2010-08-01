@@ -1,3 +1,0 @@
-#!/bin/sh
-. ./VARS
-$MGR sqlcustom $APP | gzip > ../fixtures/$APP.sql.gz

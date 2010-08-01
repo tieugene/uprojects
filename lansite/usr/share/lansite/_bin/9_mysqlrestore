@@ -1,3 +1,0 @@
-#!/bin/sh
-#gunzip -c $1 | mysql --user=root --password=seeGooj5 lansite
-gunzip -c $1 | ../manage.py dbshell

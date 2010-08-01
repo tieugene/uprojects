@@ -1,0 +1,12 @@
+9114:
+* win exe (mingw, winegcc)
+
+* process serial
+* sorting
+* table autoexpand
+* x-platform
+* tune tray
+* spec/nsis
+
+Future:
+* python client

@@ -1,3 +1,0 @@
-#!/bin/sh
-# dump all of data into json
-time nice $MGR dumpdata --format=json --indent=1 > ../lansite.json

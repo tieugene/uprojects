@@ -1,0 +1,25 @@
+<RCC>
+  <qresource prefix="/" >
+    <file>icons/1cv7_rep_16x16.png</file>
+    <file>icons/1cv7_ent_16x16.png</file>
+    <file>icons/1cv7_mon_32x32.png</file>
+    <file>icons/1cv7_rep_32x32.png</file>
+    <file>icons/exit_32x32.png</file>
+    <file>icons/1cv7_cfg_32x32.png</file>
+    <file>icons/qt_32x32.png</file>
+    <file>icons/1c_32x32.png</file>
+    <file>icons/1cv7_dbg_16x16.png</file>
+    <file>icons/1cv7_cfg_16x16.png</file>
+    <file>icons/1c_mon_16x16.png</file>
+    <file>icons/1c_ent_16x16.png</file>
+    <file>icons/1c_dbg_16x16x4.png</file>
+    <file>icons/1cv7_ent_32x32.png</file>
+    <file>icons/1c_16x16.png</file>
+    <file>icons/settings_32x32.png</file>
+    <file>icons/1cv7_dbg_32x32.png</file>
+    <file>icons/help_32x32.png</file>
+    <file>icons/1c_ent_32x32.png</file>
+    <file>icons/1c_cfg_16x16.png</file>
+    <file>icons/1cv7_mon_16x16.png</file>
+  </qresource>
+</RCC>

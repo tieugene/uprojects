@@ -1,1 +1,0 @@
-INSERT INTO todo_comment (id, task_id, author_id, message, created_at) VALUES ('1', '2', '1', 'А это комментарий к задаче', NOW());

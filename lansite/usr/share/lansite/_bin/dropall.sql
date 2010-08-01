@@ -1,5 +1,0 @@
-BEGIN;
-DROP DATABASE IF EXISTS lansite;
-CREATE DATABASE IF NOT EXISTS lansite CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';
-GRANT ALL PRIVILEGES ON lansite.* TO lansite@localhost IDENTIFIED BY 'lansite';
-COMMIT;

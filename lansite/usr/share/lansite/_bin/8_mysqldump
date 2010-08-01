@@ -1,2 +1,0 @@
-#!/bin/sh
-mysqldump --user=root --password=seeGooj5 lansite | gzip > lansite.`date +%y%m%d`.sql.gz
