@@ -1,3 +1,0 @@
-#!/bin/sh
-. ./VARS
-time $MGR dumpdata --format=json --indent=1 $APP > ../fixtures/initial_data.json

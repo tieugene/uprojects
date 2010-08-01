@@ -1,0 +1,60 @@
+* install mingw*:
+	mingw32-binutils
+	mingw32-cpp
+	mingw32-filesystem
+	mingw32-gcc
+	mingw32-gcc-c++
+	mingw32-libpng
+	mingw32-nsis
+	mingw32-nsiswrapper
+	mingw32-runtime
+	mingw32-w32api
+	mingw32-zlib
+* download qt-windows and install into ~ wine environment)
+* mv wine_c\Qt\<ver>\* /usr/i686--pc-mingw/Qt/
+* get somewhere mingw32's includes: stddef.h, stdarg.h and mv them into /usr/i686-pc-mingw32/sys-root/mingw/include
+* /usr/lib/qt4/mkspec/win32-g++/qmake-conf:
+	--- qmake.conf.orig     2009-04-15 01:15:50.000000000 +0400
+	+++ qmake.conf  2009-04-24 10:30:14.000000000 +0400
+	@@ -17 +17 @@
+	-QMAKE_CC               = gcc
+	+QMAKE_CC               = i686-pc-mingw32-gcc
+	@@ -30 +30 @@
+	-QMAKE_CXX              = g++
+	+QMAKE_CXX              = i686-pc-mingw32-g++
+	@@ -44,3 +44,3 @@
+	-QMAKE_INCDIR           =
+	-QMAKE_INCDIR_QT                = $$[QT_INSTALL_HEADERS]
+	-QMAKE_LIBDIR_QT                = $$[QT_INSTALL_LIBS]
+	+QMAKE_INCDIR           = /usr/i686-pc-mingw32/sys-root/mingw/include
+	+QMAKE_INCDIR_QT                = /usr/i686-pc-mingw32/Qt/include
+	+QMAKE_LIBDIR_QT                = /usr/i686-pc-mingw32/Qt/lib
+	@@ -53 +53 @@
+	-QMAKE_LINK             = g++
+	+QMAKE_LINK             = i686-pc-mingw32-g++
+	@@ -78 +78 @@
+	-       QMAKE_COPY_DIR          = xcopy /s /q /y /i
+	+       QMAKE_COPY_DIR          = cp -r
+	@@ -85,2 +85,2 @@
+	-       QMAKE_COPY              = copy /y
+	-       QMAKE_COPY_DIR          = xcopy /s /q /y /i
+	+       QMAKE_COPY              = cp
+	+       QMAKE_COPY_DIR          = cp -r
+	@@ -88 +88 @@
+	-       QMAKE_DEL_FILE          = del
+	+       QMAKE_DEL_FILE          = rm
+	@@ -94,2 +94,2 @@
+	-QMAKE_MOC              = $$[QT_INSTALL_BINS]$${DIR_SEPARATOR}moc.exe
+	-QMAKE_UIC              = $$[QT_INSTALL_BINS]$${DIR_SEPARATOR}uic.exe
+	+QMAKE_MOC              = $$[QT_INSTALL_BINS]/moc
+	+QMAKE_UIC              = $$[QT_INSTALL_BINS]/uic
+	@@ -99,2 +99,2 @@
+	-QMAKE_LIB              = ar -ru
+	-QMAKE_RC               = windres
+	+QMAKE_LIB              = i686-pc-mingw32-ar -ru
+	+QMAKE_RC               = i686-pc-mingw32-windres
+* <app>pro:
+	CONFIG -= debug_and_release_target
+* qmake -spec win32-g++ [-recursive]
+* make
+* Enjoy :-)

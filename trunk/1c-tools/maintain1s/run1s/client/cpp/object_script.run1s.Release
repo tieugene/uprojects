@@ -1,0 +1,15 @@
+INPUT(
+./release/aboutdialog.o
+./release/appinfo.o
+./release/appsettings.o
+./release/main.o
+./release/mainwindow.o
+./release/settings.o
+./release/settingsdialog.o
+./release/dsingleapplication.o
+./release/moc_aboutdialog.o
+./release/moc_mainwindow.o
+./release/moc_settingsdialog.o
+./release/moc_dsingleapplication.o
+./release/qrc_run1s.o
+);

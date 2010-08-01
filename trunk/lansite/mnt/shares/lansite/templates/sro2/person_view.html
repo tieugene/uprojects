@@ -1,4 +1,0 @@
-{% extends "sro2/person_base.html" %}
-{% load sro2_extras %}
-{% block body_main_button %}	{% if canedit and perms.sro2.change_person %}	<a class="button" href="{% url sro2.views.person_main sro.id person.id %}#main'"> Изменить </a> {% endif %} {% endblock %}
-{% block body_skill_button %}	{% if canedit %} {% if perms.sro2.add_personskill or perms.sro2.delete_personskill or perms.sro2.change_personskill %}	<a class="button" href="{% url sro2.views.person_skill sro.id person.id %}#skill"> Изменить </a> {% endif %} {% endif %} {% endblock %}

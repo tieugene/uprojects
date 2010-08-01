@@ -1,0 +1,32 @@
+$def with (page, title="todo")
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html><head>
+
+<title>
+$if title: $title
+</title>
+
+    <link href="/static/editinplace.css" rel="Stylesheet" type="text/css">
+    <script type="text/javascript" src="/static/jquery.js"></script>
+    <script type="text/javascript" src="/static/jquery.rev.js"></script>
+
+</head>
+<body>
+
+$:page
+
+<hr>
+
+<ul>
+<li><a href="http://svn.natalian.org/projects/todo">public domain source</a></li>
+<li><a href="http://validator.w3.org/check?uri=referer">W3</a></li>
+<li><a href="http://hendry.iki.fi">Mail the author</a></li>
+<li><a href="http://webpy.org">Web.py</a></li>
+</ul>
+
+<h3>Concept</h3>
+
+<p>Has to be functional if JS is disabled. However if JS is enabled, may it
+look as good and usable (AJAX) as possible.</p>
+
+</body></html>
