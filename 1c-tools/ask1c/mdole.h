@@ -28,17 +28,14 @@ typedef vector<SVector>	DSVector;
 
 /// 3. Constants
 /// 3.1. Stream names
-static string csCC	("Container.Contents");
-static string csMD	("Metadata");
 static string csMMS	("Main MetaData Stream");
 static string csGD	("GUIDData");
+static string csCC	("Container.Contents");
 
 /// 3.2. Storage names
-static string csIF	("/UserDef/Page.1/Page.");
-static string csPg1	("Page.1");
-static string csPg2	("Page.2");
+static string csMD	("/Metadata");
+static string csIF	("/UserDef/Page.1");
 static string csRights	("/UserDef/Page.2");
-static string csSUIT	("SubUsersInterfaceType");
 
 /// 3.3. Dirs
 static string dPathSep	("/");
