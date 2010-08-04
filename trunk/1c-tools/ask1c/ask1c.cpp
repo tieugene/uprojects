@@ -24,6 +24,9 @@
 /Metadata/Main MetaData Stream/TaskItem
 /Metadata/GUIDData
 
+Teach:
+http://www.johndcook.com/cpp_regex.html
+http://www.codeguru.com/cpp/cpp/cpp_mfc/stl/article.php/c15339
 */
 
 #include <iostream>
@@ -38,10 +41,8 @@
 
 #include "mdole.h"
 
-const char *mask = "{\"TaskItem\",\r\n{\"\\(\\w*\\)\",\"\\([^\"]*\\)\",\"\\([^\"]*\\)\",\"\\([^\"]*\\)\",\"\\([^\"]*\\)\",\"\\([^\"]*\\)\",\"\\([^\"]*\\)\",\"\\([^\"]*\\)\",\"\\([^\"]*\\)\",\"\\([^\"]*\\)\"";
-//{"TaskItem",\r\n{"1","Бухгалтерский учет, редакция 4.5","7.70.483","","","1","493","0","0","493"}}
-
-const int TOKENS = 10;
+//const char *ifsmask = "{\"UsersInterfaceType\",\"Page.\\(\\d+\\)\"},{\"[^\"]*\",\"\\(\\w*\\)\"},{\"UID\",\"\\(\\w*\\)\"},{\"PWD\",\"\\(\\w*\\)\"},{\"Checksum\",\"\\(\\w*\\)\"}}$";
+//const char *rightsmask = "{\"RightsEditorType\",\"Page.\\(\\d+\\)\"},{\"[^\"]*\",\"\"}";
 
 DWORD	pls(BYTE* &ptr)
 /*
@@ -65,9 +66,8 @@ DWORD	pls(BYTE* &ptr)
 }
 
 void	desize(Pdata &src)
-/*
- * Remove head pascal size
- */
+/** Remove head pascal size.
+*/
 {
 	BYTE *ptr = src.data, *newdata;
 	DWORD newsize = pls(ptr);
@@ -83,8 +83,7 @@ void	desize(Pdata &src)
 }
 
 void	win2utf(Pdata &data)
-/*
- * Converts inbound string from cp1251 to utf - inplace
+/** Converts inbound string from cp1251 to utf - inplace.
 */
 {
 	size_t ssize = data.size, dsize = data.size * 2;
@@ -104,15 +103,20 @@ void	win2utf(Pdata &data)
 	data.data = (BYTE *) realloc (newdata, data.size);
 }
 
-void	decode(BYTE *buffer, SVector &names)
+void	decode_mms(BYTE *buffer, SVector &names)
+/** Decode MMS into string array.
+*/
 {
+	const char *mmsmask = "{\"TaskItem\",\r\n{\"\\(\\w*\\)\",\"\\([^\"]*\\)\",\"\\([^\"]*\\)\",\"\\([^\"]*\\)\",\"\\([^\"]*\\)\",\"\\([^\"]*\\)\",\"\\([^\"]*\\)\",\"\\([^\"]*\\)\",\"\\([^\"]*\\)\",\"\\([^\"]*\\)\"";
+	//{"TaskItem",\r\n{"1","Бухгалтерский учет, редакция 4.5","7.70.483","","","1","493","0","0","493"}}
+	const int TOKENS = 10;
 	int		reti;
 	unsigned char	*term[TOKENS];
 	regex_t		regex;
 	regmatch_t	match[TOKENS + 1];
 
 	// 1. prepare regex
-	reti = regcomp(&regex, mask, 0);
+	reti = regcomp(&regex, mmsmask, 0);
 	if( reti )
 		err(-1, "Error compiling regex");
 	// 5. split on parts
@@ -128,7 +132,39 @@ void	decode(BYTE *buffer, SVector &names)
 	}
 }
 
+void	decode_rights(BYTE *buffer, SVector &names)
+/** Decode Rights into string array.
+*/
+{
+	//const char *rightsmask = "{\"RightsEditorType\",\"Page.\\(\\d+\\)\",\"[^\"]*\",\"\"}";
+	const char *rightsmask = "\\({\"RightsEditorType\",\"Page.\\(\\w*\\)\",\"\\([^\"]*\\)\",\"\"}*\\)";
+	const int TOKENS = 10;
+	int		reti;
+	unsigned char	*term[TOKENS];
+	regex_t		regex;
+	regmatch_t	match[TOKENS + 1];
+
+	// 1. prepare regex
+	reti = regcomp(&regex, rightsmask, 0);
+	if( reti )
+		err(-1, "Error compiling regex");
+	// 5. split on parts
+	reti = regexec(&regex, (const char *) buffer, TOKENS + 1, match, 0);
+	if (reti)
+		err(-2, "Error matching regex");
+	for (int i = 0; i < TOKENS; i++) {
+		buffer[match[i + 1].rm_eo] = '\0';	// set EOL
+		term[i] = &buffer[match[i+1].rm_so];	// set term
+	// 6. show values
+		//names.push_back(string((const char *) term[i]));
+		printf("\"%s\"\t", term[i]);
+	}
+	printf("\n");
+}
+
 void	out(Pdata data, char *fn)
+/** Save data to file.
+*/
 {
 	std::ofstream file;
 	file.open( fn, std::ios::binary|std::ios::out );
@@ -138,6 +174,9 @@ void	out(Pdata data, char *fn)
 }
 
 void	outguid(Pdata data, char *fn)
+/*
+ Save GUIDDATA
+*/
 {
 	DWORD size = *((DWORD *) data.data);
 	DWORD *ptr = (DWORD *) (data.data + 4);
@@ -145,7 +184,7 @@ void	outguid(Pdata data, char *fn)
 	cout << "Size:" << size << endl;
 	std::ofstream file;
 	file.open( fn, std::ios::binary|std::ios::out );
-	for (int i = 0; i < size; i++) {
+	for (unsigned int i = 0; i < size; i++) {
 		//cout << hex << uppercase << ptr[3] << ptr[2] << ptr[1] << ptr[0] << endl;
 		printf ("%08X%08X%08X%08X\n", ptr[3], ptr[2], ptr[1], ptr[0]);
 		ptr += 4;
@@ -158,8 +197,9 @@ void	outguid(Pdata data, char *fn)
 int	main(int argc, char *argv[])
 {
 	MDOLE	ole;
-        Pdata	mms, guid, guidtmp, rights, ifs;
-	SVector	smms;
+        Pdata	mms, guid, ifs, rights;
+	Pdata	guidtmp;
+	SVector	smms, srights;
 
 	if( argc != 2 )
 	{
@@ -172,28 +212,38 @@ int	main(int argc, char *argv[])
 		cerr << "Can't open file '" << argv[1] << "'" << endl;
 		return 1;
 	}
-        if (ole.LoadStream (mms, csMD, csMMS))
-		cerr << "Can't load Metadata/MMS" << endl;
-        if (ole.LoadStream (guid, csMD, csGD))
-		cerr << "Can't load Metadata/GUIDData" << endl;
+	// 0. Load all wanted streams
+        if (ole.LoadStream (mms, csMD, csMMS))		// "/Metadata/Main MetaData Stream"
+		cerr << "Can't load MMS" << endl;
+        if (ole.LoadStream (guid, csMD, csGD))		// "/Metadata/GUIDData"
+		cerr << "Can't load GUIDData" << endl;
+        if (ole.LoadStream (ifs, csIF, csCC))		// "/UserDef/Page.1/Container.Contents"
+		cerr << "Can't load Interfaces" << endl;
+        if (ole.LoadStream (rights, csRights, csCC))	// "/UserDef/Page.2/Container.Contents"
+		cerr << "Can't load Rights" << endl;
 	ole.close ();
-
+	// 1. MMS
+	/*
 	desize(mms);
 	win2utf(mms);
-	decode(mms.data, smms);
+	decode_mms(mms.data, smms);
 	//for (int i=0; i < smms.size(); i++)
-	cout << smms[1] << "\t" << smms[2] << endl;
+	//cout << smms[1] << "\t" << smms[2] << endl;
+	// 2. GUIDData
 	guidtmp.data = guid.data + 4; guidtmp.size = guid.size - 4;
 	out(guid, "guid.raw");
 	out(guidtmp, "guid.bin");
-	outguid(guid, "guid.hex");
-	//extract( storage, "/Metadata/GUIDData", "guiddata.bin");			// GUIDData
-	//extract (storage, "/UserDef/Page.1/Container.Contents", "interfaces.txt");	// Interfaces
-	//extract (storage, "/UserDef/Page.2/Container.Contents", "rights.txt");	// Rights
-	// Storage: UserDef/Page.1/Container.Contents
-	// Storage: UserDef/Page.2/Container.Contents (Page.X) - rights
+	//outguid(guid, "guid.hex");
+	// 3. Interfaces
+	win2utf(ifs);
+	out(ifs, "ifs.txt");
+	*/
+	// 4. Rights
+	win2utf(rights);
+	out(rights, "rights.txt");
+	decode_rights(rights.data, srights);
 	// USERS.USR: /Container.Contents
 	// USERS.USR: /Page.1
-		
+
 	return 0;
 }
