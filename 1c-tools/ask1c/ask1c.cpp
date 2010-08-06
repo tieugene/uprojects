@@ -136,28 +136,33 @@ void	decode_rights(BYTE *buffer, SVector &names)
 /** Decode Rights into string array.
 */
 {
-	//const char *rightsmask = "{\"RightsEditorType\",\"Page.\\(\\d+\\)\",\"[^\"]*\",\"\"}";
-	const char *rightsmask = "\\({\"RightsEditorType\",\"Page.\\(\\w*\\)\",\"\\([^\"]*\\)\",\"\"}*\\)";
+	//const char *rightsmask = "{\"RightsEditorType\",\"Page.\\(\\d+\\)\",\"\\([^\"]*\\)\",\"\"}";
+	//const char *rightsmask = "\\({\"RightsEditorType\",\"Page.\\(\\w*\\)\",\"\\([^\"]*\\)\",\"\"}*\\)";
+	//const char *rightsmask = "{\"Container.Contents\"\\(\\(,{\"RightsEditorType\",\"Page.\\(\\w*\\)\",\"\\([^\"]*\\)\",\"\"}\\)*\\)}";
+	//const char *rightsmask = "\\{\"Container.Contents\"";
+	const char *rightsmask = "\\{\"Container.Contents\"(,\\{\"RightsEditorType\",\"Page.([0-9]+)\",\"([^\"]*)\",\"\"\\})*";
 	const int TOKENS = 10;
 	int		reti;
-	unsigned char	*term[TOKENS];
+	SVector		term;
+	string		s;
 	regex_t		regex;
 	regmatch_t	match[TOKENS + 1];
 
 	// 1. prepare regex
-	reti = regcomp(&regex, rightsmask, 0);
+	reti = regcomp(&regex, rightsmask, REG_EXTENDED);
 	if( reti )
 		err(-1, "Error compiling regex");
 	// 5. split on parts
 	reti = regexec(&regex, (const char *) buffer, TOKENS + 1, match, 0);
 	if (reti)
 		err(-2, "Error matching regex");
+	cout << "re_nsub: " << regex.re_nsub << endl;
 	for (int i = 0; i < TOKENS; i++) {
-		buffer[match[i + 1].rm_eo] = '\0';	// set EOL
-		term[i] = &buffer[match[i+1].rm_so];	// set term
+		s = string( (const char *) buffer + match[i].rm_so, (size_t) match[i].rm_eo - match[i].rm_so);
+		term.push_back(s);
 	// 6. show values
 		//names.push_back(string((const char *) term[i]));
-		printf("\"%s\"\t", term[i]);
+		cout << s << endl;
 	}
 	printf("\n");
 }
