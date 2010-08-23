@@ -76,7 +76,8 @@ SET CYGWIN=nontsec
 SET HOME=%HOMEDRIVE%%HOMEPATH%
 SET CWOLDPATH=%PATH%
 }}}
-    # local.cmd: {{{
+    # local.cmd:
+{{{
 @ECHO OFF
 CALL common.cmd
 SETLOCAL
