@@ -68,7 +68,8 @@
   # Этап #1 - быстрая локальная синхронизация
     # на буфер - убрать права юзерам - все
     # Назначенные задания > При загрузке компьютера (или "При входе в windows"?)
-    # common.cmd: {{{
+    # common.cmd:
+{{{
 @ECHO OFF
 SET CWRSYNCHOME=%PROGRAMFILES%\CWRSYNC
 SET CYGWIN=nontsec
