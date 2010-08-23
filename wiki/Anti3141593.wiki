@@ -66,12 +66,21 @@
 Проблема в том, чтобы юзер не видел ни локального буфера - ни конечного бэкапа.
 Вывод: всё надо делать рутом.
   # Этап #1 - быстрая локальная синхронизация
-    # {{{
-
+    # на буфер - убрать права юзерам - все
+    # Назначенные задания > При загрузке компьютера (или "При входе в windows"?)
+    # common.cmd: {{{
+@ECHO OFF
+SET CWRSYNCHOME=%PROGRAMFILES%\CWRSYNC
+SET CYGWIN=nontsec
+SET HOME=%HOMEDRIVE%%HOMEPATH%
+SET CWOLDPATH=%PATH%
+}}}
+    # local.cmd: {{{
+@ECHO OFF
+CALL common.cmd
+SETLOCAL
+SET PATH=%CWRSYNCHOME%\BIN;%PATH%
+rsync -r -t --delete /cygdrive/c/temp/src/ /cygdrive/c/temp/dst/
 }}}
   # Этап #2 - медленная синхронизация с сервером. Под рутом, по крону, с локами
     # %COMPUTERNAME%/%USERNAME%
-
-Назначенные задания:
-* При загрузке компьютера
-* При входе в windows
