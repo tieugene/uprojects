@@ -1,1 +1,0 @@
-\AutoIt3.exe \autoit\avira.au3

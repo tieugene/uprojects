@@ -1,1 +1,0 @@
-\bin\avira_antivir_personal_ru.9.0.0.10.exe

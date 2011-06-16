@@ -1,1 +1,0 @@
-\bin\Accounting\selta-1.0.7.20090907.msi
