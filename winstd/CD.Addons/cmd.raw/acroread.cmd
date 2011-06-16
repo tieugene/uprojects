@@ -1,1 +1,0 @@
-\bin\AdbeRdr930_ru_RU.exe
