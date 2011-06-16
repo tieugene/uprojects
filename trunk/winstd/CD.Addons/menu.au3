@@ -9,7 +9,7 @@ Global Const $GUI_UNCHECKED = 4
 Global Const $TVS_CHECKBOXES = 0x00000100 ; Enables check boxes for items
 
 ; 1. Vars
-Global $CmdAuto = "cmd.auto"
+Global $CmdAuto = "cmd"
 Global Const $ASize = 50
 Global $Array[$ASize][3]	; defaultflag|exec|guicontrol
 

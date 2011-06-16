@@ -6,7 +6,7 @@
 ----------------------
 #ce
 
-Run ('\bin\avira_antivir_personal_ru.9.0.0.10.exe')
+Run ('\bin\avira_antivir_personal_ru.9.0.0.13.exe')
 
 WinWaitActive ('Avira AntiVir Personal - Free Antivirus')
 ControlClick ('Avira AntiVir Personal - Free Antivirus','','Button1')
