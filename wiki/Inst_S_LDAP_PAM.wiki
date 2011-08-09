@@ -141,7 +141,7 @@ for i in `cat uids.txt`; do mkdir /mnt/shares/home/user$i; chown user$i:users /m
 
 === Packages ===
 
- * nss_ldap
+ * nss-pam-ldapd
  * authconfig
 
 === Configs ===
