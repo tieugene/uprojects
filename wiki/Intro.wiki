@@ -4,7 +4,7 @@
 
 = Introduction =
 
-This manual is for implementing LDAP-based LAN, based on CentOS 5.3.
+This manual is for implementing LDAP-based LAN, based on CentOS 6.0.
 
 == Objects: ==
 
