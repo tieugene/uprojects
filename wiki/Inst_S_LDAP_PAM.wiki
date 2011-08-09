@@ -192,4 +192,5 @@ pam_password md5
 }}}
 
  # chkconfig nscd on && service nscd restart
+ # chkconfig nslcd on && service nslcd restart
  # init 6
