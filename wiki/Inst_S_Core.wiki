@@ -5,21 +5,8 @@
 = Core =
 
  # install [http://mirror.yandex.ru/centos/6.0/isos/i386/ CentOS 6.0]
- # [http://download.opensuse.org/repositories/home:/TI_Eugene/CentOS_6/i386/ rpmtop]
- # remove unwanted packages (rpmtop -t -s - repeat until success)
+ # remove unwanted packages (rpmreaper)
  # add needed packages
-
-== X ==
-
-If you want to use X - set lite wm:
-
-=== IceWM ===
-
- # download and install [http://mirror.yandex.ru/fedora/linux/releases/10/Everything/i386/os/Packages/imlib-1.9.15-9.fc10.i386.rpm imlib], [http://mirror.yandex.ru/fedora/linux/releases/10/Everything/i386/os/Packages/icewm-1.2.35-4.fc10.i386.rpm icewm] and [http://mirror.yandex.ru/fedora/linux/releases/10/Everything/i386/os/Packages/dillo-0.8.6-7.fc9.i386.rpm dillo] packages from [http://mirror.yandex.ru/fedora/linux/releases/10/Everything/i386/os/Packages/ fedora 10 repo] (icewm wants bluecurve - let's do rpm -i --nodeps ...)
- # download and install [http://roland65.free.fr/xfe/data/fox-1.6.33-1.i386.rpm fox] and [http://sourceforge.net/projects/xfe xfe] packages from their [http://roland65.free.fr/xfe/ Home].
- # mkdir ~/.icewm
- # cp /usr/share/icewm/menu, preferences and toolbar to ~/.icewm
- # edit them to your taste
 
 === Network ===
 
