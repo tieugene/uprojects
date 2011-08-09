@@ -22,7 +22,9 @@ data:
 === Make configs ===
 
  # generate password:
-   {{{[root]# slappasswd -h '{SMD5}' -s secred}}}
+   {{{
+[root]# slappasswd -h '{SMD5}' -s secred
+}}}
   result:
    {SMD5}byYxFQWSBfC/VJKooDQuMZUyq1g=
  # /etc/openldap/slapd.conf:
