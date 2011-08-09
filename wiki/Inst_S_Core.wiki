@@ -21,6 +21,6 @@ If you want to use X - set lite wm:
  # cp /usr/share/icewm/menu, preferences and toolbar to ~/.icewm
  # edit them to your taste
 
-=== XFCE ===
+=== Network ===
 
-...
+Note: after dump/restore tune up /etc/udev/rules.d/70-persistent-net.rules
