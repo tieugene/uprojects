@@ -38,19 +38,14 @@ suffix        "dc=ldap"
 rootdn        "cn=odmin,dc=ldap"
 rootpw        {SMD5}byYxFQWSBfC/VJKooDQuMZUyq1g=
 }}}
- # /etc/openldap/ldap.conf
-  not need
  # /var/lib/ldap/DB_CONFIG
-  ldbm: not need
   bdb: {{{cp /etc/openldap/DB_CONFIG.example /var/lib/ldap/DB_CONFIG}}}
 
 == Start ==
 
 {{{
-chown :ldap /etc/openldap/slapd.conf (or check permissions)
-chmod g+r /etc/openldap/slapd.conf (or check permissions)
-chkconfig ldap on
-service ldap start
+chkconfig slapd on
+service slapd start
 }}}
 
 *Important*: set ldap start order _after_ network but _befor_ named:
