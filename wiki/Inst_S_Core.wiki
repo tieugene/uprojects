@@ -4,8 +4,8 @@
 
 = Core =
 
- # install [http://mirror.yandex.ru/centos/5.3/isos/i386/ CentOS 5.3]
- # [http://download.opensuse.org/repositories/home:/TI_Eugene/CentOS_5/i386/ rpmtop]
+ # install [http://mirror.yandex.ru/centos/6.0/isos/i386/ CentOS 6.0]
+ # [http://download.opensuse.org/repositories/home:/TI_Eugene/CentOS_6/i386/ rpmtop]
  # remove unwanted packages (rpmtop -t -s - repeat until success)
  # add needed packages
 
