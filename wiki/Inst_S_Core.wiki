@@ -23,4 +23,17 @@ If you want to use X - set lite wm:
 
 === Network ===
 
+/etc/sysconfig/network-scripts/ifcfg-eth0:
+DEVICE=eth0
+HWADDR=08:00:27:26:57:22
+NM_CONTROLLED=no
+ONBOOT=yes
+BOOTPROTO=none
+IPADDR=192.168.0.1
+NETMASK=255.255.255.0
+TYPE=Ethernet
+GATEWAY=192.168.0.254
+IPV6INIT=no
+USERCTL=no
+
 Note: after dump/restore tune up /etc/udev/rules.d/70-persistent-net.rules
