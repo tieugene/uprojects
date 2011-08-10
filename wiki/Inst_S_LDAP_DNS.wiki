@@ -192,4 +192,4 @@ zone "0.168.192.in-addr.arpa." IN {
 ENABLE_SDB=yes
 }}}
  # chkconfig named on && service named restart
- # checking: resolveip <hostname>/<ip>
+ # checking: resolveip <hostname>/<ip> (mysql-server)
