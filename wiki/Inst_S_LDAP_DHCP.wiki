@@ -12,9 +12,6 @@
 
  * dhcp
 
-Note: dhcpd must support LDAP handling. CentOS 5.3 users can install it from [ftp://mirror.yandex.ru/fedora/linux/updates/8/i386.newkey/dhcp-3.0.6-12.fc8.i386.rpm Fedora 8] repo - just remove conflicting dhc... packages.
-Or: http://packages.sw.be/dhcp-ldap/dhcp-ldap-3.0.5-1.el5.test.i386.rpm
-
 = Files =
 
  * /etc/dhcpd.conf /etc/openldap/schema/dhcp.schema - don't touch
