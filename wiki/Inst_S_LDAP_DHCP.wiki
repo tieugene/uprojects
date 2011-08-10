@@ -36,7 +36,7 @@ index           dhcpHWAddress 	eq
 index           dhcpClassData	eq
 }}}
  # service ldap restart
- # /etc/dhcpd.conf:
+ # /etc/dhcp/dhcpd.conf:
   {{{
 ldap-server "localhost";
 ldap-port 389;
