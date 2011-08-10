@@ -151,8 +151,8 @@ done
 
 === BIND ===
 
- # {{{cp /usr/share/doc/bind-.../sample/etc/* /var/named/chroot/etc}}}
- # {{{cp /usr/share/doc/bind-.../sample/var/named/[ln]* /var/named/chroot/var/named}}}
+ # {{{cp /usr/share/doc/bind-9.7.0/sample/etc/* /var/named/chroot/etc}}}
+ # {{{cp /usr/share/doc/bind-9.7.0/sample/var/named/[ln]* /var/named/chroot/var/named}}}
  # {{{cd /var/named/chroot/var/named; wget ftp://ftp.rs.internic.net/domain/named.root}}}
  # /var/named/chroot/etc/named.conf:
   {{{
