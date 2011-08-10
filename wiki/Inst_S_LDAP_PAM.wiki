@@ -33,17 +33,6 @@ After installing server part of config we must configure server as client - to u
 +       by anonymous read
 +       by * none
  #
-@@ -84,4 +89,4 @@
- database       bdb
--suffix         "dc=my-domain,dc=com"
--rootdn         "cn=Manager,dc=my-domain,dc=com"
-+suffix         "dc=ldap"
-+rootdn         "cn=odmin,dc=ldap"
- # Cleartext passwords, especially for the rootdn, should
-@@ -90,3 +95,3 @@
- # rootpw               secret
--# rootpw               {crypt}ijFYNcSNctBYg
-+rootpw         {SMD5}+0dbisyp05o+3aiGW27S0ApVJTM=
 }}}
 
  # service ldap restart
