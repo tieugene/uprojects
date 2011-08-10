@@ -163,8 +163,8 @@ options {
         memstatistics-file      "data/named_mem_stats.txt";
         query-source address    * port 53;
         forwarders {
-            192.168.0.254;      # gw
-            194.85.105.17;      # ns.ripn.net.
+                8.8.8.8;
+                8.8.4.4;
         };
 };
 logging {
