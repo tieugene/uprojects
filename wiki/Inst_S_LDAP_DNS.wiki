@@ -13,8 +13,7 @@
 
  * bind
  * bind-chroot
- * bind-sdb
-Note: after installing bind-sdb check permissions (:ldap) on /etc/openldap/slapd.conf
+ * bind-dyndb-ldap
 
 == Files ==
 
