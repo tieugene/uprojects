@@ -16,7 +16,6 @@
 
  * samba
  * smbldap-tools
-Note: for CentOS 5.3 you can install smbldap-tools and dependencies from [ftp://dispenser.yandex.net/epel/5/i386/epel-release-5-2.noarch.rpm epel] repo.
 
 === Configs: ===
 
