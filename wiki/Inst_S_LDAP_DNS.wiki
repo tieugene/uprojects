@@ -17,7 +17,7 @@
 
 == Files ==
 
- * /etc/openldap/schema/dnszone.schema - don't touch
+ * cp /usr/share/doc/bind-dyndb-ldap-0.1.0/schema /etc/openldap/schema/named.schema
 
 == Install ==
 
@@ -25,7 +25,7 @@
 
  # /etc/openldap/slapd.conf (inserted by bind-sdb):
   {{{
-include		/etc/openldap/schema/dnszone.schema	# dns
+include		/etc/openldap/schema/named.schema	# dns
 }}}
  # restart:
   {{{service ldap restart}}}
