@@ -215,7 +215,7 @@ mailDomain="example.com"
  * lets go:
   {{{chkconfig smb on; service smb start}}}
  * create user's profile directories !
- * make smbldap-passwd -s user?? for each user
+ * make 'echo passXX | smbldap-passwd -s -p user??' for each user
 Note: Fedora need nmb on & start
 
 ----
