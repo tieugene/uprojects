@@ -1,5 +1,6 @@
 #summary Server - LDAP + POP3/IMAP.
-
+|| <[Inst_S_LDAP_SAMBA_en Samba] || [TOC TOC] || [Inst_S_LDAP_SMTP_en SMTP]> ||
+----
 = Ingridients =
 Packages:
  * cyrus-imapd
