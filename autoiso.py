@@ -68,17 +68,26 @@ if (__name__ == '__main__'):
 	foldersnames = folders.keys()
 	foldernames.sort()
 	i = 0
+	popd = os.getcwd()
+	os.chdir(srcdir)
+	report = list()
 	# 2. while is anything to write
 	while (sum(folders.values()) > DVDSIZE()):
 		tmplist = list()	# folders to create current ISO
 		tmpsize = 0		# summary of folder sizes
-	# 3. while fill ISO
+	# 3. while fill 1 ISO
 		while ((tmpsize + folders[foldernames[i]]) < DVDSIZE):
 			tmplist.append(foldernames[i])
 			tmpsize += folders[foldernames[i]]
 			i += 1
+			del folders[foldernames[i]]
 	# 4. mk command: iso name and all arguments
-		cmd = "mkisofs %s -o -path-list $LISTFILE" % (MKISOARGS, dstdir, tmplist[0], tmplist[-1])
-	# 5. create iso
-	# 6. rm files
-	# 7. report
+		isoname = tmplist[0] + tmplist[-1] + ".iso"
+		dirs = " ".join(tmplist)
+		cmd = "echo \"%s\" | mkisofs %s -o %s -path-list - && rm -rf %s" % (dirs, MKISOARGS, dstdir, isoname, dirs)
+		report.append(isoname)
+		print cmd
+	# 5. that's all
+	os.chdir(popd)
+	# 6. report
+	print "\n".join(report)
