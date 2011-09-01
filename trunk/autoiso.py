@@ -70,7 +70,7 @@ if (__name__ == '__main__'):
 	# 4. mk command: iso name and all arguments
 		isoname = tmplist[0] + tmplist[-1] + ".iso"
 		cmd = "echo \"%s\" | mkisofs %s -o %s/%s -path-list - && rm -rf %s" % ("\n".join(tmplist), MKISOARGS, dstdir, isoname, " ".join(tmplist))
-		report.append(isoname)
+		report.append(os.path.join(dstdir, isoname))
 		#print cmd
 		os.system(cmd)
 	# 5. that's all
