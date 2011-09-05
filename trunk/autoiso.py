@@ -69,7 +69,8 @@ if (__name__ == '__main__'):
 			i += 1
 	# 4. mk command: iso name and all arguments
 		isoname = tmplist[0] + tmplist[-1] + ".iso"
-		cmd = "echo \"%s\" | mkisofs %s -o %s/%s -path-list - && rm -rf %s" % ("\n".join(tmplist), MKISOARGS, dstdir, isoname, " ".join(tmplist))
+		dirlist = " ".join(tmplist)
+		cmd = "LISTFILE=`mktemp`; for i in %s; do find $i -type f | while read j; do echo \"$j=$j\" >> $LISTFILE; done; done; mkisofs %s -o %s/%s -path-list $LISTFILE && rm -rf %s" % (dirlist, MKISOARGS, dstdir, isoname, dirlist)
 		report.append(os.path.join(dstdir, isoname))
 		#print cmd
 		os.system(cmd)
