@@ -1,17 +1,18 @@
 *	7-zip.cmd	7-Zip 9.20
-*	acroread.cmd	Adobe Acrobat Reader 9.30 (ru)
-*	firefox.cmd	Mozilla FireFox 4.0 (ru)
-*	flash.cmd	Adobe Flash Player 10.0.42.34
-	flashie.cmd	Adobe Flash Player 10.0.42.34 (IE)
-	irecord.cmd	InfraRecorder 0.50
-*	jre.cmd	Sun JRE 6 Update 21
-	klmcodec.cmd	K-Lite Codec pack
-*	kmplayer.cmd	KMPlayer
+*	acroread.cmd	Adobe Acrobat Reader 10.1.0.0 (ru)
+*	avira.cmd	Avira Antivirus Personal .0.0.13 (ru)
+	clementine.cmd	Clementine 0.7.1
+*	firefox.cmd	Mozilla FireFox 7.0.1 (ru)
+*	flash.cmd	Adobe Flash Player 11.0.1.152
+	flashie.cmd	Adobe Flash Player 11.0.1.152 (IE)
+*	jre.cmd	Sun JRE 6 Update 29
 *	mso2k3.cmd	Microsoft Office 2003 Pro
-*	openoffice.cmd	OpenOffice.org 3.2.1 (ru)
-*	pdfcreator.cmd	PDFCreator 1.0.1
-*	qutim.cmd	qutIM 0.2.0
-*	realvnc.cmd	RealVNC 4.1.3
-*	tbird.cmd	Mozilla ThunderBird 3.1.9 (ru)
-*	xnview.cmd	XnView 1.97
-*	avira.cmd	Avira Antivirus Personal 9.0.0.13 (ru)
+*	libreoffice.cmd	LibreOffice 3.4.3 (ru)
+*	pdfcreator.cmd	PDFCreator 1.2.3
+	psi.cmd	PSI 0.14
+	qutim.cmd	qutIM 0.2.0
+	vnc.cmd	RealVNC 4.1.3
+*	smplayer.cmd	SMPlayer 0.6.9
+*	tbird.cmd	Mozilla ThunderBird 7.0.1 (ru)
+*	vlc.cmd	VLC 1.1.11
+*	xnview.cmd	XnView 1.98.1

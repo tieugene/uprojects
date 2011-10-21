@@ -1,6 +1,6 @@
 [Setup]
 Lang=default
-Dir=C:\Program Files\RealVNC\VNC4
+Dir=C:\Program files\RealVNC\VNC4
 Group=RealVNC
 NoIcons=0
 SetupType=custom
