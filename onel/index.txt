@@ -1,4 +1,0 @@
-docs	Documentation
-a-system	Qt4.x port of ananas
-catmd	MD and MXL export to *.xml
-mxlview	MXL library and export

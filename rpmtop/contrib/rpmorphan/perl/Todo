@@ -1,8 +1,0 @@
-implement same options as deborphan
-add a section filter
-
-add an optionnal graphical interface (~ orphaner)
-- log button
-- status widget
-- recompute dependencies after each delete
-- search

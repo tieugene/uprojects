@@ -1,595 +1,0 @@
-<block>
-<fragmen> </fragmen>
-</block>
-<block>
-<fragmen>￼</fragmen>
-<fragmen> </fragmen>
-</block>
-<block>
-<fragmen>￼</fragmen>
-<fragmen> </fragmen>
-<fragmen>￼</fragmen>
-<fragmen> </fragmen>
-<fragmen>￼</fragmen>
-</block>
-<block>
-<fragmen>￼</fragmen>
-</block>
-<block>
-<fragmen>￼</fragmen>
-</block>
-<block>
-<fragmen>￼</fragmen>
-</block>
-<block>
-<fragmen> </fragmen>
-</block>
-<block>
-<fragmen>Объявлений по запросу: 12 </fragmen>
-<fragmen> </fragmen>
-</block>
-<block>
-</block>
-<block>
-<fragmen>￼</fragmen>
-</block>
-
-
-
-<block>
-<fragmen>28.03.2006 13:30:49 | </fragmen>
-<fragmen>ИНЖЕНЕР-ПРОГРАММИСТ</fragmen>
-</block>
-
-<block>
-<fragmen>￼</fragmen>
-</block>
-
-<block>
-<fragmen> </fragmen>
-<fragmen>Прямой работодатель</fragmen>
-<fragmen> : Ультра Стар  Город: Санкт-Петербург  Пол: Не имеет значения Возраст: до 35 Образование: Не имеет значения Опыт работы: 2 года Занятость: Полная  </fragmen>
-<fragmen>Требования:</fragmen>
-<fragmen> </fragmen>
-</block>
-
-<block>
-<fragmen>О/р 2 лет в Unix/Linux Знание: С,С++, Oracle SQL. Знание UNIX/Linux обязательно на хорошем уровне! </fragmen>
-<fragmen>Обязанности:</fragmen>
-<fragmen> </fragmen>
-</block>
-
-<block>
-<fragmen>Программирование С, С++, SQL, PL/ SQL</fragmen>
-<fragmen>Условия:</fragmen>
-<fragmen> </fragmen>
-</block>
-
-<block>
-<fragmen>Крупный холдинг (телекоммуникации/системы безопасности). З/п по результатам собеседования.</fragmen>
-</block>
-
-<block>
-<fragmen>ID Вакансии: 14859117 </fragmen>
-</block>
-
-<block>
-<fragmen>Контактное лицо: Екатерина Ежова Телефон: (812)326-33-33, 346-85-83 E-Mail: </fragmen>
-<fragmen>job@ultrastar.ru</fragmen>
-<fragmen> </fragmen>
-</block>
-
-
-
-<block>
-</block>
-<block>
-</block>
-<block>
-<fragmen>  </fragmen>
-</block>
-<block>
-</block>
-<block>
-<fragmen>￼</fragmen>
-</block>
-<block>
-<fragmen>28.03.2006 11:06:37 | </fragmen>
-<fragmen>системный администратор</fragmen>
-</block>
-<block>
-<fragmen>￼</fragmen>
-</block>
-<block>
-<fragmen> </fragmen>
-<fragmen>Прямой работодатель</fragmen>
-<fragmen> : ООО Компьютерная служба ХЕЛП  Город: Санкт-Петербург  Пол: Муж Возраст: до 30 Образование: Высшее Опыт работы: 2 года Занятость: Полная  </fragmen>
-<fragmen>Требования:</fragmen>
-<fragmen> </fragmen>
-</block>
-<block>
-<fragmen>Уверенное знание серверных платформ. Умение быстро решать проблемы.</fragmen>
-<fragmen>Обязанности:</fragmen>
-<fragmen> </fragmen>
-</block>
-<block>
-<fragmen>Обеспеченеие безперебойной работы компьютерного парка.</fragmen>
-<fragmen>Условия:</fragmen>
-<fragmen> </fragmen>
-</block>
-<block>
-<fragmen>Полный рабочий день. Оклад 12000 руб. + %</fragmen>
-</block>
-<block>
-<fragmen>ID Вакансии: 16384350 </fragmen>
-</block>
-<block>
-<fragmen>Контактное лицо: Анна Телефон: 702-17-37 E-Mail: </fragmen>
-<fragmen>Job@otvertka.com</fragmen>
-<fragmen> </fragmen>
-</block>
-<block>
-</block>
-<block>
-<fragmen>   </fragmen>
-</block>
-<block>
-</block>
-<block>
-<fragmen>￼</fragmen>
-</block>
-<block>
-<fragmen>28.03.2006 11:05:09 | </fragmen>
-<fragmen>системный администартор</fragmen>
-</block>
-<block>
-<fragmen>￼</fragmen>
-</block>
-<block>
-<fragmen> </fragmen>
-<fragmen>Прямой работодатель</fragmen>
-<fragmen> : ООО Компьютерная служба ХЕЛП  Город: Санкт-Петербург  Пол: Не имеет значения Возраст: до 30 Образование: Не имеет значения Опыт работы: 2 года Занятость: Полная </fragmen>
-<fragmen>Зарплата: 530</fragmen>
-<fragmen>   </fragmen>
-<fragmen>Требования:</fragmen>
-<fragmen> </fragmen>
-</block>
-<block>
-<fragmen>Администратор со знанием серверных ОС (Unix, Windows). </fragmen>
-<fragmen>Условия:</fragmen>
-<fragmen> </fragmen>
-</block>
-<block>
-<fragmen>Полный рабочий день. Пятидневка. З/п 16000 руб.</fragmen>
-</block>
-<block>
-<fragmen>ID Вакансии: 17011195 </fragmen>
-</block>
-<block>
-<fragmen>Контактное лицо: Анна Телефон: 702-17-37 E-Mail: </fragmen>
-<fragmen>job@otvertka.com</fragmen>
-<fragmen> </fragmen>
-</block>
-<block>
-</block>
-<block>
-<fragmen>   </fragmen>
-</block>
-<block>
-</block>
-<block>
-<fragmen>￼</fragmen>
-</block>
-<block>
-<fragmen>31.03.2006 22:09:27 | </fragmen>
-<fragmen>Помощник системного администратора</fragmen>
-</block>
-<block>
-<fragmen>￼</fragmen>
-</block>
-<block>
-<fragmen> </fragmen>
-<fragmen>Прямой работодатель</fragmen>
-<fragmen> : Родник Здоровья  Город: Санкт-Петербург  Пол: Муж Возраст: до 25 Образование: Не имеет значения Опыт работы: 1 год Занятость: Полная </fragmen>
-<fragmen>Зарплата: 500</fragmen>
-<fragmen>   </fragmen>
-<fragmen>Требования:</fragmen>
-<fragmen> </fragmen>
-</block>
-<block>
-<fragmen>Сети аптек "Родник здоровья" требуется технический специалист. Необходимо разбираться в СКС (Структурированные Кабельные Сети), диагностика неисправностей компьютеров, минимальные знания 1С Предприятия v7.7 ОБЯЗАТЕЛЬНОЕ УСЛОВИЕ: наличие автомобиля.</fragmen>
-<fragmen>Обязанности:</fragmen>
-<fragmen> </fragmen>
-</block>
-<block>
-<fragmen>Основная работа - протяжка сетей, тех поддержка аптек (выездная или по телефону)</fragmen>
-<fragmen>Условия:</fragmen>
-<fragmen> </fragmen>
-</block>
-<block>
-<fragmen>Зарплата от 15'000 по результатам собеседования. Дополнительно оплачивается проезд и телефон. Необходимо отправить резюме на e-mail: ultima@inbox.ru</fragmen>
-</block>
-<block>
-<fragmen>ID Вакансии: 17418234 </fragmen>
-</block>
-<block>
-<fragmen>Контактное лицо: Евгений Телефон: 303-34-19 E-Mail: </fragmen>
-<fragmen>ultima@inbox.ru</fragmen>
-<fragmen> </fragmen>
-</block>
-<block>
-</block>
-<block>
-<fragmen>   </fragmen>
-</block>
-<block>
-</block>
-<block>
-<fragmen>￼</fragmen>
-</block>
-<block>
-<fragmen>05.04.2006 10:51:32 | </fragmen>
-<fragmen>Программист</fragmen>
-</block>
-<block>
-<fragmen>￼</fragmen>
-</block>
-<block>
-<fragmen> </fragmen>
-<fragmen>Прямой работодатель</fragmen>
-<fragmen> : М.Альберт  Город: Санкт-Петербург  Пол: Муж Возраст: до 25 Образование: Не имеет значения Занятость: Любая </fragmen>
-<fragmen>Зарплата: 400</fragmen>
-<fragmen>   </fragmen>
-<fragmen>Требования:</fragmen>
-<fragmen> </fragmen>
-</block>
-<block>
-<fragmen>Программирование PHP и MySQL</fragmen>
-</block>
-<block>
-<fragmen>ID Вакансии: 17487799 </fragmen>
-</block>
-<block>
-<fragmen>Контактное лицо: Альберт Телефон: 8-812-900-5050 E-Mail: </fragmen>
-<fragmen>albert@vipcity.ru</fragmen>
-<fragmen> </fragmen>
-</block>
-<block>
-</block>
-<block>
-<fragmen>   </fragmen>
-</block>
-<block>
-</block>
-<block>
-<fragmen>￼</fragmen>
-</block>
-<block>
-<fragmen>05.04.2006 18:22:04 | </fragmen>
-<fragmen>системный администратор </fragmen>
-</block>
-<block>
-<fragmen>￼</fragmen>
-</block>
-<block>
-<fragmen> </fragmen>
-<fragmen>Прямой работодатель</fragmen>
-<fragmen> : RL IT Outsourcing  Город: Санкт-Петербург  Пол: Не имеет значения Возраст: до 35 Образование: Не имеет значения Опыт работы: 2 года Занятость: Любая </fragmen>
-<fragmen>Зарплата: 350</fragmen>
-<fragmen>   </fragmen>
-<fragmen>Требования:</fragmen>
-<fragmen> </fragmen>
-</block>
-<block>
-<fragmen>Знание и владение навыками работы , настройки и администрирования ОС Майкрософт. Знание Интернет, сетей, маршрутизации, принципы работы глобальных и локальных сетей. Знание почтовых служб и основных принципов работы почтовых служб, клиентов, серверов. Досканальное знание ПК, принципов его работы, навыки по диагностике и ремонту. Знание Linux/Unix, PHP, HTML, основные принципы разработки сайтов и их поддержка, знание 1С версий 7.7 и 8.0, владение программами AutoCad, Adoby, Corel - приветствуются. </fragmen>
-<fragmen>Обязанности:</fragmen>
-<fragmen> </fragmen>
-</block>
-<block>
-<fragmen>Обслуживание клиентов компании на выезде, по графику, экстренно. Ремонт ПК, настройка операционной системы, периферии, техническая поддержка, консультация. </fragmen>
-</block>
-<block>
-<fragmen>ID Вакансии: 17502545 </fragmen>
-</block>
-<block>
-<fragmen>Контактное лицо: Борис Телефон: 982-52-03 E-Mail: </fragmen>
-<fragmen>info@r-l.com.ru</fragmen>
-<fragmen> </fragmen>
-</block>
-<block>
-</block>
-<block>
-<fragmen>   </fragmen>
-</block>
-<block>
-</block>
-<block>
-<fragmen>￼</fragmen>
-</block>
-<block>
-<fragmen>06.04.2006 12:08:03 | </fragmen>
-<fragmen>системный администратор </fragmen>
-</block>
-<block>
-<fragmen>￼</fragmen>
-</block>
-<block>
-<fragmen> </fragmen>
-<fragmen>Прямой работодатель</fragmen>
-<fragmen> : RL IT Outsourcing  Город: Санкт-Петербург  Пол: Не имеет значения Возраст: до 35 Образование: Не имеет значения Опыт работы: 2 года Занятость: Любая  </fragmen>
-<fragmen>Требования:</fragmen>
-<fragmen> </fragmen>
-</block>
-<block>
-<fragmen>Знание и владение навыками работы , настройки и администрирования ОС Майкрософт. Знание Интернет, сетей, маршрутизации, принципы работы глобальных и локальных сетей. Знание почтовых служб и основных принципов работы почтовых служб, клиентов, серверов. Досканальное знание ПК, принципов его работы, навыки по диагностике и ремонту. Знание Linux/Unix, PHP, HTML, основные принципы разработки сайтов и их поддержка, знание 1С версий 7.7 и 8.0, владение программами AutoCad, Adoby, Corel - приветствуются. </fragmen>
-<fragmen>Обязанности:</fragmen>
-<fragmen> </fragmen>
-</block>
-<block>
-<fragmen>Обслуживание клиентов компании на выезде, по графику, экстренно. Ремонт ПК, настройка операционной системы, периферии, техническая поддержка, консультация. </fragmen>
-</block>
-<block>
-<fragmen>ID Вакансии: 17514479 </fragmen>
-</block>
-<block>
-<fragmen>Контактное лицо: Борис Телефон: 982-52-03 E-Mail: </fragmen>
-<fragmen>info@r-l.com.ru </fragmen>
-<fragmen> </fragmen>
-</block>
-<block>
-</block>
-<block>
-<fragmen>   </fragmen>
-</block>
-<block>
-</block>
-<block>
-<fragmen>￼</fragmen>
-</block>
-<block>
-<fragmen>06.04.2006 14:59:33 | </fragmen>
-<fragmen>системный администратор </fragmen>
-</block>
-<block>
-<fragmen>￼</fragmen>
-</block>
-<block>
-<fragmen> </fragmen>
-<fragmen>Прямой работодатель</fragmen>
-<fragmen> : RL IT Outsourcing  Город: Санкт-Петербург  Пол: Не имеет значения Возраст: до 35 Образование: Не имеет значения Опыт работы: 2 года Занятость: Любая  </fragmen>
-<fragmen>Требования:</fragmen>
-<fragmen> </fragmen>
-</block>
-<block>
-<fragmen>Знание и владение навыками работы , настройки и администрирования ОС Майкрософт. Знание Интернет, сетей, маршрутизации, принципы работы глобальных и локальных сетей. Знание почтовых служб и основных принципов работы почтовых служб, клиентов, серверов. Досканальное знание ПК, принципов его работы, навыки по диагностике и ремонту. Знание Linux/Unix, PHP, HTML, основные принципы разработки сайтов и их поддержка, знание 1С версий 7.7 и 8.0, владение программами AutoCad, Adoby, Corel - приветствуются.</fragmen>
-<fragmen>Обязанности:</fragmen>
-<fragmen> </fragmen>
-</block>
-<block>
-<fragmen>Обслуживание клиентов компании на выезде, по графику, экстренно. Ремонт ПК, настройка операционной системы, периферии, техническая поддержка, консультация.</fragmen>
-</block>
-<block>
-<fragmen>ID Вакансии: 17519848 </fragmen>
-</block>
-<block>
-<fragmen>Контактное лицо: Борис Телефон: 982-52-03 E-Mail: </fragmen>
-<fragmen>info@r-l.com.ru </fragmen>
-<fragmen> </fragmen>
-</block>
-<block>
-</block>
-<block>
-<fragmen>   </fragmen>
-</block>
-<block>
-</block>
-<block>
-<fragmen>￼</fragmen>
-</block>
-<block>
-<fragmen>06.04.2006 19:12:23 | </fragmen>
-<fragmen>системный администратор</fragmen>
-</block>
-<block>
-<fragmen>￼</fragmen>
-</block>
-<block>
-<fragmen> </fragmen>
-<fragmen>Прямой работодатель</fragmen>
-<fragmen> : RL IT Outsourcing  Город: Санкт-Петербург  Пол: Не имеет значения Возраст: до 35 Образование: Не имеет значения Опыт работы: 2 года Занятость: Любая  </fragmen>
-<fragmen>Требования:</fragmen>
-<fragmen> </fragmen>
-</block>
-<block>
-<fragmen>Знание и владение навыками работы , настройки и администрирования ОС Майкрософт. Знание Интернет, сетей, маршрутизации, принципы работы глобальных и локальных сетей. Знание почтовых служб и основных принципов работы почтовых служб, клиентов, серверов. Досканальное знание ПК, принципов его работы, навыки по диагностике и ремонту. Знание Linux/Unix, PHP, HTML, основные принципы разработки сайтов и их поддержка, знание 1С версий 7.7 и 8.0, владение программами AutoCad, Adoby, Corel - приветствуются.</fragmen>
-<fragmen>Обязанности:</fragmen>
-<fragmen> </fragmen>
-</block>
-<block>
-<fragmen>Обслуживание клиентов компании на выезде, по графику, экстренно. Ремонт ПК, настройка операционной системы, периферии, техническая поддержка, консультация. </fragmen>
-</block>
-<block>
-<fragmen>ID Вакансии: 17527033 </fragmen>
-</block>
-<block>
-<fragmen>Контактное лицо: Борис Телефон: 982-52-03 E-Mail: </fragmen>
-<fragmen>info@r-l.com.ru</fragmen>
-<fragmen> </fragmen>
-</block>
-<block>
-</block>
-<block>
-<fragmen>   </fragmen>
-</block>
-<block>
-</block>
-<block>
-<fragmen>￼</fragmen>
-</block>
-<block>
-<fragmen>07.04.2006 09:08:53 | </fragmen>
-<fragmen>системный администратор</fragmen>
-</block>
-<block>
-<fragmen>￼</fragmen>
-</block>
-<block>
-<fragmen> </fragmen>
-<fragmen>Прямой работодатель</fragmen>
-<fragmen> : RL IT Outsourcing  Город: Санкт-Петербург  Пол: Не имеет значения Возраст: до 35 Образование: Не имеет значения Опыт работы: 2 года Занятость: Любая  </fragmen>
-<fragmen>Требования:</fragmen>
-<fragmen> </fragmen>
-</block>
-<block>
-<fragmen>Знание и владение навыками работы , настройки и администрирования ОС Майкрософт. Знание Интернет, сетей, маршрутизации, принципы работы глобальных и локальных сетей. Знание почтовых служб и основных принципов работы почтовых служб, клиентов, серверов. Досканальное знание ПК, принципов его работы, навыки по диагностике и ремонту. Знание Linux/Unix, PHP, HTML, основные принципы разработки сайтов и их поддержка, знание 1С версий 7.7 и 8.0, владение программами AutoCad, Adoby, Corel - приветствуются. </fragmen>
-<fragmen>Обязанности:</fragmen>
-<fragmen> </fragmen>
-</block>
-<block>
-<fragmen>Обслуживание клиентов компании на выезде, по графику, экстренно. Ремонт ПК, настройка операционной системы, периферии, техническая поддержка, консультация. </fragmen>
-</block>
-<block>
-<fragmen>ID Вакансии: 17530981 </fragmen>
-</block>
-<block>
-<fragmen>Контактное лицо: Борис Телефон: 982-52-03 E-Mail: </fragmen>
-<fragmen>info@r-l.com.ru </fragmen>
-<fragmen> </fragmen>
-</block>
-<block>
-</block>
-<block>
-<fragmen>   </fragmen>
-</block>
-<block>
-</block>
-<block>
-<fragmen>￼</fragmen>
-</block>
-<block>
-<fragmen>11.04.2006 09:22:25 | </fragmen>
-<fragmen>Менеджер по продажам</fragmen>
-</block>
-<block>
-<fragmen>￼</fragmen>
-</block>
-<block>
-<fragmen> </fragmen>
-<fragmen>Прямой работодатель</fragmen>
-<fragmen> : Студия-Е  Город: Санкт-Петербург  Пол: Не имеет значения Возраст: до 27 Образование: Не имеет значения Занятость: Любая  </fragmen>
-<fragmen>Требования:</fragmen>
-<fragmen> </fragmen>
-</block>
-<block>
-<fragmen>Горячая вакансия!!! Динамично развивающейся IT компании (создание сайтов, программ и т.д.) требуются менеджеры по продажам услуг. Активность, самостоятельность. умение общаться по телефону. Знание интернет, пк, желательно документооборота. Коммуникабельность,энергичность. Возможен карьерный рост.</fragmen>
-<fragmen>Обязанности:</fragmen>
-<fragmen> </fragmen>
-</block>
-<block>
-<fragmen>Поиск новых клиентов. Телефонный маркетинг. Ведение базы данных. Поиск потенциальных клиентов. Изучение рынка. Проведение маркетинговых исследований. Заключение договоров. Проведение презентаций. </fragmen>
-<fragmen>Условия:</fragmen>
-<fragmen> </fragmen>
-</block>
-<block>
-<fragmen>В молодой веселый коллектив. 10:00-18:00. Пятидневка. Работа в офисе ст.м. Выборгская (в 10-ти минутах пешком), Чёрная речка (10 мин. маршрутка). з\п Оклад 6000, при выполнении плана 15000-18000 + премии + % с заказов. Возможны другие схемы з\п. Оформление. Предварительное собеседование по тел 8-901 3094679 в любой день до 20:00</fragmen>
-</block>
-<block>
-<fragmen>ID Вакансии: 17592371 </fragmen>
-</block>
-<block>
-<fragmen>Контактное лицо: Дмитрий Телефон: (901) 309-46-79 (812) 495-60-71 </fragmen>
-</block>
-<block>
-</block>
-<block>
-<fragmen>   </fragmen>
-</block>
-<block>
-</block>
-<block>
-<fragmen>￼</fragmen>
-</block>
-<block>
-<fragmen>12.04.2006 04:40:27 | </fragmen>
-<fragmen>программист</fragmen>
-</block>
-<block>
-<fragmen>￼</fragmen>
-</block>
-<block>
-<fragmen> </fragmen>
-<fragmen>Прямой работодатель</fragmen>
-<fragmen> : Карат  Город: Санкт-Петербург  Пол: Муж Возраст: до 30 Образование: Не имеет значения Опыт работы: 2 года Занятость: Любая </fragmen>
-<fragmen>Зарплата: 500</fragmen>
-<fragmen>   </fragmen>
-<fragmen>Требования:</fragmen>
-<fragmen> </fragmen>
-</block>
-<block>
-<fragmen>linux gentoo, java, ant, svn, mysql способность разобраться в чужом коде </fragmen>
-<fragmen>Обязанности:</fragmen>
-<fragmen> </fragmen>
-</block>
-<block>
-<fragmen>администрирование игрового сервера. </fragmen>
-<fragmen>Условия:</fragmen>
-<fragmen> </fragmen>
-</block>
-<block>
-<fragmen>работа возможна удаленная или в офисе в СПб. В случае удаленной работы возможность 12/7/360 быть онлайн. Контактную информацию, пожалуйста, направляйте на е-майл.</fragmen>
-</block>
-<block>
-<fragmen>ID Вакансии: 17618458 </fragmen>
-</block>
-<block>
-<fragmen>Контактное лицо: Михаил Телефон: 666-11-11 E-Mail: </fragmen>
-<fragmen>ANDREY.IV@BK.RU</fragmen>
-<fragmen> </fragmen>
-</block>
-<block>
-</block>
-<block>
-<fragmen>    </fragmen>
-</block>
-<block>
-</block>
-<block>
-<fragmen>webmaster@job.ru</fragmen>
-<fragmen> </fragmen>
-</block>
-<block>
-<fragmen>Copyright © 2000-2002 ООО "Пронто-Москва"</fragmen>
-<fragmen> </fragmen>
-</block>
-<block>
-<fragmen> </fragmen>
-<fragmen>JOB.RU - крупнейший национальный ресурс по трудоустройству. 50 000 вакансий, 40 000 резюме, 140 000 посетителей каждую неделю.</fragmen>
-<fragmen> </fragmen>
-</block>
-<block>
-<fragmen>    </fragmen>
-</block>
-<block>
-<fragmen>var rnd = Math.round(Math.random() * 100000); document.write('</fragmen>
-<fragmen>'); document.write('\> \n'); document.write(' \n'); </fragmen>
-<fragmen> </fragmen>
-</block>
-<block>
-<fragmen>  </fragmen>
-</block>
-<block>
-<fragmen>￼</fragmen>
-<fragmen> </fragmen>
-<fragmen>￼</fragmen>
-<fragmen>￼</fragmen>
-<fragmen> </fragmen>
-<fragmen>￼</fragmen>
-<fragmen>hotlog_js="1.0"; hotlog_r=""+Math.random()+"&s=87078&im=105&r="+escape(document.referrer)+"&pg="+ escape(window.location.href); document.cookie="hotlog=1; path=/"; hotlog_r+="&c="+(document.cookie?"Y":"N"); hotlog_js="1.1";hotlog_r+="&j="+(navigator.javaEnabled()?"Y":"N") hotlog_js="1.2"; hotlog_r+="&wh="+screen.width+'x'+screen.height+"&px="+ (((navigator.appName.substring(0,3)=="Mic"))? screen.colorDepth:screen.pixelDepth) hotlog_js="1.3" hotlog_r+="&js="+hotlog_js; document.write("</fragmen>
-<fragmen>￼</fragmen>
-<fragmen>") </fragmen>
-<fragmen>￼</fragmen>
-<fragmen>  </fragmen>
-</block>
-<block>
-<fragmen>  </fragmen>
-</block>
