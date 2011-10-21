@@ -1,1 +1,1 @@
-\AutoIt3.exe \autoit\avira.au3
+\AutoIt3.exe \meta\avira.au3

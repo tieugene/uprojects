@@ -1,2 +1,2 @@
 \bin\7z920.exe /S
-reg import \reg\7-zip.reg
+rem import \meta\7-zip.reg

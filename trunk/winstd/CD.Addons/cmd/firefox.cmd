@@ -1,2 +1,2 @@
-"\bin\Firefox Setup 4.0.exe" -ms
-del /Q "C:\Documents and Settings\All Users\Рабочий стол\Mozilla Firefox.lnk"
+"\bin\Firefox Setup 7.0.1.exe" -ms
+del /Q "%ALLUSERSPROFILE%\Рабочий стол\Mozilla Firefox.lnk"

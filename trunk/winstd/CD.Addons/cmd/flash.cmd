@@ -1,1 +1,1 @@
-\bin\flash_player.10.0.42.34.exe /s
+\bin\flash_player.11.0.1.152.exe -install

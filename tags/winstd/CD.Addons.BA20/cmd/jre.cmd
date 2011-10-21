@@ -1,3 +1,3 @@
-\bin\jre-6u29-windows-i586-s.exe /s
+\bin\jre-6u21-windows-i586-s.exe /quiet /norestart
 reg delete HKLM\Software\Microsoft\Windows\CurrentVersion\Run /v SunJavaUpdateSched /f
-reg import \meta\jre.reg
+reg import \reg\jre.reg

@@ -1,2 +1,2 @@
-"\bin\Thunderbird Setup 3.1.9.exe" -ms
-del /Q "C:\Documents and Settings\All Users\Рабочий стол\Mozilla Thunderbird.lnk"
+"\bin\Thunderbird Setup 7.0.1.exe" -ms
+del /Q "%ALLUSERSPROFILE%\Рабочий стол\Mozilla Thunderbird.lnk"
