@@ -15,7 +15,7 @@ class   Person(models.Model):
     birthplace  = models.CharField(max_length=64, blank=True, verbose_name=u'Место рождения')
 
     def     __unicode__(self):
-        return self.lastname + self.firstname
+        return ("%s %s %s" % (self.lastname, self.firstname, self.midname)).rstrip()
 
     class   Meta:
         #app_label               = 'Ядро'

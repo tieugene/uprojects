@@ -1,0 +1,13 @@
+{% extends "core/base.html" %}
+{% block body_main %}
+<center> <a href="{% url person_list %}"> Человек: </a> </center>
+<table border="0">
+    <tr> <td> ID:            </td> <td> {{ object.pk }} </td> </tr>
+    <tr> <td> Фамилия:       </td> <td> {{ object.lastname }} </td> </tr>
+    <tr> <td> Имя:           </td> <td> {{ object.firstname }} </td> </tr>
+    <tr> <td> Отчество:      </td> <td> {{ object.midname }} </td> </tr>
+    <tr> <td> Пол:           </td> <td> {{ object.gender }} </td> </tr>
+    <tr> <td> Дата рождения: </td> <td> {{ object.birtdate|date:"d/m/Y" }} </td> </tr>
+    <tr> <td> Месторождения: </td> <td> {{ object.birthplace }} </td> </tr>
+</table>
+{% endblock %}

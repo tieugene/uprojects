@@ -14,7 +14,7 @@ def index(request):
 def person_list(request):
 	return  object_list (
 		request,
-		queryset = models.Person.objects.order_by('pk'),
+		queryset = models.Person.objects.all(),
 		paginate_by = PAGE_SIZE,
 		page = int(request.GET.get('page', '1')),
 	)
