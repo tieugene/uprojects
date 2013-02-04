@@ -8,3 +8,6 @@ Apps:
         * МедУслуги
         * Справочник лекарств
     + Enum
+== fixtures ==
+./manage.py dumpdata --format=json --indent=2 enum > enum.json
+or
