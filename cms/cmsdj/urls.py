@@ -5,6 +5,7 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     url(r'^$', 'views.index', name='index'),
+    url(r'^core/', include('core.urls')),
     url(r'^employee/', include('employee.urls')),
     #url(r'^patient/', include('patient.urls')),
 

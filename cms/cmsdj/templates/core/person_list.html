@@ -1,0 +1,16 @@
+{% extends "core/base.html" %}
+{% block body_main %}
+<center> Люди: </center>
+
+<table border="0">
+{% for object in object_list %}
+<tr>
+    <td align="right"> {{ forloop.counter }}. </td>
+    <td> <a href="{% url person_detail object.pk %}"> {{ object.lastname }} </a> </td>
+    <td> {{ object.firstname }} </td>
+    <td> {{ object.midname }} </td>
+</tr>
+{% endfor %}
+</table>
+
+{% endblock %}
