@@ -37,4 +37,9 @@ class	PersonAdmin(admin.ModelAdmin):
     #inlines         = (PersonPhoneLine,)
     inlines         = (PersonAddressLine, PersonPhoneLine, PersonEmailLine, PersonDocumentLine, PersonCodeLine,)
 
-admin.site.register(Person,	PersonAdmin)
+#admin.site.register(PersonAddress)
+#admin.site.register(PersonPhone)
+#admin.site.register(PersonEmail)
+#admin.site.register(PersonDocument)
+#admin.site.register(PersonCode)
+admin.site.register(Person, PersonAdmin)

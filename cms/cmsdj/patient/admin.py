@@ -6,4 +6,4 @@ from models import *
 class	PatientAdmin(admin.ModelAdmin):
     pass
 
-admin.site.register(Patient,	PatientAdmin)
+admin.site.register(Patient)

@@ -7,14 +7,12 @@
     <tr> <td> Имя:           </td> <td> {{ object.firstname }} </td> </tr>
     <tr> <td> Отчество:      </td> <td> {{ object.midname }} </td> </tr>
     <tr> <td> Пол:           </td> <td> {{ object.gender }} </td> </tr>
-    <tr> <td> Дата рождения: </td> <td> {{ object.birtdate|date:"d/m/Y" }} </td> </tr>
+    <tr> <td> Дата рождения: </td> <td> {{ object.birthdate|date:"d/m/Y" }} </td> </tr>
     <tr> <td> Месторождения: </td> <td> {{ object.birthplace }} </td> </tr>
 </table>
-<p> Адреса: </p>
-<ul>
-</ul>
-<p> Телефоны: </p>
-<p> Епочты: </p>
-<p> Документы: </p>
-<p> Коды: </p>
+<hr/> <p> Адреса: </p>    <ul> {% for i in object.addresses.all %} <li> {{ i }} </li> {% endfor %} </ul>
+<hr/> <p> Телефоны: </p>  <ul> {% for i in object.phones.all %} <li> {{ i }} </li> {% endfor %} </ul>
+<hr/> <p> Епочты: </p>    <ul> {% for i in object.emails.all %} <li> {{ i }} </li> {% endfor %} </ul>
+<hr/> <p> Документы: </p> <ul> {% for i in object.documents.all %} <li> {{ i }} </li> {% endfor %} </ul>
+<hr/> <p> Коды: </p>      <ul> {% for i in object.codes.all %} <li> {{ i }} </li> {% endfor %} </ul>
 {% endblock %}

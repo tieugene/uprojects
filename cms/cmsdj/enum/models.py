@@ -6,6 +6,11 @@ Enum
 from django.db import models
 from django.conf import settings
 
+import sys
+
+reload(sys)
+sys.setdefaultencoding('utf-8')
+
 class   Gender(models.Model):
     '''man, woman'''
     id      = models.PositiveIntegerField(primary_key=True)

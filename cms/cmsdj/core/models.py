@@ -5,6 +5,11 @@ from django.conf import settings
 
 from enum.models import *
 
+import sys
+
+reload(sys)
+sys.setdefaultencoding('utf-8')
+
 # main models
 class   Person(models.Model):
     lastname    = models.CharField(max_length=32, verbose_name=u'Фамилия')
@@ -24,7 +29,7 @@ class   Person(models.Model):
         verbose_name_plural     = u'Люди'
 
 class   PersonAddress(models.Model):
-    person      = models.ForeignKey(Person, related_name='Адреса', verbose_name=u'Людь')
+    person      = models.ForeignKey(Person, related_name='addresses', verbose_name=u'Людь')
     addrtype    = models.ForeignKey(PersonAddrType, related_name='+', verbose_name=u'Тип')
     # FK to ref.Address
     no          = models.CharField(max_length=5, verbose_name=u'Дом')
@@ -44,7 +49,7 @@ class   PersonAddress(models.Model):
         verbose_name_plural     = u'Адреса людей'
 
 class   PersonPhone(models.Model):
-    person      = models.ForeignKey(Person, related_name='Телефоны', verbose_name=u'Людь')
+    person      = models.ForeignKey(Person, related_name='phones', verbose_name=u'Людь')
     phonetype   = models.ForeignKey(PersonPhoneType, related_name='+', verbose_name=u'Тип')
     ccode       = models.CharField(max_length=3, verbose_name=u'Код страны')
     tcode       = models.CharField(max_length=6, verbose_name=u'Код транка')
@@ -52,7 +57,7 @@ class   PersonPhone(models.Model):
     hno         = models.CharField(max_length=9, verbose_name=u'Номер (читаемый)')
 
     def     __unicode__(self):
-        return "+%s (%s) %s" % (self.ccode, self.tcode, self.hno)
+        return "%s: +%s (%s) %s" % (self.phonetype.name, self.ccode, self.tcode, self.hno)
 
     class   Meta:
         #unique_together         = (('person', 'addrtype',),)
@@ -61,7 +66,7 @@ class   PersonPhone(models.Model):
         verbose_name_plural     = u'Телефоны'
 
 class   PersonEmail(models.Model):
-    person      = models.ForeignKey(Person, related_name='Эпочты', verbose_name=u'Людь')
+    person      = models.ForeignKey(Person, related_name='emails', verbose_name=u'Людь')
     email       = models.EmailField(verbose_name=u'Мыло')
 
     def     __unicode__(self):
@@ -74,7 +79,7 @@ class   PersonEmail(models.Model):
         verbose_name_plural     = u'Эпочты'
 
 class   PersonDocument(models.Model):
-    person      = models.ForeignKey(Person, related_name='Документы', verbose_name=u'Людь')
+    person      = models.ForeignKey(Person, related_name='documents', verbose_name=u'Людь')
     doctype     = models.ForeignKey(PersonDocType, related_name='+', verbose_name=u'Тип')
     series      = models.CharField(max_length=4, verbose_name=u'Серия')
     no          = models.CharField(max_length=8, verbose_name=u'Номер')
@@ -92,7 +97,7 @@ class   PersonDocument(models.Model):
         verbose_name_plural     = u'Документы'
 
 class   PersonCode(models.Model):
-    person      = models.ForeignKey(Person, related_name='Коды', verbose_name=u'Людь')
+    person      = models.ForeignKey(Person, related_name='codes', verbose_name=u'Людь')
     codetype    = models.ForeignKey(PersonCodeType, related_name='+', verbose_name=u'Тип')
     value       = models.CharField(max_length=32, verbose_name=u'Значение')
 
