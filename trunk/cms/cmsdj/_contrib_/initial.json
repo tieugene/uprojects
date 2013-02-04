@@ -1,0 +1,30 @@
+[
+ {
+  "pk": 1,
+  "model": "app1.model1",
+  "fields": {
+   "name": "\u0423\u043d\u043e"
+  }
+ },
+ {
+  "pk": 2,
+  "model": "app1.model1",
+  "fields": {
+   "name": "\u0414\u043e"
+  }
+ },
+ {
+  "pk": 3,
+  "model": "app1.model1",
+  "fields": {
+   "name": "\u0422\u0440\u0435\u0441"
+  }
+ },
+ {
+  "pk": 4,
+  "model": "app1.model1",
+  "fields": {
+   "name": "\u041a\u0432\u0430\u0442\u0440\u043e"
+  }
+ }
+]
