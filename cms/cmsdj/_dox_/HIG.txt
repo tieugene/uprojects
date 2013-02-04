@@ -1,0 +1,16 @@
+Human Interface Guide
+
+Пусть будет Person.detail:
+* запись со своими атрибутами:
+* атрибуты - в табличку Название: Значение
+* с подмоделями:
+* все значения подмоделей - в строку каждое.
+* всё редактируется inplace, без перегрузки страницы
+Редактируем
+Main:
+    * Edit | Delete =>
+    * Save | Cancel
+    ! restore on error (mark errors w/ red bg)
+Subs:
+    * Edit | Delete =>
+    * Save | Cancel

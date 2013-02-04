@@ -34,12 +34,6 @@ class	PersonAdmin(admin.ModelAdmin):
     ordering	    = ('lastname', 'firstname', 'midname',)
     list_display	= ('lastname', 'firstname', 'midname',)
     #Unicode error
-    #inlines         = (PersonPhoneLine,)
     inlines         = (PersonAddressLine, PersonPhoneLine, PersonEmailLine, PersonDocumentLine, PersonCodeLine,)
 
-#admin.site.register(PersonAddress)
-#admin.site.register(PersonPhone)
-#admin.site.register(PersonEmail)
-#admin.site.register(PersonDocument)
-#admin.site.register(PersonCode)
 admin.site.register(Person, PersonAdmin)
