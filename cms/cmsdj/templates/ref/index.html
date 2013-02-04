@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block jsready %}
+$("#tm_app1").addClass("active");
+{% endblock %}
+{% block body_main %}
+<center> App1 </center>
+<p> <a href="{% url model1_list %}"> Model1 </a> </p>
+{% endblock %}

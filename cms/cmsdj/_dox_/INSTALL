@@ -1,0 +1,53 @@
+Installation of myproject for developing and production
+
+= Fedora 17 =
+
+== prereq ==
+subversion Django httpd mod_wsgi[ memcached python-memcached]
+
+== local ==
+sudo svn co http://django-ru.googlecode.com/svn/trunk/myproject/
+cd myproject
+./manage.py sybncdb
+./manage.py loaddata _contrib_/initial.json
+./manage.py runserver
+http://localhost:8000/
+
+== apache ==
+# prepare environment
+sudo svn co http://django-ru.googlecode.com/svn/trunk/myproject/ /usr/share/myproject/
+sudo ln -s /usr/share/myproject/myproject.conf /etc/httpd/conf.d/myproject.conf
+sudo ln -s /usr/lib/python2.7/site-packages/django/contrib/admin/static/admin /usr/share/myproject/static/admin
+# customisation of project (e.g. put db and/or media into /var/lib/myproject)
+sudo cp /usr/share/myproject/_contrib_/local_settings.py.sample /usr/share/myproject/local_settings.py
+sudo mkdir /var/lib/myproject
+sudo chmod a+rwX /var/lib/myproject
+# prepare db
+/usr/share/myproject/manage.py syncdb
+/usr/share/myproject/manage.py loaddata /usr/share/myproject/_contrib_/initial.json
+#chmod a+rwX /var/lib/myproject/myproject.db
+# let's go
+sudo chown -R apache:apache /usr/share/myproject/
+sudo chown -R apache:apache /var/lib/myproject/
+#sudo chmod -R ug+rwX /usr/share/myproject/
+service httpd restart
+http://localhost/myproject/
+
+= Ubunto 12.10 =
+
+== prereq ==
+subversion python-django apache2 libapache2-mod-wsgi [ memcached python-memcache]
+
+== local ==
+<the same>
+
+== apache ==
+...
+sudo ln -s /usr/share/myproject/myproject.conf /etc/apache2/conf.d/myproject.conf
+sudo ln -s /usr/lib/python2.7/dist-packages/django/contrib/admin/static/admin /usr/share/myproject/static/admin
+...
+# let's go
+...
+sudo chown -R www-data:www-data /usr/share/myproject/
+sudo chown -R www-data:www-data /var/lib/myproject/
+/etc/init.d/apache2 restart

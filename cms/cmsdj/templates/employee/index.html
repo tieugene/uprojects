@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block jsready %}
+$("#tm_employee").addClass("active");
+{% endblock %}
+{% block body_main %}
+<center> Сотрудниики </center>
+<p> <a href="{% url employee_list %}"> Сотрудники </a> </p>
+{% endblock %}
