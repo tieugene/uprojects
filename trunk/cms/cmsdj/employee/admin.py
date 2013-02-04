@@ -6,4 +6,4 @@ from models import *
 class	EmployeeAdmin(admin.ModelAdmin):
     pass
 
-admin.site.register(Employee,	EmployeeAdmin)
+admin.site.register(Employee)
