@@ -3,6 +3,11 @@
 from django.contrib import admin
 from models import *
 
+import sys
+
+reload(sys)
+sys.setdefaultencoding('utf-8')
+
 # 1. inlines
 class   PersonAddressLine(admin.TabularInline):
     model   = PersonAddress
@@ -29,6 +34,7 @@ class	PersonAdmin(admin.ModelAdmin):
     ordering	    = ('lastname', 'firstname', 'midname',)
     list_display	= ('lastname', 'firstname', 'midname',)
     #Unicode error
-    #inlines         = (PersonAddressLine, PersonPhoneLine, PersonEmailLine, PersonDocumentLine, PersonCodeLine,)
+    #inlines         = (PersonPhoneLine,)
+    inlines         = (PersonAddressLine, PersonPhoneLine, PersonEmailLine, PersonDocumentLine, PersonCodeLine,)
 
 admin.site.register(Person,	PersonAdmin)
