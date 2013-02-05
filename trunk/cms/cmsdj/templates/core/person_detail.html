@@ -62,24 +62,30 @@ button {
             </select>
             <button type="button"> <img src="{{ STATIC_URL }}img/16/list-add.png" alt="Add"/> </button>
         </td>
-        <td align="right"> <button type="button"> <img src="{{ STATIC_URL }}img/16/edit-delete.png" alt="Delete"/> </button> </td>
+        <td align="right"> <button type="button"> <img src="{{ STATIC_URL }}img/16/list-remove.png" alt="Delete"/> </button> </td>
     </tr>
     <tr class="bt">
-        <td> Адреса: </td>
+        <td>
+            Адреса:
+            <button type="button"> <img src="{{ STATIC_URL }}img/16/list-add.png" alt="Add"/> </button>
+        </td>
         <td> {% for i in object.addresses.all %} <p> {{ i }} </p> {% endfor %} </td>
         <td>
             <button type="button"> <img src="{{ STATIC_URL }}img/16/document-edit.png" alt="Edit"/> </button>
             <button type="button"> <img src="{{ STATIC_URL }}img/16/edit-delete.png" alt="Delete"/> </button>
-            <input type="checkbox"/>
+            <span style="background-color: silver;"> <input type="checkbox"/> </span>
         </td>
     </tr>
     <tr class="bt">
-        <td> Телефоны: {{ object.phones.all.count }} </td>
+        <td>
+            Телефоны:
+            <button type="button"> <img src="{{ STATIC_URL }}img/16/list-add.png" alt="Add"/> </button>
+        </td>
         <td> {% for i in object.phones.all %} <p> {{ i }} </p> {% endfor %} </td>
         <td>
             <button type="button"> <img src="{{ STATIC_URL }}img/16/document-edit.png" alt="Edit"/> </button>
             <button type="button"> <img src="{{ STATIC_URL }}img/16/edit-delete.png" alt="Delete"/> </button>
-            <input type="checkbox"/>
+            <span style="background-color: silver;"> <input type="checkbox"/> </span>
         </td>
     </tr>
     <tr class="bt">
