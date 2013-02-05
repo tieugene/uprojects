@@ -7,10 +7,11 @@ Human Interface Guide
 * все значения подмоделей - в строку каждое.
 * всё редактируется inplace, без перегрузки страницы
 Редактируем
+[ Delete ]
 Main:
-    * Edit | Delete =>
-    * Save | Cancel
+    * [ Edit ]  =>
+    * [ Save ] [ Cancel ]
     ! restore on error (mark errors w/ red bg)
 Subs:
-    * Edit | Delete =>
-    * Save | Cancel
+    * [ Edit ] [ Delete ] =>
+    * [ Save ] [ Cancel ]
