@@ -22,7 +22,7 @@ button {
         <td> ID: </td>
         <td> {{ object.pk }} </td>
         <td rowspan="7" valign="top" align="right">
-            <button type="button"> <img src="{{ STATIC_URL }}img/document-edit.png" alt="Edit"/> </button>
+            <button type="button"> <img src="{{ STATIC_URL }}img/16/document-edit.png" alt="Edit"/> </button>
         </td>
     </tr>
     <tr>
@@ -50,20 +50,36 @@ button {
         <td> {{ object.birthplace }} </td>
     </tr>
     {# subs #}
+    <tr class="bt" bgcolor="silver">
+        <td> Добавить: </td>
+        <td>
+            <select>
+                <option> Адрес </option>
+                <option> Телефон </option>
+                <option> Эпочта </option>
+                <option> Документ </option>
+                <option> Код </option>
+            </select>
+            <button type="button"> <img src="{{ STATIC_URL }}img/16/list-add.png" alt="Add"/> </button>
+        </td>
+        <td align="right"> <button type="button"> <img src="{{ STATIC_URL }}img/16/edit-delete.png" alt="Delete"/> </button> </td>
+    </tr>
     <tr class="bt">
         <td> Адреса: </td>
         <td> {% for i in object.addresses.all %} <p> {{ i }} </p> {% endfor %} </td>
         <td>
-            <button type="button"> <img src="{{ STATIC_URL }}img/document-edit.png" alt="Edit"/> </button>
-            <button type="button"> <img src="{{ STATIC_URL }}img/edit-delete.png" alt="Delete"/> </button>
+            <button type="button"> <img src="{{ STATIC_URL }}img/16/document-edit.png" alt="Edit"/> </button>
+            <button type="button"> <img src="{{ STATIC_URL }}img/16/edit-delete.png" alt="Delete"/> </button>
+            <input type="checkbox"/>
         </td>
     </tr>
     <tr class="bt">
         <td> Телефоны: {{ object.phones.all.count }} </td>
         <td> {% for i in object.phones.all %} <p> {{ i }} </p> {% endfor %} </td>
         <td>
-            <button type="button"> <img src="{{ STATIC_URL }}img/document-edit.png" alt="Edit"/> </button>
-            <button type="button"> <img src="{{ STATIC_URL }}img/edit-delete.png" alt="Delete"/> </button>
+            <button type="button"> <img src="{{ STATIC_URL }}img/16/document-edit.png" alt="Edit"/> </button>
+            <button type="button"> <img src="{{ STATIC_URL }}img/16/edit-delete.png" alt="Delete"/> </button>
+            <input type="checkbox"/>
         </td>
     </tr>
     <tr class="bt">
@@ -80,7 +96,30 @@ button {
     </tr>
 </table>
 <pre>
-HIG:
+HIG: элементы управления сложной записью
+Страница detail для одной сложной записи состоит из:
+* Common: элементы, касающиеся всей записи;
+* Main: основной блок - атрибуты самой записи (ФИО etc);
+* Subs: многострочный блок - записи подчиненных таблиц/классов (адреса, телефоны).
+Общие принципы размещения элементов управления - а) не загромождать, б) минимум движений.
 
+= Common =
+Здесь находится только одна педаль - <u>Delete</u> (удалить всю запись)
+
+= Main =
+В норме вещей здесь есть только педаль Edit (редактировать атрибуты записи).
+При нажатии - появлется pop-up window с педалями <u>Save</u> и <u>Cancel</u>.
+По <u>Save</u> - перегружается вся страница detail.
+По <u>Cancel</u> - nothing to do.
+
+= Subs =
+Вариант "в каждом блоке - педаль Add, плюс к каждой подзаписи - педали Edit и Del" кажется излишне громоздким (см. экран).
+Поэтому:
+* Вверху/внизу всего многострочного блока (на экране <span style="background-color: silver"> выделено </span>):
+  - селектор что добавить (причем он остается на том месте, где был, т.е. если мы добавляли телефон - то по-дефолту останется телеон (для этой записи))),
+  - Педаль Add
+  - Педаль Del (удалить записи, отмеченные в чекбоксах).
+* напротив каждой записи каждого блока - checkbox (для удаления)
+* Что делать с Edit записи - хез. Может - и похерить, а оставить только Add и del (хотя это и нехорошая идея).
 </pre>
 {% endblock %}
