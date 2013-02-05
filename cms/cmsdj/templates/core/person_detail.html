@@ -67,65 +67,42 @@ button {
     <tr class="bt">
         <td>
             Адреса:
-            <button type="button"> <img src="{{ STATIC_URL }}img/16/list-add.png" alt="Add"/> </button>
+            <img src="{{ STATIC_URL }}img/16/list-add.png" alt="Add"/>
         </td>
         <td> {% for i in object.addresses.all %} <p> {{ i }} </p> {% endfor %} </td>
-        <td>
-            <button type="button"> <img src="{{ STATIC_URL }}img/16/document-edit.png" alt="Edit"/> </button>
-            <button type="button"> <img src="{{ STATIC_URL }}img/16/edit-delete.png" alt="Delete"/> </button>
-            <span style="background-color: silver;"> <input type="checkbox"/> </span>
+        <td align="right">
+            <img src="{{ STATIC_URL }}img/16/document-edit.png" alt="Edit"/>
+            <img src="{{ STATIC_URL }}img/16/edit-delete.png" alt="Delete"/>
         </td>
     </tr>
     <tr class="bt">
+        <td> Телефоны: </td>
+        <td> {% for i in object.phones.all %} <p>
+		<img src="{{ STATIC_URL }}img/16/document-edit.png" alt="Edit"/>
+		<img src="{{ STATIC_URL }}img/16/edit-delete.png" alt="Delete"/>
+	{{ i }} </p> {% endfor %} </td>
         <td>
-            Телефоны:
-            <button type="button"> <img src="{{ STATIC_URL }}img/16/list-add.png" alt="Add"/> </button>
-        </td>
-        <td> {% for i in object.phones.all %} <p> {{ i }} </p> {% endfor %} </td>
-        <td>
-            <button type="button"> <img src="{{ STATIC_URL }}img/16/document-edit.png" alt="Edit"/> </button>
-            <button type="button"> <img src="{{ STATIC_URL }}img/16/edit-delete.png" alt="Delete"/> </button>
-            <span style="background-color: silver;"> <input type="checkbox"/> </span>
         </td>
     </tr>
     <tr class="bt">
         <td> Епочты: </td>
-        <td> {% for i in object.emails.all %} <p> {{ i }} </p> {% endfor %} </td>
+        <td> {% for i in object.emails.all %} <p> <p>
+		<a href=""> <img src="{{ STATIC_URL }}img/16/document-edit.png" alt="Edit"/> </a>
+		{{ i }} </p> {% endfor %} </td>
+        <td align="right"> <input type="checkbox"/> </td>
     </tr>
     <tr class="bt">
         <td> Документы: </td>
         <td> {% for i in object.documents.all %} <p> {{ i }} </p> {% endfor %} </td>
+        <td align="right">
+		<a href=""> <img src="{{ STATIC_URL }}img/16/document-edit.png" alt="Edit"/> </a>
+		<input type="checkbox"/>
+	</td>
     </tr>
     <tr class="bt">
         <td> Коды: </td>
         <td> {% for i in object.codes.all %} <p> {{ i }} </p> {% endfor %} </td>
     </tr>
 </table>
-<pre>
-HIG: элементы управления сложной записью
-Страница detail для одной сложной записи состоит из:
-* Common: элементы, касающиеся всей записи;
-* Main: основной блок - атрибуты самой записи (ФИО etc);
-* Subs: многострочный блок - записи подчиненных таблиц/классов (адреса, телефоны).
-Общие принципы размещения элементов управления - а) не загромождать, б) минимум движений.
-
-= Common =
-Здесь находится только одна педаль - <u>Delete</u> (удалить всю запись)
-
-= Main =
-В норме вещей здесь есть только педаль Edit (редактировать атрибуты записи).
-При нажатии - появлется pop-up window с педалями <u>Save</u> и <u>Cancel</u>.
-По <u>Save</u> - перегружается вся страница detail.
-По <u>Cancel</u> - nothing to do.
-
-= Subs =
-Вариант "в каждом блоке - педаль Add, плюс к каждой подзаписи - педали Edit и Del" кажется излишне громоздким (см. экран).
-Поэтому:
-* Вверху/внизу всего многострочного блока (на экране <span style="background-color: silver"> выделено </span>):
-  - селектор что добавить (причем он остается на том месте, где был, т.е. если мы добавляли телефон - то по-дефолту останется телефон (для этой записи))),
-  - Педаль Add
-  - Педаль Del (удалить записи, отмеченные в чекбоксах).
-* напротив каждой записи каждого блока - checkbox (для удаления)
-* Что делать с Edit записи - хез. Может - и похерить, а оставить только Add и Del (хотя это и нехорошая идея).
-</pre>
+<pre> {% include "hig.txt" %} </pre>
 {% endblock %}
