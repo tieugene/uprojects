@@ -1,18 +1,86 @@
 {% extends "core/base.html" %}
+{% block css %}
+table {
+	padding: 0px;
+    border: 1px solid grey;
+    border-collapse: collapse;
+}
+tr.border {
+    border: 1px solid grey
+}
+button {
+    padding: 0;
+}
+{% endblock %}
 {% block body_main %}
-<center> <a href="{% url person_list %}"> Человек: </a> </center>
-<table border="0">
-    <tr> <td> ID:            </td> <td> {{ object.pk }} </td> </tr>
-    <tr> <td> Фамилия:       </td> <td> {{ object.lastname }} </td> </tr>
-    <tr> <td> Имя:           </td> <td> {{ object.firstname }} </td> </tr>
-    <tr> <td> Отчество:      </td> <td> {{ object.midname }} </td> </tr>
-    <tr> <td> Пол:           </td> <td> {{ object.gender }} </td> </tr>
-    <tr> <td> Дата рождения: </td> <td> {{ object.birthdate|date:"d/m/Y" }} </td> </tr>
-    <tr> <td> Месторождения: </td> <td> {{ object.birthplace }} </td> </tr>
+<p>
+    <a href="{% url person_list %}"> Человек: </a>
+    <button> Del </button>
+</p>
+<table class="border">
+    <tr>
+        <td> ID: </td>
+        <td> {{ object.pk }} </td>
+        <td rowspan="7" valign="top" align="right">
+            <button type="button"> <img src="{{ STATIC_URL }}img/document-edit.png" alt="Edit"/> </button>
+        </td>
+    </tr>
+    <tr>
+        <td> Фамилия: </td>
+        <td> {{ object.lastname }} </td>
+    </tr>
+    <tr>
+        <td> Имя: </td>
+        <td> {{ object.firstname }} </td>
+    </tr>
+    <tr>
+        <td> Отчество: </td>
+        <td> {{ object.midname }} </td>
+    </tr>
+    <tr>
+        <td> Пол: </td>
+        <td> {{ object.gender }} </td>
+    </tr>
+    <tr>
+        <td> Дата рождения: </td>
+        <td> {{ object.birthdate|date:"d/m/Y" }} </td>
+    </tr>
+    <tr>
+        <td> Место рождения: </td>
+        <td> {{ object.birthplace }} </td>
+    </tr>
+    {# subs #}
+    <tr class="bt">
+        <td> Адреса: </td>
+        <td> {% for i in object.addresses.all %} <p> {{ i }} </p> {% endfor %} </td>
+        <td>
+            <button type="button"> <img src="{{ STATIC_URL }}img/document-edit.png" alt="Edit"/> </button>
+            <button type="button"> <img src="{{ STATIC_URL }}img/edit-delete.png" alt="Delete"/> </button>
+        </td>
+    </tr>
+    <tr class="bt">
+        <td> Телефоны: {{ object.phones.all.count }} </td>
+        <td> {% for i in object.phones.all %} <p> {{ i }} </p> {% endfor %} </td>
+        <td>
+            <button type="button"> <img src="{{ STATIC_URL }}img/document-edit.png" alt="Edit"/> </button>
+            <button type="button"> <img src="{{ STATIC_URL }}img/edit-delete.png" alt="Delete"/> </button>
+        </td>
+    </tr>
+    <tr class="bt">
+        <td> Епочты: </td>
+        <td> {% for i in object.emails.all %} <p> {{ i }} </p> {% endfor %} </td>
+    </tr>
+    <tr class="bt">
+        <td> Документы: </td>
+        <td> {% for i in object.documents.all %} <p> {{ i }} </p> {% endfor %} </td>
+    </tr>
+    <tr class="bt">
+        <td> Коды: </td>
+        <td> {% for i in object.codes.all %} <p> {{ i }} </p> {% endfor %} </td>
+    </tr>
 </table>
-<hr/> <p> Адреса: </p>    <ul> {% for i in object.addresses.all %} <li> {{ i }} </li> {% endfor %} </ul>
-<hr/> <p> Телефоны: </p>  <ul> {% for i in object.phones.all %} <li> {{ i }} </li> {% endfor %} </ul>
-<hr/> <p> Епочты: </p>    <ul> {% for i in object.emails.all %} <li> {{ i }} </li> {% endfor %} </ul>
-<hr/> <p> Документы: </p> <ul> {% for i in object.documents.all %} <li> {{ i }} </li> {% endfor %} </ul>
-<hr/> <p> Коды: </p>      <ul> {% for i in object.codes.all %} <li> {{ i }} </li> {% endfor %} </ul>
+<pre>
+HIG:
+
+</pre>
 {% endblock %}
