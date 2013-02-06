@@ -11,18 +11,22 @@ tr.border {
 button {
     padding: 0;
 }
+a {
+    text-decoration: none;
+}
 {% endblock %}
 {% block body_main %}
 <p>
     <a href="{% url person_list %}"> Человек: </a>
-    <button> Del </button>
+    <a href="{% url person_delete object.pk %}"> <img src="{{ STATIC_URL }}img/16/edit-delete.png" alt="Delete"/> </a>
+    <!--object data="circle1.svg" type="image/svg+xml"></object-->
 </p>
 <table class="border">
     <tr>
         <td> ID: </td>
         <td> {{ object.pk }} </td>
         <td rowspan="7" valign="top" align="right">
-            <button type="button"> <img src="{{ STATIC_URL }}img/16/document-edit.png" alt="Edit"/> </button>
+            <a href="{% url person_update_main object.pk %}"> <img src="{{ STATIC_URL }}img/16/document-edit.png" alt="Edit"/> </a>
         </td>
     </tr>
     <tr>
@@ -60,7 +64,7 @@ button {
                 <option> Документ </option>
                 <option> Код </option>
             </select>
-            <button type="button"> <img src="{{ STATIC_URL }}img/16/list-add.png" alt="Add"/> </button>
+            <a button type="button"> <img src="{{ STATIC_URL }}img/16/edit-delete.png" alt="Add"/> </a>
         </td>
         <td align="right"> <button type="button"> <img src="{{ STATIC_URL }}img/16/list-remove.png" alt="Delete"/> </button> </td>
     </tr>

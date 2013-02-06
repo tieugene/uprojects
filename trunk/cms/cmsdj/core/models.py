@@ -22,6 +22,10 @@ class   Person(models.Model):
     def     __unicode__(self):
         return ("%s %s %s" % (self.lastname, self.firstname, self.midname)).rstrip()
 
+    @models.permalink
+    def get_absolute_url(self):
+        return ('person_detail', (), {'id': self.pk})
+
     class   Meta:
         #app_label               = 'Ядро'
         ordering                = ('lastname', 'firstname', 'midname')
