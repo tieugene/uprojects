@@ -1,6 +1,9 @@
 {% extends "core/base.html" %}
 {% block body_main %}
-<center> Люди: </center>
+<p>
+    Люди:
+    <a href="{% url person_create %}"> <img src="{{ STATIC_URL }}img/16/list-add.png" alt="Add"/> </a>
+</p>
 
 <table border="0">
 {% for object in object_list %}
