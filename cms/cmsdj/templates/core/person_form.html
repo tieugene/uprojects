@@ -1,4 +1,4 @@
-{% extends "core/base.html" %}
+{% extends "pure.html" %}
 {% block body_main %}
 <form action="" method="post">
 {% csrf_token %}
@@ -6,6 +6,6 @@
 {{ form.as_table }}
 </table>
 <button type="submit"> OK </button>
-<a href="{% if next %} {{ next }} {% else %} {% url person_list %} {% endif %}"> <button type="button"> Cancel </button> </a>
+<a href="{{ cancelurl }}"> <button type="button"> Cancel </button> </a>
 </form>
 {% endblock %}
