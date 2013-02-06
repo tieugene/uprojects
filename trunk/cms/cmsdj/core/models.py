@@ -44,7 +44,7 @@ class   PersonAddress(models.Model):
     app         = models.CharField(max_length=4, verbose_name=u'Квартира')
 
     def     __unicode__(self):
-        return self.no
+        return 'д. %s, корп. %s, стр. %s, кв. %s' % (self.no, self.housing, self.building, self.app)
 
     class   Meta:
         unique_together         = (('person', 'addrtype',),)

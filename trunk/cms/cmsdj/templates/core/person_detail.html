@@ -14,12 +14,16 @@ button {
 a {
     text-decoration: none;
 }
+.ptr {
+    cursor: pointer;
+}
 {% endblock %}
 {% block body_main %}
 <p>
     <a href="{% url person_list %}"> Человек: </a>
     <!--a href="{% url person_delete object.pk %}"> <img src="{{ STATIC_URL }}img/16/edit-delete.png" alt="Delete"/> </a-->
-    <button onClick="confirmDelete('{% url person_delete object.pk %}')"> Удалить </button>
+    <!--button onClick="confirmDelete('{% url person_delete object.pk %}')"> Удалить </button-->
+    <img class="ptr" src="{{ STATIC_URL }}img/16/edit-delete.png" alt="Delete" onClick="confirmDelete('{% url person_delete object.pk %}')"/>
     <!--object data="circle1.svg" type="image/svg+xml"></object-->
 </p>
 <table class="border">
@@ -65,23 +69,25 @@ a {
                 <option> Документ </option>
                 <option> Код </option>
             </select>
-            <a button type="button"> <img src="{{ STATIC_URL }}img/16/edit-delete.png" alt="Add"/> </a>
+            <a button type="button"> <img src="{{ STATIC_URL }}img/16/list-add.png" alt="Add"/> </a>
         </td>
         <td align="right"> <button type="button"> <img src="{{ STATIC_URL }}img/16/list-remove.png" alt="Delete"/> </button> </td>
     </tr>
     <tr class="bt">
         <td>
             Адреса:
-            <img src="{{ STATIC_URL }}img/16/list-add.png" alt="Add"/>
+            <a href="{% url personaddress_create object.pk %}"> <img src="{{ STATIC_URL }}img/16/list-add.png" alt="Add"/> </a>
         </td>
-        <td> {% for i in object.addresses.all %} <p> {{ i }} </p> {% endfor %} </td>
+        <td> {% for i in object.addresses.all %} <p>
+            <a href="{% url personaddress_update i.pk %}"> <img src="{{ STATIC_URL }}img/16/document-edit.png" alt="Edit"/> </a>
+            <img class="ptr" src="{{ STATIC_URL }}img/16/edit-delete.png" alt="Delete" onClick="confirmDelete('{% url personaddress_delete i.pk %}')"/>
+            {{ i }}
+        </p> {% endfor %} </td>
         <td align="right">
-            <img src="{{ STATIC_URL }}img/16/document-edit.png" alt="Edit"/>
-            <img src="{{ STATIC_URL }}img/16/edit-delete.png" alt="Delete"/>
         </td>
     </tr>
     <tr class="bt">
-        <td> Телефоны: </td>
+        <td> Телефоны: <img src="{{ STATIC_URL }}img/16/list-add.png" alt="Add"/> </td>
         <td> {% for i in object.phones.all %} <p>
 		<img src="{{ STATIC_URL }}img/16/document-edit.png" alt="Edit"/>
 		<img src="{{ STATIC_URL }}img/16/edit-delete.png" alt="Delete"/>
@@ -90,14 +96,14 @@ a {
         </td>
     </tr>
     <tr class="bt">
-        <td> Епочты: </td>
+        <td> Епочты: <img src="{{ STATIC_URL }}img/16/list-add.png" alt="Add"/> </td>
         <td> {% for i in object.emails.all %} <p> <p>
-		<a href=""> <img src="{{ STATIC_URL }}img/16/document-edit.png" alt="Edit"/> </a>
+		<img src="{{ STATIC_URL }}img/16/document-edit.png" alt="Edit"/>
 		{{ i }} </p> {% endfor %} </td>
-        <td align="right"> <input type="checkbox"/> </td>
+        <td align="right"> <img src="{{ STATIC_URL }}img/16/edit-delete.png" alt="Delete"/> </td>
     </tr>
     <tr class="bt">
-        <td> Документы: </td>
+        <td> Документы: <img src="{{ STATIC_URL }}img/16/list-add.png" alt="Add"/> </td>
         <td> {% for i in object.documents.all %} <p> {{ i }} </p> {% endfor %} </td>
         <td align="right">
 		<a href=""> <img src="{{ STATIC_URL }}img/16/document-edit.png" alt="Edit"/> </a>
@@ -106,7 +112,8 @@ a {
     </tr>
     <tr class="bt">
         <td> Коды: </td>
-        <td> {% for i in object.codes.all %} <p> {{ i }} </p> {% endfor %} </td>
+        <td> {% for i in object.codes.all %} <p> <img src="{{ STATIC_URL }}img/16/document-edit.png" alt="Edit"/> {{ i }} </p> {% endfor %} </td>
+        <td align="right"> <input type="checkbox"/> </td>
     </tr>
 </table>
 <pre> {% include "hig.txt" %} </pre>
