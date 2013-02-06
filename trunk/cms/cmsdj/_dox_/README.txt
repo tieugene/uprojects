@@ -11,3 +11,9 @@ Apps:
 == fixtures ==
 ./manage.py dumpdata --format=json --indent=2 enum > enum.json
 or
+
+= try =
+django-popup-forms
+django-ajax-selects
+python-django-dajax
+python-django-dajaxice
