@@ -2,7 +2,7 @@
 
 from django.conf import settings
 from django.core.urlresolvers import reverse
-from django.shortcuts import redirect
+from django.shortcuts import redirect, render_to_response
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic.simple import direct_to_template
 from django.views.generic.list_detail import object_list, object_detail
@@ -47,14 +47,32 @@ def personaddress_delete(request, id):
     object = models.PersonAddress.objects.get(pk=int(id))
     person = object.person
     object.delete()
-    return redirect('person_detail', args=[person.pk,])
+    return redirect('person_detail', id=person.pk)
 
+@csrf_exempt
 def personaddress_create(request, id):
-    person = models.Person.objects.get(pk=int(id))
-    #return  create_object (request, model = models.PersonAddress)
-    return  create_object (request, form_class = forms.PersonAddressForm, extra_context = {'cancelurl': reverse('person_detail', args=[person.pk,])})
+    #return create_object (request, form_class = forms.PersonAddressForm, extra_context = {'cancelurl': reverse('person_detail', args=[id,])})
+
+    if request.method == 'POST':
+        form = forms.PersonAddressForm(request.POST)
+        if form.is_valid():
+            person = form.cleaned_data['person']
+            form.save()
+            return redirect('person_detail', id=person.pk)
+    else:
+        form=forms.PersonAddressForm(initial = {'person': models.Person.objects.get(pk=int(id))})
+    return render_to_response(
+        'core/personaddress_form.html',
+        {'form':form, 'cancelurl': reverse('person_detail', args=[id,])}
+    )
 
 def personaddress_update(request, id):
     object = models.PersonAddress.objects.get(pk=int(id))
     person = object.person
-    return  update_object (request, model = models.PersonAddress, object_id = id, extra_context = {'cancelurl': reverse('person_detail', args=[person.pk,])})
+    return  update_object (
+        request,
+        model = models.PersonAddress,
+        object_id = id,
+        post_save_redirect = reverse('person_detail', args=[person.pk,]),
+        extra_context = {'cancelurl': reverse('person_detail', args=[person.pk,])}
+    )
