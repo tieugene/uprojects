@@ -75,12 +75,12 @@ a {
     </tr>
     <tr class="bt">
         <td>
-            Адреса:
             <a href="{% url personaddress_create object.pk %}"> <img src="{{ STATIC_URL }}img/16/list-add.png" alt="Add"/> </a>
+            Адреса:
         </td>
         <td> {% for i in object.addresses.all %} <p>
             <a href="{% url personaddress_update i.pk %}"> <img src="{{ STATIC_URL }}img/16/document-edit.png" alt="Edit"/> </a>
-            <img class="ptr" src="{{ STATIC_URL }}img/16/edit-delete.png" alt="Delete" onClick="confirmDelete('{% url personaddress_delete i.pk %}')"/>
+            <img class="ptr" src="{{ STATIC_URL }}img/16/list-remove.png" alt="Delete" onClick="confirmDelete('{% url personaddress_delete i.pk %}')"/>
             {{ i }}
         </p> {% endfor %} </td>
         <td align="right">
