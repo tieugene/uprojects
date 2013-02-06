@@ -31,24 +31,24 @@ def person_detail(request, id):
 		object_id = id,
 	)
 
-#csrf_exempt
-def person_create(request):
-	return  create_object (
-		request,
-        model = models.Person,
-	)
-
+# Person
 def person_delete(request, id):
-	#return  delete_object (request, model = models.Person, object_id = id)
     models.Person.objects.get(pk=int(id)).delete()
     return redirect('person_list')
 
+def person_create(request):
+	return  create_object (request, model = models.Person)
+
 def person_update(request, id):
-	return  update_object (
-		request,
-        model = models.Person,
-		object_id = id,
-        extra_context = {
-            'next': reverse('person_detail', args=[id,])
-        }
-	)
+	return  update_object (request, model = models.Person, object_id = id, extra_context = {'next': reverse('person_detail', args=[id,])})
+
+# PersonAddress
+def personaddress_delete(request, id):
+    models.PersonAddress.objects.get(pk=int(id)).delete()
+    return redirect('person_detail')
+
+def personaddress_create(request, id):
+	return  create_object (request, model = models.PersonAddress)
+
+def personaddress_update(request, id):
+	return  update_object (request, model = models.PersonAddress, object_id = id, extra_context = {'next': reverse('person_detail', args=[id,])})
