@@ -18,7 +18,8 @@ a {
 {% block body_main %}
 <p>
     <a href="{% url person_list %}"> Человек: </a>
-    <a href="{% url person_delete object.pk %}"> <img src="{{ STATIC_URL }}img/16/edit-delete.png" alt="Delete"/> </a>
+    <!--a href="{% url person_delete object.pk %}"> <img src="{{ STATIC_URL }}img/16/edit-delete.png" alt="Delete"/> </a-->
+    <button onClick="confirmDelete('{% url person_delete object.pk %}')"> Удалить </button>
     <!--object data="circle1.svg" type="image/svg+xml"></object-->
 </p>
 <table class="border">
@@ -26,7 +27,7 @@ a {
         <td> ID: </td>
         <td> {{ object.pk }} </td>
         <td rowspan="7" valign="top" align="right">
-            <a href="{% url person_update_main object.pk %}"> <img src="{{ STATIC_URL }}img/16/document-edit.png" alt="Edit"/> </a>
+            <a href="{% url person_update object.pk %}"> <img src="{{ STATIC_URL }}img/16/document-edit.png" alt="Edit"/> </a>
         </td>
     </tr>
     <tr>
