@@ -30,7 +30,7 @@
 	<td> <div id="tm_home"> <a href="{% url index %}"> Home </a> </div> </td>
 	<td> <div id="tm_core"> <a href="{% url core_index %}"> Ядро </a> </div> </td>
 	<td> <div id="tm_employee"> <a href="{% url employee_index %}"> Сотрудники </a> </div> </td>
-	<td> <div id="tm_patient"> <a href="{# url patient_index #}"> Поциенты </a> </div> </td>
+	<td> <div id="tm_patient"> <a href="{% url patient_index %}"> Поциэнты </a> </div> </td>
 	<td style="width: 100%"> <div> <b> CMS </b> </div> </td>
 	{% if user.is_authenticated %}
     <td> <div> {{ user.username }} : </div> </td>
