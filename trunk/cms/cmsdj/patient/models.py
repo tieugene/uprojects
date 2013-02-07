@@ -17,6 +17,10 @@ class   Patient(models.Model):
     def     __unicode__(self):
         return str(self.person)
 
+    @models.permalink
+    def get_absolute_url(self):
+        return ('patient_detail', (), {'id': self.pk})
+
     class   Meta:
         ordering                = ('person', )
         verbose_name            = u'Поциэнт'

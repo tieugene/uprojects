@@ -58,6 +58,16 @@ a {
         <td> Место рождения: </td>
         <td> {{ object.birthplace }} </td>
     </tr>
+    <tr>
+        <td> Известен как: </td>
+        <td>
+            {% if object.patient %}
+                <a href="{{ object.patient.get_absolute_url }}"> поциэнт </a>
+            {% else %}
+                никак
+            {% endif %}
+        </td>
+    </tr>
 </table>
 <br/>
 <table>
@@ -132,5 +142,5 @@ a {
         </p> {% endfor %} </td>
     </tr>
 </table>
-<pre> {% include "hig.txt" %} </pre>
+<pre> {# include "hig.txt" #} </pre>
 {% endblock %}
