@@ -25,3 +25,12 @@ def patient_detail(request, id):
 		queryset = models.Patient.objects.all(),
 		object_id = id,
 	)
+
+def patient_create(request):
+    pass
+
+def patient_update(request, id):
+    pass
+
+def patient_delete(request, id):
+    pass
