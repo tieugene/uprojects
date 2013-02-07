@@ -17,3 +17,10 @@ django-popup-forms
 django-ajax-selects
 python-django-dajax
 python-django-dajaxice
+
+= predefined person =
+* disable - отсутствует в POST
+* hidden - ok, но не скрывает заголовок
+* exclude() - не проверяет валидность формы по person
+? disabled + required=False
+? Лучше всего - filter
