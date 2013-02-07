@@ -43,36 +43,50 @@ def person_update(request, id):
 	return  update_object (request, model = models.Person, object_id = id, extra_context = {'cancelurl': reverse('person_detail', args=[id,])})
 
 # PersonAddress
-def personaddress_delete(request, id):
-    object = models.PersonAddress.objects.get(pk=int(id))
-    person = object.person
-    object.delete()
-    return redirect('person_detail', id=person.pk)
-
 @csrf_exempt
 def personaddress_create(request, id):
-    #return create_object (request, form_class = forms.PersonAddressForm, extra_context = {'cancelurl': reverse('person_detail', args=[id,])})
+    return __person_sub_create(request, id, forms.PersonAddressForm, 'Новый адрес')
 
+@csrf_exempt
+def personaddress_update(request, id):
+    return __person_sub_update(request, id, models.PersonAddress)
+
+def personaddress_delete(request, id):
+    return __person_sub_delete(request, id, models.PersonAddress)
+
+# Person*
+def __person_sub_create(request, id, formclass, title):
+    #return create_object (request, form_class = forms.PersonAddressForm, extra_context = {'cancelurl': reverse('person_detail', args=[id,])})
+    person = models.Person.objects.get(pk=int(id))
     if request.method == 'POST':
-        form = forms.PersonAddressForm(request.POST)
+        form = formclass(request.POST)
         if form.is_valid():
-            person = form.cleaned_data['person']
             form.save()
             return redirect('person_detail', id=person.pk)
     else:
-        form=forms.PersonAddressForm(initial = {'person': models.Person.objects.get(pk=int(id))})
+        form=formclass(initial = {'person': person})
     return render_to_response(
-        'core/personaddress_form.html',
-        {'form':form, 'cancelurl': reverse('person_detail', args=[id,])}
+        'core/person_sub_form.html',
+        {
+            'form':form,
+            'title': '%s %s' % (title, str(person)),
+            'cancelurl': reverse('person_detail', args=[id,]),
+        }
     )
 
-def personaddress_update(request, id):
-    object = models.PersonAddress.objects.get(pk=int(id))
-    person = object.person
+def __person_sub_update(request, id, subclass):
+    person = subclass.objects.get(pk=int(id)).person
     return  update_object (
         request,
-        model = models.PersonAddress,
+        model = subclass,
         object_id = id,
+        template_name = 'core/person_sub_form.html',
         post_save_redirect = reverse('person_detail', args=[person.pk,]),
         extra_context = {'cancelurl': reverse('person_detail', args=[person.pk,])}
     )
+
+def __person_sub_delete(request, id, subclass):
+    object = subclass.objects.get(pk=int(id))
+    person = object.person
+    object.delete()
+    return redirect('person_detail', id=person.pk)
