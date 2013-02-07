@@ -23,7 +23,6 @@ a {
     <a href="{% url person_list %}"> Человек: </a>
     <!--a href="{% url person_delete object.pk %}"> <img src="{{ STATIC_URL }}img/16/edit-delete.png" alt="Delete"/> </a-->
     <!--button onClick="confirmDelete('{% url person_delete object.pk %}')"> Удалить </button-->
-    <img class="ptr" src="{{ STATIC_URL }}img/16/edit-delete.png" alt="Delete" onClick="confirmDelete('{% url person_delete object.pk %}')"/>
     <!--object data="circle1.svg" type="image/svg+xml"></object-->
 </p>
 <table class="border">
@@ -31,7 +30,8 @@ a {
         <td> ID: </td>
         <td> {{ object.pk }} </td>
         <td rowspan="7" valign="top" align="right">
-            <a href="{% url person_update object.pk %}"> <img src="{{ STATIC_URL }}img/16/document-edit.png" alt="Edit"/> </a>
+            <img class="ptr" src="{{ STATIC_URL }}img/16/edit-delete.png" alt="Delete" onClick="confirmDelete('{% url person_delete object.pk %}')"/>
+            <a href="{% url person_update object.pk %}"> {% include "img_edit.html" %} </a>
         </td>
     </tr>
     <tr>
@@ -77,35 +77,44 @@ a {
         </td>
     </tr>
     <tr class="bt">
-        <td> Адреса: <a href="{% url personaddress_create object.pk %}"> {% include "img_add.html" %} </a> </td>
+        <td> Адреса: <a href="{% url person_create_address object.pk %}"> {% include "img_add.html" %} </a> </td>
         <td> {% for i in object.addresses.all %} <p>
-            <img src="{{ STATIC_URL }}img/16/list-remove.png" alt="Delete" onClick="confirmDelete('{% url personaddress_delete i.pk %}')"/>
-            <a href="{% url personaddress_update i.pk %}"> {% include "img_edit.html" %} </a>
+            <img src="{{ STATIC_URL }}img/16/list-remove.png" alt="Delete" onClick="confirmDelete('{% url person_delete_address i.pk %}')"/>
+            <a href="{% url person_update_address i.pk %}"> {% include "img_edit.html" %} </a>
             {{ i }}
         </p> {% endfor %} </td>
     </tr>
     <tr class="bt">
-        <td> Телефоны: {% include "img_add.html" %} </td>
+        <td> Телефоны: <a href="{% url person_create_phone object.pk %}"> {% include "img_add.html" %} </a> </td>
         <td> {% for i in object.phones.all %} <p>
-            <input type="checkbox"/>
-            {% include "img_edit.html" %}
+            <img src="{{ STATIC_URL }}img/16/list-remove.png" alt="Delete" onClick="confirmDelete('{% url person_delete_phone i.pk %}')"/>
+            <a href="{% url person_update_phone i.pk %}"> {% include "img_edit.html" %} </a>
             {{ i }}
         </p> {% endfor %} </td>
     </tr>
     <tr class="bt">
-        <td> Епочты: <img src="{{ STATIC_URL }}img/16/list-add.png" alt="Add"/> </td>
+        <td> Епочты: <a href="{% url person_create_email object.pk %}"> {% include "img_add.html" %} </a> </td>
         <td> {% for i in object.emails.all %} <p>
-            {% include "img_edit.html" %}
+            <input type="checkbox"/>
+            <a href="{% url person_update_email i.pk %}"> {% include "img_edit.html" %} </a>
             {{ i }}
         </p> {% endfor %} </td>
     </tr>
     <tr class="bt">
-        <td> Документы: <img src="{{ STATIC_URL }}img/16/list-add.png" alt="Add"/> </td>
-        <td> {% for i in object.documents.all %} <p> {{ i }} </p> {% endfor %} </td>
+        <td> Документы: <a href="{% url person_create_document object.pk %}"> {% include "img_add.html" %} </a> </td>
+        <td> {% for i in object.documents.all %} <p>
+            <input type="checkbox"/>
+            <a href="{% url person_update_document i.pk %}"> {% include "img_edit.html" %} </a>
+            {{ i }}
+        </p> {% endfor %} </td>
     </tr>
     <tr class="bt">
-        <td> Коды: </td>
-        <td> {% for i in object.codes.all %} <p> <img src="{{ STATIC_URL }}img/16/document-edit.png" alt="Edit"/> {{ i }} </p> {% endfor %} </td>
+        <td> Коды: <a href="{% url person_create_code object.pk %}"> {% include "img_add.html" %} </a> </td>
+        <td> {% for i in object.codes.all %} <p>
+            <input type="checkbox"/>
+            <a href="{% url person_update_code i.pk %}"> {% include "img_edit.html" %} </a>
+            {{ i }}
+        </p> {% endfor %} </td>
     </tr>
 </table>
 <pre> {% include "hig.txt" %} </pre>

@@ -22,3 +22,19 @@ class   PersonAddressForm(forms.ModelForm):
 
     #def clean_person(self):
     #    return self.instance.person
+
+class   PersonPhoneForm(forms.ModelForm):
+    class       Meta:
+        model = PersonPhone
+
+class   PersonEmailForm(forms.ModelForm):
+    class       Meta:
+        model = PersonEmail
+
+class   PersonDocumentForm(forms.ModelForm):
+    class       Meta:
+        model = PersonDocument
+
+class   PersonCodeForm(forms.ModelForm):
+    class       Meta:
+        model = PersonCode

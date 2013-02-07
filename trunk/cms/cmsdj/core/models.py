@@ -70,6 +70,10 @@ class   PersonPhone(models.Model):
         verbose_name_plural     = u'Телефоны'
 
 class   PersonEmail(models.Model):
+    '''
+    TODO: change to Econtact: scheme+value.
+    Scheme = mailto:, skype, icq:
+    '''
     person      = models.ForeignKey(Person, related_name='emails', verbose_name=u'Людь')
     email       = models.EmailField(verbose_name=u'Мыло')
 
