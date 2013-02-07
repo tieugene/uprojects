@@ -44,15 +44,63 @@ def person_update(request, id):
 
 # PersonAddress
 @csrf_exempt
-def personaddress_create(request, id):
+def person_create_address(request, id):
     return __person_sub_create(request, id, forms.PersonAddressForm, 'Новый адрес')
 
 @csrf_exempt
-def personaddress_update(request, id):
+def person_update_address(request, id):
     return __person_sub_update(request, id, models.PersonAddress)
 
-def personaddress_delete(request, id):
+def person_delete_address(request, id):
     return __person_sub_delete(request, id, models.PersonAddress)
+
+# PersonPhone
+@csrf_exempt
+def person_create_phone(request, id):
+    return __person_sub_create(request, id, forms.PersonPhoneForm, 'Новый телефон')
+
+@csrf_exempt
+def person_update_phone(request, id):
+    return __person_sub_update(request, id, models.PersonPhone)
+
+def person_delete_phone(request, id):
+    return __person_sub_delete(request, id, models.PersonPhone)
+
+# PersonEmail
+@csrf_exempt
+def person_create_email(request, id):
+    return __person_sub_create(request, id, forms.PersonEmailForm, 'Новый Email')
+
+@csrf_exempt
+def person_update_email(request, id):
+    return __person_sub_update(request, id, models.PersonEmail)
+
+def person_delete_email(request, id):
+    return __person_sub_delete(request, id, models.PersonEmail)
+
+# PersonDocument
+@csrf_exempt
+def person_create_document(request, id):
+    return __person_sub_create(request, id, forms.PersonDocumentForm, 'Новый документ')
+
+@csrf_exempt
+def person_update_document(request, id):
+    return __person_sub_update(request, id, models.PersonDocument)
+
+def person_delete_document(request, id):
+    return __person_sub_delete(request, id, models.PersonDocument)
+
+# PersonCode
+@csrf_exempt
+def person_create_code(request, id):
+    return __person_sub_create(request, id, forms.PersonCodeForm, 'Новый код')
+
+@csrf_exempt
+def person_update_code(request, id):
+    return __person_sub_update(request, id, models.PersonCode)
+
+def person_delete_code(request, id):
+    return __person_sub_delete(request, id, models.PersonCode)
 
 # Person*
 def __person_sub_create(request, id, formclass, title):
