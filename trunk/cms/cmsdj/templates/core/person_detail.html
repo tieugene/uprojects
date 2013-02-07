@@ -20,7 +20,7 @@ a {
 {% endblock %}
 {% block body_main %}
 <p>
-    <a href="{% url person_list %}"> Человек: </a>
+    <a href="{% url person_list %}"> Людь: </a>
     <!--a href="{% url person_delete object.pk %}"> <img src="{{ STATIC_URL }}img/16/edit-delete.png" alt="Delete"/> </a-->
     <!--button onClick="confirmDelete('{% url person_delete object.pk %}')"> Удалить </button-->
     <!--object data="circle1.svg" type="image/svg+xml"></object-->
@@ -77,7 +77,10 @@ a {
         </td>
     </tr>
     <tr class="bt">
-        <td> Адреса: <a href="{% url person_create_address object.pk %}"> {% include "img_add.html" %} </a> </td>
+        <td>
+            Адреса:
+           <a href="{% url person_create_address object.pk %}"> {% include "img_add.html" %} </a>
+        </td>
         <td> {% for i in object.addresses.all %} <p>
             <img src="{{ STATIC_URL }}img/16/list-remove.png" alt="Delete" onClick="confirmDelete('{% url person_delete_address i.pk %}')"/>
             <a href="{% url person_update_address i.pk %}"> {% include "img_edit.html" %} </a>
@@ -85,7 +88,10 @@ a {
         </p> {% endfor %} </td>
     </tr>
     <tr class="bt">
-        <td> Телефоны: <a href="{% url person_create_phone object.pk %}"> {% include "img_add.html" %} </a> </td>
+        <td>
+            Телефоны:
+            <a href="{% url person_create_phone object.pk %}"> {% include "img_add.html" %} </a>
+        </td>
         <td> {% for i in object.phones.all %} <p>
             <img src="{{ STATIC_URL }}img/16/list-remove.png" alt="Delete" onClick="confirmDelete('{% url person_delete_phone i.pk %}')"/>
             <a href="{% url person_update_phone i.pk %}"> {% include "img_edit.html" %} </a>
@@ -93,15 +99,21 @@ a {
         </p> {% endfor %} </td>
     </tr>
     <tr class="bt">
-        <td> Епочты: <a href="{% url person_create_email object.pk %}"> {% include "img_add.html" %} </a> </td>
+        <td>
+            <a href="{% url person_create_email object.pk %}"> {% include "img_add.html" %} </a>
+            Епочты:
+        </td>
         <td> {% for i in object.emails.all %} <p>
             <input type="checkbox"/>
             <a href="{% url person_update_email i.pk %}"> {% include "img_edit.html" %} </a>
-            {{ i }}
+            <a href="mailto:{{ i }}"> {{ i }} </a>
         </p> {% endfor %} </td>
     </tr>
     <tr class="bt">
-        <td> Документы: <a href="{% url person_create_document object.pk %}"> {% include "img_add.html" %} </a> </td>
+        <td>
+            <a href="{% url person_create_document object.pk %}"> {% include "img_add.html" %} </a>
+            Документы:
+        </td>
         <td> {% for i in object.documents.all %} <p>
             <input type="checkbox"/>
             <a href="{% url person_update_document i.pk %}"> {% include "img_edit.html" %} </a>
@@ -109,7 +121,10 @@ a {
         </p> {% endfor %} </td>
     </tr>
     <tr class="bt">
-        <td> Коды: <a href="{% url person_create_code object.pk %}"> {% include "img_add.html" %} </a> </td>
+        <td>
+            Коды:
+            <!--a href="{% url person_create_code object.pk %}"> {% include "img_add.html" %} </a-->
+        </td>
         <td> {% for i in object.codes.all %} <p>
             <input type="checkbox"/>
             <a href="{% url person_update_code i.pk %}"> {% include "img_edit.html" %} </a>

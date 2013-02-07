@@ -38,10 +38,10 @@ class   PersonAddress(models.Model):
     # FK to ref.Address
     no          = models.CharField(max_length=5, verbose_name=u'Дом')
     #htype       = models.CharField(max_length=4, verbose_name=u'корп/лит')
-    housing     = models.CharField(max_length=3, verbose_name=u'Корпус')
-    building    = models.CharField(max_length=3, verbose_name=u'Строение')
+    housing     = models.CharField(max_length=3, blank=True, verbose_name=u'Корпус')
+    building    = models.CharField(max_length=3, blank=True, verbose_name=u'Строение')
     #atype       = models.CharField(max_length=3, verbose_name=u'кв/пом')
-    app         = models.CharField(max_length=4, verbose_name=u'Квартира')
+    app         = models.CharField(max_length=4, blank=True, verbose_name=u'Квартира')
 
     def     __unicode__(self):
         return '%s: д. %s, корп. %s, стр. %s, кв. %s' % (self.addrtype.name, self.no, self.housing, self.building, self.app)

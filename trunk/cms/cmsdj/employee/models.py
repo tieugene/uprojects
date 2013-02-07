@@ -12,7 +12,7 @@ class   Employee(models.Model):
     person      = models.OneToOneField(Person, verbose_name=u'Людь')
 
     def     __unicode__(self):
-        return self.person.name
+        return str(self.person)
 
     class   Meta:
         ordering                = ('person', )

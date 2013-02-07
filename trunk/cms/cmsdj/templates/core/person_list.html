@@ -2,7 +2,7 @@
 {% block body_main %}
 <p>
     Люди:
-    <a href="{% url person_create %}"> <img src="{{ STATIC_URL }}img/16/list-add.png" alt="Add"/> </a>
+    <a href="{% url person_create %}"> {% include "img_add.html" %} </a>
 </p>
 
 <table border="0">

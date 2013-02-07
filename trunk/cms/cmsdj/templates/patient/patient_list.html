@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "patient/base.html" %}
 {% block jsready %}
 $("#tm_app1").addClass("active");
 {% endblock %}
@@ -7,7 +7,7 @@ $("#tm_app1").addClass("active");
 
 <ul>
 {% for object in object_list %}
-<li> <a href="{% url model1_detail object.pk %}"> {{ object.name }} </a> </li>
+<li> <a href="{% url patient_detail object.pk %}"> {{ object }} </a> </li>
 {% endfor %}
 </ul>
 
