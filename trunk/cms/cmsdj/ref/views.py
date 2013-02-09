@@ -9,19 +9,13 @@ import models
 PAGE_SIZE = 20
 
 def index(request):
-    return direct_to_template(request, 'app1/index.html')
+    return direct_to_template(request, 'ref/index.html')
 
-def mkb10_list(request):
+def pmu_list(request):
 	return  object_list (
 		request,
-		queryset = models.MKB10.objects.order_by('pk'),
+		queryset = models.PMU3.objects.order_by('pk'),
+        template_name = 'ref/pmu_list.html',
 		paginate_by = PAGE_SIZE,
 		page = int(request.GET.get('page', '1')),
-	)
-
-def mkb10_detail(request, id):
-	return  object_detail (
-		request,
-		queryset = models.MKB10.objects.all(),
-		object_id = id,
 	)

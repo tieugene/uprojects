@@ -58,6 +58,7 @@ INSTALLED_APPS = (
     'utils',
     'core',
     'enum',
+    'ref',
     'employee',
     'patient',
 )
