@@ -1,0 +1,11 @@
+{% extends "ref/base.html" %}
+{% block body_main %}
+<center> ПМУ: </center>
+
+<ul>
+{% for object in object_list %}
+    <li> {{ object }} </li>
+{% endfor %}
+</ul>
+
+{% endblock %}
