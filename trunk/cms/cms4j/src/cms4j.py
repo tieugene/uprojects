@@ -7,19 +7,28 @@ try: web2py bottle flask pyramid cherripy
 '''
 
 # 3rd parties
-import web
+try:
+	import web
+except:
+	print "install python-webpy first"
+try:
+	from neo4jrestclient import client
+except:
+	print "install python-neo4jrestclient first"
 # system
 import sys, os, tempfile, pprint, datetime
 
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
+db = None
 debug = True
 cache = False
 try:
         from local_settings import *
 except ImportError:
         pass
+
 render = web.template.render('templates', base='base', cache=cache)
 
 # validators
@@ -31,6 +40,13 @@ person_form = web.form.Form (
 	web.form.Textbox('midname',	description='Отчество'),
 )
 
+def	connect():
+	global db
+	try:
+		db = client.GraphDatabase("http://localhost:7474/db/data/")
+	except:
+		pass
+
 class	Index:
 	def	GET(self):
 		return render.index()
@@ -41,7 +57,14 @@ class	Core:
 
 class	PersonList:
 	def	GET(self):
-		return render.person_list()
+		global db
+		if (db == None):
+			connect()
+			if db == None:
+				print "db err"
+		q = 'START n=node(*) RETURN n'
+		nodes = db.query(q, returns=(client.Node,))
+		return render.person_list(nodes)
 
 class	PersonAdd:
 	def	GET(self):
