@@ -22,17 +22,51 @@ except ImportError:
         pass
 render = web.template.render('templates', base='base', cache=cache)
 
-class	index:
+# validators
+chk_empty = web.form.Validator('Обязательное поле', bool)
+
+person_form = web.form.Form (
+	web.form.Textbox('lastname',	chk_empty, description='Фамилия'),
+	web.form.Textbox('firstname',	chk_empty, description='Имя'),
+	web.form.Textbox('midname',	description='Отчество'),
+)
+
+class	Index:
 	def	GET(self):
 		return render.index()
 
-class	core:
+class	Core:
 	def	GET(self):
 		return render.core()
 
+class	PersonList:
+	def	GET(self):
+		return render.person_list()
+
+class	PersonAdd:
+	def	GET(self):
+		return render.person_add(person_form())
+
+class	PersonView:
+	def	GET(self):
+		return render.person_view()
+
+class	PersonEdit:
+	def	GET(self):
+		return render.person_edit()
+
+class	PersonDel:
+	def	GET(self):
+		return render.person_del()
+
 urls = (
-	'/', 'index',
-	'/core/', 'core',
+	'/',			'Index',
+	'/core/',		'Core',
+	'/person_list/',	'PersonList',
+	'/person_add/',		'PersonAdd',
+	'/person_view/',	'PersonView',
+	'/person_edit/',	'PersonEdit',
+	'/person_del/',		'PersonDel',
 )
 
 # 1. standalone
