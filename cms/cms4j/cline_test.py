@@ -3,7 +3,7 @@
 __author__ = 'sdvinfo@gmail.com'
 
 
-import os,neo4j
+import os
 #from neo4j import GraphDatabase
 #from py2neo import neo4j, rest
 from neo4jrestclient import client
@@ -150,11 +150,11 @@ def main():
 
             for i in result:
                 #db.nodes.get(i)
-                print u'Узел: ',i[0].properties['name'],' id: ',i[0].id
+                print u'Узел: ',i[0].properties['firstname'],' id: ',i[0].id
                 print u'Свойства узла: START:',i[1].start,' -> END:',i[1].end,' TYPE: ',i[1].type
                 #print
                 #print u'Связь: ', i
-         elif x=='5':
+        elif x=='5':
 
             break
 
