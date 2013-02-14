@@ -1,0 +1,47 @@
+// dot -Tsvg -o n4vu.svg n4vu.dot
+
+digraph ui {
+ label = "n4vu";
+ rankdir = LR;
+ node [ shape = rectangle, style=rounded ];
+ subgraph cluster_node {
+  label = "Node";
+  shape = folder;
+  node_list	[ label = "List" ];
+  node_detail	[ label = "Detail" ];
+  subgraph cluster_nparm {
+   label = "Parm";
+   nparm_add	[ label = "Add" ];
+   nparm_edit	[ label = "Edit" ];
+  }
+ }
+ subgraph cluster_rel {
+  label = "Relation";
+  rel_detail	[ label = "Detail" ];
+  subgraph cluster_rparm {
+   label = "Parm";
+   rparm_add	[ label = "Add" ];
+   rparm_edit	[ label = "Edit" ];
+  }
+ }
+ index -> node_list;
+ node_list -> node_detail [ label = "View" ];
+ node_list -> node_detail [ label = "Add" ];
+ node_detail -> node_list [ label = "Del" ];
+ node_detail -> node_detail [ label = "Del\nparm" ];
+ node_detail -> node_detail [ label = "Del\nrel" ];
+ node_detail -> nparm_add [ label = "Add\nparm" ];
+ nparm_add -> nparm_add [ label = "Err" ];
+ nparm_add -> node_detail [ label = "OK\nCancel" ];
+ node_detail -> nparm_edit [ label = "Edit\nparm" ];
+ nparm_edit -> nparm_edit [ label = "Err" ];
+ nparm_edit -> node_detail [ label = "OK\nCancel" ];
+ node_detail -> rel_detail;
+ rel_detail -> node_detail;
+ rel_detail -> rparm_add [ label = "Add\nparm" ];
+ rparm_add -> rparm_add [ label = "Err" ];
+ rparm_add -> rel_detail [ label = "OK\nCancel" ];
+ rel_detail -> rparm_edit [ label = "Edit\nparm" ];
+ rparm_edit -> rparm_edit [ label = "Err" ];
+ rparm_edit -> rel_detail [ label = "OK\nCancel" ];
+}
