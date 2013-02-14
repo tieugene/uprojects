@@ -76,9 +76,22 @@ class	NodeDel:
 		raise web.seeother('/node/')
 
 # Node parameters
-class	NParmEdit:
-	def	GET(self):
+class	NodeParmAdd:
+	def	GET(self, id):
 		return render.nparm.edit()
+
+class	NodeParmDel:
+	def	GET(self, id, name):
+		db = getdb()
+		node = db.nodes.get(int(id))
+		node.delete(name)
+		raise web.seeother('/node/%d/' % node.id)
+
+class	NodeRelDel:
+	def	GET(self, id, rel):
+		db = getdb()
+		db.relationships.get(int(rel)).delete()
+		raise web.seeother('/node/%d/' % int(id))
 
 # Rel
 class	RelView:
@@ -86,14 +99,24 @@ class	RelView:
 		db = getdb()
 		return render.rel.view(db.relationships.get(int(id)))
 
+class	RelDel:
+	def	GET(self, id):
+		db = getdb()
+		db.relationships.get(int(id)).delete()
+		raise web.seeother('/node/')
+
 urls = (
-	'/',			'Index',
-	'/node/',		'NodeList',
-	'/node/add/',		'NodeAdd',
-	'/node/([0-9]+)/',	'NodeView',
-	'/node/([0-9]+)/del/',	'NodeDel',
-	'/nparm/edit/',		'NParmEdit',
-	'/rel/([0-9]+)/',	'RelView',
+	'/',				'Index',
+	'/node/',			'NodeList',
+	'/node/add/',			'NodeAdd',
+	'/node/([0-9]+)/',		'NodeView',
+	'/node/([0-9]+)/del/',		'NodeDel',
+	'/node/([0-9]+)/padd/',		'NodeParmAdd',
+	'/node/([0-9]+)/pdel/(.+)',	'NodeParmDel',
+	'/node/([0-9]+)/radd/',		'NodeRelAdd',
+	'/node/([0-9]+)/rdel/([0-9]+)/',	'NodeRelDel',
+	'/rel/([0-9]+)/',		'RelView',
+	'/rel/([0-9]+)/del/',		'RelDel',
 )
 
 # 1. standalone
