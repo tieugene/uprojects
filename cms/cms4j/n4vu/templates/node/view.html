@@ -16,7 +16,7 @@ $for p in node.properties:
 		<td> <a href="/node/$node.id/pdel/$p"> <button type="button" title="Delete this property"> - </button> </a> </td>
 	</tr>
 <tr>
-	<form method="post" action="/node/$node.id/radd/">
+	<form method="post" action="/node/$node.id/padd/">
 	$:field_td(pform.name)
 	$:field_td(pform.type)
 	$:field_td(pform.value)
@@ -42,7 +42,7 @@ $for r in node.relationships.outgoing():
 		<td> <a href="/node/$node.id/rdel/$r.id/"> <button type="button" title="Delete this relation"> - </button> </a> </td>
 	</tr>
 <tr>
-	<form method="post" action="/node/$node.id/padd/">
+	<form method="post" action="/node/$node.id/radd/">
 	$:field_td(rform.dir)
 	$:field_td(rform.type)
 	$:field_td(rform.node)
