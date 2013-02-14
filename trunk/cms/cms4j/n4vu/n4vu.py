@@ -32,6 +32,20 @@ render = web.template.render('templates', base='base', cache=cache)
 
 # validators
 chk_empty = web.form.Validator('Обязательное поле', bool)
+chk_uint = web.form.regexp('^[0-9]$', 'Должно быть число')
+
+class	ChkNPName(web.form.Validator):	# check node property name not exists
+	def	__init__(self):
+		self.msg = 'Параметр уже существует'
+	def	valid(self, value):
+		print value
+		return False
+
+class	ChkNPValue(web.form.Validator):	# check node property value
+	pass
+
+class	ChkNRNode(web.form.Validator):	# check node rel sibling node exists
+	pass
 
 ptype_list = [
 	('1', 'bool'),
@@ -40,9 +54,9 @@ ptype_list = [
 ]
 
 parm_form = web.form.Form (
-	web.form.Textbox('name',	chk_empty, description='Name'),
-	web.form.Dropdown('type',	description='Type', args=ptype_list, value='3'),
-	web.form.Textbox('value',	chk_empty, description='Value'),
+	web.form.Textbox ('name',	chk_empty),	# not empty; formwide: not exists
+	web.form.Dropdown('type',	args=ptype_list, value='3'),
+	web.form.Textbox ('value',	chk_empty),	# formwide: bool: nothing; int: not empty, digit; str: not empty
 )
 
 rdir_list = [
@@ -51,9 +65,9 @@ rdir_list = [
 ]
 
 rel_form = web.form.Form (
-	web.form.Dropdown('dir',	description='dir', args=rdir_list, value='1'),
-	web.form.Textbox('type',	chk_empty, description='Type'),
-	web.form.Textbox('node',	chk_empty, description='Node'),
+	web.form.Dropdown('dir',	args=rdir_list, value='1'),
+	web.form.Textbox ('type',	chk_empty),		# not empty
+	web.form.Textbox ('node',	chk_empty, chk_uint),	# not empty; int; formwide: exists
 )
 
 def	getdb():
@@ -95,7 +109,18 @@ class	NodeDel:
 # Node parameters
 class	NodeParmAdd:
 	def	GET(self, id):
-		return render.nparm.edit()
+		raise web.seeother('/node/%d/' % int(id))
+	def	POST(self, id):
+		db = getdb()
+		node = db.nodes.get(int(id))
+		f = parm_form()
+		if not f.validates():
+			return render.node.view(node, f, rel_form())
+		else:
+			print f.name.get_value()
+			#f.name.note = "fusk"
+			return render.node.view(node, parm_form(), rel_form())	# AGAIN
+			raise web.seeother('/node/%d/' % node.id)
 
 class	NodeParmDel:
 	def	GET(self, id, name):
