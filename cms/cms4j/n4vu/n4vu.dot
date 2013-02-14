@@ -8,7 +8,7 @@ digraph ui {
   label = "Node";
   shape = folder;
   node_list	[ label = "List" ];
-  node_detail	[ label = "Detail" ];
+  node_view	[ label = "View" ];
   subgraph cluster_nparm {
    label = "Parm";
    nparm_add	[ label = "Add" ];
@@ -17,7 +17,7 @@ digraph ui {
  }
  subgraph cluster_rel {
   label = "Relation";
-  rel_detail	[ label = "Detail" ];
+  rel_view	[ label = "View" ];
   subgraph cluster_rparm {
    label = "Parm";
    rparm_add	[ label = "Add" ];
@@ -25,23 +25,23 @@ digraph ui {
   }
  }
  index -> node_list;
- node_list -> node_detail [ label = "View" ];
- node_list -> node_detail [ label = "Add" ];
- node_detail -> node_list [ label = "Del" ];
- node_detail -> node_detail [ label = "Del\nparm" ];
- node_detail -> node_detail [ label = "Del\nrel" ];
- node_detail -> nparm_add [ label = "Add\nparm" ];
+ node_list -> node_view [ label = "View" ];
+ node_list -> node_view [ label = "Add" ];
+ node_view -> node_list [ label = "Del" ];
+ node_view -> node_view [ label = "Del\nparm" ];
+ node_view -> node_view [ label = "Del\nrel" ];
+ node_view -> nparm_add [ label = "Add\nparm" ];
  nparm_add -> nparm_add [ label = "Err" ];
- nparm_add -> node_detail [ label = "OK\nCancel" ];
- node_detail -> nparm_edit [ label = "Edit\nparm" ];
+ nparm_add -> node_view [ label = "OK\nCancel" ];
+ node_view -> nparm_edit [ label = "Edit\nparm" ];
  nparm_edit -> nparm_edit [ label = "Err" ];
- nparm_edit -> node_detail [ label = "OK\nCancel" ];
- node_detail -> rel_detail;
- rel_detail -> node_detail;
- rel_detail -> rparm_add [ label = "Add\nparm" ];
+ nparm_edit -> node_view [ label = "OK\nCancel" ];
+ node_view -> rel_view;
+ rel_view -> node_view;
+ rel_view -> rparm_add [ label = "Add\nparm" ];
  rparm_add -> rparm_add [ label = "Err" ];
- rparm_add -> rel_detail [ label = "OK\nCancel" ];
- rel_detail -> rparm_edit [ label = "Edit\nparm" ];
+ rparm_add -> rel_view [ label = "OK\nCancel" ];
+ rel_view -> rparm_edit [ label = "Edit\nparm" ];
  rparm_edit -> rparm_edit [ label = "Err" ];
- rparm_edit -> rel_detail [ label = "OK\nCancel" ];
+ rparm_edit -> rel_view [ label = "OK\nCancel" ];
 }

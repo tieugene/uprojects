@@ -4,13 +4,23 @@ $def with (content)
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-	<title> Graph </title>
+	<title> N4vu </title>
+	<style type="text/css">
+		a {
+			text-decoration: none;
+		}
+		table {
+			border-collapse: collapse;
+			border: 0;
+		}
+		td, th {
+			border-collapse: collapse;
+			border: 1px solid grey;
+		}
+	</style>
 </head>
 <body>
-<table id="topmenu"> <tr>
-	<td> <a href="/node_list/"> Список </a> </td>
-	<td> <a href="/node_graph/"> Граф </a> </td>
-</tr> </table>
+<p> <a href="/node/"> Список </a> <a href="/graph/"> Граф </a> </p>
 <div>
 $:content
 </div>
