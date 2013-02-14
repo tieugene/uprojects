@@ -3,17 +3,17 @@
 	+ Add
 	… View
 	+ Del
-	* Parm:
+	… Parm:
 		* Add
 		+ Del
-		* Edit
-	* Rel:
-		* AddRel
-		+ DelRel
+		? Edit
+	… Rel:
+		* Add
+		+ Del
 * Rel:
 	+ View
 	+ Del
 	* Parm:
 		* Add
 		* Del
-		* Edit
+		? Edit
