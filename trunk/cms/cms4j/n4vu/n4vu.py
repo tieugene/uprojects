@@ -39,57 +39,61 @@ Node_form = web.form.Form (
 	web.form.Textbox('midname',	description='Отчество'),
 )
 
-def	connect():
+def	getdb():
 	global db
-	try:
-		db = client.GraphDatabase("http://localhost:7474/db/data/")
-	except:
-		pass
+	if db == None:
+		try:
+			db = client.GraphDatabase("http://localhost:7474/db/data/")
+		except:
+			print "Can't connect db"
+			exit()
+	return db
 
 class	Index:
 	def	GET(self):
 		return render.index()
 
+# Nodes
 class	NodeList:
 	def	GET(self):
-		global db
-		if (db == None):
-			connect()
-			if db == None:
-				print "db err"
-		q = 'START n=node(*) RETURN n'
-		nodes = db.query(q, returns=(client.Node,))
-		return render.node_list(nodes)
+		db = getdb()
+		return render.node.list(db.query('START n=node(*) RETURN n', returns=(client.Node,)))
 
 class	NodeAdd:
 	def	GET(self):
-		return render.node_add(node_form())
+		db = getdb()
+		raise web.seeother('/node/%d/' % db.nodes.create().id)
 
 class	NodeView:
 	def	GET(self, id):
-		global db
-		q = 'START n=node(%s) RETURN n' % id
-		node = db.query(q, returns=(client.Node,))[0][0]
-		#print node.properties
-		#for k in node.properties:
-		#	print k, node.properties[k]
-		return render.node_view(node)
-
-class	NodeEdit:
-	def	GET(self):
-		return render.node_edit()
+		db = getdb()
+		return render.node.view(db.nodes.get(int(id)))
 
 class	NodeDel:
+	def	GET(self, id):
+		db = getdb()
+		db.nodes.get(int(id)).delete()
+		raise web.seeother('/node/')
+
+# Node parameters
+class	NParmEdit:
 	def	GET(self):
-		return render.node_del()
+		return render.nparm.edit()
+
+# Rel
+class	RelView:
+	def	GET(self, id):
+		db = getdb()
+		return render.rel.view(db.relationships.get(int(id)))
 
 urls = (
-	'/',		'Index',
-	'/node_list/',	'NodeList',
-	'/node_add/',	'NodeAdd',
-	'/node_view/(.*)',	'NodeView',
-	'/node_edit/',	'NodeEdit',
-	'/node_del/',	'NodeDel',
+	'/',			'Index',
+	'/node/',		'NodeList',
+	'/node/add/',		'NodeAdd',
+	'/node/([0-9]+)/',	'NodeView',
+	'/node/([0-9]+)/del/',	'NodeDel',
+	'/nparm/edit/',		'NParmEdit',
+	'/rel/([0-9]+)/',	'RelView',
 )
 
 # 1. standalone

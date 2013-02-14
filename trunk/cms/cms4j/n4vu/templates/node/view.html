@@ -1,0 +1,29 @@
+$def with(node)
+
+<p> Node #$node.id <a href="/node/$node.id/del/"> <button type="button" title="Delete this node"> x </button> </a> </p>
+<table>
+<caption> Properties: </caption>
+<tr> <th> Name </th> <th> Type </th> <th> Value </th> </tr>
+<tr> <td> id </td> <td> int </td> <td> $node.id </td> </tr>
+<tr> <td> url </td> <td> str </td> <td> $node.url </td> </tr>
+$for p in node.properties:
+	<tr>
+		<td> $p </td>
+		<td> ? </td>
+		<td> $node.properties[p] </td>
+	</tr>
+</table>
+<table>
+<caption> Relation: </caption>
+<tr> <th> Relation </th> <th> Sibling </th> </tr>
+$for r in node.relationships.incoming():
+	<tr>
+		<td> &lt; <a href="/rel/$r.id/"> $r.type </a> &lt; </td>
+		<td align="center"> <a href="/node/$r.start.id/"> $r.start.id </a> </td>
+	</tr>
+$for r in node.relationships.outgoing():
+	<tr>
+		<td> &gt; <a href="/rel/$r.id/"> $r.type </a> &gt; </td>
+		<td align="center"> <a href="/node/$r.end.id/"> $r.end.id </a> </td>
+	</tr>
+</table>

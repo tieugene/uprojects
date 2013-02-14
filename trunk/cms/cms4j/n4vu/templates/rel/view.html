@@ -1,0 +1,18 @@
+$def with(rel)
+
+<p> Relation #$rel.id: </p>
+<table>
+<caption> Properties: </caption>
+<tr> <th> Name </th> <th> Type </th> <th> Value </th> </tr>
+<tr> <td> id </td> <td> int </td> <td> $rel.id </td> </tr>
+<tr> <td> type </td> <td> str </td> <td> $rel.type </td> </tr>
+<tr> <td> start </td> <td> Node </td> <td align="center"> <a href="/node/$rel.start.id/"> $rel.start.id </a> </td> </tr>
+<tr> <td> end   </td> <td> Node </td> <td align="center"> <a href="/node/$rel.end.id/"> $rel.end.id </a> </td> </tr>
+$for p in rel.properties:
+	<tr>
+		<td> $p </td>
+		<td> ? </td>
+		<td> $rel.properties[p] </td>
+	</tr>
+</table>
+<table>

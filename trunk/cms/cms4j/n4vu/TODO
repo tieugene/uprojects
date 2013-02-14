@@ -1,13 +1,21 @@
-* Node:
-** Add node
-** Del node
-* Node parm:
-** Add node parm
-** Del node parm
-** Edit node parm
-* Refs:
-** view
-** add
-** del
-* Ref parm:
-* 
+= Node =
++ List
++ Add
+… View
++ Del
+== Node parm ==
+* Add
+* Del
+* Edit
+= Rel =
++ View
+* Add
+* Del
+== Rel parm ==
+* Add
+* Del
+* Edit
+
+GraphDb.nodes = NodesProxy(dict): create, get, delete?
+Node obj: id, url, relationships[create,all,incoming,outgoing)
+Relationship: start:Node, end:Node, id:int, type:str
