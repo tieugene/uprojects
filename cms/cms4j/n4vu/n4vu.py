@@ -33,10 +33,27 @@ render = web.template.render('templates', base='base', cache=cache)
 # validators
 chk_empty = web.form.Validator('Обязательное поле', bool)
 
-Node_form = web.form.Form (
-	web.form.Textbox('lastname',	chk_empty, description='Фамилия'),
-	web.form.Textbox('firstname',	chk_empty, description='Имя'),
-	web.form.Textbox('midname',	description='Отчество'),
+ptype_list = [
+	('1', 'bool'),
+	('2', 'int'),
+	('3', 'str'),
+]
+
+parm_form = web.form.Form (
+	web.form.Textbox('name',	chk_empty, description='Name'),
+	web.form.Dropdown('type',	description='Type', args=ptype_list, value='3'),
+	web.form.Textbox('value',	chk_empty, description='Value'),
+)
+
+rdir_list = [
+	('1', ' <'),
+	('2', ' >'),
+]
+
+rel_form = web.form.Form (
+	web.form.Dropdown('dir',	description='dir', args=rdir_list, value='1'),
+	web.form.Textbox('type',	chk_empty, description='Type'),
+	web.form.Textbox('node',	chk_empty, description='Node'),
 )
 
 def	getdb():
@@ -67,7 +84,7 @@ class	NodeAdd:
 class	NodeView:
 	def	GET(self, id):
 		db = getdb()
-		return render.node.view(db.nodes.get(int(id)))
+		return render.node.view(db.nodes.get(int(id)), parm_form(), rel_form())
 
 class	NodeDel:
 	def	GET(self, id):
