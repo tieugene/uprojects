@@ -6,10 +6,7 @@ Req: python-webpy
 '''
 
 # 3rd parties
-try:
-	import web
-except:
-	print "install python-webpy first"
+import web, gv
 try:
 	from neo4jrestclient import client
 except:
@@ -205,16 +202,45 @@ class	RelParmDel:
 class	Graph:
 	def	GET(self):
 		db = getdb()
-		print 'Nodes:'
+		gdict = dict()
+		G = gv.digraph('neo4j')
+		gv.setv( G, 'size', '100,100' )
+		N = gv.protonode(G)
+		gv.setv(N, 'shape', 'rectangle')
+		gv.setv(N, 'style', 'rounded')
 		for i in db.query('START n=node(*) RETURN n', returns=(client.Node,)):
-			print i[0].id
-		print 'Edges:'
+			id = i[0].id
+			#print i[0].id
+			gnode = gv.node(G, 'n%d' % id)
+			gv.setv(gnode, 'URL', '/node/%d/' % id)
+			gdict[id] = gnode
 		for i in db.query('START r=relationship(*) RETURN r', returns=(client.Relationship,)):
-			print i[0].id, i[0].start.id, i[0].end.id, i[0].type
+			edge = i[0]
+			#print i[0].id, i[0].start.id, i[0].end.id, i[0].type
+			gedge = gv.edge(gdict[edge.start.id], gdict[edge.end.id])
+			gv.setv(gedge, 'label', edge.type)
+			gv.setv(gnode, 'URL', '/rel/%d/' % edge.id)
+		gv.layout(G, 'neato')
+		svg = gv.renderdata(G, 'svg')
+		return render.graph(svg)
+
+class	Export:
+	def	GET(self):
+		db = getdb()
+		raise web.seeother('/')
+
+class	Import:
+	def	GET(self):
+		db = getdb()
+		raise web.seeother('/')
+
+class	Clear:
+	def	GET(self):
+		db = getdb()
+		raise web.seeother('/')
 
 urls = (
 	'/',				'Index',
-	'/graph/',			'Graph',
 	'/node/',			'NodeList',
 	'/node/add/',			'NodeAdd',
 	'/node/(\d+)/',			'NodeView',
@@ -227,6 +253,10 @@ urls = (
 	'/rel/(\d+)/del/',		'RelDel',
 	'/rel/(\d+)/padd/',		'RelParmAdd',
 	'/rel/(\d+)/pdel/(.+)',		'RelParmDel',
+	'/graph/',			'Graph',
+	'/exp/',			'Export',
+	'/imp/',			'Import',
+	'/cls/',			'Clear',
 )
 
 # 1. standalone

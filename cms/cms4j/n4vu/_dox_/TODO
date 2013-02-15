@@ -15,14 +15,13 @@
 	+ Parm:
 		+ Add
 		+ Del
++ grap
 * bonus:
-	* graph (pydot (write to file), graphviz-python)
 	* node/rel parm edit
-	* save/clear/load
+	* clear
+	* save/load (GraphML? GXL? JSON?)
 FIXME:
 	* add/edit parm - Cancel button
 	* parm add - check 'id' etc builins
-= Graph =
-? save to file | graphviz | read | insert
-node: n<id>
-edge: e.start -> e.end [label="<e.type>"];
+= impex =
+GXL:
