@@ -15,11 +15,12 @@
 	+ Parm:
 		+ Add
 		+ Del
+* Maintain:
+	+ export (json)
+	+ import (json)
+	* clear
 * Bonus:
 	+ graph
-	+ export (json)
-	* import (json)
-	* clear
 	* impex xml (GraphML? GXL?)
 	* node/rel parm edit
 FIXME:
