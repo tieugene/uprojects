@@ -15,13 +15,13 @@
 	+ Parm:
 		+ Add
 		+ Del
-+ grap
-* bonus:
-	* node/rel parm edit
+* Bonus:
+	+ graph
+	+ export (json)
+	* import (json)
 	* clear
-	* save/load (GraphML? GXL? JSON?)
+	* impex xml (GraphML? GXL?)
+	* node/rel parm edit
 FIXME:
 	* add/edit parm - Cancel button
 	* parm add - check 'id' etc builins
-= impex =
-GXL:

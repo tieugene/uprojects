@@ -12,7 +12,7 @@ try:
 except:
 	print "install python-neo4jrestclient first"
 # system
-import sys, os, tempfile, pprint, datetime
+import sys, os, json
 
 reload(sys)
 sys.setdefaultencoding('utf-8')
@@ -227,7 +227,24 @@ class	Graph:
 class	Export:
 	def	GET(self):
 		db = getdb()
-		raise web.seeother('/')
+		dump = list()
+		for i in db.query('START n=node(*) RETURN n', returns=(client.Node,)):
+			item = i[0]
+			d = [0, item.id]
+			if item.properties:
+				d.append(item.properties)
+			dump.append(d)
+		for i in db.query('START r=relationship(*) RETURN r', returns=(client.Relationship,)):
+			item = i[0]
+			d = [0, item.start.id, item.end.id, item.type]
+			if item.properties:
+				d.append(item.properties)
+			dump.append(d)
+		web.header('Content-Type', 'application/json')
+		web.header('Content-Transfer-Encoding', 'binary')
+		web.header('Content-Disposition', 'attachment; filename=\"neo4j.json\";')
+		return json.dumps(dump, indent=1)
+		#raise web.seeother('/')
 
 class	Import:
 	def	GET(self):
