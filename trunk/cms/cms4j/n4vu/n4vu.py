@@ -47,22 +47,15 @@ class	ChkNPValue(web.form.Validator):	# check node property value
 class	ChkNRNode(web.form.Validator):	# check node rel sibling node exists
 	pass
 
-ptype_list = [
-	('1', 'bool'),
-	('2', 'int'),
-	('3', 'str'),
-]
+ptype_list = (('1', 'bool'), ('2', 'int'), ('3', 'str'))
 
 parm_form = web.form.Form (
-	web.form.Textbox ('name',	chk_empty),	# not empty; formwide: not exists
-	web.form.Dropdown('type',	args=ptype_list, value='3'),
-	web.form.Textbox ('value',	chk_empty),	# formwide: bool: nothing; int: not empty, digit; str: not empty
+	web.form.Textbox ('n',	chk_empty, description='Name'),	# not empty; formwide: not exists
+	web.form.Dropdown('t',	args=ptype_list, value='3', description='Type'),
+	web.form.Textbox ('v', description='Value'),	# formwide: bool: nothing; int: not empty, digit; str: not empty
 )
 
-rdir_list = [
-	('1', ' <'),
-	('2', ' >'),
-]
+rdir_list = (('1', ' <'), ('2', ' >'))
 
 rel_form = web.form.Form (
 	web.form.Dropdown('dir',	args=rdir_list, value='1'),
@@ -117,9 +110,30 @@ class	NodeParmAdd:
 		if not f.validates():
 			return render.node.view(node, f, rel_form())
 		else:
-			print f.name.get_value()
-			#f.name.note = "fusk"
-			return render.node.view(node, parm_form(), rel_form())	# AGAIN
+			err = True
+			name = f.n.get_value()
+			if name in node.properties:
+				f.n.note = "Parameter already exists"
+			t = int(f.t.get_value())
+			v = f.v.get_value()
+			if (t == 1):	# bool
+				value = bool(v)
+				err = False
+			elif (t == 2):	# int
+				if v.isdigit():
+					value = int(v)
+					err = False
+				else:
+					f.v.note = "Must be integer"
+			else:		# str
+				if (v):
+					value = v
+					err = False
+				else:
+					f.v.note = "Must not be empty"
+			if (err):
+				return render.node.view(node, f, rel_form())
+			node[name] = value
 			raise web.seeother('/node/%d/' % node.id)
 
 class	NodeParmDel:
