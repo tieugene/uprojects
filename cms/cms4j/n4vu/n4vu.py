@@ -83,7 +83,6 @@ class	NodeDel:
 		db.nodes.get(int(id)).delete()
 		raise web.seeother('/node/')
 
-
 def	chk_parm(item, f):
 	'''
 	@param f:web.forms.Form
@@ -93,7 +92,7 @@ def	chk_parm(item, f):
 	name = f.n.get_value()
 	value = None
 	if name in item.properties:
-		f.n.note = "Parameter already exists"
+		f.n.note = 'Parameter already exists'
 	t = int(f.t.get_value())
 	v = f.v.get_value()
 	if (t == 1):	# bool
@@ -104,13 +103,13 @@ def	chk_parm(item, f):
 			value = int(v)
 			err = False
 		else:
-			f.v.note = "Must be integer"
+			f.v.note = 'Must be integer'
 	else:		# str
 		if (v):
 			value = v
 			err = False
 		else:
-			f.v.note = "Must not be empty"
+			f.v.note = 'Must not be empty'
 	return err, name, value
 
 # Node parameters
@@ -210,13 +209,11 @@ class	Graph:
 		gv.setv(N, 'style', 'rounded')
 		for i in db.query('START n=node(*) RETURN n', returns=(client.Node,)):
 			id = i[0].id
-			#print i[0].id
 			gnode = gv.node(G, 'n%d' % id)
 			gv.setv(gnode, 'URL', '/node/%d/' % id)
 			gdict[id] = gnode
 		for i in db.query('START r=relationship(*) RETURN r', returns=(client.Relationship,)):
 			edge = i[0]
-			#print i[0].id, i[0].start.id, i[0].end.id, i[0].type
 			gedge = gv.edge(gdict[edge.start.id], gdict[edge.end.id])
 			gv.setv(gedge, 'label', edge.type)
 			gv.setv(gnode, 'URL', '/rel/%d/' % edge.id)
@@ -236,7 +233,7 @@ class	Export:
 			dump.append(d)
 		for i in db.query('START r=relationship(*) RETURN r', returns=(client.Relationship,)):
 			item = i[0]
-			d = [0, item.start.id, item.end.id, item.type]
+			d = [1, item.start.id, item.end.id, item.type]
 			if item.properties:
 				d.append(item.properties)
 			dump.append(d)
@@ -248,7 +245,26 @@ class	Export:
 
 class	Import:
 	def	GET(self):
+		return render.imp()
+	def	POST(self):
 		db = getdb()
+		x = web.input()
+		s = x['myfile']
+		data = json.loads(s)
+		#print data
+		nodes = dict()	# map id from file to created nodes
+		for i in data:
+			if i[0] == 0:	# node
+				node = db.nodes.create()
+				if len(i) > 2:	# parms
+					for k, v in i[2].iteritems():
+						node[k] = v
+				nodes[i[1]] = node
+			else:		# edge
+				edge = db.relationships.create(nodes[i[1]], i[3], nodes[i[2]])
+				if len(i) > 4:	# parms
+					for k, v in i[4].iteritems():
+						edge[k] = v
 		raise web.seeother('/')
 
 class	Clear:
