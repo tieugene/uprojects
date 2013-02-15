@@ -26,3 +26,4 @@
 FIXME:
 	* add/edit parm - Cancel button
 	* parm add - check 'id' etc builins
+	* skip node(0) on load
