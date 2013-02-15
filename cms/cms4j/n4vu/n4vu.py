@@ -86,6 +86,36 @@ class	NodeDel:
 		db.nodes.get(int(id)).delete()
 		raise web.seeother('/node/')
 
+
+def	chk_parm(item, f):
+	'''
+	@param f:web.forms.Form
+	@return err, name, value
+	'''
+	err = True
+	name = f.n.get_value()
+	value = None
+	if name in item.properties:
+		f.n.note = "Parameter already exists"
+	t = int(f.t.get_value())
+	v = f.v.get_value()
+	if (t == 1):	# bool
+		value = bool(v)
+		err = False
+	elif (t == 2):	# int
+		if v.isdigit():
+			value = int(v)
+			err = False
+		else:
+			f.v.note = "Must be integer"
+	else:		# str
+		if (v):
+			value = v
+			err = False
+		else:
+			f.v.note = "Must not be empty"
+	return err, name, value
+
 # Node parameters
 class	NodeParmAdd:
 	def	GET(self, id):
@@ -97,27 +127,7 @@ class	NodeParmAdd:
 		if not f.validates():
 			return render.node.view(node, f, rel_form())
 		else:
-			err = True
-			name = f.n.get_value()
-			if name in node.properties:
-				f.n.note = "Parameter already exists"
-			t = int(f.t.get_value())
-			v = f.v.get_value()
-			if (t == 1):	# bool
-				value = bool(v)
-				err = False
-			elif (t == 2):	# int
-				if v.isdigit():
-					value = int(v)
-					err = False
-				else:
-					f.v.note = "Must be integer"
-			else:		# str
-				if (v):
-					value = v
-					err = False
-				else:
-					f.v.note = "Must not be empty"
+			err, name, value = chk_parm(node, f)
 			if (err):
 				return render.node.view(node, f, rel_form())
 			node[name] = value
@@ -177,9 +187,13 @@ class	RelParmAdd:
 		rel = db.relationships.get(int(id))
 		f = parm_form()
 		if not f.validates():
-			return render.rel.view(node, f, parm_form())
+			return render.rel.view(rel, f)
 		else:
-			err = True
+			err, name, value = chk_parm(rel, f)
+			if (err):
+				return render.rel.view(rel, f)
+			rel[name] = value
+			raise web.seeother('/rel/%d/' % rel.id)
 
 class	RelParmDel:
 	def	GET(self, id, name):

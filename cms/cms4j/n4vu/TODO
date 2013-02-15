@@ -9,11 +9,11 @@
 	+ Rel:
 		+ Add
 		+ Del
-… Rel:
++ Rel:
 	+ View
 	+ Del
-	… Parm:
-		* Add
+	+ Parm:
+		+ Add
 		+ Del
 * bonus:
 	* graph
@@ -21,4 +21,4 @@
 	* save/clear/load
 FIXME:
 	* add/edit parm - Cancel button
-	* parm add - check 'id' etc builins
+	… parm add - check 'id' etc builins
