@@ -202,8 +202,19 @@ class	RelParmDel:
 		rel.delete(name)
 		raise web.seeother('/rel/%d/' % rel.id)
 
+class	Graph:
+	def	GET(self):
+		db = getdb()
+		print 'Nodes:'
+		for i in db.query('START n=node(*) RETURN n', returns=(client.Node,)):
+			print i[0].id
+		print 'Edges:'
+		for i in db.query('START r=relationship(*) RETURN r', returns=(client.Relationship,)):
+			print i[0].id, i[0].start.id, i[0].end.id, i[0].type
+
 urls = (
 	'/',				'Index',
+	'/graph/',			'Graph',
 	'/node/',			'NodeList',
 	'/node/add/',			'NodeAdd',
 	'/node/(\d+)/',			'NodeView',

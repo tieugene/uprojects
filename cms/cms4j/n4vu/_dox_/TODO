@@ -16,9 +16,13 @@
 		+ Add
 		+ Del
 * bonus:
-	* graph
+	* graph (pydot (write to file), graphviz-python)
 	* node/rel parm edit
 	* save/clear/load
 FIXME:
 	* add/edit parm - Cancel button
-	… parm add - check 'id' etc builins
+	* parm add - check 'id' etc builins
+= Graph =
+? save to file | graphviz | read | insert
+node: n<id>
+edge: e.start -> e.end [label="<e.type>"];
