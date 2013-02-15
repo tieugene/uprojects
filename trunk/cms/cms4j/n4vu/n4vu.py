@@ -32,7 +32,7 @@ render = web.template.render('templates', base='base', cache=cache)
 
 # validators
 chk_empty = web.form.Validator('Обязательное поле', bool)
-chk_uint = web.form.regexp('^[0-9]+$', 'Должно быть число')
+chk_uint = web.form.regexp('^\d+$', 'Должно быть число')
 
 ptype_list = (('1', 'bool'), ('2', 'int'), ('3', 'str'))
 
@@ -161,7 +161,7 @@ class	NodeRelAdd:
 class	RelView:
 	def	GET(self, id):
 		db = getdb()
-		return render.rel.view(db.relationships.get(int(id)))
+		return render.rel.view(db.relationships.get(int(id)), parm_form())
 
 class	RelDel:
 	def	GET(self, id):
@@ -169,18 +169,39 @@ class	RelDel:
 		db.relationships.get(int(id)).delete()
 		raise web.seeother('/node/')
 
+class	RelParmAdd:
+	def	GET(self, id):
+		raise web.seeother('/rel/%d/' % int(id))
+	def	POST(self, id):
+		db = getdb()
+		rel = db.relationships.get(int(id))
+		f = parm_form()
+		if not f.validates():
+			return render.rel.view(node, f, parm_form())
+		else:
+			err = True
+
+class	RelParmDel:
+	def	GET(self, id, name):
+		db = getdb()
+		rel = db.relationships.get(int(id))
+		rel.delete(name)
+		raise web.seeother('/rel/%d/' % rel.id)
+
 urls = (
 	'/',				'Index',
 	'/node/',			'NodeList',
 	'/node/add/',			'NodeAdd',
-	'/node/([0-9]+)/',		'NodeView',
-	'/node/([0-9]+)/del/',		'NodeDel',
-	'/node/([0-9]+)/padd/',		'NodeParmAdd',
-	'/node/([0-9]+)/pdel/(.+)',	'NodeParmDel',
-	'/node/([0-9]+)/radd/',		'NodeRelAdd',
-	'/node/([0-9]+)/rdel/([0-9]+)/',	'NodeRelDel',
-	'/rel/([0-9]+)/',		'RelView',
-	'/rel/([0-9]+)/del/',		'RelDel',
+	'/node/(\d+)/',			'NodeView',
+	'/node/(\d+)/del/',		'NodeDel',
+	'/node/(\d+)/padd/',		'NodeParmAdd',
+	'/node/(\d+)/pdel/(.+)',	'NodeParmDel',
+	'/node/(\d+)/radd/',		'NodeRelAdd',
+	'/node/(\d+)/rdel/(\d+)/',	'NodeRelDel',
+	'/rel/(\d+)/',			'RelView',
+	'/rel/(\d+)/del/',		'RelDel',
+	'/rel/(\d+)/padd/',		'RelParmAdd',
+	'/rel/(\d+)/pdel/(.+)',		'RelParmDel',
 )
 
 # 1. standalone

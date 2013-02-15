@@ -1,22 +1,24 @@
-… Node:
++ Node:
 	+ List
 	+ Add
-	… View
+	+ View
 	+ Del
-	… Parm:
-		+ Add (TODO: add Cancel)
+	+ Parm:
+		+ Add
 		+ Del
-		? Edit
-	… Rel:
+	+ Rel:
 		+ Add
 		+ Del
 … Rel:
 	+ View
 	+ Del
-	* Parm:
+	… Parm:
 		* Add
-		* Del
-		? Edit
+		+ Del
 * bonus:
 	* graph
+	* node/rel parm edit
 	* save/clear/load
+FIXME:
+	* add/edit parm - Cancel button
+	* parm add - check 'id' etc builins
