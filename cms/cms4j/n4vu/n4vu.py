@@ -32,20 +32,7 @@ render = web.template.render('templates', base='base', cache=cache)
 
 # validators
 chk_empty = web.form.Validator('Обязательное поле', bool)
-chk_uint = web.form.regexp('^[0-9]$', 'Должно быть число')
-
-class	ChkNPName(web.form.Validator):	# check node property name not exists
-	def	__init__(self):
-		self.msg = 'Параметр уже существует'
-	def	valid(self, value):
-		print value
-		return False
-
-class	ChkNPValue(web.form.Validator):	# check node property value
-	pass
-
-class	ChkNRNode(web.form.Validator):	# check node rel sibling node exists
-	pass
+chk_uint = web.form.regexp('^[0-9]+$', 'Должно быть число')
 
 ptype_list = (('1', 'bool'), ('2', 'int'), ('3', 'str'))
 
@@ -58,9 +45,9 @@ parm_form = web.form.Form (
 rdir_list = (('1', ' <'), ('2', ' >'))
 
 rel_form = web.form.Form (
-	web.form.Dropdown('dir',	args=rdir_list, value='1'),
-	web.form.Textbox ('type',	chk_empty),		# not empty
-	web.form.Textbox ('node',	chk_empty, chk_uint),	# not empty; int; formwide: exists
+	web.form.Dropdown('d',	args=rdir_list, value='1', description='Dir'),
+	web.form.Textbox ('t',	chk_empty, description='Type'),		# not empty
+	web.form.Textbox ('n',	chk_empty, chk_uint, description='Node'),	# not empty; int; formwide: exists
 )
 
 def	getdb():
@@ -148,6 +135,27 @@ class	NodeRelDel:
 		db = getdb()
 		db.relationships.get(int(rel)).delete()
 		raise web.seeother('/node/%d/' % int(id))
+
+class	NodeRelAdd:
+	def	GET(self, id):
+		raise web.seeother('/node/%d/' % int(id))
+	def	POST(self, id):
+		db = getdb()
+		node = db.nodes.get(int(id))
+		f = rel_form()
+		if not f.validates():
+			return render.node.view(node, parm_form(), f)
+		else:
+			#for i in f.inputs: print i.name, f.get(i.name), f.get(i.name).get_value()
+			n = db.nodes.get(int(f.n.get_value()), None)
+			if not n:
+				f.n.note = 'Node not exists'
+				return render.node.view(node, parm_form(), f)
+			if (int(f.get('d').get_value()) == 1):
+				db.relationships.create(n, f.t.get_value(), node)
+			else:
+				db.relationships.create(node, f.t.get_value(), n)
+			raise web.seeother('/node/%d/' % node.id)
 
 # Rel
 class	RelView:
