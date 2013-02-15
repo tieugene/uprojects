@@ -68,7 +68,7 @@ class	Index:
 class	NodeList:
 	def	GET(self):
 		db = getdb()
-		return render.node.list(db.query('START n=node(*) RETURN n', returns=(client.Node,)))
+		return render.node_list(db.query('START n=node(*) RETURN n', returns=(client.Node,)))
 
 class	NodeAdd:
 	def	GET(self):
@@ -78,7 +78,7 @@ class	NodeAdd:
 class	NodeView:
 	def	GET(self, id):
 		db = getdb()
-		return render.node.view(db.nodes.get(int(id)), parm_form(), rel_form())
+		return render.node_view(db.nodes.get(int(id)), parm_form(), rel_form())
 
 class	NodeDel:
 	def	GET(self, id):
@@ -125,11 +125,11 @@ class	NodeParmAdd:
 		node = db.nodes.get(int(id))
 		f = parm_form()
 		if not f.validates():
-			return render.node.view(node, f, rel_form())
+			return render.node_view(node, f, rel_form())
 		else:
 			err, name, value = chk_parm(node, f)
 			if (err):
-				return render.node.view(node, f, rel_form())
+				return render.node_view(node, f, rel_form())
 			node[name] = value
 			raise web.seeother('/node/%d/' % node.id)
 
@@ -154,13 +154,13 @@ class	NodeRelAdd:
 		node = db.nodes.get(int(id))
 		f = rel_form()
 		if not f.validates():
-			return render.node.view(node, parm_form(), f)
+			return render.node_view(node, parm_form(), f)
 		else:
 			#for i in f.inputs: print i.name, f.get(i.name), f.get(i.name).get_value()
 			n = db.nodes.get(int(f.n.get_value()), None)
 			if not n:
 				f.n.note = 'Node not exists'
-				return render.node.view(node, parm_form(), f)
+				return render.node_view(node, parm_form(), f)
 			if (int(f.get('d').get_value()) == 1):
 				db.relationships.create(n, f.t.get_value(), node)
 			else:
@@ -171,7 +171,7 @@ class	NodeRelAdd:
 class	RelView:
 	def	GET(self, id):
 		db = getdb()
-		return render.rel.view(db.relationships.get(int(id)), parm_form())
+		return render.rel_view(db.relationships.get(int(id)), parm_form())
 
 class	RelDel:
 	def	GET(self, id):
@@ -187,11 +187,11 @@ class	RelParmAdd:
 		rel = db.relationships.get(int(id))
 		f = parm_form()
 		if not f.validates():
-			return render.rel.view(rel, f)
+			return render.rel_view(rel, f)
 		else:
 			err, name, value = chk_parm(rel, f)
 			if (err):
-				return render.rel.view(rel, f)
+				return render.rel_view(rel, f)
 			rel[name] = value
 			raise web.seeother('/rel/%d/' % rel.id)
 
