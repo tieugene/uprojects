@@ -1,16 +1,16 @@
-* Node:
+… Node:
 	+ List
 	+ Add
 	… View
 	+ Del
 	… Parm:
-		+ Add
+		+ Add (TODO: add Cancel)
 		+ Del
 		? Edit
 	… Rel:
-		* Add
+		+ Add
 		+ Del
-* Rel:
+… Rel:
 	+ View
 	+ Del
 	* Parm:
