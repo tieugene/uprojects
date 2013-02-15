@@ -270,6 +270,8 @@ class	Import:
 class	Clear:
 	def	GET(self):
 		db = getdb()
+		db.query('START n=node(*) MATCH n-[r?]-() DELETE n,r')	# where id(n)<>0
+		#db.query('START n=node(*) DELETE n')
 		raise web.seeother('/')
 
 urls = (
