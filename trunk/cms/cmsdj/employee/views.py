@@ -11,6 +11,9 @@ PAGE_SIZE = 20
 def index(request):
     return direct_to_template(request, 'employee/index.html')
 
+def stafflist(request):
+    return direct_to_template(request, 'employee/stafflist.html')
+
 def employee_list(request):
 	return  object_list (
 		request,

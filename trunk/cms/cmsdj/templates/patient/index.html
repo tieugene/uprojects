@@ -1,5 +1,9 @@
 {% extends "patient/base.html" %}
 {% block body_main %}
 <center> Поциэнты </center>
-<p> <a href="{% url patient_list %}"> Поциэнты </a> </p>
+<table border="0" width="100%"> <tr>
+    <th> <a href=""> Талончики </a> </th>
+    <th> <a href=""> Журнал приема </a> </th>
+    <th> <a href="{% url patient_list %}"> Поциэнты </a> </th>
+</tr> </table>
 {% endblock %}
