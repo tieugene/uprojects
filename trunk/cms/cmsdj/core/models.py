@@ -16,8 +16,14 @@ class   Person(models.Model):
     firstname   = models.CharField(max_length=32, verbose_name=u'Имя')
     midname     = models.CharField(max_length=32, blank=True, verbose_name=u'Отчество')
     gender      = models.ForeignKey(Gender, related_name='+', verbose_name=u'Пол')
-    birthdate   = models.DateField(max_length=32, blank=True, null=True, verbose_name=u'Дата рождения')
+    birthdate   = models.DateField(blank=True, null=True, verbose_name=u'Дата рождения')
     birthplace  = models.CharField(max_length=64, blank=True, verbose_name=u'Место рождения')
+
+    class   Meta:
+        #app_label               = 'Ядро'
+        ordering                = ('lastname', 'firstname', 'midname')
+        verbose_name            = u'Человек'
+        verbose_name_plural     = u'Люди'
 
     def     __unicode__(self):
         return ("%s %s %s" % (self.lastname, self.firstname, self.midname)).rstrip()
@@ -25,12 +31,6 @@ class   Person(models.Model):
     @models.permalink
     def get_absolute_url(self):
         return ('person_detail', (), {'id': self.pk})
-
-    class   Meta:
-        #app_label               = 'Ядро'
-        ordering                = ('lastname', 'firstname', 'midname')
-        verbose_name            = u'Человек'
-        verbose_name_plural     = u'Люди'
 
 class   PersonAddress(models.Model):
     person      = models.ForeignKey(Person, related_name='addresses', verbose_name=u'Людь')
@@ -43,14 +43,14 @@ class   PersonAddress(models.Model):
     #atype       = models.CharField(max_length=3, verbose_name=u'кв/пом')
     app         = models.CharField(max_length=4, blank=True, verbose_name=u'Квартира')
 
-    def     __unicode__(self):
-        return '%s: д. %s, корп. %s, стр. %s, кв. %s' % (self.addrtype.name, self.no, self.housing, self.building, self.app)
-
     class   Meta:
         unique_together         = (('person', 'addrtype',),)
         ordering                = ('person', 'no', )
         verbose_name            = u'Адрес человека'
         verbose_name_plural     = u'Адреса людей'
+
+    def     __unicode__(self):
+        return '%s: д. %s, корп. %s, стр. %s, кв. %s' % (self.addrtype.name, self.no, self.housing, self.building, self.app)
 
 class   PersonPhone(models.Model):
     person      = models.ForeignKey(Person, related_name='phones', verbose_name=u'Людь')
@@ -60,14 +60,14 @@ class   PersonPhone(models.Model):
     cno         = models.CharField(max_length=7, verbose_name=u'Номер (чистый)')
     hno         = models.CharField(max_length=9, verbose_name=u'Номер (читаемый)')
 
-    def     __unicode__(self):
-        return "%s: +%s (%s) %s" % (self.phonetype.name, self.ccode, self.tcode, self.hno)
-
     class   Meta:
         #unique_together         = (('person', 'addrtype',),)
         ordering                = ('person', 'phonetype', 'ccode', 'tcode', 'cno')
         verbose_name            = u'Телефон'
         verbose_name_plural     = u'Телефоны'
+
+    def     __unicode__(self):
+        return "%s: +%s (%s) %s" % (self.phonetype.name, self.ccode, self.tcode, self.hno)
 
 class   PersonEmail(models.Model):
     '''
@@ -77,14 +77,14 @@ class   PersonEmail(models.Model):
     person      = models.ForeignKey(Person, related_name='emails', verbose_name=u'Людь')
     email       = models.EmailField(verbose_name=u'Мыло')
 
-    def     __unicode__(self):
-        return self.email
-
     class   Meta:
         unique_together         = (('person', 'email',),)
         ordering                = ('person', 'email',)
         verbose_name            = u'Эпочта'
         verbose_name_plural     = u'Эпочты'
+
+    def     __unicode__(self):
+        return self.email
 
 class   PersonDocument(models.Model):
     person      = models.ForeignKey(Person, related_name='documents', verbose_name=u'Людь')
@@ -95,25 +95,25 @@ class   PersonDocument(models.Model):
     place       = models.CharField(max_length=128, blank=True, verbose_name=u'Кем выдано')
     addon       = models.CharField(max_length=32, blank=True, verbose_name=u'Дополнение')
 
-    def     __unicode__(self):
-        return '%s %s №%s' % (self.doctype.name, self.series, self.no)
-
     class   Meta:
         #unique_together         = (('person', 'addrtype',),)
         ordering                = ('person', 'doctype', )
         verbose_name            = u'Документ'
         verbose_name_plural     = u'Документы'
 
+    def     __unicode__(self):
+        return '%s %s №%s' % (self.doctype.name, self.series, self.no)
+
 class   PersonCode(models.Model):
     person      = models.ForeignKey(Person, related_name='codes', verbose_name=u'Людь')
     codetype    = models.ForeignKey(PersonCodeType, related_name='+', verbose_name=u'Тип')
     value       = models.CharField(max_length=32, verbose_name=u'Значение')
-
-    def     __unicode__(self):
-        return '%s %s' % (self.codetype.name, self.value)
 
     class   Meta:
         unique_together         = (('person', 'codetype',), ('codetype', 'value',),)
         ordering                = ('person', 'codetype', )
         verbose_name            = u'Код'
         verbose_name_plural     = u'Коды'
+
+    def     __unicode__(self):
+        return '%s %s' % (self.codetype.name, self.value)

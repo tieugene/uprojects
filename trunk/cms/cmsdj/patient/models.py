@@ -14,17 +14,17 @@ class   Patient(models.Model):
     nationality = models.CharField(max_length=32, blank=True, verbose_name=u'Национальность')
     deathdate   = models.DateField(null=True, blank=True, verbose_name=u'Дата смертии')
 
+    class   Meta:
+        ordering                = ('person', )
+        verbose_name            = u'Поциэнт'
+        verbose_name_plural     = u'Поциэнты'
+
     def     __unicode__(self):
         return str(self.person)
 
     @models.permalink
     def get_absolute_url(self):
         return ('patient_detail', (), {'id': self.pk})
-
-    class   Meta:
-        ordering                = ('person', )
-        verbose_name            = u'Поциэнт'
-        verbose_name_plural     = u'Поциэнты'
 
 class   MedHistory(models.Model):
     patient     = models.ForeignKey(Patient, related_name='medhistories', verbose_name=u'Поциэнт')
