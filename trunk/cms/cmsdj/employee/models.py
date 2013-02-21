@@ -96,7 +96,7 @@ class   StaffListEntry(models.Model):
         verbose_name_plural     = u'Штатные расписания'
 
     def     __unicode__(self):
-        return '%s.%s - %d' % (self.department, self.specialty, self.qty)
+        return '%s: %s - %d' % (self.stafflist, self.specialty, self.qty)
 
 class   RoomSchedule(models.Model):
     begdate   = models.DateField(unique=True, default=datetime.datetime.today(), verbose_name=u'Действительно с')
@@ -124,4 +124,4 @@ class   RoomScheduleEntry(models.Model):
         verbose_name_plural     = u'Сокеты кабинетов'
 
     def     __unicode__(self):
-        return '%s.%d: %s %02d:%02d-%02d:%02d - %d' % (self.schedule, self.room.pk, self.dow, self.begtime/60, self.begtime%60, self.endtime/60, self.endtime%60, self.speciality)
+        return '%s, каб.№%d: %s %02d:%02d-%02d:%02d - %s' % (self.schedule, self.room.pk, self.dow, self.begtime/60, self.begtime%60, self.endtime/60, self.endtime%60, self.specialty.name)

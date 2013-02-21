@@ -12,7 +12,18 @@ def index(request):
     return direct_to_template(request, 'employee/index.html')
 
 def stafflist(request):
-    return direct_to_template(request, 'employee/stafflist.html')
+    '''
+    По всем отделениям
+    По всем специальностям оного
+    
+    '''
+    object = models.StaffList.objects.all()[0]
+    return  object_detail (
+        request,
+        queryset = models.StaffList.objects.all(),
+        object_id = object.id,
+    )
+    #return direct_to_template(request, 'employee/stafflist.html')
 
 def employee_list(request):
 	return  object_list (
