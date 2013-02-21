@@ -1,0 +1,7 @@
+{% extends "employee/base.html" %}
+{% block body_main %}
+<center> Штатное расписание с {{ object.begdate|date:"d.m.y" }}: </center>
+<table border="1" width="100%">
+    <tr> <th> Специальность </th> <th> Ставок </th> <th> Есть </th> </tr>
+</table>
+{% endblock %}
