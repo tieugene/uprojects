@@ -1,0 +1,12 @@
+INSERT INTO employee_room (id, department_id) VALUES (1, 1);
+INSERT INTO employee_room (id, department_id) VALUES (2, 1);
+INSERT INTO employee_room (id, department_id) VALUES (3, 1);
+INSERT INTO employee_room (id, department_id) VALUES (4, 2);
+INSERT INTO employee_room (id, department_id) VALUES (5, 2);
+INSERT INTO employee_room (id, department_id) VALUES (6, 2);
+INSERT INTO employee_room (id, department_id) VALUES (7, 3);
+INSERT INTO employee_room (id, department_id) VALUES (8, 3);
+INSERT INTO employee_room (id, department_id) VALUES (9, 3);
+INSERT INTO employee_room (id, department_id) VALUES (10, 4);
+INSERT INTO employee_room (id, department_id) VALUES (11, 4);
+INSERT INTO employee_room (id, department_id) VALUES (12, 4);
