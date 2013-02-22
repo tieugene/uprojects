@@ -1,12 +1,22 @@
 {% extends "employee/base.html" %}
 {% block body_main %}
-<center> Штатное расписание с {{ begdate|date:"d.m.y" }}: </center>
+<center> Штатное расписание с {{ stafflist.begdate|date:"d.m.y" }}: </center>
 <table border="1">
-    <tr> <th> Специальность </th> <th> Ставок </th> <th> Есть </th> </tr>
+    <tr> <th> Специальность </th> <th colspan="2"> Ставок </th> <th> Занято </th> </tr>
     {% for dep in data %}
-        <tr> <th colspan = "3"> {{ dep.name }} </th> </tr>
+        <tr> <th colspan = "4"> {{ dep.dep.name }} </th> </tr>
         {% for spec in dep.data %}
-        <tr> <td> {{ spec.name }} </td> <td> {{ spec.need }} </td> <td> {{ spec.are }} </td> </tr>
+            <tr>
+                <td> {{ spec.spec.name }} </td>
+                {% if spec.need %}
+                    <td> {{ spec.need.qty }} </td>
+                    <td> <a href="{% url staff_edit spec.need.pk %}"> E </a> </td>
+                {% else %}
+                    <td> - </td>
+                    <td> <a href="{% url staff_add stafflist.pk spec.spec.id %}"> + </a> </td>
+                {% endif %}
+                <td> {{ spec.are }} </td>
+            </tr>
         {% endfor %}
     {% endfor %}
 </table>
