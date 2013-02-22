@@ -12,6 +12,10 @@ class   SpecialtyLine(admin.TabularInline):
     model   = Specialty
     extra   = 1
 
+class   EmployeeSpecialtyLine(admin.TabularInline):
+    model   = EmployeeSpecialty
+    extra   = 1
+
 class   StaffListEntryLine(admin.TabularInline):
     model   = StaffListEntry
     extra   = 1
@@ -24,6 +28,9 @@ class   RoomScheduleEntryLine(admin.TabularInline):
 class	DepartmentAdmin(admin.ModelAdmin):
     inlines = (RoomLine, SpecialtyLine,)
 
+class	EmployeeAdmin(admin.ModelAdmin):
+    inlines = (EmployeeSpecialtyLine,)
+
 class	StaffListAdmin(admin.ModelAdmin):
     inlines = (StaffListEntryLine,)
 
@@ -33,6 +40,6 @@ class	RoomScheduleAdmin(admin.ModelAdmin):
 admin.site.register(Department, DepartmentAdmin)
 admin.site.register(Room)
 admin.site.register(Specialty)
-admin.site.register(Employee)
+admin.site.register(Employee, EmployeeAdmin)
 admin.site.register(StaffList, StaffListAdmin)
 admin.site.register(RoomSchedule, RoomScheduleAdmin)

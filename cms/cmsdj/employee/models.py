@@ -23,6 +23,12 @@ class   Department(models.Model):
         return self.name
 
 class   Room(models.Model):
+    '''
+    14, 05 - педиатрия
+4,20,21 - терапия
+11,15,16 - стоматология
+24,29,36,37 - косметология
+    '''
     id      	= models.PositiveIntegerField(primary_key=True, verbose_name=u'Номер')
     department	= models.ForeignKey(Department, related_name='rooms', verbose_name=u'Отделение')
 
@@ -62,7 +68,7 @@ class   Employee(models.Model):
 class   EmployeeSpecialty(models.Model):
     employee	= models.ForeignKey(Employee, related_name='specialties', verbose_name=u'Врач')
     specialty	= models.ForeignKey(Specialty, related_name='employees', verbose_name=u'Специальность')
-    rate      	= models.PositiveIntegerField(verbose_name=u'Ставка')
+    rate      	= models.DecimalField(blank=True, null=True, max_digits=3, decimal_places=2, verbose_name=u'Ставка')
 
     class   Meta:
         ordering                = ('employee', 'specialty')
@@ -87,7 +93,7 @@ class   StaffList(models.Model):
 class   StaffListEntry(models.Model):
     stafflist	= models.ForeignKey(StaffList, related_name='staves', verbose_name=u'ШР')
     specialty	= models.ForeignKey(Specialty, related_name='+', verbose_name=u'Специальность')
-    qty     	= models.PositiveIntegerField(blank=True, null=True, verbose_name=u'Ставок')
+    qty     	= models.DecimalField(max_digits=5, decimal_places=2, verbose_name=u'Ставок')
 
     class   Meta:
         ordering                = ('stafflist', 'specialty')
