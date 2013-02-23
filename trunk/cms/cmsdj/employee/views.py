@@ -110,7 +110,13 @@ def roomschedule_list(request):
 
 def roomschedule_view(request, id):
     rs = models.RoomSchedule.objects.get(pk=int(id))
-    return render_to_response('employee/roomschedule_detail.html', {'begdate': rs.begdate})
+    return render_to_response(
+        'employee/roomschedule_detail.html',
+        {
+            'begdate': rs.begdate,
+            'dow': models.DOW.objects.all(),
+            'hod': xrange(13),
+        })
 
 def rse_add(request, id):
     return  create_object (request, model = models.Person, extra_context = {'cancelurl': reverse('person_list')})
