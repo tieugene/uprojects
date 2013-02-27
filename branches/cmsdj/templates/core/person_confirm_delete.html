@@ -1,0 +1,9 @@
+{% extends "core/base.html" %}
+{% block body_main %}
+<p> Точно удалить человека "{{ object }}"?</p>
+<form method="POST" action="">
+{% csrf_token %}
+<button type="submit"> Yes </button>
+<a href="{% url person_detail object.pk %}"> <button type="button"> No </button> </a>
+</form>
+{% endblock %}

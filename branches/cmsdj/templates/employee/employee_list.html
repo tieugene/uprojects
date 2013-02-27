@@ -1,0 +1,11 @@
+{% extends "employee/base.html" %}
+{% block body_main %}
+<center> Сотрудники: </center>
+
+<ul>
+{% for object in object_list %}
+<li> <a href="{% url employee_view object.pk %}"> {{ object.name }} </a> </li>
+{% endfor %}
+</ul>
+
+{% endblock %}

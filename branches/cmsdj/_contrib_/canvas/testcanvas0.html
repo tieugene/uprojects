@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xml:lang="en" lang="en">
+<head>
+	<meta charset="UTF8"/>
+	<title> Canvas test </title>
+	<style type="text/css" >
+    html      { border: 1px dotted black; padding: 0; margin: 0; height: 99%;}
+    body      { border: 1px solid  black; padding: 0; margin: 0; height: 100%;}
+    #thetable { border: 1px dotted black; padding: 0; margin: 0; width: 100%;}
+    .thecell  { border: 1px dashed black; padding: 0; margin: 0; height: 99%;}
+    #leftmenu { width: 1%; }
+    #rightmenu   { width: 99%; }
+    #canvas   { border: 1px solid black; padding: 0; margin: 0; }
+	</style>
+  <script type="text/javascript" src="testcanvas0.js"></script>
+</head>
+<body onresize="main_loaded();" onload="main_loaded();">
+  <div id="topmenu">
+    <center>
+      <button type="button" onClick='main_loaded();'> Top menu </button>
+    </center>
+  </div>
+  <table id="thetable">
+    <tr>
+      <td id="leftmenu" class="thecell"> Left <br/> menu </td>
+      <td id="rightmenu" class="thecell">
+        <canvas height="100" width="100" id="canvas"> Установите <a href="http://mozilla-russia.org/products/firefox/"> Интернет </a> </canvas>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>

@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block jsready %}
+$("#tm_app1").addClass("active");
+{% endblock %}
+{% block body_main %}
+<center> Model1: </center>
+<p> ID: {{ object.pk }} </p>
+<p> Name: {{ object.name }} </p>
+{% endblock %}

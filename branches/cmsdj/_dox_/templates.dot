@@ -1,0 +1,17 @@
+// dot -Tsvg -o templates.svg templates.dot
+
+digraph templates {
+ label = "Templates";
+ rankdir = BT;
+ node [shape = rectangle];
+ index -> base [arrowhead = onormal];
+ "core\nbase" -> base [arrowhead = onormal];
+ "core\nindex" -> "core\nbase"  [arrowhead = onormal];
+ "core\nperson_list" -> "core\nbase"  [arrowhead = onormal];
+ "core\nperson_detail" -> "core\nbase"  [arrowhead = onormal];
+ subgraph cluster0 {
+  label = "Legend";
+  part -> container [arrowhead = odiamond, label="included"];
+  successor -> ancestor [arrowhead = onormal, label="inherits"];
+ }
+}

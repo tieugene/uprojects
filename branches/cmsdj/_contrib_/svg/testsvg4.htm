@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xml:lang="en" lang="en" style="height: 100%">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<title> SVG test (cleaned, fixed headers and resize on load/resize, chrome incompatible) </title>
+  <script type="text/javascript">
+      function main_loaded() {
+        var canvasize=document.getElementById("canvas").getBoundingClientRect();
+        var canvasw = canvasize.width;
+        var canvash = canvasize.height;
+        var head=document.getElementById("head");
+        dx = head.width.baseVal.value;
+        dy = head.height.baseVal.value;
+        var body=document.getElementById("svgbody");
+        //document.getElementById("svgwhole").height.baseVal.value  = canvash;
+        document.getElementById("thead").width.baseVal.value  = canvasw - dx - 5;
+        document.getElementById("lhead").height.baseVal.value = canvash - dy - 5;
+        body.width.baseVal.value  = canvasw - dx - 5;
+        body.height.baseVal.value = canvash - dy - 5;
+      }
+  </script>
+	<style type="text/css" >
+    .bordered { border: 1px dashed; }
+    .wide { width: 100%; }
+    .high { height: 100%; }
+    .red { border-color: red; }
+    .yellow { border-color: yellow; }
+    .blue { border-color: blue; }
+    .green { border-color: green; }
+    .grey { border-color: grey; }
+    .black { border-color: black; }
+    #leftmenu { width: 1%; }
+	</style>
+</head>
+<body class="bordered black" style="height: 90%" onresize="main_loaded();">
+  <div id="topmenu" class="wide bordered grey">
+    <center>
+      <button type="button" onClick='alert ("Screen res: "+screen.width+"x"+screen.height);'> screen </button>
+      Top menu
+      <button type="button" onClick='alert ("Client res: "+window.innerWidth+"x"+window.innerHeight);'> client </button>
+    </center>
+  </div>
+  <table class="wide high bordered grey">
+    <tr id="bottom" class="high bordered green">
+        <td id="leftmenu" class="high bordered red"> Left <br/> menu </td>
+        <td id="canvas" class="high bordered red">  <!-- set height="1234" for compatibility - 100% is wrong -->
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" id="svgwhole" width="100%" height="100%" onload="main_loaded();">
+  <!-- topmenu -->
+  <rect id="head" x="0" y="0" width="64" height="32" style="fill: none; stroke-width: 1; stroke: black;"/>
+  <svg xmlns="http://www.w3.org/2000/svg" version="1.1" id="thead" x="65" y="0" height="32" width="100%">
+    <rect width="100%" height="100%" style="fill: silver; stroke-width: 1; stroke: black;"/>
+    <g style="stroke: rgb(255,255,0); stroke-width:1">  <!-- 1/7 ~ 14% -->
+      <line x1="14%" y1="0" x2="14%" y2="100%"/>
+      <line x1="28%" y1="0" x2="28%" y2="100%"/>
+      <line x1="42%" y1="0" x2="42%" y2="100%"/>
+      <line x1="56%" y1="0" x2="56%" y2="100%"/>
+      <line x1="70%" y1="0" x2="70%" y2="100%"/>
+      <line x1="84%" y1="0" x2="84%" y2="100%"/>
+    </g>
+    <g fill="black" style="text-anchor: middle;">
+      <text x="7%" y="16"><tspan dy="0.5ex">Пн</tspan></text>
+      <text x="21%" y="16"><tspan dy="0.5ex">Вт</tspan></text>
+      <text x="35%" y="16"><tspan style="baseline-shift: -40%">Ср</tspan></text>
+      <text x="49%" y="16"><tspan baseline-shift="-40%">Чт</tspan></text>
+      <text x="63%" y="16"><tspan dy="0.5ex">Пт</tspan></text>
+      <text x="77%" y="16"><tspan dy="0.5ex">Сб</tspan></text>
+      <text x="92%" y="16"><tspan dy="0.5ex">Вс</tspan></text>
+    </g>
+  </svg>
+  <svg xmlns="http://www.w3.org/2000/svg" version="1.1" id="lhead" x="0" y="33" width="64" height="100%">
+    <rect width="100%" height="100%" style="fill: silver; stroke-width: 1; stroke: black;"/>
+    <g style="stroke:rgb(255,255,0);stroke-width:1">
+      <line x1="0" y1="7%" x2="100%" y2="7%"/>
+      <line x1="0" y1="14%" x2="100%" y2="14%"/>
+      <line x1="0" y1="21%" x2="100%" y2="21%"/>
+    </g>
+    <g fill="black">
+      <text x="0" y="0%"><tspan dy="1em">08:00</tspan></text>
+      <text x="0" y="7%"><tspan dy="1em">09:00</tspan></text>
+      <text x="0" y="14%"><tspan dy="1em">10:00</tspan></text>
+      <text x="0" y="21%"><tspan dy="1em">11:00</tspan></text>
+      <text x="0" y="86%"><tspan dy="1em">20:00</tspan></text>
+      <text x="0" y="93%"><tspan dy="1em">21:00</tspan></text>
+    </g>
+  </svg>
+  <svg xmlns="http://www.w3.org/2000/svg" version="1.1" id="svgbody" x="65" y="33" width="100%" height="100%">
+    <rect width="100%" height="100%" style="fill:rgb(192,192,192);stroke-width:1;stroke:rgb(0,0,0)"/>
+    <g style="stroke:rgb(255,255,0);stroke-width:1">
+      <line x1="14%" y1="0" x2="14%" y2="100%"/>
+      <line x1="28%" y1="0" x2="28%" y2="100%"/>
+      <line x1="42%" y1="0" x2="42%" y2="100%"/>
+      <line x1="56%" y1="0" x2="56%" y2="100%"/>
+      <line x1="70%" y1="0" x2="70%" y2="100%"/>
+      <line x1="84%" y1="0" x2="84%" y2="100%"/>
+    </g>
+    <g style="stroke:rgb(255,255,0);stroke-width:1">
+      <line x1="0" y1="7%" x2="100%" y2="7%"/>
+      <line x1="0" y1="14%" x2="100%" y2="14%"/>
+      <line x1="0" y1="21%" x2="100%" y2="21%"/>
+      <line x1="0" y1="86%" x2="100%" y2="86%"/>
+      <line x1="0" y1="93%" x2="100%" y2="93%"/>
+    </g>
+  </svg>
+</svg>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>

@@ -1,0 +1,42 @@
+// dot -Tsvg -o classdiagramm.svg classdiagramm.dot
+
+digraph classdiagramm {
+ label = "Class Diagramm";
+ rankdir = RL;
+ node [shape = rectangle];
+ subgraph cluster1 {
+ label = "Core";
+  PersonAddress -> Person [arrowhead = odiamond, lamel="1:M"];
+  PersonPhone -> Person [arrowhead = odiamond];
+  PersonEmail -> Person [arrowhead = odiamond];
+  PersonDocument -> Person [arrowhead = odiamond];
+  PersonCode -> Person [arrowhead = odiamond];
+ };
+ subgraph cluster2 {
+ label = "Employee";
+  Employee -> Person [arrowhead = onormal];
+  MedEducation -> Employee [arrowhead = odiamond];
+  Car -> Employee [arrowhead = odiamond];
+  Training -> Employee [arrowhead = odiamond];
+ };
+ subgraph cluster3 {
+ label = "Patient";
+  Patient -> Person [arrowhead = onormal];
+  EMC -> Patient [arrowhead = odiamond];
+  Dispensary -> EMC [arrowhead = odiamond];
+  MedHistory -> EMC [arrowhead = odiamond];
+  Dispensary -> MedHistory;
+  Visit -> MedHistory [arrowhead = onormal];
+  Receipe -> Visit [arrowhead = odiamond];
+  Hospitalization -> MedHistory [arrowhead = onormal];
+  MedRecord -> MedHistory [arrowhead = odiamond];
+  MedRecord -> Visit [arrowhead = odiamond];
+  MedRecord -> Hospitalization [arrowhead = odiamond];
+  MedRecordEntry -> MedRecord [arrowhead = odiamond];
+ };
+ subgraph cluster4 {
+  label = "Legend";
+  part -> container [arrowhead = odiamond, label="included"];
+  successor -> ancestor [arrowhead = onormal, label="inherits"];
+ }
+}

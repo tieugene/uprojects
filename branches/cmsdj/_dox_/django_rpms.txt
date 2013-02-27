@@ -1,0 +1,69 @@
+	django-addons : A framework to create pluggable Django add-ons
++	django-ajax-selects : Enables editing of ForeignKey, ManyToMany and simple text fields
+	django-annoying : Eliminate annoying things in the Django framework
+	django-authenticator : Authentication client for django
+	django-authopenid : Openid authentification application for Django
+?	django-authority : A Django app for generic per-object permissions and custom permission checks
+	django-avatar : A django module for handling user avatars
+	django-celery : Django Celery Integration
+?	django-contact-form : An extensible contact-form application for Django
+?	django-countries : Provides a country field for Django models
+	django-dpaste : Dpaste is a code paste-bin application using Django
+	django-evolution : Schema evolution for Django
++	django-extra-form-fields : Additional form fields for Django applications
+?	django-filter : A Django application for allowing users to filter queryset dynamically
+	django-flash : A Django extension to provide support for Rails-like flash
+?	django-followit : A django app that allows users to follow django model objects
+	django-keyedcache : Utilities for simplified development of cache aware objects
+	django-kombu : Kombu transport using the Django database as a message store
++	django-lint : Analyzes Django code looking for bugs and signs of poor quality
+	django-mako : Mako Templates Plugin for Django
+	django-mptt : Utilities for implementing Modified Preorder Tree Traversal
+	django-notification : User notification management for the Django web framework
++	django-pagination : Django pagination tools
+	django-picklefield : Implementation of a pickled object field
+?	django-piston : A mini-framework for Django for creating RESTful APIs
+	django-profile : Django pluggable user profile zone
+	django-profiles : A fairly simple user-profile management application for Django
+	django-pylibmc : Django cache backend using pylibmc
+	django-recaptcha-works : Integrate the reCaptcha service
+	django-recaptcha : A Django application for adding ReCAPTCHA to a form
+?	django-registration : A user-registration application for Django
+?	django-reversion : Version control extension for the Django web framework
+	django-robots : Robots exclusion application for Django, complementing Sitemaps
+	django-sct : A collection of Django applications for building community websites
+	django-simple-captcha : Django application to add captcha images to any Django form
+?	django-sorting : A Django application for easy sorting
+	Django-south : Intelligent schema migrations for Django apps
+?	django-staticfiles : A Django app that provides helpers for serving static files
+?	django-tables : A Django Queryset renderer
+?	django-tagging : A generic tagging application for Django projects
+	django-tastypie-doc : Documentation for django-tastypie
+	django-tastypie : Tastypie is an webservice API framework for Django
+	django-threaded-multihost : Django app to enable multi-site awareness in Django apps
+	django-threadedcomments : A simple yet flexible threaded commenting system for Django
+?	django-tinymce : TinyMCE editor for Django applications
+	django-tracking : Django site visitor tracking, including basic blacklisting
+	django-typepad : A helper Django app for making TypePad applications
+	kobo-django : Django components
+?	python-coffin : Jinja2 adapter for Django
+	python-django-authopenid : OpenID authentication application for Django
+	python-django-bootstrap-toolkit : Bootstrap support for Django projects
++	python-django-dajax : Library to create asynchronous presentation logic with Django and dajaxice
++	python-django-dajaxice : Agnostic and easy to use AJAX library for Django
+	python-django-debug-toolbar : Configurable set of panels that display various debug information
+?	python-django-dynamite : Dynamic models framework
+	python-django-federated-login : Provides federated logins to django projects
+?	python-django-helpdesk : A Django powered ticket tracker for small enterprise
+	python-django-horizon-doc : Documentation for Django Horizon
+	python-django-horizon : Django application for talking to Openstack
+?	python-django-nose : Django test runner that uses nose
+	python-django-openid-auth : OpenID integration for django.contrib.auth
+	python-django-openstack-auth : Django authentication backend for OpenStack Keystone
+?	python-django-select2 : Select2 option fields for Django
+?	python-django-setuptest : Simple module enabling Django app testing
+?	python-django-tables2 : Table framework for Django
+?	python-djblets : A collection of useful classes and functions for Django
+	python-fedora-django : Python modules for django applications authing to Fedora Account System
+?	python-storm-django.i686 : Support for using python-storm as Django ORM
+?	wadofstuff-django-serializers : Extended Django Serializer Module

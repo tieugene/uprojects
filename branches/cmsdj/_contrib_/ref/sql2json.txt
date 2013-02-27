@@ -1,0 +1,6 @@
+NULL => null
+^\( => [
+\);$ => ],
+" => \"
+'' => ""
+json.load(open("test.json", "r"), "utf-8")
