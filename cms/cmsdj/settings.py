@@ -32,10 +32,8 @@ STATICFILES_FINDERS = (
 #SECRET_KEY = 'bf(+*va(yj&amp;#498fv_8m378*ff$+qaf*vjsb2c^bj3!43aj^=c'
 SECRET_KEY = '4(&d8btp)r+tv23+xp!aa_@zz30mau9nz_2+1hb3-9u)jo5^35'
 TEMPLATE_LOADERS = (
-    'django_jinja.loaders.AppLoader',
-    'django_jinja.loaders.FileSystemLoader',
-    #'django.template.loaders.filesystem.Loader',
-    #'django.template.loaders.app_directories.Loader',
+    'django.template.loaders.filesystem.Loader',
+    'django.template.loaders.app_directories.Loader',
 )
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
@@ -57,7 +55,6 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.admin',
-    'django_jinja',
     'utils',
     'core',
     'enum',

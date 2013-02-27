@@ -109,13 +109,20 @@ def roomschedule_list(request):
 	)
 
 def roomschedule_view(request, id):
+    '''
+    TODO:
+    * by app (app=fixed; DxT=Spec)
+    * by day (CxT=Spec)
+    * by spec (DxT=Cab)
+    Test: cab. #2, LOR (), Mon 540..720 (9:00-12:00)
+    '''
     rs = models.RoomSchedule.objects.get(pk=int(id))
+    #for i in rs.entries.all():
+    #    print i.room.pk, i.specialty.name, i.dow.pk, i.begtime, i.endtime
     return render_to_response(
         'employee/roomschedule_detail.html',
         {
-            'begdate': rs.begdate,
-            'dow': models.DOW.objects.all(),
-            'hod': xrange(13),
+            'rs': rs,
         })
 
 def rse_add(request, id):

@@ -37,9 +37,9 @@
 {% block body_main %}
   <div id="topmenu">
     <center>
-    <center> График кабинетов с {{ begdate|date:"d.m.y" }}: </center>
-    <p> Время: {% for d in dow %} {{ d.name }} {% endfor %} </p>
-    <p> {% for h in hod %} {{ h }} {% endfor %} </p>
+    <center> График кабинетов с {{ rs.begdate|date:"d.m.y" }}: </center>
+    <!--p> Время: {% for d in dow %} {{ d.name }} {% endfor %} </p>
+    <p> {% for h in hod %} {{ h }} {% endfor %} </p-->
     </center>
   </div>
   <table id="thetable">
@@ -99,10 +99,27 @@
     <text x="0" y="87%"> <tspan dy="1.5ex"> Вс </tspan> </text>
   </g>
   <g class="occupy">
+    {% for entry in rs.entries.all %}
+        <!--
+            x = 9% + (((beg/60) - 8) * 6.5%)
+            y = 9% + ((dow-1) * 13%)
+        -->
+        <a xlink:href="" xlink:title="title">
+            <rect
+                x="9%"
+                y="9%"
+                width="16.25%"
+                height="13%" rx="3" ry="3"
+            >
+                <title> no comments </title>
+            </rect>
+        </a>
+        <!--text x="30.125%" y="22%"> <tspan dy="1.5ex"> Стоматолог </tspan> </text-->
+    {% endfor %}
     <a xlink:href="http://www.google.com" xlink:title="google">
-    <rect x="22%" y="22%" width="16.25%" height="13%" rx="3" ry="3"> <title> Вт. 10:00-12:30 <br/> не распределено </title> </rect>
+        <rect x="22%" y="22%" width="16.25%" height="13%" rx="3" ry="3"> <title> Вт. 10:00-12:30 <br/> не распределено </title> </rect>
     </a>
-    <text x="30.125%" y="22%"> <tspan dy="1.5ex"> Стоматолог </tspan> </text>
+    <text x="30.125%" y="22%"> <tspan dy="1.5ex"> Пример </tspan> </text>
   </g>
 </svg>
 {% endblock %}
