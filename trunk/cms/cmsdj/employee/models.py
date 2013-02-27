@@ -116,7 +116,7 @@ class   RoomSchedule(models.Model):
         return str(self.begdate)
 
 class   RoomScheduleEntry(models.Model):
-    schedule	= models.ForeignKey(RoomSchedule, related_name='staves', verbose_name=u'ШР')
+    schedule	= models.ForeignKey(RoomSchedule, related_name='entries', verbose_name=u'ГК')
     room	    = models.ForeignKey(Room, related_name='+', verbose_name=u'Кабинет')
     specialty	= models.ForeignKey(Specialty, related_name='+', verbose_name=u'Специальность')
     dow 	    = models.ForeignKey(DOW, related_name='+', verbose_name=u'День')
