@@ -2,11 +2,20 @@
 {% load static %}
 {# load adminmedia #}
 {% get_static_prefix as STATIC_URL %}
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<!DOCTYPE html>
+<html xml:lang="en" lang="en">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 	<title> CMS: {% block title %}{% endblock %} </title>
+	<style type="text/css" >
+        html      { border: 1px dotted black; padding: 0; margin: 0; height: 99%;}
+        body      { border: 1px solid  black; padding: 0; margin: 0; height: 100%;}
+        #thetable { border: 1px dotted black; padding: 0; margin: 0; width: 100%;}
+        .thecell  { border: 1px dashed black; padding: 0; margin: 0; height: 99%;}
+        #leftmenu { width: 1%; }
+        #canvas   { width: 99%; }
+        #thesvg   { width: 100%; }
+	</style>
 	<link type="text/css" href="{{ STATIC_URL }}css/base.css" rel="stylesheet">
 	<script type="text/javascript" src="{{ STATIC_URL }}js/jquery.min.js"></script>
 	<script type="text/javascript" src="{{ STATIC_URL }}js/misc.js"></script>
