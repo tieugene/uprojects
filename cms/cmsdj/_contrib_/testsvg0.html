@@ -1,0 +1,37 @@
+<html xml:lang="en" lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<title> SVG test </title>
+	<style type="text/css" >
+    .bordered {
+        border: 1px dashed;
+    }
+    .red { border-color: red; }
+    .yellow { border-color: yellow; }
+    .blue { border-color: blue; }
+    .green { border-color: green; }
+    .grey { border-color: grey; }
+    .black { border-color: back; }
+	</style>
+</head>
+<body height="100%" width="100%" class="bordered red">
+  <div width="100%" id="topmenu" class="bordered yellow">
+    <center> Top menu </center>
+  </div>
+  <div width="100%" height="100%" class="bordered green">
+    <div height="100%" id="leftmenu" class="bordered grey" style="float: left">
+      <p> Left <br/> menu </p>
+    </div>
+    <div height="100%" id="main" class="bordered black" style="float: right">
+      <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="100%" height="100%">
+        <rect
+        width="100%"
+        height="100%"
+        style="fill:rgb(0,0,255);stroke-width:1;stroke:rgb(0,0,0)"
+        >
+        </rect>
+      </svg>
+    </div>
+  </div>
+</body>
+</html>

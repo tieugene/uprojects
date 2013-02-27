@@ -24,10 +24,10 @@ class   Department(models.Model):
 
 class   Room(models.Model):
     '''
-    14, 05 - педиатрия
-4,20,21 - терапия
-11,15,16 - стоматология
-24,29,36,37 - косметология
+	14, 05 - педиатрия
+	4,20,21 - терапия
+	11,15,16 - стоматология
+	24,29,36,37 - косметология
     '''
     id      	= models.PositiveIntegerField(primary_key=True, verbose_name=u'Номер')
     department	= models.ForeignKey(Department, related_name='rooms', verbose_name=u'Отделение')
