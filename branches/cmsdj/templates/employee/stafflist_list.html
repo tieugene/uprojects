@@ -2,7 +2,7 @@
 {% block body_main %}
 <p> Штатные расписания:
 {% for object in object_list %}
-<a href="{% url stafflist_view object.id %}"> {{ object.begdate|date:"y.m.d" }} </a>
+<a href="{{ url_for('stafflist_view', object.id) }}"> {{ object.begdate|date }} </a>
 {% endfor %}
 </p>
 {% endblock %}

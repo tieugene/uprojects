@@ -3,24 +3,22 @@
 from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.db.models import Sum
-from django.shortcuts import redirect, render_to_response
+from django.shortcuts import redirect   #, render_to_response
 from django.views.decorators.csrf import csrf_exempt
-from django.views.generic.simple import direct_to_template
-from django.views.generic.list_detail import object_list, object_detail
-from django.views.generic.create_update import create_object, update_object, delete_object
+#from django.views.generic.simple import direct_to_template
+#from django.views.generic.list_detail import object_list, object_detail
+#from django.views.generic.create_update import create_object, update_object, delete_object
 
+from jnj import *
 import models, forms
 
 PAGE_SIZE = 20
 
 def index(request):
-    return direct_to_template(request, 'employee/index.html')
+    return jrender_to_response('employee/index.html', request=request)
 
 def stafflist_list(request):
-	return  object_list (
-		request,
-		queryset = models.StaffList.objects.order_by('begdate'),
-	)
+    return jrender_to_response('employee/stafflist_list.html', {'object_list': models.StaffList.objects.order_by('begdate')}, request=request)
 
 def stafflist_view(request, id):
     '''
@@ -55,7 +53,7 @@ def stafflist_view(request, id):
                 entry['are'] = are[specialty.id]
             subdata.append(entry)
         data.append({'dep': department, 'data': subdata})
-    return render_to_response('employee/stafflist_detail.html', {'stafflist': sl, 'data': data})
+    return jrender_to_response('employee/stafflist_detail.html', {'stafflist': sl, 'data': data}, request=request)
 
 @csrf_exempt
 def staff_add(request, list_id, spec_id):
@@ -68,13 +66,14 @@ def staff_add(request, list_id, spec_id):
             return redirect('stafflist_view', list_id)
     else:
         form=forms.StaffForm()
-    return render_to_response(
+    return jrender_to_response(
         'employee/staff_add.html',
         {
             'form': form,
             'stafflist': sl,
             'spec': spec,
-        }
+        },
+        request=request
     )
 
 @csrf_exempt
@@ -88,12 +87,13 @@ def staff_edit(request, id):
             return redirect('stafflist_view', sle.stafflist.pk)
     else:
         form=forms.StaffForm(initial={'qty': sle.qty})
-    return render_to_response(
+    return jrender_to_response(
         'employee/staff_edit.html',
         {
             'form': form,
             'sle': sle,
-        }
+        },
+        request=request
     )
 
 def staff_del(request, id):
@@ -103,10 +103,13 @@ def staff_del(request, id):
     return redirect('stafflist_view', sl.pk)
 
 def roomschedule_list(request):
-	return  object_list (
-		request,
-		queryset = models.RoomSchedule.objects.order_by('begdate'),
-	)
+    return jrender_to_response(
+        'employee/roomschedule_list.html',
+        {
+            'object_list': models.RoomSchedule.objects.order_by('begdate'),
+        },
+        request=request
+    )
 
 def roomschedule_view(request, id):
     '''
@@ -119,11 +122,13 @@ def roomschedule_view(request, id):
     rs = models.RoomSchedule.objects.get(pk=int(id))
     #for i in rs.entries.all():
     #    print i.room.pk, i.specialty.name, i.dow.pk, i.begtime, i.endtime
-    return render_to_response(
+    return jrender_to_response(
         'employee/roomschedule_detail.html',
         {
             'rs': rs,
-        })
+        },
+        request=request
+    )
 
 def rse_add(request, id):
     return  create_object (request, model = models.Person, extra_context = {'cancelurl': reverse('person_list')})
@@ -136,16 +141,19 @@ def rse_del(request, id):
     return redirect('person_list')
 
 def employee_list(request):
-	return  object_list (
-		request,
-		queryset = models.Employee.objects.order_by('pk'),
-		paginate_by = PAGE_SIZE,
-		page = int(request.GET.get('page', '1')),
-	)
+    return jrender_to_response(
+        'employee/employee_list.html',
+        {
+            'object_list': models.Employee.objects.order_by('pk'),
+        },
+        request=request
+    )
 
 def employee_view(request, id):
-	return  object_detail (
-		request,
-		queryset = models.Employee.objects.all(),
-		object_id = id,
-	)
+    return jrender_to_response(
+        'employee/employee_detail.html',
+        {
+            'object': models.Employee.objects.get(pk=int(id)),
+        },
+        request=request
+    )

@@ -2,18 +2,19 @@
 
 from django.conf import settings
 from django.core.urlresolvers import reverse
-from django.shortcuts import redirect, render_to_response
+from django.shortcuts import redirect   #, render_to_response
 from django.views.decorators.csrf import csrf_exempt
-from django.views.generic.simple import direct_to_template
+#from django.views.generic.simple import direct_to_template
 from django.views.generic.list_detail import object_list, object_detail
 from django.views.generic.create_update import create_object, update_object, delete_object
 
+from jnj import *
 import models, forms
 
 PAGE_SIZE = 20
 
 def index(request):
-    return direct_to_template(request, 'core/index.html')
+    return jrender_to_response('core/index.html', request=request)
 
 # Person CRUD
 def person_list(request):

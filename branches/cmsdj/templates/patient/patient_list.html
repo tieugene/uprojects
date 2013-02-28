@@ -7,7 +7,7 @@ $("#tm_app1").addClass("active");
 
 <ul>
 {% for object in object_list %}
-<li> <a href="{% url patient_detail object.pk %}"> {{ object }} </a> </li>
+<li> <a href="{{ url_for('patient.views.patient_detail', object.pk) }}"> {{ object }} </a> </li>
 {% endfor %}
 </ul>
 

@@ -8,12 +8,12 @@
   </script>
 {% endblock %}
 {% block jsready %}
-    {{ block.super }}
+    {{ super() }}
     refresh_svg();
     document.getElementsByTagName("body")[0].setAttribute('onresize', 'refresh_svg();');
 {% endblock %}
 {% block css %}
-    {{ block.super }}
+    {{ super() }}
     svg g.head > line {
         stroke: yellow;
         stroke-width: 1;
@@ -37,7 +37,7 @@
 {% block body_main %}
   <div id="topmenu">
     <center>
-    <center> График кабинетов с {{ rs.begdate|date:"d.m.y" }}: </center>
+    <center> График кабинетов с {{ rs.begdate|date }}: </center>
     <!--p> Время: {% for d in dow %} {{ d.name }} {% endfor %} </p>
     <p> {% for h in hod %} {{ h }} {% endfor %} </p-->
     </center>
@@ -99,22 +99,25 @@
     <text x="0" y="87%"> <tspan dy="1.5ex"> Вс </tspan> </text>
   </g>
   <g class="occupy">
-    {% for entry in rs.entries.all %}
+    {% for entry in rs.entries.all() %}
         <!--
             x = 9% + (((beg/60) - 8) * 6.5%)
             y = 9% + ((dow-1) * 13%)
         -->
         <a xlink:href="" xlink:title="title">
             <rect
-                x="9%"
-                y="9%"
-                width="16.25%"
+                x="{{9+(((entry.begtime/60.0)-8.0)*6.5)}}%"
+                y="{{9+((entry.dow.pk-1)*13)}}%"
+                width="{{(entry.endtime-entry.begtime)/60.0*6.5}}%"
                 height="13%" rx="3" ry="3"
             >
-                <title> no comments </title>
+                <title> {{ entry.specialty.name }} </title>
             </rect>
         </a>
-        <!--text x="30.125%" y="22%"> <tspan dy="1.5ex"> Стоматолог </tspan> </text-->
+        <text
+            x="{{9+((((entry.endtime+entry.begtime)/2.0/60.0)-8.0)*6.5)}}%"
+            y="{{9+((entry.dow.pk-1)*13)}}%"
+        > <tspan dy="1.5ex"> {{ entry.specialty.name }} </tspan> </text>
     {% endfor %}
     <a xlink:href="http://www.google.com" xlink:title="google">
         <rect x="22%" y="22%" width="16.25%" height="13%" rx="3" ry="3"> <title> Вт. 10:00-12:30 <br/> не распределено </title> </rect>

@@ -1,10 +1,10 @@
 {% extends "employee/base.html" %}
 {% block body_main %}
 <form method="post" action="">
-<p> Ставок для специальности &quot;{{ sle.speciality.name }}&quot; с {{ sle.stafflist.begdate }}:
-{{ form.as_p }}
+<p> Ставок для специальности &quot;{{ sle.specialty.name }}&quot; с {{ sle.stafflist.begdate }}:
+{{ form.as_p() }}
 <button type="submit"> OK </button>
-<a href="{% url stafflist_view sle.stafflist.pk %}"> <button type="button"> Cancel </button> </a>
-<a href="{% url staff_del sle.pk %}"> <button type="button"> Delete </button> </a>
+<a href="{{ url_for('stafflist_view', sle.stafflist.pk) }}"> <button type="button"> Cancel </button> </a>
+<a href="{{ url_for('staff_del', sle.pk) }}"> <button type="button"> Delete </button> </a>
 </form>
 {% endblock %}
