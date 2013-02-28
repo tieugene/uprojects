@@ -11,6 +11,7 @@ from django.views.decorators.csrf import csrf_exempt
 
 from jnj import *
 import models, forms
+from enum.models import DOW
 
 PAGE_SIZE = 20
 
@@ -114,18 +115,23 @@ def roomschedule_list(request):
 def roomschedule_view(request, id):
     '''
     TODO:
-    * by app (app=fixed; DxT=Spec)
-    * by day (CxT=Spec)
-    * by spec (DxT=Cab)
+    * by cab (DxT=Spec) - ГКк
+    * by day (CxT=Spec) - ГКд
+    * by spec (DxT=Cab) - ГКс
     Test: cab. #2, LOR (), Mon 540..720 (9:00-12:00)
     '''
     rs = models.RoomSchedule.objects.get(pk=int(id))
     #for i in rs.entries.all():
     #    print i.room.pk, i.specialty.name, i.dow.pk, i.begtime, i.endtime
+    #print DOW.objects.order_by('pk').count()
     return jrender_to_response(
         'employee/roomschedule_detail.html',
         {
-            'rs': rs,
+            'rs': rs,	# RoomSchedule
+	    'dow': DOW.objects.order_by('pk'),
+	    'rooms': models.Room.objects.order_by('pk'),
+	    'hbeg': 8,	# 08:00
+	    'hend': 22,	# 22:00
         },
         request=request
     )
