@@ -116,19 +116,34 @@ def roomschedule_list(request):
         request=request
     )
 
-def rs_room(request, rs_id, r_id):
+@csrf_exempt
+def rs_room(request, rs_id, room_id, form=None):
     '''
+    By cab (DxT=Spec) - ГКк
     @param rs_id:ID - RoomSchedule object id
     @param r_id:ID - Room object id
     TODO:
-    * by cab (DxT=Spec) - ГКк
-    * by day (CxT=Spec) - ГКд
-    * by spec (DxT=Cab) - ГКс
     Test: cab. #2, LOR (), Mon 540..720 (9:00-12:00)
     '''
     rs = models.RoomSchedule.objects.get(pk=int(rs_id))
-    room = models.Room.objects.get(pk=int(r_id))
+    room = models.Room.objects.get(pk=int(room_id))
     rse = models.RoomScheduleEntry.objects.filter(schedule=rs, room=room)
+    if request.method == 'POST':
+        form = forms.RSEForm(request.POST, rs=rs, room=room)
+        if form.is_valid():
+            begtime=form.cleaned_data['begtime']
+            endtime=form.cleaned_data['endtime']
+            models.RoomScheduleEntry.objects.create(
+                schedule=rs,
+                room=room,
+                specialty=form.cleaned_data['specialty'],
+                dow=form.cleaned_data['dow'],
+                begtime=begtime.hour*60+begtime.minute,
+                endtime=endtime.hour*60+endtime.minute,
+            )
+            form = forms.RSEForm()
+    else:
+        form=forms.RSEForm()
     return jrender_to_response(
         'employee/rs_room.html',
         {
@@ -137,25 +152,26 @@ def rs_room(request, rs_id, r_id):
             'rse': rse,
             'dows': DOW.objects.order_by('pk'),
             'rooms': models.Room.objects.order_by('pk'),
-            'hbeg': 8,	# 08:00
-            'hend': 22,	# 22:00
-            'form': forms.RSEForm()
+            'hbeg': 8,
+            'hend': 22,
+            'form': form,
         },
         request=request
     )
 
-def rs_dow(request, rs_id, d_id):
-    pass
-
-def rse_add(request, id):
-    return  create_object (request, model = models.Person, extra_context = {'cancelurl': reverse('person_list')})
-
-def rse_edit(request, id):
+@csrf_exempt
+def rse_room_edit(request, id):
     return  update_object (request, model = models.Person, object_id = id, extra_context = {'cancelurl': reverse('person_detail', args=[id,])})
 
-def rse_del(request, id):
+def rse_room_del(request, id):
     models.Person.objects.get(pk=int(id)).delete()
     return redirect('person_list')
+
+def rs_dow(request, rs_id, dow_id):
+    '''
+    * by day (CxT=Spec) - ГКд
+    '''
+    pass
 
 def employee_list(request):
     return jrender_to_response(

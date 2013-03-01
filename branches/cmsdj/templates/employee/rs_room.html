@@ -55,7 +55,10 @@
   <table id="thetable">
     <tr>
       <td id="leftmenu" class="thecell" valign="top">
-	{{ form.as_p() }}
+        <form method="post" action="">
+        {{ form.as_p() }}
+        <button type="submit" title="Добавить новый сокет"> Добавить </button>
+        </form>
       </td>
       <td id="canvas" class="thecell">  <!-- set height="1234" for compatibility-->
 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" id="thesvg" height="100" onload="refresh_svg();">
@@ -85,7 +88,7 @@
   <g class="occupy">
     {% for entry in rse %}
         <!-- x = 9% + (((beg/60) - 8) * 6.5%); y = 9% + ((dow-1) * 13%) -->
-        <a xlink:href="http://www.google.com" xlink:title="Edit this entry">
+        <a xlink:href="{{ url_for('rse_room_edit', entry.pk) }}" xlink:title="Edit this entry">
             <rect
                 x="{{hx+(((entry.begtime/60.0)-hbeg)*dx)}}%"
                 y="{{hx+((entry.dow.pk-1)*dy)}}%"

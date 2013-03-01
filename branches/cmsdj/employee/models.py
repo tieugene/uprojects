@@ -116,12 +116,12 @@ class   RoomSchedule(models.Model):
         return str(self.begdate)
 
 class   RoomScheduleEntry(models.Model):
-    schedule	= models.ForeignKey(RoomSchedule, related_name='entries', verbose_name=u'ГК')
-    room	= models.ForeignKey(Room, related_name='+', verbose_name=u'Кабинет')
-    specialty	= models.ForeignKey(Specialty, related_name='+', verbose_name=u'Специальность')
-    dow 	= models.ForeignKey(DOW, related_name='+', verbose_name=u'День')
-    begtime    	= models.PositiveIntegerField(verbose_name=u'с')
-    endtime    	= models.PositiveIntegerField(verbose_name=u'по')
+    schedule    = models.ForeignKey(RoomSchedule, related_name='entries', verbose_name=u'ГК')
+    room        = models.ForeignKey(Room, related_name='+', verbose_name=u'Кабинет')
+    specialty   = models.ForeignKey(Specialty, related_name='+', verbose_name=u'Специальность')
+    dow         = models.ForeignKey(DOW, related_name='+', verbose_name=u'День')
+    begtime     = models.PositiveIntegerField(verbose_name=u'с')
+    endtime     = models.PositiveIntegerField(verbose_name=u'по')
 
     class   Meta:
         ordering                = ('schedule', 'room', 'dow', 'begtime')
