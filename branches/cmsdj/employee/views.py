@@ -104,37 +104,48 @@ def staff_del(request, id):
     return redirect('stafflist_view', sl.pk)
 
 def roomschedule_list(request):
+    room0 = models.Room.objects.order_by('pk')[0].pk
+    dow0 = DOW.objects.order_by('pk')[0].pk
     return jrender_to_response(
         'employee/roomschedule_list.html',
         {
             'object_list': models.RoomSchedule.objects.order_by('begdate'),
+            'room0': room0,
+            'dow0': dow0,
         },
         request=request
     )
 
-def roomschedule_view(request, id):
+def rs_room(request, rs_id, r_id):
     '''
+    @param rs_id:ID - RoomSchedule object id
+    @param r_id:ID - Room object id
     TODO:
     * by cab (DxT=Spec) - ГКк
     * by day (CxT=Spec) - ГКд
     * by spec (DxT=Cab) - ГКс
     Test: cab. #2, LOR (), Mon 540..720 (9:00-12:00)
     '''
-    rs = models.RoomSchedule.objects.get(pk=int(id))
-    #for i in rs.entries.all():
-    #    print i.room.pk, i.specialty.name, i.dow.pk, i.begtime, i.endtime
-    #print DOW.objects.order_by('pk').count()
+    rs = models.RoomSchedule.objects.get(pk=int(rs_id))
+    room = models.Room.objects.get(pk=int(r_id))
+    rse = models.RoomScheduleEntry.objects.filter(schedule=rs, room=room)
     return jrender_to_response(
-        'employee/roomschedule_detail.html',
+        'employee/rs_room.html',
         {
             'rs': rs,	# RoomSchedule
-	    'dow': DOW.objects.order_by('pk'),
-	    'rooms': models.Room.objects.order_by('pk'),
-	    'hbeg': 8,	# 08:00
-	    'hend': 22,	# 22:00
+            'room': room,
+            'rse': rse,
+            'dows': DOW.objects.order_by('pk'),
+            'rooms': models.Room.objects.order_by('pk'),
+            'hbeg': 8,	# 08:00
+            'hend': 22,	# 22:00
+            'form': forms.RSEForm()
         },
         request=request
     )
+
+def rs_dow(request, rs_id, d_id):
+    pass
 
 def rse_add(request, id):
     return  create_object (request, model = models.Person, extra_context = {'cancelurl': reverse('person_list')})
