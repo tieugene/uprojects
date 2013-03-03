@@ -73,7 +73,7 @@ class   RSEForm_old(forms.Form):
 class   RSEForm(forms.Form):
     '''
     '''
-    id          = forms.IntegerField(label='ID', required=False)
+    id          = forms.IntegerField(label='ID', required=False, widget = forms.HiddenInput())
     schedule	= forms.ModelChoiceField(models.RoomSchedule.objects, label='ГК', empty_label=None, widget = forms.HiddenInput())
     room	    = forms.ModelChoiceField(models.Room.objects, label='Кабинет', empty_label=None, widget = forms.HiddenInput())
     dow         = forms.ModelChoiceField(models.DOW.objects, label='День', empty_label=None)
