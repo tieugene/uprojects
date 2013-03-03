@@ -20,14 +20,11 @@ class   RSEForm(forms.Form):
     '''
     id          = forms.IntegerField(label='ID', required=False, widget = forms.HiddenInput())
     schedule	= forms.ModelChoiceField(models.RoomSchedule.objects, label='ГК', empty_label=None, widget = forms.HiddenInput())
-    room	    = forms.ModelChoiceField(models.Room.objects, label='Кабинет', empty_label=None, widget = forms.HiddenInput())
+    room	    = forms.ModelChoiceField(models.Room.objects, label='Кабинет', empty_label=None)
     dow         = forms.ModelChoiceField(models.DOW.objects, label='День', empty_label=None)
     begtime     = forms.TimeField(label='с', widget=forms.widgets.TimeInput(format='%H:%M'))
     endtime     = forms.TimeField(label='по', widget=forms.widgets.TimeInput(format='%H:%M'))
     specialty   = forms.ModelChoiceField(models.Specialty.objects, label='Специальность', empty_label=None)
-
-    #def __init__(self, *args, **kwargs):
-    #    super(RSEForm, self).__init__(*args, **kwargs)
 
     def clean_begtime(self):
             data = self.cleaned_data['begtime']
@@ -65,3 +62,13 @@ class   RSEForm(forms.Form):
             if x:
                 raise forms.ValidationError("%d intersected sockets!" % x)
         return cleaned_data
+
+class   RSERoomForm(RSEForm):
+    def __init__(self, *args, **kwargs):
+        super(RSERoomForm, self).__init__(*args, **kwargs)
+        self.fields['room'].widget = forms.HiddenInput()
+
+class   RSEDOWForm(RSEForm):
+    def __init__(self, *args, **kwargs):
+        super(RSEDOWForm, self).__init__(*args, **kwargs)
+        self.fields['dow'].widget = forms.HiddenInput()

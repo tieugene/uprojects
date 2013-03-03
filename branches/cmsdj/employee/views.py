@@ -152,22 +152,22 @@ def rse_room_add(request, rs_id, room_id):
     schedule = models.RoomSchedule.objects.get(pk=int(rs_id))
     room = models.Room.objects.get(pk=int(room_id))
     if request.method == 'POST':
-        form = forms.RSEForm(request.POST)
+        form = forms.RSERoomForm(request.POST)
         if form.is_valid():
             begtime=form.cleaned_data['begtime']
             endtime=form.cleaned_data['endtime']
             models.RoomScheduleEntry.objects.create(
                 schedule=schedule,
                 room=room,
-                specialty=form.cleaned_data['specialty'],
                 dow=form.cleaned_data['dow'],
+                specialty=form.cleaned_data['specialty'],
                 begtime=begtime.hour*60+begtime.minute,
                 endtime=endtime.hour*60+endtime.minute,
             )
             return redirect('rs_room', rs_id, room_id)
     else:
-        form=forms.RSEForm(initial={'schedule': schedule, 'room': room})
-    return jrender_to_response('employee/rse_room_form.html', {
+        form=forms.RSERoomForm(initial={'schedule': schedule, 'room': room})
+    return jrender_to_response('employee/rse_form.html', {
         'form': form,
         'cancelurl': reverse('rs_room', args=[schedule.pk, room.pk]), 
     }, request=request)
@@ -176,18 +176,18 @@ def rse_room_add(request, rs_id, room_id):
 def rse_room_edit(request, id):
     entry = models.RoomScheduleEntry.objects.get(pk=int(id))
     if request.method == 'POST':
-        form = forms.RSEForm(request.POST)
+        form = forms.RSERoomForm(request.POST)
         if form.is_valid():
             begtime=form.cleaned_data['begtime']
             endtime=form.cleaned_data['endtime']
-            entry.specialty=form.cleaned_data['specialty']
             entry.dow=form.cleaned_data['dow']
+            entry.specialty=form.cleaned_data['specialty']
             entry.begtime=begtime.hour*60+begtime.minute
             entry.endtime=endtime.hour*60+endtime.minute
             entry.save()
             return redirect('rs_room', entry.schedule.pk, entry.room.pk)
     else:
-        form=forms.RSEForm(initial={
+        form=forms.RSERoomForm(initial={
             'id': entry.id,
             'schedule': entry.schedule,
             'room': entry.room,
@@ -196,7 +196,7 @@ def rse_room_edit(request, id):
             'endtime': datetime.time(entry.endtime/60, entry.endtime%60),
             'specialty': entry.specialty,
         })
-    return jrender_to_response('employee/rse_room_form.html', {
+    return jrender_to_response('employee/rse_form.html', {
         'form': form,
         'cancelurl': reverse('rs_room', args=[entry.schedule.pk, entry.room.pk]),
         'delurl': reverse('rse_room_del', args=[entry.pk,]),
@@ -246,44 +246,44 @@ def rse_dow_add(request, rs_id, dow_id):
     @param dow_id:ID - DOW object id
     '''
     schedule = models.RoomSchedule.objects.get(pk=int(rs_id))
-    room = models.Room.objects.get(pk=int(room_id))
+    dow = DOW.objects.get(pk=int(dow_id))
     if request.method == 'POST':
-        form = forms.RSEForm(request.POST)
+        form = forms.RSEDOWForm(request.POST)
         if form.is_valid():
             begtime=form.cleaned_data['begtime']
             endtime=form.cleaned_data['endtime']
             models.RoomScheduleEntry.objects.create(
                 schedule=schedule,
-                room=room,
+                room=form.cleaned_data['room'],
+                dow=dow,
                 specialty=form.cleaned_data['specialty'],
-                dow=form.cleaned_data['dow'],
                 begtime=begtime.hour*60+begtime.minute,
                 endtime=endtime.hour*60+endtime.minute,
             )
-            return redirect('rs_room', rs_id, room_id)
+            return redirect('rs_dow', rs_id, dow_id)
     else:
-        form=forms.RSEForm(initial={'schedule': schedule, 'room': room})
-    return jrender_to_response('employee/rse_room_form.html', {
+        form=forms.RSEDOWForm(initial={'schedule': schedule, 'dow': dow})
+    return jrender_to_response('employee/rse_form.html', {
         'form': form,
-        'cancelurl': reverse('rs_room', args=[schedule.pk, room.pk]), 
+        'cancelurl': reverse('rs_dow', args=[schedule.pk, dow.pk]), 
     }, request=request)
 
 @csrf_exempt
 def rse_dow_edit(request, id):
     entry = models.RoomScheduleEntry.objects.get(pk=int(id))
     if request.method == 'POST':
-        form = forms.RSEForm(request.POST)
+        form = forms.RSEDOWForm(request.POST)
         if form.is_valid():
             begtime=form.cleaned_data['begtime']
             endtime=form.cleaned_data['endtime']
+            entry.room=form.cleaned_data['room']
             entry.specialty=form.cleaned_data['specialty']
-            entry.dow=form.cleaned_data['dow']
             entry.begtime=begtime.hour*60+begtime.minute
             entry.endtime=endtime.hour*60+endtime.minute
             entry.save()
-            return redirect('rs_room', entry.schedule.pk, entry.room.pk)
+            return redirect('rs_dow', entry.schedule.pk, entry.dow.pk)
     else:
-        form=forms.RSEForm(initial={
+        form=forms.RSEDOWForm(initial={
             'id': entry.id,
             'schedule': entry.schedule,
             'room': entry.room,
@@ -292,18 +292,18 @@ def rse_dow_edit(request, id):
             'endtime': datetime.time(entry.endtime/60, entry.endtime%60),
             'specialty': entry.specialty,
         })
-    return jrender_to_response('employee/rse_room_form.html', {
+    return jrender_to_response('employee/rse_form.html', {
         'form': form,
-        'cancelurl': reverse('rs_room', args=[entry.schedule.pk, entry.room.pk]),
-        'delurl': reverse('rse_room_del', args=[entry.pk,]),
+        'cancelurl': reverse('rs_dow', args=[entry.schedule.pk, entry.dow.pk]),
+        'delurl': reverse('rse_dow_del', args=[entry.pk,]),
     }, request=request)
 
 def rse_dow_del(request, id):
     entry = models.RoomScheduleEntry.objects.get(pk=int(id))
     rs_id = entry.schedule.pk
-    room_id = entry.room.pk
+    dow_id = entry.dow.pk
     entry.delete()
-    return redirect('rs_room', rs_id, room_id)
+    return redirect('rs_dow', rs_id, dow_id)
 
 def employee_list(request):
     return jrender_to_response(
