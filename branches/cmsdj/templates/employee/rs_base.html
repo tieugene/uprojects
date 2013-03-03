@@ -42,21 +42,16 @@
 {% block body_main %}
   <div id="topmenu">
     <center>
-    <p> График кабинета №{{ room.pk }} (с {{ rs.begdate|date }}): </p>
-    <p> Еще кабинетов: {% for i in rooms %}
-        {% if i == room %}
-            {{ i.pk }}
-        {% else %}
-            <a href="{{ url_for('rs_room', rs.id, i.pk) }}"> {{ i.pk }} </a>
-        {% endif %}
-    {% endfor %} </p>
+    {% block rs_head %}
+    {% endblock %}
     </center>
   </div>
   <table id="thetable">
     <tr>
       <td id="leftmenu" class="thecell" valign="top">
-	<p> Left <br/> menu </p>
-	<a href="{{ url_for('rse_room_add', rs.id, room.pk) }}"> <button type="button"> Add slot </button> </a>
+	    <p> Left <br/> menu </p>
+        {% block rs_leftmenu %}
+        {% endblock %}
       </td>
       <td id="canvas" class="thecell">  <!-- set height="1234" for compatibility-->
 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" id="thesvg" height="100" onload="refresh_svg();">
@@ -72,35 +67,15 @@
 	<text x="{{x+(dx/2.0)}}%" y="0"><tspan dy="1.5ex"> {{i+hbeg}}:00 </tspan></text>
 	</g>
     {% endfor %}
-    {% set hy = 9 %}
-    {% set dy = (100 - hy)/dows.count() %}
     <!-- horizontal grid:  -->
-    {% for d in dows %}
-	{% set y = hy + (loop.index0 * dy) %}
-	<line x1="0" y1="{{y}}%" x2="100%" y2="{{y}}%"/>
-	<a xlink:href="{{ url_for('rs_dow', rs.id, d.pk) }}" xlink:title="ГК на {{ d.name }}">
-	<text x="0" y="{{y}}%"> <tspan dy="1.5ex"> {{ d.name }} </tspan> </text>
-	</a>
-    {% endfor %}
+    {% set hy = 9 %}
+    {% set dy = (100 - hy)/rows %}
+    {% block rs_hgrid scoped %}
+    {% endblock %}
   </g>
   <g class="occupy">
-    {% for entry in rse %}
-        <!-- x = 9% + (((beg/60) - 8) * 6.5%); y = 9% + ((dow-1) * 13%) -->
-        <a xlink:href="{{ url_for('rse_room_edit', entry.pk) }}" xlink:title="Edit this entry">
-            <rect
-                x="{{hx+(((entry.begtime/60.0)-hbeg)*dx)}}%"
-                y="{{hx+((entry.dow.pk-1)*dy)}}%"
-                width="{{(entry.endtime-entry.begtime)/60.0*dx}}%"
-                height="{{dy}}%" rx="3" ry="3"
-            >
-                <title> {{ entry.specialty.name }} </title>
-            </rect>
-        </a>
-        <text
-            x="{{hx+((((entry.endtime+entry.begtime)/2.0/60.0)-hbeg)*dx)}}%"
-            y="{{hy+((entry.dow.pk-1)*dy)}}%"
-        > <tspan dy="1.5ex"> {{ entry.specialty.name }} </tspan> </text>
-    {% endfor %}
+    {% block rs_occupy scoped %}
+    {% endblock %}
   </g>
 </svg>
 {% endblock %}
