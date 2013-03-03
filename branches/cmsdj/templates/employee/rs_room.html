@@ -55,10 +55,8 @@
   <table id="thetable">
     <tr>
       <td id="leftmenu" class="thecell" valign="top">
-        <form method="post" action="">
-        {{ form.as_p() }}
-        <button type="submit" title="Добавить новый сокет"> Добавить </button>
-        </form>
+	<p> Left <br/> menu </p>
+	<a href="{{ url_for('rse_room_add', rs.id, room.pk) }}"> <button type="button"> Add slot </button> </a>
       </td>
       <td id="canvas" class="thecell">  <!-- set height="1234" for compatibility-->
 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" id="thesvg" height="100" onload="refresh_svg();">

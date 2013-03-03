@@ -1,0 +1,13 @@
+{% extends "employee/base.html" %}
+{% block body_main %}
+        <form method="post" action="">
+        <table>
+        {{ form.as_table() }}
+        </table>
+        <button type="submit"> Ok </button>
+        <a href="{{ cancelurl }}"> <button type="button"> Cancel </button> </a>
+        {% if delurl %}
+        <a href="{{ delurl }}"> <button type="button"> Del </button> </a>
+        {% endif %}
+        </form>
+{% endblock %}

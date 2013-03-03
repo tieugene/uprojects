@@ -13,6 +13,8 @@ from jnj import *
 import models, forms
 from enum.models import DOW
 
+import datetime
+
 PAGE_SIZE = 20
 
 def index(request):
@@ -116,56 +118,94 @@ def roomschedule_list(request):
         request=request
     )
 
-@csrf_exempt
-def rs_room(request, rs_id, room_id, form=None):
+def rs_room(request, rs_id, room_id):
     '''
     By cab (DxT=Spec) - ГКк
     @param rs_id:ID - RoomSchedule object id
-    @param r_id:ID - Room object id
-    TODO:
-    Test: cab. #2, LOR (), Mon 540..720 (9:00-12:00)
+    @param room_id:ID - Room object id
     '''
-    rs = models.RoomSchedule.objects.get(pk=int(rs_id))
+    schedule = models.RoomSchedule.objects.get(pk=int(rs_id))
     room = models.Room.objects.get(pk=int(room_id))
-    rse = models.RoomScheduleEntry.objects.filter(schedule=rs, room=room)
+    rses = models.RoomScheduleEntry.objects.filter(schedule=schedule, room=room)
+    return jrender_to_response(
+        'employee/rs_room.html',
+        {
+            'rs': schedule,
+            'room': room,
+            'rse': rses,
+            'dows': DOW.objects.order_by('pk'),
+            'rooms': models.Room.objects.order_by('pk'),
+            'hbeg': 8,
+            'hend': 22,
+        },
+        request=request
+    )
+
+@csrf_exempt
+def rse_room_add(request, rs_id, room_id):
+    '''
+    @param rs_id:ID - RoomSchedule object id
+    @param room_id:ID - Room object id
+    '''
+    schedule = models.RoomSchedule.objects.get(pk=int(rs_id))
+    room = models.Room.objects.get(pk=int(room_id))
     if request.method == 'POST':
-        form = forms.RSEForm(request.POST, rs=rs, room=room)
+        form = forms.RSEForm(request.POST)
         if form.is_valid():
             begtime=form.cleaned_data['begtime']
             endtime=form.cleaned_data['endtime']
             models.RoomScheduleEntry.objects.create(
-                schedule=rs,
+                schedule=schedule,
                 room=room,
                 specialty=form.cleaned_data['specialty'],
                 dow=form.cleaned_data['dow'],
                 begtime=begtime.hour*60+begtime.minute,
                 endtime=endtime.hour*60+endtime.minute,
             )
-            form = forms.RSEForm()
+            return redirect('rs_room', rs_id, room_id)
     else:
-        form=forms.RSEForm()
-    return jrender_to_response(
-        'employee/rs_room.html',
-        {
-            'rs': rs,	# RoomSchedule
-            'room': room,
-            'rse': rse,
-            'dows': DOW.objects.order_by('pk'),
-            'rooms': models.Room.objects.order_by('pk'),
-            'hbeg': 8,
-            'hend': 22,
-            'form': form,
-        },
-        request=request
-    )
+        form=forms.RSEForm(initial={'schedule': schedule, 'room': room})
+    return jrender_to_response('employee/rse_room_form.html', {
+        'form': form,
+        'cancelurl': reverse('rs_room', args=[schedule.pk, room.pk]), 
+    }, request=request)
 
 @csrf_exempt
 def rse_room_edit(request, id):
-    return  update_object (request, model = models.Person, object_id = id, extra_context = {'cancelurl': reverse('person_detail', args=[id,])})
+    entry = models.RoomScheduleEntry.objects.get(pk=int(id))
+    if request.method == 'POST':
+        form = forms.RSEForm(request.POST)
+        if form.is_valid():
+            begtime=form.cleaned_data['begtime']
+            endtime=form.cleaned_data['endtime']
+            entry.specialty=form.cleaned_data['specialty']
+            entry.dow=form.cleaned_data['dow']
+            entry.begtime=begtime.hour*60+begtime.minute
+            entry.endtime=endtime.hour*60+endtime.minute
+            entry.save()
+            return redirect('rs_room', entry.schedule.pk, entry.room.pk)
+    else:
+        form=forms.RSEForm(initial={
+            'id': entry.id,
+            'schedule': entry.schedule,
+            'room': entry.room,
+            'dow': entry.dow,
+            'begtime': datetime.time(entry.begtime/60, entry.begtime%60),
+            'endtime': datetime.time(entry.endtime/60, entry.endtime%60),
+            'specialty': entry.specialty,
+        })
+    return jrender_to_response('employee/rse_room_form.html', {
+        'form': form,
+        'cancelurl': reverse('rs_room', args=[entry.schedule.pk, entry.room.pk]),
+        'delurl': reverse('rse_room_del', args=[entry.pk,]),
+    }, request=request)
 
 def rse_room_del(request, id):
-    models.Person.objects.get(pk=int(id)).delete()
-    return redirect('person_list')
+    entry = models.RoomScheduleEntry.objects.get(pk=int(id))
+    rs_id = entry.schedule.pk
+    room_id = entry.room.pk
+    entry.delete()
+    return redirect('rs_room', rs_id, room_id)
 
 def rs_dow(request, rs_id, dow_id):
     '''
