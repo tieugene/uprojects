@@ -1,21 +1,32 @@
 {% extends "employee/base.html" %}
 {% block body_main %}
 <center> Штатное расписание с {{ stafflist.begdate }}: </center>
-<table border="1">
-    <tr> <th> Специальность </th> <th colspan="2"> Ставок </th> <th> Занято </th> </tr>
+<p><i>
+Здесь можно только добавить/изменить/удалить Ставок.<br>
+Занято формируется из Сотрудников, Окабинечено - из Графика кабинетов.<br/>
+1 Ставка = 40 часов в неделю.
+</i></p>
+<table border="1" class="thick">
+    <tr>
+        <th> Специальность </th>
+        <th colspan="2" title="Придумано в штатном расписании"> Ставок </th>
+        <th title="Обеспечено врачами в штате"> Занято </th>
+        <th title="Расписано в Графике кабинетов"> Окабинечено </th>
+    </tr>
     {% for dep in data %}
         <tr> <th colspan = "4"> {{ dep.dep.name }} </th> </tr>
         {% for spec in dep.data %}
             <tr>
                 <td> {{ spec.spec.name }} </td>
                 {% if spec.need %}
-                    <td> {{ spec.need.qty }} </td>
-                    <td> <a href="{{ url_for('staff_edit', spec.need.pk) }}"> E </a> </td>
+                    <td align="center"> {{ spec.need.qty }} </td>
+                    <td align="center"> <a href="{{ url_for('staff_edit', spec.need.pk) }}"> E </a> </td>
                 {% else %}
-                    <td> - </td>
-                    <td> <a href="{{ url_for('staff_add', stafflist.pk, spec.spec.id) }}"> + </a> </td>
+                    <td align="center"> - </td>
+                    <td align="center" title="Добавить ставок"> <a href="{{ url_for('staff_add', stafflist.pk, spec.spec.id) }}"> + </a> </td>
                 {% endif %}
                 <td> {{ spec.are }} </td>
+                <td> {{ spec.roomed }} </td>
             </tr>
         {% endfor %}
     {% endfor %}

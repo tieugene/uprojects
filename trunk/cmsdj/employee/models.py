@@ -115,7 +115,7 @@ class   RoomScheduleEntry(models.Model):
     schedule    = models.ForeignKey(RoomSchedule, related_name='entries', verbose_name=u'ГК')
     room        = models.ForeignKey(Room, related_name='+', verbose_name=u'Кабинет')
     dow         = models.ForeignKey(DOW, related_name='+', verbose_name=u'День')
-    specialty   = models.ForeignKey(Specialty, related_name='+', verbose_name=u'Специальность')
+    specialty   = models.ForeignKey(Specialty, related_name='rsentries', verbose_name=u'Специальность')
     begtime     = models.PositiveIntegerField(verbose_name=u'с')
     endtime     = models.PositiveIntegerField(verbose_name=u'по')
 
