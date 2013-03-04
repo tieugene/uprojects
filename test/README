@@ -1,0 +1,22 @@
+CPU: P4-1.8
+
+time ./rpm-qa1.py > /dev/null
+
+real    0m0.121s
+user    0m0.054s
+sys     0m0.015s
+[eugene@aquarius3 test]$ time ./rpm-qa2 > /dev/null
+
+real    0m0.608s
+user    0m0.330s
+sys     0m0.191s
+[eugene@aquarius3 test]$ time ./rpm-qa2.py > /dev/null
+
+real    0m10.802s
+user    0m10.176s
+sys     0m0.185s
+[eugene@aquarius3 test]$ time ./rpm-qa2.sh > /dev/null
+
+real    0m11.968s
+user    0m10.208s
+sys     0m0.229s
