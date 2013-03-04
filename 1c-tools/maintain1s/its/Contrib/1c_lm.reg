@@ -1,9 +1,0 @@
-REGEDIT4
-
-[HKEY_LOCAL_MACHINE\Software\1C]
-
-[HKEY_LOCAL_MACHINE\Software\1C\Its]
-
-[HKEY_LOCAL_MACHINE\Software\1C\Its\Options]
-"InfoPath"="D:\\Projects\\ITS\\data\\"
-

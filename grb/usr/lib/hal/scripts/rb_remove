@@ -1,6 +1,0 @@
-#!/bin/sh
-echo "`date` MyHAL: $HAL_PROP_BLOCK_DEVICE deleted" >> /var/log/messages
-umount -f -l /mnt/usbstick
-su -l -s /bin/sh -c "pg_ctl stop -m i -D /mnt/cryptfs/pgsql/data" postgres
-service postgresql stop
-umount -f -l /mnt/cryptfs && cryptsetup luksClose /dev/mapper/cryptfs

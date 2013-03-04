@@ -1,3 +1,0 @@
-#!/bin/sh
-# validate xml
-xmllint --noout --valid --postvalid run1c.xml

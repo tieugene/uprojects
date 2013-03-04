@@ -1,4 +1,0 @@
-Project of GPL MXL viewer/editor/printer
-
-== Pipe:
-*.mxl > mxl-parser | decoder | Table object | (UI ()| PrintExport | Print

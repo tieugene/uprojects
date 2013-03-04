@@ -2,7 +2,7 @@
 
 digraph templates {
  label = "Templates";
- rankdir = BT;
+ rankdir = RL;
  node [shape = rectangle];
  index -> base [arrowhead = onormal];
  "core\nbase" -> base [arrowhead = onormal];
