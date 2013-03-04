@@ -1,0 +1,101 @@
+<?xml version = '1.0' encoding = 'windows-1251'?>
+<!DOCTYPE tml SYSTEM "tml.dtd">
+<tml u0="00 00 00 00 00" ver="6" cqty="10" rqty="8" oqty="0">
+<tbl flg="00000800" h="0" w="9" bgc="0" fnm="0" fsz="0" fb="0" fi="0" fu="0" fc="0" ha="0" va="0" pt="0" pc="0" frl="0" frt="0" frr="0" frb="0" frc="0" tc="0" tt="0" tp="0" u0="00"/>
+<fnts qty="0"/>
+<tblh flg="00000000" h="0" w="0" bgc="0" fnm="0" fsz="0" fb="0" fi="0" fu="0" fc="0" ha="0" va="0" pt="0" pc="0" frl="0" frt="0" frr="0" frb="0" frc="0" tc="0" tt="0" tp="0" u0="00"/>
+<tblf flg="00000000" h="0" w="0" bgc="0" fnm="0" fsz="0" fb="0" fi="0" fu="0" fc="0" ha="0" va="0" pt="0" pc="0" frl="0" frt="0" frr="0" frb="0" frc="0" tc="0" tt="0" tp="0" u0="00"/>
+<cols qty="10">
+<col flg="00000800" h="0" w="3" bgc="0" fnm="0" fsz="0" fb="0" fi="0" fu="0" fc="0" ha="0" va="0" pt="0" pc="0" frl="0" frt="0" frr="0" frb="0" frc="0" tc="0" tt="0" tp="0" u0="00" n="0"/>
+<col flg="00000800" h="0" w="3" bgc="0" fnm="0" fsz="0" fb="0" fi="0" fu="0" fc="0" ha="0" va="0" pt="0" pc="0" frl="0" frt="0" frr="0" frb="0" frc="0" tc="0" tt="0" tp="0" u0="00" n="1"/>
+<col flg="00000800" h="0" w="3" bgc="0" fnm="0" fsz="0" fb="0" fi="0" fu="0" fc="0" ha="0" va="0" pt="0" pc="0" frl="0" frt="0" frr="0" frb="0" frc="0" tc="0" tt="0" tp="0" u0="00" n="2"/>
+<col flg="00000800" h="0" w="3" bgc="0" fnm="0" fsz="0" fb="0" fi="0" fu="0" fc="0" ha="0" va="0" pt="0" pc="0" frl="0" frt="0" frr="0" frb="0" frc="0" tc="0" tt="0" tp="0" u0="00" n="3"/>
+<col flg="00000800" h="0" w="3" bgc="0" fnm="0" fsz="0" fb="0" fi="0" fu="0" fc="0" ha="0" va="0" pt="0" pc="0" frl="0" frt="0" frr="0" frb="0" frc="0" tc="0" tt="0" tp="0" u0="00" n="4"/>
+<col flg="00000800" h="0" w="11" bgc="0" fnm="0" fsz="0" fb="0" fi="0" fu="0" fc="0" ha="0" va="0" pt="0" pc="0" frl="0" frt="0" frr="0" frb="0" frc="0" tc="0" tt="0" tp="0" u0="00" n="5"/>
+<col flg="00000800" h="0" w="22" bgc="0" fnm="0" fsz="0" fb="0" fi="0" fu="0" fc="0" ha="0" va="0" pt="0" pc="0" frl="0" frt="0" frr="0" frb="0" frc="0" tc="0" tt="0" tp="0" u0="00" n="6"/>
+<col flg="00000800" h="0" w="44" bgc="0" fnm="0" fsz="0" fb="0" fi="0" fu="0" fc="0" ha="0" va="0" pt="0" pc="0" frl="0" frt="0" frr="0" frb="0" frc="0" tc="0" tt="0" tp="0" u0="00" n="7"/>
+<col flg="00000800" h="0" w="7" bgc="0" fnm="0" fsz="0" fb="0" fi="0" fu="0" fc="0" ha="0" va="0" pt="0" pc="0" frl="0" frt="0" frr="0" frb="0" frc="0" tc="0" tt="0" tp="0" u0="00" n="8"/>
+<col flg="00000800" h="0" w="7" bgc="0" fnm="0" fsz="0" fb="0" fi="0" fu="0" fc="0" ha="0" va="0" pt="0" pc="0" frl="0" frt="0" frr="0" frb="0" frc="0" tc="0" tt="0" tp="0" u0="00" n="9"/>
+</cols>
+<rows qty="9">
+<row flg="00000000" h="0" w="0" bgc="0" fnm="0" fsz="0" fb="0" fi="0" fu="0" fc="0" ha="0" va="0" pt="0" pc="0" frl="0" frt="0" frr="0" frb="0" frc="0" tc="0" tt="0" tp="0" u0="00" n="0"/>
+<row flg="00000000" h="0" w="0" bgc="0" fnm="0" fsz="0" fb="0" fi="0" fu="0" fc="0" ha="0" va="0" pt="0" pc="0" frl="0" frt="0" frr="0" frb="0" frc="0" tc="0" tt="0" tp="0" u0="00" n="1"/>
+<row flg="00000000" h="0" w="0" bgc="0" fnm="0" fsz="0" fb="0" fi="0" fu="0" fc="0" ha="0" va="0" pt="0" pc="0" frl="0" frt="0" frr="0" frb="0" frc="0" tc="0" tt="0" tp="0" u0="00" n="2"/>
+<row flg="00000000" h="0" w="0" bgc="0" fnm="0" fsz="0" fb="0" fi="0" fu="0" fc="0" ha="0" va="0" pt="0" pc="0" frl="0" frt="0" frr="0" frb="0" frc="0" tc="0" tt="0" tp="0" u0="00" n="3"/>
+<row flg="00000000" h="0" w="0" bgc="0" fnm="0" fsz="0" fb="0" fi="0" fu="0" fc="0" ha="0" va="0" pt="0" pc="0" frl="0" frt="0" frr="0" frb="0" frc="0" tc="0" tt="0" tp="0" u0="00" n="4"/>
+<row flg="00000000" h="0" w="0" bgc="0" fnm="0" fsz="0" fb="0" fi="0" fu="0" fc="0" ha="0" va="0" pt="0" pc="0" frl="0" frt="0" frr="0" frb="0" frc="0" tc="0" tt="0" tp="0" u0="00" n="5"/>
+<row flg="00000000" h="0" w="0" bgc="0" fnm="0" fsz="0" fb="0" fi="0" fu="0" fc="0" ha="0" va="0" pt="0" pc="0" frl="0" frt="0" frr="0" frb="0" frc="0" tc="0" tt="0" tp="0" u0="00" n="6"/>
+<row flg="00000000" h="0" w="0" bgc="0" fnm="0" fsz="0" fb="0" fi="0" fu="0" fc="0" ha="0" va="0" pt="0" pc="0" frl="0" frt="0" frr="0" frb="0" frc="0" tc="0" tt="0" tp="0" u0="00" n="7"/>
+<row flg="00000000" h="0" w="0" bgc="0" fnm="0" fsz="0" fb="0" fi="0" fu="0" fc="0" ha="0" va="0" pt="0" pc="0" frl="0" frt="0" frr="0" frb="0" frc="0" tc="0" tt="0" tp="0" u0="00" n="8"/>
+</rows>
+<cells>
+<cell flg="80080004" h="0" w="0" bgc="0" fnm="0" fsz="0" fb="7" fi="0" fu="0" fc="0" ha="0" va="0" pt="0" pc="0" frl="0" frt="0" frr="0" frb="0" frc="0" tc="0" tt="1" tp="0" u0="00" txt="&quot;Парйслист на &quot; + CurDate()" r="0" c="0"/>
+<cell flg="00000100" h="0" w="0" bgc="0" fnm="0" fsz="0" fb="0" fi="0" fu="0" fc="0" ha="0" va="0" pt="0" pc="0" frl="0" frt="0" frr="0" frb="5" frc="0" tc="0" tt="0" tp="0" u0="00" r="1" c="0"/>
+<cell flg="00000100" h="0" w="0" bgc="0" fnm="0" fsz="0" fb="0" fi="0" fu="0" fc="0" ha="0" va="0" pt="0" pc="0" frl="0" frt="0" frr="0" frb="5" frc="0" tc="0" tt="0" tp="0" u0="00" r="1" c="1"/>
+<cell flg="00000100" h="0" w="0" bgc="0" fnm="0" fsz="0" fb="0" fi="0" fu="0" fc="0" ha="0" va="0" pt="0" pc="0" frl="0" frt="0" frr="0" frb="5" frc="0" tc="0" tt="0" tp="0" u0="00" r="1" c="2"/>
+<cell flg="00000100" h="0" w="0" bgc="0" fnm="0" fsz="0" fb="0" fi="0" fu="0" fc="0" ha="0" va="0" pt="0" pc="0" frl="0" frt="0" frr="0" frb="5" frc="0" tc="0" tt="0" tp="0" u0="00" r="1" c="3"/>
+<cell flg="00000100" h="0" w="0" bgc="0" fnm="0" fsz="0" fb="0" fi="0" fu="0" fc="0" ha="0" va="0" pt="0" pc="0" frl="0" frt="0" frr="0" frb="5" frc="0" tc="0" tt="0" tp="0" u0="00" r="1" c="4"/>
+<cell flg="80001104" h="0" w="0" bgc="0" fnm="0" fsz="0" fb="7" fi="0" fu="0" fc="0" ha="6" va="0" pt="0" pc="0" frl="0" frt="0" frr="0" frb="5" frc="0" tc="0" tt="0" tp="0" u0="00" txt="Производитель" r="1" c="5"/>
+<cell flg="80001104" h="0" w="0" bgc="0" fnm="0" fsz="0" fb="7" fi="0" fu="0" fc="0" ha="6" va="0" pt="0" pc="0" frl="0" frt="0" frr="0" frb="5" frc="0" tc="0" tt="0" tp="0" u0="00" txt="Наименование" r="1" c="6"/>
+<cell flg="80001104" h="0" w="0" bgc="0" fnm="0" fsz="0" fb="7" fi="0" fu="0" fc="0" ha="6" va="0" pt="0" pc="0" frl="0" frt="0" frr="0" frb="5" frc="0" tc="0" tt="0" tp="0" u0="00" txt="Комментарии" r="1" c="7"/>
+<cell flg="80001104" h="0" w="0" bgc="0" fnm="0" fsz="0" fb="7" fi="0" fu="0" fc="0" ha="6" va="0" pt="0" pc="0" frl="0" frt="0" frr="0" frb="5" frc="0" tc="0" tt="0" tp="0" u0="00" txt="без НДС" r="1" c="8"/>
+<cell flg="80001104" h="0" w="0" bgc="0" fnm="0" fsz="0" fb="7" fi="0" fu="0" fc="0" ha="6" va="0" pt="0" pc="0" frl="0" frt="0" frr="0" frb="5" frc="0" tc="0" tt="0" tp="0" u0="00" txt="Цена" r="1" c="9"/>
+<cell flg="8008C006" h="0" w="0" bgc="14" fnm="0" fsz="10" fb="7" fi="0" fu="0" fc="1" ha="0" va="0" pt="0" pc="14" frl="0" frt="0" frr="0" frb="0" frc="0" tc="0" tt="1" tp="0" u0="00" txt="Nom.Description" r="2" c="0"/>
+<cell flg="00008000" h="0" w="0" bgc="14" fnm="0" fsz="0" fb="0" fi="0" fu="0" fc="0" ha="0" va="0" pt="0" pc="14" frl="0" frt="0" frr="0" frb="0" frc="0" tc="0" tt="0" tp="0" u0="00" r="2" c="1"/>
+<cell flg="00008000" h="0" w="0" bgc="14" fnm="0" fsz="0" fb="0" fi="0" fu="0" fc="0" ha="0" va="0" pt="0" pc="14" frl="0" frt="0" frr="0" frb="0" frc="0" tc="0" tt="0" tp="0" u0="00" r="2" c="2"/>
+<cell flg="00008000" h="0" w="0" bgc="14" fnm="0" fsz="0" fb="0" fi="0" fu="0" fc="0" ha="0" va="0" pt="0" pc="14" frl="0" frt="0" frr="0" frb="0" frc="0" tc="0" tt="0" tp="0" u0="00" r="2" c="3"/>
+<cell flg="00008000" h="0" w="0" bgc="14" fnm="0" fsz="0" fb="0" fi="0" fu="0" fc="0" ha="0" va="0" pt="0" pc="0" frl="0" frt="0" frr="0" frb="0" frc="0" tc="0" tt="0" tp="0" u0="00" r="2" c="4"/>
+<cell flg="00008000" h="0" w="0" bgc="14" fnm="0" fsz="0" fb="0" fi="0" fu="0" fc="0" ha="0" va="0" pt="0" pc="0" frl="0" frt="0" frr="0" frb="0" frc="0" tc="0" tt="0" tp="0" u0="00" r="2" c="5"/>
+<cell flg="00008000" h="0" w="0" bgc="14" fnm="0" fsz="0" fb="0" fi="0" fu="0" fc="0" ha="0" va="0" pt="0" pc="14" frl="0" frt="0" frr="0" frb="0" frc="0" tc="0" tt="0" tp="0" u0="00" r="2" c="6"/>
+<cell flg="8008C006" h="0" w="0" bgc="14" fnm="0" fsz="10" fb="7" fi="0" fu="0" fc="1" ha="0" va="0" pt="0" pc="14" frl="0" frt="0" frr="0" frb="0" frc="0" tc="0" tt="1" tp="0" u0="00" txt="Nom.Comments" r="2" c="7"/>
+<cell flg="0008C006" h="0" w="0" bgc="14" fnm="0" fsz="10" fb="7" fi="0" fu="0" fc="1" ha="0" va="0" pt="0" pc="0" frl="0" frt="0" frr="0" frb="0" frc="0" tc="0" tt="1" tp="0" u0="00" r="2" c="8"/>
+<cell flg="00008000" h="0" w="0" bgc="14" fnm="0" fsz="0" fb="0" fi="0" fu="0" fc="0" ha="0" va="0" pt="0" pc="14" frl="0" frt="0" frr="0" frb="0" frc="0" tc="0" tt="0" tp="0" u0="00" r="2" c="9"/>
+<cell flg="80088006" h="0" w="0" bgc="15" fnm="0" fsz="9" fb="7" fi="0" fu="0" fc="0" ha="0" va="0" pt="0" pc="0" frl="0" frt="0" frr="0" frb="0" frc="0" tc="0" tt="1" tp="0" u0="00" txt="Nom.Description" r="3" c="1"/>
+<cell flg="00008000" h="0" w="0" bgc="15" fnm="0" fsz="0" fb="0" fi="0" fu="0" fc="0" ha="0" va="0" pt="0" pc="0" frl="0" frt="0" frr="0" frb="0" frc="0" tc="0" tt="0" tp="0" u0="00" r="3" c="2"/>
+<cell flg="00008000" h="0" w="0" bgc="15" fnm="0" fsz="0" fb="0" fi="0" fu="0" fc="0" ha="0" va="0" pt="0" pc="0" frl="0" frt="0" frr="0" frb="0" frc="0" tc="0" tt="0" tp="0" u0="00" r="3" c="3"/>
+<cell flg="00008000" h="0" w="0" bgc="15" fnm="0" fsz="0" fb="0" fi="0" fu="0" fc="0" ha="0" va="0" pt="0" pc="0" frl="0" frt="0" frr="0" frb="0" frc="0" tc="0" tt="0" tp="0" u0="00" r="3" c="4"/>
+<cell flg="00008000" h="0" w="0" bgc="15" fnm="0" fsz="0" fb="0" fi="0" fu="0" fc="0" ha="0" va="0" pt="0" pc="0" frl="0" frt="0" frr="0" frb="0" frc="0" tc="0" tt="0" tp="0" u0="00" r="3" c="5"/>
+<cell flg="00008000" h="0" w="0" bgc="15" fnm="0" fsz="0" fb="0" fi="0" fu="0" fc="0" ha="0" va="0" pt="0" pc="0" frl="0" frt="0" frr="0" frb="0" frc="0" tc="0" tt="0" tp="0" u0="00" r="3" c="6"/>
+<cell flg="80088006" h="0" w="0" bgc="15" fnm="0" fsz="9" fb="7" fi="0" fu="0" fc="0" ha="0" va="0" pt="0" pc="0" frl="0" frt="0" frr="0" frb="0" frc="0" tc="0" tt="1" tp="0" u0="00" txt="Nom.Comments" r="3" c="7"/>
+<cell flg="00088006" h="0" w="0" bgc="15" fnm="0" fsz="9" fb="7" fi="0" fu="0" fc="0" ha="0" va="0" pt="0" pc="0" frl="0" frt="0" frr="0" frb="0" frc="0" tc="0" tt="1" tp="0" u0="00" r="3" c="8"/>
+<cell flg="00008000" h="0" w="0" bgc="15" fnm="0" fsz="0" fb="0" fi="0" fu="0" fc="0" ha="0" va="0" pt="0" pc="0" frl="0" frt="0" frr="0" frb="0" frc="0" tc="0" tt="0" tp="0" u0="00" r="3" c="9"/>
+<cell flg="80080106" h="0" w="0" bgc="0" fnm="0" fsz="9" fb="7" fi="0" fu="0" fc="0" ha="0" va="0" pt="0" pc="0" frl="0" frt="0" frr="0" frb="2" frc="0" tc="0" tt="1" tp="0" u0="00" txt="Nom.Description" r="4" c="2"/>
+<cell flg="00000100" h="0" w="0" bgc="0" fnm="0" fsz="0" fb="0" fi="0" fu="0" fc="0" ha="0" va="0" pt="0" pc="0" frl="0" frt="0" frr="0" frb="2" frc="0" tc="0" tt="0" tp="0" u0="00" r="4" c="3"/>
+<cell flg="00000100" h="0" w="0" bgc="0" fnm="0" fsz="0" fb="0" fi="0" fu="0" fc="0" ha="0" va="0" pt="0" pc="0" frl="0" frt="0" frr="0" frb="2" frc="0" tc="0" tt="0" tp="0" u0="00" r="4" c="4"/>
+<cell flg="00000100" h="0" w="0" bgc="0" fnm="0" fsz="0" fb="0" fi="0" fu="0" fc="0" ha="0" va="0" pt="0" pc="0" frl="0" frt="0" frr="0" frb="2" frc="0" tc="0" tt="0" tp="0" u0="00" r="4" c="5"/>
+<cell flg="00000100" h="0" w="0" bgc="0" fnm="0" fsz="0" fb="0" fi="0" fu="0" fc="0" ha="0" va="0" pt="0" pc="0" frl="0" frt="0" frr="0" frb="2" frc="0" tc="0" tt="0" tp="0" u0="00" r="4" c="6"/>
+<cell flg="80080106" h="0" w="0" bgc="0" fnm="0" fsz="9" fb="7" fi="0" fu="0" fc="0" ha="0" va="0" pt="0" pc="0" frl="0" frt="0" frr="0" frb="2" frc="0" tc="0" tt="1" tp="0" u0="00" txt="Nom.Comments" r="4" c="7"/>
+<cell flg="00080106" h="0" w="0" bgc="0" fnm="0" fsz="9" fb="7" fi="0" fu="0" fc="0" ha="0" va="0" pt="0" pc="0" frl="0" frt="0" frr="0" frb="2" frc="0" tc="0" tt="1" tp="0" u0="00" r="4" c="8"/>
+<cell flg="00000100" h="0" w="0" bgc="0" fnm="0" fsz="0" fb="0" fi="0" fu="0" fc="0" ha="0" va="0" pt="0" pc="0" frl="0" frt="0" frr="0" frb="2" frc="0" tc="0" tt="0" tp="0" u0="00" r="4" c="9"/>
+<cell flg="8008011C" h="0" w="0" bgc="0" fnm="0" fsz="0" fb="7" fi="1" fu="0" fc="0" ha="0" va="0" pt="0" pc="0" frl="0" frt="0" frr="0" frb="8" frc="0" tc="0" tt="1" tp="0" u0="00" txt="Nom.Description" r="5" c="3"/>
+<cell flg="0008011C" h="0" w="0" bgc="0" fnm="0" fsz="0" fb="7" fi="1" fu="0" fc="0" ha="0" va="0" pt="0" pc="0" frl="0" frt="0" frr="0" frb="8" frc="0" tc="0" tt="1" tp="0" u0="00" r="5" c="4"/>
+<cell flg="00000100" h="0" w="0" bgc="0" fnm="0" fsz="0" fb="0" fi="0" fu="0" fc="0" ha="0" va="0" pt="0" pc="0" frl="0" frt="0" frr="0" frb="8" frc="0" tc="0" tt="0" tp="0" u0="00" r="5" c="5"/>
+<cell flg="00000100" h="0" w="0" bgc="0" fnm="0" fsz="0" fb="0" fi="0" fu="0" fc="0" ha="0" va="0" pt="0" pc="0" frl="0" frt="0" frr="0" frb="8" frc="0" tc="0" tt="0" tp="0" u0="00" r="5" c="6"/>
+<cell flg="8008010C" h="0" w="0" bgc="0" fnm="0" fsz="0" fb="7" fi="1" fu="0" fc="0" ha="0" va="0" pt="0" pc="0" frl="0" frt="0" frr="0" frb="8" frc="0" tc="0" tt="1" tp="0" u0="00" txt="Nom.Comments" r="5" c="7"/>
+<cell flg="0008010C" h="0" w="0" bgc="0" fnm="0" fsz="0" fb="7" fi="1" fu="0" fc="0" ha="0" va="0" pt="0" pc="0" frl="0" frt="0" frr="0" frb="8" frc="0" tc="0" tt="1" tp="0" u0="00" r="5" c="8"/>
+<cell flg="00000100" h="0" w="0" bgc="0" fnm="0" fsz="0" fb="0" fi="0" fu="0" fc="0" ha="0" va="0" pt="0" pc="0" frl="0" frt="0" frr="0" frb="8" frc="0" tc="0" tt="0" tp="0" u0="00" r="5" c="9"/>
+<cell flg="80080000" h="0" w="0" bgc="0" fnm="0" fsz="0" fb="0" fi="0" fu="0" fc="0" ha="0" va="0" pt="0" pc="0" frl="0" frt="0" frr="0" frb="0" frc="0" tc="0" tt="1" tp="0" u0="00" txt="Nom.Description" r="6" c="4"/>
+<cell flg="80080000" h="0" w="0" bgc="0" fnm="0" fsz="0" fb="0" fi="0" fu="0" fc="0" ha="0" va="0" pt="0" pc="0" frl="0" frt="0" frr="0" frb="0" frc="0" tc="0" tt="1" tp="0" u0="00" txt="Nom.Comments" r="6" c="7"/>
+<cell flg="00000000" h="0" w="0" bgc="0" fnm="0" fsz="0" fb="0" fi="0" fu="0" fc="0" ha="0" va="0" pt="0" pc="0" frl="0" frt="0" frr="0" frb="0" frc="0" tc="0" tt="0" tp="0" u0="00" r="6" c="8"/>
+<cell flg="80080100" h="0" w="0" bgc="0" fnm="0" fsz="0" fb="0" fi="0" fu="0" fc="0" ha="0" va="0" pt="0" pc="0" frl="0" frt="0" frr="0" frb="1" frc="0" tc="0" tt="1" tp="0" u0="00" txt="Nom.Item.Vendor" r="7" c="5"/>
+<cell flg="80080100" h="0" w="0" bgc="0" fnm="0" fsz="0" fb="0" fi="0" fu="0" fc="0" ha="0" va="0" pt="0" pc="0" frl="0" frt="0" frr="0" frb="1" frc="0" tc="0" tt="1" tp="0" u0="00" txt="Nom.Item.Description" r="7" c="6"/>
+<cell flg="80080100" h="0" w="0" bgc="0" fnm="0" fsz="0" fb="0" fi="0" fu="0" fc="0" ha="0" va="0" pt="0" pc="0" frl="0" frt="0" frr="0" frb="1" frc="0" tc="0" tt="1" tp="0" u0="00" txt="Nom.Item.Comments" r="7" c="7"/>
+<cell flg="80081100" h="0" w="0" bgc="0" fnm="0" fsz="0" fb="0" fi="0" fu="0" fc="0" ha="2" va="0" pt="0" pc="0" frl="0" frt="0" frr="0" frb="1" frc="0" tc="0" tt="1" tp="0" u0="00" txt="Format(iPrice/(1+Const.НДС/100), &quot;N9.0,&quot;)" r="7" c="8"/>
+<cell flg="80081100" h="0" w="0" bgc="0" fnm="0" fsz="0" fb="0" fi="0" fu="0" fc="0" ha="2" va="0" pt="0" pc="0" frl="0" frt="0" frr="0" frb="1" frc="0" tc="0" tt="1" tp="0" u0="00" txt="Format(iPrice, &quot;N9.0,&quot;)" r="7" c="9"/>
+</cells>
+<objs qty="0"/>
+<joins qty="0"/>
+<vsecs qty="0"/>
+<hsecs qty="7">
+<sec b="0" e="1" p="0" u0="0" nm="Head"/>
+<sec b="2" e="2" p="0" u0="0" nm="HGroup1"/>
+<sec b="3" e="3" p="0" u0="0" nm="HGroup2"/>
+<sec b="4" e="4" p="0" u0="0" nm="HGroup3"/>
+<sec b="5" e="5" p="0" u0="0" nm="HGroup4"/>
+<sec b="6" e="6" p="0" u0="0" nm="HGroup5"/>
+<sec b="7" e="7" p="0" u0="0" nm="HItem"/>
+</hsecs>
+<vffs qty="0"/>
+<hffs qty="0"/>
+<names qty="0"/>
+</tml>

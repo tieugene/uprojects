@@ -1,0 +1,6 @@
+file	XML.path	XML.uid	DS	1C:Path
+0.tml	SubList		121	07	Справочники/PriceCGS/ФормаСписка/Price_WH
+1.tml	SubList		121	07	Справочники/PriceCGS/ФормаСписка/Price
+2.tml	SubList		111	09	Справочники/PriceRGS/ФормаСписка/Price
+3.tml	Document	38	16	Документы/PriceInCGS/InPrice
+4.tml	Document	139	17	Документы/PriceInRGS/InPrice

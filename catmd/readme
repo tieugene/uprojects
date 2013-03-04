@@ -1,0 +1,13 @@
+catmd.c:
+	exports MD-file into XML
+Compile:
+	make
+Run:
+	./catmd 1cv7.md <output_dir>
+Environment:
+	subdirs from those, where running:
+	Picture
+	Text
+	MXL
+Required:
+	libole2, glib, zlib

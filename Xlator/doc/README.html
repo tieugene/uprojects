@@ -1,0 +1,1562 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+    "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="generator" content="AsciiDoc 7.0.2" />
+<style type="text/css">
+/* Debug borders */
+p, li, dt, dd, div, pre, h1, h2, h3, h4, h5, h6 {
+/*
+  border: 1px solid red;
+*/
+}
+
+body {
+  margin: 1em 5% 1em 5%;
+}
+
+a { color: blue; }
+a:visited { color: fuchsia; }
+
+em {
+  font-style: italic;
+}
+
+strong {
+  font-weight: bold;
+}
+
+tt {
+  color: navy;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #527bbd;
+  font-family: sans-serif;
+  margin-top: 1.2em;
+  margin-bottom: 0.5em;
+  line-height: 1.3;
+}
+
+h1 {
+  border-bottom: 2px solid silver;
+}
+h2 {
+  border-bottom: 2px solid silver;
+  padding-top: 0.5em;
+}
+
+div.sectionbody {
+  font-family: serif;
+  margin-left: 0;
+}
+
+hr {
+  border: 1px solid silver;
+}
+
+p {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+pre {
+  padding: 0;
+  margin: 0;
+}
+
+span#author {
+  color: #527bbd;
+  font-family: sans-serif;
+  font-weight: bold;
+  font-size: 1.2em;
+}
+span#email {
+}
+span#revision {
+  font-family: sans-serif;
+}
+
+div#footer {
+  font-family: sans-serif;
+  font-size: small;
+  border-top: 2px solid silver;
+  padding-top: 0.5em;
+  margin-top: 4.0em;
+}
+div#footer-text {
+  float: left;
+  padding-bottom: 0.5em;
+}
+div#footer-badges {
+  float: right;
+  padding-bottom: 0.5em;
+}
+
+div#preamble,
+div.tableblock, div.imageblock, div.exampleblock, div.verseblock,
+div.quoteblock, div.literalblock, div.listingblock, div.sidebarblock,
+div.admonitionblock {
+  margin-right: 10%;
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+}
+div.admonitionblock {
+  margin-top: 2.5em;
+  margin-bottom: 2.5em;
+}
+
+div.content { /* Block element content. */
+  padding: 0;
+}
+
+/* Block element titles. */
+div.title, caption.title {
+  font-family: sans-serif;
+  font-weight: bold;
+  text-align: left;
+  margin-top: 1.0em;
+  margin-bottom: 0.5em;
+}
+div.title + * {
+  margin-top: 0;
+}
+
+td div.title:first-child {
+  margin-top: 0.0em;
+}
+div.content div.title:first-child {
+  margin-top: 0.0em;
+}
+div.content + div.title {
+  margin-top: 0.0em;
+}
+
+div.sidebarblock > div.content {
+  background: #ffffee;
+  border: 1px solid silver;
+  padding: 0.5em;
+}
+
+div.listingblock > div.content {
+  border: 1px solid silver;
+  background: #f4f4f4;
+  padding: 0.5em;
+}
+
+div.quoteblock > div.content {
+  padding-left: 2.0em;
+}
+div.quoteblock .attribution {
+  text-align: right;
+}
+
+div.admonitionblock .icon {
+  vertical-align: top;
+  font-size: 1.1em;
+  font-weight: bold;
+  text-decoration: underline;
+  color: #527bbd;
+  padding-right: 0.5em;
+}
+div.admonitionblock td.content {
+  padding-left: 0.5em;
+  border-left: 2px solid silver;
+}
+
+div.exampleblock > div.content {
+  border-left: 2px solid silver;
+  padding: 0.5em;
+}
+
+div.verseblock div.content {
+  white-space: pre;
+}
+
+div.imageblock div.content { padding-left: 0; }
+div.imageblock img { border: 1px solid silver; }
+span.image img { border-style: none; }
+
+dl {
+  margin-top: 0.8em;
+  margin-bottom: 0.8em;
+}
+dt {
+  margin-top: 0.5em;
+  margin-bottom: 0;
+  font-style: italic;
+}
+dd > *:first-child {
+  margin-top: 0;
+}
+
+ul, ol {
+    list-style-position: outside;
+}
+ol.olist2 {
+  list-style-type: lower-alpha;
+}
+
+div.tableblock > table {
+  border-color: #527bbd;
+  border-width: 3px;
+}
+thead {
+  font-family: sans-serif;
+  font-weight: bold;
+}
+tfoot {
+  font-weight: bold;
+}
+
+div.hlist {
+  margin-top: 0.8em;
+  margin-bottom: 0.8em;
+}
+td.hlist1 {
+  vertical-align: top;
+  font-style: italic;
+  padding-right: 0.8em;
+}
+td.hlist2 {
+  vertical-align: top;
+}
+
+@media print {
+  div#footer-badges { display: none; }
+}
+/* Workarounds for IE6's broken and incomplete CSS2. */
+
+div.sidebar-content {
+  background: #ffffee;
+  border: 1px solid silver;
+  padding: 0.5em;
+}
+div.sidebar-title, div.image-title {
+  font-family: sans-serif;
+  font-weight: bold;
+  margin-top: 0.0em;
+  margin-bottom: 0.5em;
+}
+
+div.listingblock div.content {
+  border: 1px solid silver;
+  background: #f4f4f4;
+  padding: 0.5em;
+}
+
+div.quoteblock-content {
+  padding-left: 2.0em;
+}
+
+div.exampleblock-content {
+  border-left: 2px solid silver;
+  padding-left: 0.5em;
+}
+</style>
+<title>Xlating 1C:Basic into Python</title>
+</head>
+<body>
+<div id="header">
+<h1>Xlating 1C:Basic into Python</h1>
+<span id="author">Eugene A. Pivnev</span><br />
+<span id="email"><tt>&lt;<a href="mailto:ti.eugene@gmail.com">ti.eugene@gmail.com</a>&gt;</tt></span><br />
+<span id="revision">version 0.1,</span>
+11 July 2006
+</div>
+<h2>Aims</h2>
+<div class="sectionbody">
+<h3>Strategy</h3>
+<p>Make Python as 1L working language (one from !)</p>
+<h3>Tactic</h3>
+<p>Convert 1C:Basic texts into Python scripts (причем, ближе в Python).</p>
+</div>
+<h2>Objects</h2>
+<div class="sectionbody">
+<ul>
+<li>
+<p>
+Global:
+  &#8212; Module
+  &#8212; Tables
+</p>
+<ol>
+<li>
+<p>
+Calculated cells
+</p>
+</li>
+</ol>
+</li>
+<li>
+<p>
+Objects <br />[Объект (Документ, Расчет)]<br />:
+  &#8212; Module
+</p>
+</li>
+<li>
+<p>
+Form
+  &#8212; Module
+  &#8212; Dialog
+</p>
+<ol>
+<li>
+<p>
+Calculated fields
+  &#8212; Tables
+</p>
+</li>
+<li>
+<p>
+Calculated fields
+</p>
+</li>
+</ol>
+</li>
+</ul>
+</div>
+<h2>PreProcessing</h2>
+<div class="sectionbody">
+</div>
+<h2>Translation</h2>
+<div class="sectionbody">
+<h3>Legend <br />[Условные обозначения]<br /></h3>
+<ul>
+<li>
+<p>
+E  == English (с сохранением регистра)
+</p>
+</li>
+<li>
+<p>
+R  == Russian (с сохранением регистра)
+</p>
+</li>
+<li>
+<p>
+LE == Little only English
+</p>
+</li>
+<li>
+<p>
+LR == Little only Russian
+</p>
+</li>
+<li>
+<p>
+S  == Source
+</p>
+</li>
+<li>
+<p>
+C  == Converted
+</p>
+</li>
+</ul>
+<h3>Input (Вход) - для:</h3>
+<ul>
+<li>
+<p>
+Глобальные
+    &#8212; Модуль
+    &#8212; Таблица
+</p>
+</li>
+<li>
+<p>
+Модуль объекта
+</p>
+</li>
+<li>
+<p>
+Форма
+    &#8212; Модуль
+</p>
+<ol>
+<li>
+<p>
+словари:
+</p>
+<ol class="olist2">
+<li>
+<p>
+Системные:
+          &#8212; переменные (E, R)
+          &#8212; методы (E, R)
+</p>
+</li>
+<li>
+<p>
+глобальные (объявленные Экспорт):
+          &#8212; переменные (S, C)
+          &#8212; методы (S, C)
+</p>
+</li>
+<li>
+<p>
+модуль:
+          &#8212; переменные (S, C)
+          &#8212; методы (S, C)
+          &#8212; предопределенные (S, C)
+</p>
+</li>
+<li>
+<p>
+формы:
+          &#8212; поля (name (S, C), synonym (S, C))
+</p>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ul>
+<h3>1C syntax</h3>
+<p>(TODO: Move to translation)
+  <strong> Operators:
+    ~метка:Оператор[(параметры)] ДобКлючевоеСлово;
+  </strong> Module structure:
+    <strong> Variables definition
+    </strong> Function/procedures
+    <strong> main program
+  </strong> Special symbols:
+        //      начинается комментарий. Комментарием считается весь текст от знака "//" до конца текущей строки.
+        |       начале строки используется только в строковых константах и означает, что данная строка является продолжением предыдущей (перенос строки), (см. "Строковые константы").
+        ~       начинается метка оператора.
+        :       заканчивается метка оператора.
+        ;       символ разделения операторов.
+        ( )     список параметров методов, процедур и функций.
+        [ ]     размерность массивов.
+        ,       разделяет параметры в списке параметров методов, процедур и функций.
+        " "     заключаются строковые константы.
+        <em> </em>     заключаются константы даты.
+        .       Десятичная точка в числовых константах. Разделитель, используемый в описаниях агрегатных типов данных.
+        +       операцию сложения.
+        -       операцию вычитания.
+        <strong>       операцию умножения.
+        /       операцию деления.
+        %       остаток от деления
+        &gt;       логическую операцию "больше".
+        &gt;=      Логическая операция "больше или равно".
+        &lt;       логическую операцию "меньше".
+        &lt;=      Логическая операция "меньше или равно".
+        =       присвоение или логическую операцию "равно".
+        &lt;&gt;      логическую операцию "не равно".
+  </strong> объявление переменной:
+    var &lt;name&gt;<a id="size"></a> [Export]
+  <strong> Процедура:
+        Procedure &lt;name&gt;(<a id="Val] &lt;arg1&gt;[=&lt;defval&gt;]"></a>) [Export]
+        //Объявления локальных переменных;
+        //Операторы;
+        &#8230;
+        [Return;]
+        //Операторы;
+        &#8230;
+        EndProcedure
+or
+        Procedure &lt;name&gt;(<a id="Val] &lt;arg1&gt;[=&lt;defval&gt;]"></a>) Forward
+  </strong> число
+  <strong> дата
+        <em>ДД.ММ.ГГ</em> или <em>ДД.ММ.ГГГГ</em>
+  </strong> строки:
+    <strong> однострочные:
+        "&#8230;"
+    </strong> многострочные-1 (В данном случае между фрагментами, представляющими отдельные строки многострочной константы, не должно встречаться никаких символов, за исключением пробелов, переводов строки и строк комментариев.)
+        Стр = "Первая строка"    // пример строковой константы
+        "Вторая строка"
+        "Третья строка";
+    * многострочные-2 (В данном примере значение константы полностью идентично предыдущему примеру. Отличие заключается в том, что каждая отдельная составляющая не замыкается кавычками, а на каждой последующей строке помещен символ переноса строки "|". В этом варианте комментарии между открывающей и закрывающей кавычками не допускаются.)
+        Стр = "Первая строка
+        |Вторая строка
+        |Третья строка";</p>
+<h3>Algorythm</h3>
+<ol>
+<li>
+<p>
+lexical analizer (лексический анализатор) - разбиение на токены
+</p>
+</li>
+<li>
+<p>
+syntactic analyzer синтаксический анализатор) - построение синтаксического дерева
+</p>
+</li>
+<li>
+<p>
+semantic analizer (семантический анализ) - &#8230;
+</p>
+</li>
+<li>
+<p>
+codegeneration (кодогенерация) - генерация исходника на Python (русские наименования приведены в kw.txt):
+</p>
+<ul>
+<li>
+<p>
+конструкции языка:
+    &#8212; Comments
+</p>
+<dl>
+<dt>
+1C
+</dt>
+<dd>
+<p>
+        // &#8230; (и до конца строки)
+</p>
+</dd>
+<dt>
+Python
+</dt>
+<dd>
+<p>
+        # &#8230;
+    &#8212; окончание оператора
+</p>
+</dd>
+<dt>
+1C
+</dt>
+<dd>
+<p>
+        ;
+</p>
+</dd>
+<dt>
+Python
+</dt>
+<dd>
+<p>
+        \r ? ;
+    &#8212; Date constants (константы даты)
+</p>
+</dd>
+<dt>
+1C
+</dt>
+<dd>
+<p>
+        <em>DD.MM.YY[YY]</em>
+</p>
+</dd>
+<dt>
+Python
+</dt>
+<dd>
+<p>
+        Date(<em>DD.MM.YY[YY]</em>)
+    &#8212; variable declaration (объявления переменных)
+</p>
+</dd>
+<dt>
+1C
+</dt>
+<dd>
+<p>
+        Var[ Export] &lt;name&gt;)
+</p>
+</dd>
+<dt>
+Python
+</dt>
+<dd>
+<p>
+        &lt;var&gt; = None
+    &#8212; Procedure/Function declaration (объявления процедур)
+</p>
+</dd>
+<dt>
+1C
+</dt>
+<dd>
+<p>
+        Procedure[ Export] &lt;name&gt; &#8230; EndProcedure
+        Function[ Export] &lt;name&gt; &#8230; EndFunction
+</p>
+</dd>
+<dt>
+Python
+</dt>
+<dd>
+<p>
+        def &#8230;
+</p>
+</dd>
+<dt>
+1C
+</dt>
+<dd>
+<p>
+        Procedure[ Export] Forward
+        Function[ Export] Forward
+</p>
+</dd>
+<dt>
+Python
+</dt>
+<dd>
+<p>
+        def
+    &#8212; объявления функций (Функция|Function[ Export]..return..EndFunction) =&gt; def..return
+</p>
+</dd>
+</dl>
+</li>
+</ul>
+</li>
+<li>
+<p>
+передача параметров по сцылке =&gt; semiauto (полуавтоматическая обработка) - см. PostProcessing
+</p>
+</li>
+<li>
+<p>
+передача параметров по значению (Val(&lt;name&gt;)) =&gt; &lt;name&gt;
+    &#8212; зарезервированные слова (reserved.txt) - .. (make special table)
+</p>
+<dl>
+<dt>
+1C
+</dt>
+<dt>
+Python
+</dt>
+<dd>
+<p>
+    &#8212; основная программа модулю =&gt; спецфункция - типа _init; только проследить, чтобы:
+</p>
+</dd>
+</dl>
+</li>
+<li>
+<p>
+не было пересечений
+</p>
+</li>
+<li>
+<p>
+вызывалась после загрузки модуля
+    &#8212; Условия (if..then..elseif..else..endif) =&gt; if..elif..else
+</p>
+<dl>
+<dt>
+1C
+</dt>
+<dt>
+Python
+</dt>
+<dd>
+<p>
+    &#8212; Цикл:
+</p>
+</dd>
+<dt>
+1C
+</dt>
+<dt>
+Python
+</dt>
+<dd>
+<p>
+</p>
+</dd>
+</dl>
+</li>
+<li>
+<p>
+for a=b to c do&#8230;enddo =&gt; for a in xrange(..)
+</p>
+</li>
+<li>
+<p>
+while..do&#8230;enddo =&gt; while
+</p>
+</li>
+<li>
+<p>
+continue =&gt; continue
+</p>
+</li>
+<li>
+<p>
+break =&gt; break
+    &#8212; Try..Except..EndTry =&gt; try..except..
+</p>
+<dl>
+<dt>
+1C
+</dt>
+<dt>
+Python
+</dt>
+<dd>
+<p>
+    &#8212; Label (Метка):
+</p>
+</dd>
+<dt>
+1C
+</dt>
+<dt>
+Python
+</dt>
+<dd>
+<p>
+</p>
+</dd>
+</dl>
+</li>
+<li>
+<p>
+Definition (объявление): ~&lt;name&gt; =&gt; handle processing (ручная обработка)
+</p>
+</li>
+<li>
+<p>
+Call (Вызов): Goto &lt;mark&gt; =&gt; handle processing (ручная обработка)
+    &#8212; Special:
+</p>
+</li>
+<li>
+<p>
+#ЗагрузитьИзФайла =&gt; ?import?
+</p>
+<ul>
+<li>
+<p>
+indents (отступы)
+</p>
+<dl>
+<dt>
+1C
+</dt>
+<dt>
+Python
+</dt>
+<dd>
+<p>
+    &#8212; в соответствии с конструкциями языка; 1 x &lt;tab&gt;/identотступ
+</p>
+</dd>
+</dl>
+</li>
+<li>
+<p>
+members:
+    &#8212; Naming
+</p>
+</li>
+</ul>
+</li>
+<li>
+<p>
+E (English) =&gt; e_&lt;as_is&gt;
+</p>
+</li>
+<li>
+<p>
+R (Russian) =&gt; r_&lt;translit&gt;
+    &#8212; System:
+</p>
+</li>
+<li>
+<p>
+variables/objects =&gt; E
+</p>
+</li>
+<li>
+<p>
+methods =&gt; E
+    &#8212; global ($GLOBAL == (e.g.) Global):
+</p>
+</li>
+<li>
+<p>
+variable &lt;name&gt; =&gt; GLOBAL.&lt;name&gt;
+</p>
+</li>
+<li>
+<p>
+method &lt;name&gt;:
+</p>
+<ol class="olist2">
+<li>
+<p>
+predefined =&gt; E
+</p>
+</li>
+<li>
+<p>
+userdefined =&gt;
+</p>
+<ul>
+<li>
+<p>
+E =&gt; e_LE
+</p>
+</li>
+<li>
+<p>
+R =&gt; translit =&gt; r_LE)
+</p>
+</li>
+</ul>
+</li>
+</ol>
+</li>
+<li>
+<p>
+yet another thoughts (всякие мысли):
+</p>
+<ol class="olist2">
+<li>
+<p>
+область переменных - надо как-то обрабатывать
+</p>
+</li>
+<li>
+<p>
+Var &lt;name&gt; Export =&gt; &#8230;
+</p>
+<ul>
+<li>
+<p>
+Global.register("a") |
+</p>
+</li>
+<li>
+<p>
+a = None | &#8230;
+</p>
+</li>
+<li>
+<p>
+global.__dict__["a"] = None
+</p>
+</li>
+</ul>
+</li>
+<li>
+<p>
+Var a =&gt; &#8230;
+</p>
+</li>
+<li>
+<p>
+functions/procedures - need 2 B split&#8230;
+</p>
+<ul>
+<li>
+<p>
+definition
+</p>
+</li>
+<li>
+<p>
+member's call: lvalue/rvalue x var/func x std/global/userdef
+    &#8212; Module:
+</p>
+</li>
+<li>
+<p>
+variables
+</p>
+</li>
+<li>
+<p>
+methods:
+</p>
+</li>
+<li>
+<p>
+predefined =&gt; E
+</p>
+</li>
+<li>
+<p>
+userdefeined =&gt; r|e_LE
+    &#8212; Forms:
+</p>
+</li>
+<li>
+<p>
+fields =&gt; Form.&lt;f_LE&gt;.Value
+</p>
+</li>
+</ul>
+</li>
+</ol>
+</li>
+</ol>
+<h3>Output (Выход) - во что (физически) превращаются</h3>
+<ul>
+<li>
+<p>
+Global
+    &#8212; Module
+    &#8212; Table fields
+</p>
+</li>
+<li>
+<p>
+Objects (Documents, Обработка):
+    &#8212; Module
+</p>
+</li>
+<li>
+<p>
+Form
+    &#8212; Module
+</p>
+<ol>
+<li>
+<p>
+System:
+</p>
+<ol class="olist2">
+<li>
+<p>
+variables/objects
+</p>
+</li>
+<li>
+<p>
+methods
+</p>
+</li>
+</ol>
+</li>
+<li>
+<p>
+Global
+</p>
+<ol class="olist2">
+<li>
+<p>
+variables/objects
+</p>
+</li>
+<li>
+<p>
+methods
+</p>
+</li>
+</ol>
+</li>
+<li>
+<p>
+This module
+</p>
+<ol class="olist2">
+<li>
+<p>
+variables/objects
+</p>
+</li>
+<li>
+<p>
+methods
+</p>
+</li>
+</ol>
+</li>
+<li>
+<p>
+Dialog
+</p>
+<ol class="olist2">
+<li>
+<p>
+Calculated fields
+</p>
+</li>
+</ol>
+</li>
+<li>
+<p>
+Table
+</p>
+<ol class="olist2">
+<li>
+<p>
+Calculated fields
+</p>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ul>
+</div>
+<h2>Running (Исполнение)</h2>
+<div class="sectionbody">
+<h3>Common (Общий порядок)</h3>
+<ol>
+<li>
+<p>
+Analize (анализ)
+</p>
+</li>
+<li>
+<p>
+split on funcs (разбиение на функции)
+</p>
+</li>
+<li>
+<p>
+compile each (компиляция каждой ф-ции отдельно в байт-код)
+</p>
+</li>
+<li>
+<p>
+insert into *.__dict__ (подстаовка вызовов ф-ций в нужный словарь)
+=== Features (Особенности)
+</p>
+<ul>
+<li>
+<p>
+системные =&gt; глобальный контекст (from lw&#8230; import *)
+</p>
+</li>
+<li>
+<p>
+глобальные =&gt; глобальный контекст (?)
+</p>
+</li>
+<li>
+<p>
+поля формы
+</p>
+</li>
+</ul>
+</li>
+</ol>
+</div>
+<h2>Features (Особенности)</h2>
+<div class="sectionbody">
+<p>Differences between 1C:Basic &amp; Python:
+  <strong> Порядок обхода контекста:
+    </strong> 1C - глобальный, глобальный модуля, локальный ф-ции &lt;&gt; поля
+    <strong> Python - &#8230;
+  </strong> &#8230;</p>
+</div>
+<h2>Notes</h2>
+<div class="sectionbody">
+<h3>Василий Здановский 6322</h3>
+<p>Тебе только надо распределить ИМЕНА переменных по трем пространствам
+(EAP: еще бы вызвать их правильно&#8230;)
+Модуль формы, сам объект (в 8-ке ЭтотОбъект), РеквизитыФормы, Сама морда непосредственно.
+Причем в 77 есть последовательность обхода, в 8-ке все вааще явно указывается.
+Делаешь в модуле формы соотв. ассоц. массивы + массивы методов и сводишь все к вызовам, которые я тебе описал.
+В методах все аналогично, только массив модуля копируется и переменные маскируются.
+Для получения списка имен пропиши: isName - возвращает может ли данное сочетание символов быть именем, isFuncColl - функцией, isFieldName - полем объекта, isMethodCall - вызов метода. Функции маленькие, поскольку базируются на первых двух. Дальше -проход по тексту модуля и создание списка методов и переменных модуля, потом проход по каждой функции. В итоге, можно свести весь текст модуля к выражениям на питоне с разруливанием по именам.
+Это не сложно.
+Я не описал глобальный модуль. Но, он компилится так же.  И маскируется массивом переменных модуля так же, как и в сл. разбора методов.
+Еще раз повторяю - я просто обещал. Чуть позже сброшу
+Но пока проект не завершен. Не могу. Просто не хочу рисковать.
+А именно этот парсер в нем и прописан. Клиент хотел, чтобы уникальность кода, который для него прописывается, была соблюдена.
+Если не дай Бог это выплывет - мне хоть в петлю лезь. Потому как бабки заплачены немалые.
+Кстати сказать такой подход хоть и будет тормознутым, зато даст возможность легко подстраивать 1Л под изменения языка 1С в дальнейшем.</p>
+</div>
+<h2>6410 ==</h2>
+<div class="sectionbody">
+<ul>
+<li>
+<p>
+Global Module:
+</p>
+</li>
+<li>
+<p>
+Вход:
+</p>
+</li>
+<li>
+<p>
+текст
+</p>
+</li>
+<li>
+<p>
+словарь системных методов, атрибутов и их методов
+</p>
+</li>
+<li>
+<p>
+словарь predefined методов
+</p>
+</li>
+<li>
+<p>
+Преобразование:
+</p>
+</li>
+<li>
+<p>
+Converting(): Name export =&gt; e_Name | Name =&gt; __e_Name | Имя Экспорт =&gt; r_Imya | Имя =&gt; __r_Imya
+</p>
+</li>
+<li>
+<p>
+Перем:
+</p>
+</li>
+<li>
+<p>
+if (system attribute): error
+</p>
+</li>
+<li>
+<p>
+else: Converting()
+</p>
+</li>
+<li>
+<p>
+StatList =&gt; _init()
+</p>
+</li>
+<li>
+<p>
+Function Name (a, b, val c) Export:
+</p>
+</li>
+<li>
+<p>
+if (predefined_global): name = dict[name]
+</p>
+</li>
+<li>
+<p>
+elif (keyword or system): error
+</p>
+</li>
+<li>
+<p>
+else: Converting(); store src:dest    # т.е. речь о том, чтобы словари _никогда_ не пересекались - только в predefined
+</p>
+</li>
+<li>
+<p>
+(&#8230;val c) =&gt; (&#8230;c) - или придумать механизмы. Как варианты:
+</p>
+</li>
+<li>
+<p>
+a, b = Name(a, b, val c)
+</p>
+</li>
+<li>
+<p>
+a = globalstorage(1); b = globalstorage(2); Name(a, b)
+</p>
+</li>
+<li>
+<p>
+Var e, f =&gt; e = None; f = None
+</p>
+</li>
+<li>
+<p>
+вызовы глобальных переменных (но _не_ аргументов и _не_ Var) - предварить "global &#8230;"
+</p>
+</li>
+<li>
+<p>
+вызовы к системным членам - по словарю (?)
+</p>
+</li>
+<li>
+<p>
+Выход:
+</p>
+</li>
+<li>
+<p>
+словарь переменных export (старое и новое имя)
+</p>
+</li>
+<li>
+<p>
+словарь методов export
+</p>
+</li>
+<li>
+<p>
+misc
+</p>
+</li>
+<li>
+<p>
+maybe словарь системных - 3 части:
+</p>
+</li>
+<li>
+<p>
+атрибуты (Name | Name\.*)
+</p>
+</li>
+<li>
+<p>
+ф-ции (Name(*)
+</p>
+</li>
+<li>
+<p>
+методы атрибутов (\.Name())
+</p>
+</li>
+</ul>
+<h3>mybuh</h3>
+<h4>nota_bene.txt</h4>
+<ul>
+<li>
+<p>
+создаем class FormControlElem - объект в котором хранится информация об одном контроле(элементе формы), взятая из Dialog Stream ert-модуля
+</p>
+</li>
+<li>
+<p>
+//// с числами не все так просто &#8230;. пример:
+    R_a = 2.356
+    R_a = R_a + 3.897; #
+    R_a = R_a - 4.14; #
+    R_a = R_a * 5; #
+    R_a = R_a / 10.0; #
+    #Сообщить(А)
+    #print R_a,type(R_a) здесь print показывает 1.0565, но сравнение не проходит, если убрать round !!!!!
+    R_a = round(R_a,4)
+    #print R_a,type(R_a)
+</p>
+<div class="literalblock">
+<div class="content">
+<pre><tt>    if ( R_a != 1.0565 ):
+        Buh.Message("КЯ:012:Неверный результат математических вычислений" + Buh.String(R_a))
+  нужно учитывать при конвертации...
+  и что главное - даже если поставить round(...,15) - уже проходит...
+* ГЛЮК СО СЛОЖЕНИЕМ СТРОК В ПИТОНЕ:
+  StrOfQuery = "UPDATE " + self.CurrSpecifier.TblName + " SET "
+    print StrOfQuery + "*****фы"
+  выбрасывает ошибку (не всегда):
+    UnicodeDecodeError: 'ascii' codec can't decode byte 0xf4 in position 5: ordinal not in range(128)
+  ЛЕЧИТСЯ:
+    print str(StrOfQuery) + str("*****фы")
+* РАБОТА С ФОРМОЙ (диалогом).
+  Так как не получится сделать как в 1С (например, если на форме есть поле "Цена"), то из модуля можно делать :
+  читать:
+    ВремЦена = Цена
+  и писать:
+    Цена = 100.25),
+  именно писать и не получится, так как будет создан новый объект и на форме ничего не изменится...
+  ПОЭТОМУ !!!
+  Делаем классы Dlg() и Tbl() для доступа к форме и таблице соответственно со своим контролем атрибутов...
+  Поэтому после трансляции придется соответственно изменить исх. текст модуля.
+  Т.е. вместо Цена = 100.25 будет Dlg.R_cena = 100.25
+* Аналогично и с таблицей.
+* 13.06.05 Сделан спец.контрол buh_tbctrl.TextBtnCtrl - текстовое поле с кнопкой для выбора значений "бух" - типов данных.
+  ВНИМАНИЕ! Его нельзя размещать на модальных диалогах - в Линуксе он не перехватывает фокус и в итоге не воспринимает ввод с мыши и клав-ры
+* было выполнено тестирование sqlite и pysqlite1.16 с pdo и без.
+* Проблема - даже при указании типа поля BIGINT UNSIGNED записать число больше 10 разрядов (1234567890) не получается(пишет но выводит потом неверно).
+  Поэтому sqlite подойдет только для небольших баз (примерно до 10 млн.строк в одной таблице, с учетом что два последних знака - BaseID, т.е. код базы)
+* было выполнено тестирование PostgreSQL8.0 и PyGreSQL-3.6.1 с pdo и без.
+  Проблема - для BIGINT не понимает UNSIGNED
+* Также проблема с кавычками.
+  Так неправильно:
+    db.execute('INSERT INTO t5 (o_id, f01) VALUES(1234567890, "apple")')
+  а так правильно:
+    db.execute("INSERT INTO t5 (o_id, f01) VALUES(1234567890, 'apple')")</tt></pre>
+</div></div>
+</li>
+</ul>
+<h4>translating.txt</h4>
+<ul>
+<li>
+<p>
+поубирал все периодические константы и реквизиты справочников&#8230;
+</p>
+</li>
+<li>
+<p>
+поубирал слои на формах&#8230;
+</p>
+</li>
+<li>
+<p>
+Атрибут документа Операция использовать ТОЛЬКО в модуле проведения
+</p>
+</li>
+</ul>
+<h4>transl_specif.txt</h4>
+<ul>
+<li>
+<p>
+Перед трансляцией подобавлять в модулях по одной пустой строке в конце текста программного модуля, иначе если конец файла находится в непустой строке - то глюки при трансляции этого модуля
+</p>
+</li>
+<li>
+<p>
+Желательно оставить только русские ключевые слова. Английские поубирать.
+</p>
+</li>
+<li>
+<p>
+В самом простом описании транслятор переводит русские 1С-ключевые слова в английские 1С-ключевые слова согласно "описанию встроенного языка". Русские идентификаторы переменных переводятся методом транслитерации в английские с добавлением префикса "R_". Возможно, в-дальнейшем, этот префикс не будет добавлятся в случае, если переведенный идентификатор "не пересекается" с ключевыми словами. Нужно подумать&#8230;
+</p>
+</li>
+<li>
+<p>
+В модулях формы к идентификаторам элементов диалога добавляется префикс "dlg.", а к идентификаторам табличной части диалога добавляется префикс "tbl.".
+</p>
+</li>
+<li>
+<p>
+В модулях проведения документов и к идентификаторам элементов диалога , и к идентификаторам табличной части диалога добавляется префикс "Context."
+</p>
+</li>
+<li>
+<p>
+Во все модулях кроме глобального, к идентификаторам функций и переменных, которые экспортируются из глоб.модуля, добавляется префикс "glob_mod."
+</p>
+</li>
+<li>
+<p>
+глобальные переменные (описанные в блоке Перем модуля) не нужно передавать в качестве аргументов функций, на то они и глобальные, меньше путаницы&#8230;
+</p>
+</li>
+<li>
+<p>
+а ссылочные аргументы в 1С нужно переделать так:
+  было :
+        Если Функ(А1,А2) = 10 тогда
+                А3 = А1 + А2
+        КонецЕсли;
+  переделываем:
+        Рез = Функ(А1,А2);
+        Если Рез = 10 тогда
+                А3 = А1 + А2
+        КонецЕсли;
+  Мелочь, но зато головняка намного меньше&#8230;
+</p>
+</li>
+<li>
+<p>
+Желательно, там где можно в функциях с параметрами ставить "Знач", особенно когда параметров много.
+</p>
+</li>
+<li>
+<p>
+Функции Мин и Макс заменяются на Питоновские, которые не преобразовуют типы к одному виду, поэтому например 123 и "345" сравниваются не так как в 1С&#8230;
+</p>
+</li>
+<li>
+<p>
+Строковые функции AnsiToOem и OemToAnsi - не работают, возвращают исх. строку
+</p>
+</li>
+<li>
+<p>
+Тело модуля 1С (которое внизу, после всех процедур и функций) не обрабатывается, поэтому в исх. конфах его нужно переместить в процедуру ПриОткрытии()
+</p>
+</li>
+<li>
+<p>
+блок :
+        Если сз.Принадлежит("Значение444") = 1 тогда
+                //Сообщить("СЗ: Проверка на принадлежность строкового значения - успешно&#8230;");
+        иначе
+                Сообщить("СЗ:098: Проверка на принадлежность строкового значения - неверно !!!");
+        КонецЕсли;
+  преобразуется в :
+        if ( R_sz.Belong("""Значение444""") == 1 ):
+                #Сообщить("СЗ: Проверка на принадлежность строкового значения - успешно&#8230;")
+        else:
+                bMessage("""СЗ:098: Проверка на принадлежность строкового значения - неверно !!!""")
+  что выдает ошибку после строки с if (нужен какой-нибудь оператор)&#8230;
+  исправляем :
+        Если сз.Принадлежит("Значение444") = 1 тогда
+                ПустаяПеременная = 0;
+                //Сообщить("СЗ: Проверка на принадлежность строкового значения - успешно&#8230;");
+        иначе
+                Сообщить("СЗ:098: Проверка на принадлежность строкового значения - неверно !!!");
+        КонецЕсли;
+</p>
+</li>
+<li>
+<p>
+опущенные аргументы функций при вызове :
+        f3(1,,1)
+  будут заменятся на None
+        f3(1,None,1)
+  потому что Питон не допускает пропущенных аргументов&#8230;
+</p>
+</li>
+<li>
+<p>
+&#8230;
+        Функция РасчетНадбавки (СтараяЦ,ПроцН) Экспорт
+                // ________ Функция возвращает новую сумму с учетом старой и процента надб./скидки
+                Если ПроцН = 0 тогда
+                        Возврат СтараяЦ;
+                Иначе Возврат СтараяЦ<strong>(100+ПроцН)/100;
+                КонецЕсли;
+        КонецФункции
+  переделываем:
+        Функция РасчетНадбавки (Знач СтараяЦ, Знач ПроцН) Экспорт
+                // Функция возвращает новую сумму с учетом старой и процента надб./скидки
+                Если ПроцН = 0 тогда
+                        Возврат СтараяЦ;
+                Иначе
+                        Возврат СтараяЦ</strong>(100+ПроцН)/100;
+                КонецЕсли;
+        КонецФункции
+</p>
+</li>
+<li>
+<p>
+&#8230;
+        Если СокрЛП(ВРег(зн))&lt;&gt;"ааа" Тогда
+                Возврат 0;
+        Иначе
+  переделываем--- :
+        Если СокрЛП(ВРег(зн)) &lt;&gt; "ааа" Тогда
+                Возврат 0;
+        Иначе
+</p>
+</li>
+<li>
+<p>
+&#8230;
+        Str0 = "Добро пожаловать! Сегодня " + ДеньНеделиПрописью(ТекущаяДата())
+        + " " + ТекущаяДата() + РазделительСтрок +"Сейчас установлен  курс УДЕ="
+        + Вв.Курс.Получить(ТекущаяДата());
+  переделываем--- :
+        Str0 = "Добро пожаловать! Сегодня " + ДеньНеделиПрописью(ТекущаяДата()) ;
+        Str0 = Str0 + " " + ТекущаяДата() + РазделительСтрок +"Сейчас установлен  курс УДЕ=" ;
+        Str0 = Str0 + Вв.Курс.Получить(ТекущаяДата());
+</p>
+</li>
+<li>
+<p>
+&#8230;
+        Сообщить("Документ " + Конт.Вид() + " № " + Конт.НомерДок
+         от Конт.ДатаДок+" не проводится!!!");
+  переделываем--- :
+        Стр2 = "Документ " + Конт.Вид() + " № " + Строка(Конт.НомерДок) ;
+        Стр2 = Стр2 + " от " + Строка(Конт.ДатаДок) + " не проводится!!!";
+        Сообщить(Стр2);
+</p>
+</li>
+<li>
+<p>
+если в модуле встречается :
+        НужнаяСтр = """ЗначениеСЗ555""" + ",";
+  заменяем на:
+        К = Симв(34); // двойные кавычки
+        НужнаяСтр = К + "ЗначениеСЗ555" + К + ",";
+  транслятору станет намного легче&#8230;
+</p>
+</li>
+<li>
+<p>
+Если в тексте для Таблицы Значений встречается:
+        тз.ПолучитьПараметрыКолонки("КолЧисло",,ПеремДлина,ПеремТочн);
+  нужно поставить:
+        а = тз.ПолучитьПараметрыКолонки("КолЧисло",,ПеремДлина,ПеремТочн);
+  Потому как там много необязательных параметров, которые передаются по ссылке&#8230; транслятор путается&#8230; :-(
+</p>
+</li>
+<li>
+<p>
+&#8230;
+        Если сз.НайтиЗначение("Значение444") = 2 тогда
+  меняем на
+        Рез = сз.НайтиЗначение("Значение444");
+        Если Рез = 2 тогда
+</p>
+</li>
+<li>
+<p>
+&#8230;
+        тз.ВыбратьСтроку(ВыбСтр,"Выбор строки в таблице&#8230;");
+  меняем на
+        Рез = тз.ВыбратьСтроку(ВыбСтр,"Выбор строки в таблице&#8230;");
+</p>
+</li>
+</ul>
+</div>
+<h2>Проверить</h2>
+<div class="sectionbody">
+<h3>Python</h3>
+<ul>
+<li>
+<p>
+можно ли вставлять свои простые переменные в global
+</p>
+</li>
+<li>
+<p>
+можно ли импортировать модуль _не_ из файла
+</p>
+</li>
+</ul>
+</div>
+<h2>Vocabulary</h2>
+<div class="sectionbody">
+<ul>
+<li>
+<p>
+aim == цель
+</p>
+</li>
+<li>
+<p>
+vocabulary == словарь
+</p>
+</li>
+<li>
+<p>
+ident == отступ
+</p>
+</li>
+<li>
+<p>
+strategic == Стратегическая
+</p>
+</li>
+<li>
+<p>
+tactic == Тактическая
+</p>
+</li>
+<li>
+<p>
+objects == Объекты
+</p>
+</li>
+<li>
+<p>
+global == Глобальные
+</p>
+</li>
+<li>
+<p>
+Form == Форма
+</p>
+</li>
+<li>
+<p>
+PreProcessing == подготовка исподников к трансляции
+</p>
+</li>
+</ul>
+</div>
+<div id="footer">
+<div id="footer-text">
+Version 0.1<br />
+Last updated 18-Jul-2006 19:47:55 MSD
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,32 @@
+# -*- coding: utf-8 -*-
+
+Table:
+  * hard:
+    * Section region
+    * Cell border
+  * lite:
+    * --Pattern--
+    * --Pattern color--
+    * Font name
+  * ?
+    * --Joins--
+    * Text orientation
+    * --ContextMenu--
+    * Object.Line
+    * Object.Rect
+    * Object.Text
+Dialog:
+    + Label (c_STATIC > QLabel)
+    + Button (c_BUTTON > QPushButton) (11, 13)
+    + Edit (c_1CEDIT > QLineEdit)
+    + Radio (c_RADIO) (12) - TODO: grouping by GroupBox
+    + Groupbox (12) - now disabled
+    + Tree (02, 07, 09)
+    * Table
+    + Checkbox (16, 17)
+    + ListBox (18, 1B)
+    * ? (c_BMASKED)
+    + ? (Multiline)
+    
+All:
+    * export metadata into TreeLine
