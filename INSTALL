@@ -1,0 +1,43 @@
+unsql installation instructions
+-----------------------------------
+
+
+Content
+=======
+
+1. Package structure
+2. Dependencies
+3. Installation
+
+
+1. Package structure
+=====================
+
+AUTHORS                 # contributors of code and patches
+ChangeLog               # list of changes
+COPYING                 # license
+INSTALL                 # this file
+Makefile                # basic makefile
+README                  # user manual
+TODO                    # just ideas, no plans
+
+
+2. Dependencies
+===============
+
+In order to compile unsql, you need to install glibc devel package.
+
+
+3. Basic installation
+=====================
+
+ 1. tar xf unsql_x.x.x.tar.bz2
+
+ 2. cd unsql-x.x.x
+
+ 3. make
+
+ 4. make install
+    (depending on your installation destination, you need to be root)
+
+ 5. make clean (optional)
