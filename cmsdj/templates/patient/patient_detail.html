@@ -1,0 +1,54 @@
+{% extends "patient/base.html" %}
+{% block body_main %}
+<p>
+    <a href="{{ url_for('patient.views.patient_list') }}"> Поциэнт: </a>
+</p>
+{# main data #}
+<table class="border">
+    <tr>
+        <td> Людь: </td>
+        <td> {{ object.person }} </td>
+        <td rowspan="2" valign="top" align="right">
+            <img src="{{ STATIC_URL }}img/16/edit-delete.png" alt="Delete" onClick="confirmDelete('')"/>
+            <a href="{{ url_for('patient_update', object.pk) }}"> {% include "img_edit.html" %} </a>
+        </td>
+    </tr>
+    <tr>
+        <td> Национальность: </td>
+        <td> {{ object.nationality }} </td>
+    </tr>
+</table>
+<hr/>
+<p> Истории: </p>
+<ul>
+{% for medhistory in object.medhistories.all() %}
+    <li>
+        <p> {{ medhistory }} </p>
+        <p> Посещения: </p>
+        <ul>
+        {% for visit in medhistory.visits.all() %}
+            <li>
+                <p> {{ visit }} </p>
+                <p> Медзаписи: </p>
+                <ul>
+                {% for medrecord in visit.medrecords.all() %}
+                    <li>
+                        <p> {{ medrecord }} </p>
+                        <p> строки: </p>
+                        <ul>
+                        {% for entry in medrecord.entries.all() %}
+                            <li>
+                                {{ entry.name }}: {{ entry.value }} {{ entry.unit }}
+                            </li>
+                        {% endfor %}
+                        </ul>
+                    </li>
+                {% endfor %}
+                </ul>
+            </li>
+        {% endfor %}
+        </ul>
+    </li>
+{% endfor %}
+</ul>
+{% endblock %}

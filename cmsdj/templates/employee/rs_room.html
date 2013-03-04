@@ -1,0 +1,43 @@
+{% extends "employee/rs_base.html" %}
+{% block rs_head %}
+    <p> График кабинета №{{ room.pk }} (с {{ rs.begdate|date }}): </p>
+    <p> Еще кабинетов: {% for i in rooms %}
+        {% if i == room %}
+            {{ i.pk }}
+        {% else %}
+            <a href="{{ url_for('rs_room', rs.id, i.pk) }}"> {{ i.pk }} </a>
+        {% endif %}
+    {% endfor %} </p>
+{% endblock %}
+{% block rs_leftmenu %}
+	    <a href="{{ url_for('rse_room_add', rs.id, room.pk) }}"> <button type="button"> Add slot </button> </a>
+{% endblock %}
+{% block rs_hgrid %}
+    {% for d in dows %}
+	  {% set y = hy + (loop.index0 * dy) %}
+	  <line x1="0" y1="{{y}}%" x2="100%" y2="{{y}}%"/>
+	  <a xlink:href="{{ url_for('rs_dow', rs.id, d.pk) }}" xlink:title="ГК для {{ d.name }}">
+	    <text x="0" y="{{y}}%"> <tspan dy="1.5ex"> {{ d.name }} </tspan> </text>
+	  </a>
+    {% endfor %}
+{% endblock %}
+{% block rs_occupy scoped %}
+    {% for entry in rse %}
+        <!-- x = 9% + (((beg/60) - 8) * 6.5%); y = 9% + ((dow-1) * 13%) -->
+        {% set y = hy+((entry.dow.pk-1)*dy) %}
+        <a xlink:href="{{ url_for('rse_room_edit', entry.pk) }}" xlink:title="Edit this entry">
+            <rect
+                x="{{hx+(((entry.begtime/60.0)-hbeg)*dx)}}%"
+                y="{{y}}%"
+                width="{{(entry.endtime-entry.begtime)/60.0*dx}}%"
+                height="{{dy}}%" rx="3" ry="3"
+            >
+                <title> {{ entry.specialty.name }} </title>
+            </rect>
+        </a>
+        <text
+            x="{{hx+((((entry.endtime+entry.begtime)/2.0/60.0)-hbeg)*dx)}}%"
+            y="{{y}}%"
+        > <tspan dy="1.5ex"> {{ entry.specialty.name }} </tspan> </text>
+    {% endfor %}
+{% endblock %}

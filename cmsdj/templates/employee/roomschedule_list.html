@@ -1,0 +1,13 @@
+{% extends "employee/base.html" %}
+{% block body_main %}
+<p> Графики кабинетов: </p>
+<ul>
+{% for object in object_list %}
+<li>
+    {{ object.begdate|date }}:
+    <a href="{{ url_for('rs_room', object.id, room0) }}"> По кабинетам </a> |
+    <a href="{{ url_for('rs_dow', object.id, dow0) }}"> По дням </a>
+</li>
+{% endfor %}
+</ul>
+{% endblock %}

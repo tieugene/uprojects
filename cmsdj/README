@@ -1,0 +1,70 @@
+Acer Iconia Tab A500, 1GB RAM, 32GB ?, 1280x800
+
+= todo 130304 =
+* room - не подряд
+* stafflist - раскабинечено
+
+fuxtures:
++ departments
++ rooms
++ specialty
++ stafflist
++ roomschedule
++ enum_*
++ ref_*
+
+= check busy rooms =
+new time bound (nb..ne) vs existing one (ob..oe): (n: new, o: old, b: begin, e: end)
+* полностью внутри:     nb>=ob & ne<=oe
+* полностью охватывает: nb<=ob & ne>=oe
+* перекрывает начало:   nb<=ob & ne> ob
+* перекрывает конец:    nb< oe & ne>=oe
+
+НЕ перекрывает: oe <= nb || ob >= ne
+Перекрывают:    ob <  ne && oe >  nb
+
+Что в основном интерфейсе:
+* U Штатное расписание
+* U График кабинетов
+* U График врача
+* LCRUD Пациента
+* LCRUD РПП
+* ?ЭМК
+
+= table =
+* each rect: dow x begtime..endtime = cab+spec
+* резиновая таблица во весь div
+* ограничить min resolution: 800x480 :-)
+* часы и Дн - тоже графика
+* отечать перекрытие (opacity?)
+* ширина - одинакова (1/7)
+* высота - в %
+* в расчете на мыша: title
+* в расчете на таблетку - ты => highlight
+== svg ==
+http://www.w3schools.com/svg/default.asp
+Test (100%, prop):
+* chromium - ok
+* ff - as opera
+* opera - height=100% ~ 150px
+* qupzilla
+== html5 ==
+* Передаются:
+    * 
+== notes ==
+div height: http://jdevelop.info/articles/11-html-css-js/90-div-height-100
+height, min-height, max-height
+
+Asus: 344x193mm (1366x768) = 100 ppi
+
+12 cab, 13h/d, ставок - 43
+12c x 13h = 156 ch
+43 x 8 = 344
+344/156=2.2
+-- правильно: -
+12c x 13h x 7d = 1092 ch/w
+43*40=1720 eh/w
+1.575 ч/к
+
+<script>alert ("Screen res: "+screen.width+"x"+screen.height);</script>
+<script>alert ("Client res: "+document.body.clientWidth+"x"+document.body.clientHeight);</script>

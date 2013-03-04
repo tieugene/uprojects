@@ -1,0 +1,8 @@
+{% extends "employee/base.html" %}
+{% block body_main %}
+<table border="0" width="100%"> <tr>
+    <th> <a href="{{ url_for('stafflist_list') }}"> Штатное расписание </a> </th>
+    <th> <a href="{{ url_for('roomschedule_list') }}"> График кабинетов </a> </th>
+    <th> <a href="{{ url_for('employee_list') }}"> Сотрудники </a> </th>
+</tr> </table>
+{% endblock %}
