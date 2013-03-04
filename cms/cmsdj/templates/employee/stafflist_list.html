@@ -1,8 +1,0 @@
-{% extends "employee/base.html" %}
-{% block body_main %}
-<p> Штатные расписания:
-{% for object in object_list %}
-<a href="{% url stafflist_view object.id %}"> {{ object.begdate|date:"y.m.d" }} </a>
-{% endfor %}
-</p>
-{% endblock %}

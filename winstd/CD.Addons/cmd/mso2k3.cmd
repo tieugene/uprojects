@@ -1,1 +1,0 @@
-\bin\MSO.2k3\SETUP.EXE TRANSFORMS=\mst\MSO2k3.MST /qb
