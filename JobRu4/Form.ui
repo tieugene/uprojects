@@ -1,0 +1,268 @@
+<ui version="4.0" >
+ <author></author>
+ <comment></comment>
+ <exportmacro></exportmacro>
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>453</width>
+    <height>544</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget" >
+   <layout class="QGridLayout" >
+    <property name="margin" >
+     <number>9</number>
+    </property>
+    <property name="spacing" >
+     <number>6</number>
+    </property>
+    <item row="2" column="1" >
+     <layout class="QVBoxLayout" >
+      <property name="margin" >
+       <number>0</number>
+      </property>
+      <property name="spacing" >
+       <number>6</number>
+      </property>
+      <item>
+       <widget class="QLabel" name="Label_Conditions" >
+        <property name="text" >
+         <string>Conditions</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QTextBrowser" name="TextBrowser_Conditions" />
+      </item>
+     </layout>
+    </item>
+    <item row="2" column="0" >
+     <layout class="QVBoxLayout" >
+      <property name="margin" >
+       <number>0</number>
+      </property>
+      <property name="spacing" >
+       <number>6</number>
+      </property>
+      <item>
+       <widget class="QLabel" name="Label_Duty" >
+        <property name="text" >
+         <string>Duty</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QTextBrowser" name="TextBrowser_Duty" />
+      </item>
+     </layout>
+    </item>
+    <item row="0" column="0" colspan="2" >
+     <widget class="QTableView" name="TableView_Main" />
+    </item>
+    <item row="1" column="0" >
+     <layout class="QGridLayout" >
+      <property name="margin" >
+       <number>0</number>
+      </property>
+      <property name="spacing" >
+       <number>6</number>
+      </property>
+      <item row="4" column="0" >
+       <widget class="QLabel" name="Label_Phone" >
+        <property name="text" >
+         <string>Phone</string>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="1" >
+       <widget class="QLineEdit" name="lineEdit_5" />
+      </item>
+      <item row="3" column="1" >
+       <widget class="QLineEdit" name="lineEdit_4" />
+      </item>
+      <item row="0" column="1" >
+       <widget class="QLineEdit" name="LineEdit_City" />
+      </item>
+      <item row="2" column="1" >
+       <widget class="QLineEdit" name="LineEdit_Experience" />
+      </item>
+      <item row="0" column="0" >
+       <widget class="QLabel" name="Label_City" >
+        <property name="text" >
+         <string>City</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0" >
+       <widget class="QLabel" name="Label_Education" >
+        <property name="text" >
+         <string>Title</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0" >
+       <widget class="QLabel" name="Label_Experience" >
+        <property name="text" >
+         <string>Employer</string>
+        </property>
+       </widget>
+      </item>
+      <item row="5" column="0" >
+       <widget class="QLabel" name="label_6" >
+        <property name="text" >
+         <string>E-Mail</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1" >
+       <widget class="QLineEdit" name="LineEdit_Education" />
+      </item>
+      <item row="3" column="0" >
+       <widget class="QLabel" name="Label_Contact" >
+        <property name="text" >
+         <string>Contact</string>
+        </property>
+       </widget>
+      </item>
+      <item row="5" column="1" >
+       <widget class="QLineEdit" name="lineEdit_6" />
+      </item>
+     </layout>
+    </item>
+    <item row="1" column="1" >
+     <layout class="QVBoxLayout" >
+      <property name="margin" >
+       <number>0</number>
+      </property>
+      <property name="spacing" >
+       <number>6</number>
+      </property>
+      <item>
+       <widget class="QLabel" name="Label_Requirements" >
+        <property name="text" >
+         <string>Requirements</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QTextBrowser" name="TextBrowser_Requirement" />
+      </item>
+     </layout>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar" >
+   <property name="geometry" >
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>453</width>
+     <height>29</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuEdit" >
+    <property name="title" >
+     <string>Edit</string>
+    </property>
+   </widget>
+   <widget class="QMenu" name="menuData" >
+    <property name="title" >
+     <string>Data</string>
+    </property>
+    <addaction name="actionFilter" />
+    <addaction name="actionSort" />
+   </widget>
+   <widget class="QMenu" name="menuFile" >
+    <property name="title" >
+     <string>File</string>
+    </property>
+    <addaction name="actionImport_from_HTML" />
+    <addaction name="actionExport_to_HTML" />
+    <addaction name="separator" />
+    <addaction name="actionImport_from_XML" />
+    <addaction name="actionBackup_ti_XML" />
+    <addaction name="separator" />
+    <addaction name="actionBackup_DB" />
+    <addaction name="actionRestore_DB" />
+    <addaction name="separator" />
+    <addaction name="actionExit" />
+   </widget>
+   <addaction name="menuFile" />
+   <addaction name="menuEdit" />
+   <addaction name="menuData" />
+  </widget>
+  <widget class="QStatusBar" name="statusbar" />
+  <action name="actionImport_from_HTML" >
+   <property name="text" >
+    <string>Import from HTML</string>
+   </property>
+  </action>
+  <action name="actionExport_to_HTML" >
+   <property name="text" >
+    <string>Export to HTML</string>
+   </property>
+  </action>
+  <action name="actionImport_from_XML" >
+   <property name="text" >
+    <string>Backup to XML</string>
+   </property>
+  </action>
+  <action name="actionBackup_ti_XML" >
+   <property name="text" >
+    <string>Restore from XML</string>
+   </property>
+  </action>
+  <action name="actionBackup_DB" >
+   <property name="text" >
+    <string>Backup DB</string>
+   </property>
+  </action>
+  <action name="actionRestore_DB" >
+   <property name="text" >
+    <string>Restore DB</string>
+   </property>
+  </action>
+  <action name="actionExit" >
+   <property name="text" >
+    <string>Exit</string>
+   </property>
+  </action>
+  <action name="actionFilter" >
+   <property name="text" >
+    <string>Filter</string>
+   </property>
+  </action>
+  <action name="actionSort" >
+   <property name="text" >
+    <string>Sort</string>
+   </property>
+  </action>
+ </widget>
+ <pixmapfunction></pixmapfunction>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>TableView_Main</sender>
+   <signal>activated(QModelIndex)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>226</x>
+     <y>101</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>226</x>
+     <y>271</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>
