@@ -1,5 +1,18 @@
 Acer Iconia Tab A500, 1GB RAM, 32GB ?, 1280x800
 
+= todo 130304 =
+* room - не подряд
+* stafflist - раскабинечено
+
+fuxtures:
++ departments
++ rooms
++ specialty
++ stafflist
++ roomschedule
++ enum_*
++ ref_*
+
 = check busy rooms =
 new time bound (nb..ne) vs existing one (ob..oe): (n: new, o: old, b: begin, e: end)
 * полностью внутри:     nb>=ob & ne<=oe
