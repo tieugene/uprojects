@@ -24,10 +24,6 @@ class   Department(models.Model):
 
 class   Room(models.Model):
     '''
-	11,15,16 - стоматология
-	14, 05 - педиатрия
-	24,29,36,37 - косметология
-	04,20,21 - терапия
     '''
     id      	= models.PositiveIntegerField(primary_key=True, verbose_name=u'Номер')
     department	= models.ForeignKey(Department, related_name='rooms', verbose_name=u'Отделение')
@@ -118,8 +114,8 @@ class   RoomSchedule(models.Model):
 class   RoomScheduleEntry(models.Model):
     schedule    = models.ForeignKey(RoomSchedule, related_name='entries', verbose_name=u'ГК')
     room        = models.ForeignKey(Room, related_name='+', verbose_name=u'Кабинет')
-    specialty   = models.ForeignKey(Specialty, related_name='+', verbose_name=u'Специальность')
     dow         = models.ForeignKey(DOW, related_name='+', verbose_name=u'День')
+    specialty   = models.ForeignKey(Specialty, related_name='+', verbose_name=u'Специальность')
     begtime     = models.PositiveIntegerField(verbose_name=u'с')
     endtime     = models.PositiveIntegerField(verbose_name=u'по')
 

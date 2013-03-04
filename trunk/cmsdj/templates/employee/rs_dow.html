@@ -15,16 +15,14 @@
 {% block rs_hgrid %}
     {% for r in rooms %}
 	  {% set y = hy + (loop.index0 * dy) %}
+      <!-- grid -->
 	  <line x1="0" y1="{{y}}%" x2="100%" y2="{{y}}%"/>
 	  <a xlink:href="{{ url_for('rs_room', rs.id, r.pk) }}" xlink:title="ГК для {{ r.pk }}">
 	    <text x="0" y="{{y}}%"> <tspan dy="1.5ex"> каб. №{{ r.pk }} </tspan> </text>
 	  </a>
-    {% endfor %}
-{% endblock %}
-{% block rs_occupy scoped %}
-    {% for entry in rse %}
-        <!-- x = 9% + (((beg/60) - 8) * 6.5%); y = 9% + ((dow-1) * 13%) -->
-        {% set y = hy+((entry.room.pk-1)*dy) %}
+      <!-- slots -->
+      <g class="occupy">
+      {% for entry in rse.filter(room=r) %}
         <a xlink:href="{{ url_for('rse_dow_edit', entry.pk) }}" xlink:title="Edit this entry">
             <rect
                 x="{{hx+(((entry.begtime/60.0)-hbeg)*dx)}}%"
@@ -39,5 +37,9 @@
             x="{{hx+((((entry.endtime+entry.begtime)/2.0/60.0)-hbeg)*dx)}}%"
             y="{{y}}%"
         > <tspan dy="1.5ex"> {{ entry.specialty.name }} </tspan> </text>
+      {% endfor %}
+      </g>
     {% endfor %}
+{% endblock %}
+{% block rs_occupy scoped %}
 {% endblock %}
