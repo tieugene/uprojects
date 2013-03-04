@@ -1,0 +1,55 @@
+$def with (root, db, item, menu)
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+$:menu
+<center>
+<h1>Edit database:</h1>
+</center>
+<form method="post">
+<table>
+<thead><tr><th>Field</th><th>Value</th></tr>
+<tbody>
+	<tr> <td> Id: </td> <td> $item.id </td> </tr>
+	<tr> <td> <label for="orid"> Organization: </label> </td> 
+		<td> <select size="1" name="orgid">
+		$for i in db.select('org', order='name'):
+			<option value="$i.id"
+			$if (i.id == item.orgid):
+				selected
+			>$i.name</option>
+		</select> </td>
+	</tr>
+	<tr> <td> <label for="dbtypeid"> Database type: </label> </td> 
+		<td> <select size="1" name="dbtypeid">
+		$for i in db.select('dbtype', order='name'):
+			<option value="$i.id"
+			$if (i.id == item.dbtypeid):
+				selected
+			>$i.name</option>
+		</select> </td>
+	</tr>
+	<tr>
+	<tr> <td> <label for="shareid"> Host/Share: </label> </td> 
+		<td> <select size="1" name="shareid">
+		$for i in db.select('sharelist', order='hostname, sharename'):
+			<option value="$i.id"
+			$if (i.id == item.shareid):
+				selected
+			>$i.hostname \ $i.sharename</option>
+		</select> </td>
+	</tr>
+	<tr> <td> <label for="path"> Path: </label> </td> 
+		<td> <input type="text" name="path" value="$item.path"/> </td>
+	</tr>
+	<tr> <td> <label for="comments"> Comments: </label> </td> 
+		<td> <input type="text" name="comments" value="$item.comments"/> </td>
+</tbody>
+</table>
+<p> <input type="submit" value="OK" /> <input type="button" value="Cancel" onclick="javascript:window.location='$root/db/list/'"/> </p>
+<form>
+</body>
+</html>

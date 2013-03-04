@@ -1,0 +1,15 @@
+INPUT(
+./debug/aboutdialog.o
+./debug/appinfo.o
+./debug/appsettings.o
+./debug/main.o
+./debug/mainwindow.o
+./debug/settings.o
+./debug/settingsdialog.o
+./debug/dsingleapplication.o
+./debug/moc_aboutdialog.o
+./debug/moc_mainwindow.o
+./debug/moc_settingsdialog.o
+./debug/moc_dsingleapplication.o
+./debug/qrc_run1s.o
+);

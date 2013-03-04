@@ -1,0 +1,23 @@
+Need python-webpy module
+Hack (/usr/lib/python2.5/site-packages/web/db.py:124):
+diff -U3 web/db.py web.my/db.py
+--- web/db.py   2008-12-10 15:07:06.000000000 +0300
++++ web.my/db.py        2009-01-18 19:08:08.000000000 +0300
+@@ -121,7 +121,7 @@
+         elif isinstance(items, SQLQuery):
+             self.items = list(items.items)
+         else:
+-            self.items = [str(items)]
++            self.items = [unicode(items)]
+
+         # Take care of SQLLiterals
+         for i, item in enumerate(self.items):
+
+1. standalone:
+python code.py
+2. Apache:
+2.1. prepare apache:
+	yum install mod_wsgi
+	/etc/httpd/conf/httpd.conf:
+2.2. install code.py, run1s.db and templates/* into /usr/share/run1s
+2.3. /etc/httpd/conf.d/run1s.conf

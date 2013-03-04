@@ -1,0 +1,10 @@
+Warm:
+* add count field to userlist and dblist
+* serial
+* translation
+* rpm spec
+* apache
+
+Future:
+* htaccess
+* disks

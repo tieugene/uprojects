@@ -1,0 +1,25 @@
+$def with (sn, baselist = [], error= None)
+$ hostname = None
+$ sharename = None
+<?xml version="1.0" encoding="UTF-8"?>
+<run1s ver="0.1" sn="$sn">
+$if (error):
+	<error text="$error"/>
+$for base in baselist:
+	$if (hostname != base.hostname):
+		$if (hostname):
+			</host>
+		$ hostname = base.hostname
+		<host name="$hostname">
+		$ sharename = None
+	$if (sharename != base.sharename):
+		$if (sharename):
+			</share>
+		$ sharename = base.sharename
+		<share name="$sharename">
+	<base path="$base.path" type="$base.dbtypename" org="$base.orgname" comments="$base.comments"/>
+$if (sharename):
+	</share>
+$if (hostname):
+	</host>
+</run1s>
