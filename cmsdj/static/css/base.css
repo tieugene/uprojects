@@ -1,22 +1,4 @@
-.bold{
-    font-weight: bold;
-}
-
-.button {
-	border: outset;
-	border-width: 2px;
-	-moz-border-radius: 4px;
-	-webkit-border-radius: 4px;
-	border-radius: 4px;
-}
-
-.bordered {
-	border: 1px solid;
-	padding: 0;
-	margin: 0
-}
-
-/* ==== */
+/* top menu */
 #topmenu {
     border-collapse: collapse;
 	/*background-color: #EBEFF9;*/
@@ -55,10 +37,29 @@
 	color: black;
     text-decoration: none;
 }
+/* general purpose */
+.bold {
+    font-weight: bold;
+}
+.button {
+	border: outset;
+	border-width: 2px;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	border-radius: 4px;
+}
+.bordered {
+	border: 1px solid;
+	padding: 0;
+	margin: 0
+}
 button.rounded {
 	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;
 	border-radius: 5px;
+}
+table.thick {
+    border-collapse: collapse;
 }
 .even	{ background-color: white; }
 .odd	{ background-color: #F0F0F0; }

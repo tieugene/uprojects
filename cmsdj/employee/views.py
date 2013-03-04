@@ -2,7 +2,7 @@
 
 from django.conf import settings
 from django.core.urlresolvers import reverse
-from django.db.models import Sum
+from django.db.models import Sum, F
 from django.shortcuts import redirect   #, render_to_response
 from django.views.decorators.csrf import csrf_exempt
 #from django.views.generic.simple import direct_to_template
@@ -54,6 +54,10 @@ def stafflist_view(request, id):
                 entry['need'] = need[specialty.id]
             if specialty.id in are:
                 entry['are'] = are[specialty.id]
+            roomed = 0
+            for i in specialty.rsentries.all():
+                roomed += (i.endtime-i.begtime)
+            entry['roomed'] = roomed/2400.00 if roomed else 0   # 60 min * 40 h
             subdata.append(entry)
         data.append({'dep': department, 'data': subdata})
     return jrender_to_response('employee/stafflist_detail.html', {'stafflist': sl, 'data': data}, request=request)
