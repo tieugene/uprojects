@@ -1,1 +1,0 @@
-AutoIt3.exe menu.au3
