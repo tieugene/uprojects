@@ -1,4 +1,9 @@
 {% extends "employee/base.html" %}
+{% block jsready %}
+{{ super() }}
+$("#id_begtime").mask("99:99");
+$("#id_endtime").mask("99:99");
+{% endblock %}
 {% block body_main %}
         <form method="post" action="">
         <table>

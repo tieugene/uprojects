@@ -23,20 +23,26 @@ class   RSEForm(forms.Form):
     room	    = forms.ModelChoiceField(models.Room.objects, label='Кабинет', empty_label=None)
     dow         = forms.ModelChoiceField(models.DOW.objects, label='День', empty_label=None)
     begtime     = forms.TimeField(label='с', widget=forms.widgets.TimeInput(format='%H:%M'))
+    #begtime     = forms.TimeField(label='с', widget=forms.widgets.SelectTimeWidget(format='%H:%M'))
     endtime     = forms.TimeField(label='по', widget=forms.widgets.TimeInput(format='%H:%M'))
     specialty   = forms.ModelChoiceField(models.Specialty.objects, label='Специальность', empty_label=None)
+
+    def __init__(self, *args, **kwargs):
+        super(RSEForm, self).__init__(*args, **kwargs)
+        self.fields['begtime'].widget.attrs['size'] = 5
+        self.fields['endtime'].widget.attrs['size'] = 5
 
     def clean_begtime(self):
             data = self.cleaned_data['begtime']
             if (data):
-                if (data < mintime) or (data >= maxtime):
+                if (data < mintime) or (data > maxtime):
                     raise forms.ValidationError('Must be 08:00..22:00')
             return data
 
     def clean_endtime(self):
             data = self.cleaned_data['endtime']
             if (data):
-                if (data < mintime) or (data >= maxtime):
+                if (data < mintime) or (data > maxtime):
                     raise forms.ValidationError('Must be 08:00..22:00')
             return data
 
