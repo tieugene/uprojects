@@ -57,19 +57,17 @@
 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" id="thesvg" height="100" onload="refresh_svg();">
   <rect id="svgbg" width="100%" height="100%"/>
   <g class="head">
-    <!-- vertical grid -->
-    {% set hx = 9 %}
-    {% set dx = (100 - hx)/(hend - hbeg) %}
-    {% for i in range(hend - hbeg) %}
-      {% set x = hx + (loop.index0 * dx) %}
-      <line x1="{{x}}%" y1="0" x2="{{x}}%" y2="100%"/>
-      <g class="hcenter">
-        <text x="{{x+(dx/2.0)}}%" y="0"><tspan dy="1.5ex"> {{i+hbeg}}:00 </tspan></text>
-      </g>
-    {% endfor %}
-    <!-- horizontal grid:  -->
+    <!-- horizontal grid -->
     {% set hy = 9 %}
-    {% set dy = (100 - hy)/rows %}
+    {% set dy = (100 - hy)/(hend - hbeg) %}
+    {% for i in range(hend - hbeg) %}
+      {% set y = hy + (loop.index0 * dy) %}
+      <line y1="{{y}}%" x1="0" y2="{{y}}%" x2="100%"/>
+      <text x="0" y="{{y}}%"><tspan dy="1.5ex"> {{i+hbeg}}:00 </tspan></text>
+    {% endfor %}
+    <!-- vertical grid:  -->
+    {% set hx = 9 %}
+    {% set dx = (100 - hx)/rows %}
     {% block rs_hgrid scoped %}
     {% endblock %}
   </g>

@@ -13,31 +13,35 @@
 	    <a href="{{ url_for('rse_dow_add', rs.id, dow.pk) }}"> <button type="button"> Add slot </button> </a>
 {% endblock %}
 {% block rs_hgrid %}
-    {% for r in rooms %}
-	  {% set y = hy + (loop.index0 * dy) %}
-      <!-- grid -->
-	  <line x1="0" y1="{{y}}%" x2="100%" y2="{{y}}%"/>
-	  <a xlink:href="{{ url_for('rs_room', rs.id, r.pk) }}" xlink:title="ГК для {{ r.pk }}">
-	    <text x="0" y="{{y}}%"> <tspan dy="1.5ex"> каб. №{{ r.pk }} </tspan> </text>
-	  </a>
-      <!-- slots -->
-      <g class="occupy">
+  {% for r in rooms %}
+	  {% set x = hx + (loop.index0 * dx) %}
+    <!-- grid -->
+	  <line x1="{{x}}%" y1="0" y2="100%" x2="{{x}}%"/>
+    <g class="hcenter">
+      <a xlink:href="{{ url_for('rs_room', rs.id, r.pk) }}" xlink:title="ГК для {{ r.pk }}">
+        <text x="{{x+(dx/2.0)}}%" y="0"> <tspan dy="1.5ex"> каб. №{{ r.pk }} </tspan> </text>
+      </a>
+    </g>
+    <!-- slots -->
+    <g class="occupy">
       {% for entry in rse.filter(room=r) %}
+        {% set y = hy+(((entry.begtime/60.0)-hbeg)*dy) %}
         <a xlink:href="{{ url_for('rse_dow_edit', entry.pk) }}" xlink:title="Edit this entry">
-            <rect
-                x="{{hx+(((entry.begtime/60.0)-hbeg)*dx)}}%"
-                y="{{y}}%"
-                width="{{(entry.endtime-entry.begtime)/60.0*dx}}%"
-                height="{{dy}}%" rx="3" ry="3"
-            >
-                <title> {{ entry.specialty.name }} </title>
-            </rect>
+          <rect
+            x="{{x}}%"
+            y="{{y}}%"
+            width="{{dx}}%"
+            height="{{(entry.endtime-entry.begtime)/60.0*dy}}%"
+            rx="3" ry="3"
+          >
+            <title> {{ entry.specialty.name }} </title>
+          </rect>
         </a>
         <text
-            x="{{hx+((((entry.endtime+entry.begtime)/2.0/60.0)-hbeg)*dx)}}%"
+            x="{{x+(dx/2.0)}}%"
             y="{{y}}%"
         > <tspan dy="1.5ex"> {{ entry.specialty.name }} </tspan> </text>
       {% endfor %}
-      </g>
-    {% endfor %}
+    </g>
+  {% endfor %}
 {% endblock %}
