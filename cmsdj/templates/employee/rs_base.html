@@ -16,8 +16,8 @@
     {{ super() }}
     svg #svgbg {
         fill: silver;
-	stroke-width: 1;
-	stroke: black;
+        stroke-width: 1;
+        stroke: black;
     }
     svg g.head > line {
         stroke: yellow;
@@ -49,7 +49,7 @@
   <table id="thetable">
     <tr>
       <td id="leftmenu" class="thecell" valign="top">
-	    <p> Left <br/> menu </p>
+        <p> Left <br/> menu </p>
         {% block rs_leftmenu %}
         {% endblock %}
       </td>
@@ -61,11 +61,11 @@
     {% set hx = 9 %}
     {% set dx = (100 - hx)/(hend - hbeg) %}
     {% for i in range(hend - hbeg) %}
-	{% set x = hx + (loop.index0 * dx) %}
-	<line x1="{{x}}%" y1="0" x2="{{x}}%" y2="100%"/>
-	<g class="hcenter">
-	<text x="{{x+(dx/2.0)}}%" y="0"><tspan dy="1.5ex"> {{i+hbeg}}:00 </tspan></text>
-	</g>
+      {% set x = hx + (loop.index0 * dx) %}
+      <line x1="{{x}}%" y1="0" x2="{{x}}%" y2="100%"/>
+      <g class="hcenter">
+        <text x="{{x+(dx/2.0)}}%" y="0"><tspan dy="1.5ex"> {{i+hbeg}}:00 </tspan></text>
+      </g>
     {% endfor %}
     <!-- horizontal grid:  -->
     {% set hy = 9 %}
@@ -73,8 +73,6 @@
     {% block rs_hgrid scoped %}
     {% endblock %}
   </g>
-    {% block rs_occupy scoped %}
-        <!-- x = 9% + (((beg/60) - 8) * 6.5%); y = 9% + ((dow-1) * 13%) -->
-    {% endblock %}
+  <!-- x = 9% + (((beg/60) - 8) * 6.5%); y = 9% + ((dow-1) * 13%) -->
 </svg>
 {% endblock %}
