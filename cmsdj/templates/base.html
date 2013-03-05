@@ -12,8 +12,9 @@
         #canvas   { width: 99%; }
         #thesvg   { width: 100%; }
 	</style>
-	<link type="text/css" href="/static_cmsdj/css/base.css" rel="stylesheet">
+	<link type="text/css" href="{{ STATIC_URL }}css/base.css" rel="stylesheet">
 	<script type="text/javascript" src="{{ STATIC_URL }}js/jquery.min.js"></script>
+	<script type="text/javascript" src="{{ STATIC_URL }}js/jquery.maskedinput.min.js"></script>
 	<script type="text/javascript" src="{{ STATIC_URL }}js/misc.js"></script>
 	<!-- /admin -->
 	{% block js %}
