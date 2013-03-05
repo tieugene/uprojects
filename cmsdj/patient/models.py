@@ -16,8 +16,8 @@ class   Patient(models.Model):
 
     class   Meta:
         ordering                = ('person', )
-        verbose_name            = u'Поциэнт'
-        verbose_name_plural     = u'Поциэнты'
+        verbose_name            = u'Пациент'
+        verbose_name_plural     = u'Пациенты'
 
     def     __unicode__(self):
         return str(self.person)
@@ -27,7 +27,7 @@ class   Patient(models.Model):
         return ('patient_detail', (), {'id': self.pk})
 
 class   MedHistory(models.Model):
-    patient     = models.ForeignKey(Patient, related_name='medhistories', verbose_name=u'Поциэнт')
+    patient     = models.ForeignKey(Patient, related_name='medhistories', verbose_name=u'Пациент')
     date_from   = models.DateField(verbose_name=u'Дата начала')
     date_till   = models.DateField(null=True, blank=True, verbose_name=u'Дата окончания')
 
