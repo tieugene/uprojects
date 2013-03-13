@@ -9,7 +9,7 @@ from django.conf import settings
 from core.models import Person
 from enum.models import DOW
 
-import datetime
+import datetime, re
 
 class   Department(models.Model):
     name    = models.CharField(max_length=255, unique=True, verbose_name=u'Наименование')
@@ -48,6 +48,11 @@ class   Specialty(models.Model):
 
     def     __unicode__(self):
         return self.name
+
+    def     get_name_wrapped(self):
+        #print re.findall('\w+', self.name)
+        #return re.findall(r"\w+", self.name)
+        return self.name.replace('-', ' ').split(' ')
 
 class   Employee(models.Model):
     person      = models.OneToOneField(Person, verbose_name=u'Людь')
