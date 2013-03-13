@@ -37,10 +37,14 @@
             <title> {{ entry.specialty.name }} </title>
           </rect>
         </a>
+        {% set xt = x+(dx/2.0) %}
         <text
-            x="{{x+(dx/2.0)}}%"
+            x="{{xt}}%"
             y="{{y}}%"
-        > <tspan dy="1.5ex"> {{ entry.specialty.name }} </tspan> </text>
+        > {% for t in entry.specialty.get_name_wrapped() %}
+          <tspan x="{{xt}}%" dy="1.5ex"> {{ t }} </tspan>
+          {% endfor %}
+        </text>
       {% endfor %}
     </g>
   {% endfor %}
