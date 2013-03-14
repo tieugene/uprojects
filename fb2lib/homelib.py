@@ -66,10 +66,11 @@ def	parse_fb2(fn):
 	files += 1
 
 def	print_result():
-	out = open('result.txt', 'w')
+	#out = open('result.txt', 'w')
 	for k, v in tags.iteritems():
-		out.write(u'%s\t%d\n' % (k, v))
-	print 'Files:', files
+		print u'%s\t%d' % (k, v)
+		#out.write(u'%s\t%d\n' % (k, v))
+	#print 'Files:', files
 
 if (__name__ == '__main__'):
 	if len(sys.argv) != 2:

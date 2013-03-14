@@ -1,16 +1,32 @@
 {% extends "employee/rs_base.html" %}
+{% block jsready %}
+    {{ super() }}
+    //document.getElementById("id_dow").setAttribute('disabled', 'disabled');
+    //document.getElementById("id_begtime").setAttribute('disabled', 'disabled');
+    //document.getElementById("id_endtime").setAttribute('disabled', 'disabled');
+    //document.getElementById("id_specialty").setAttribute('disabled', 'disabled');
+{% endblock %}
 {% block rs_head %}
     <p> График кабинета №{{ room.pk }} (с {{ rs.begdate|date }}): </p>
     <p> Еще кабинетов: {% for i in rooms %}
         {% if i == room %}
             {{ i.pk }}
         {% else %}
-            <a href="{{ url_for('rs_room', rs.id, i.pk) }}"> {{ i.pk }} </a>
+            <a href="{{ url_for('rs_room', rs.id, i.pk) }}" style="border: 1px solid grey; margin-left: 2px;"> {{ i.pk }} </a>
         {% endif %}
     {% endfor %} </p>
 {% endblock %}
 {% block rs_leftmenu %}
-	    <a href="{{ url_for('rse_room_add', rs.id, room.pk) }}"> <button type="button"> Add slot </button> </a>
+        <form method="post" action=".">
+        <table>
+        {{ form.as_table() }}
+        </table>
+        <button type="submit"> Ok </button>
+        <a href="."> <button type="button"> Cancel </button> </a>
+        {% if delurl %}
+        <a href="{{ delurl }}"> <button type="button"> Del </button> </a>
+        {% endif %}
+        </form>
 {% endblock %}
 {% block rs_hgrid %}
   {% for d in dows %}
@@ -26,7 +42,7 @@
     <g class="occupy">
       {% for entry in rse.filter(dow=d) %}
         {% set y = hy+(((entry.begtime/60.0)-hbeg)*dy) %}
-        <a xlink:href="{{ url_for('rse_room_edit', entry.pk) }}" xlink:title="Edit this entry">
+        <a xlink:href="?entry={{entry.pk}}" xlink:title="Edit this entry">
           <rect
             x="{{x}}%"
             y="{{y}}%"

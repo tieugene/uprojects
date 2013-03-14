@@ -122,6 +122,7 @@ def roomschedule_list(request):
         request=request
     )
 
+@csrf_exempt
 def rs_room(request, rs_id, room_id):
     '''
     By cab (DxT=Spec) - ГКк
@@ -129,9 +130,50 @@ def rs_room(request, rs_id, room_id):
     @param room_id:ID - Room object id
     '''
     schedule = models.RoomSchedule.objects.get(pk=int(rs_id))
-    room = models.Room.objects.get(pk=int(room_id))
     dows = DOW.objects.order_by('pk')
+    room = models.Room.objects.get(pk=int(room_id))
+    rooms = models.Room.objects.order_by('pk')
     rses = models.RoomScheduleEntry.objects.filter(schedule=schedule, room=room)
+    if request.method == 'POST':
+        form = forms.RSERoomForm(request.POST)
+        if form.is_valid():
+            begtime=form.cleaned_data['begtime']
+            endtime=form.cleaned_data['endtime']
+            entry_id = form.cleaned_data.get('id', None)
+            if (entry_id):
+                entry = models.RoomScheduleEntry.objects.get(pk=int(entry_id))
+                entry.dow=form.cleaned_data['dow']
+                entry.specialty=form.cleaned_data['specialty']
+                entry.begtime=begtime.hour*60+begtime.minute
+                entry.endtime=endtime.hour*60+endtime.minute
+                entry.save()
+            else:
+                models.RoomScheduleEntry.objects.create(
+                    schedule=schedule,
+                    room=room,
+                    dow=form.cleaned_data['dow'],
+                    specialty=form.cleaned_data['specialty'],
+                    begtime=begtime.hour*60+begtime.minute,
+                    endtime=endtime.hour*60+endtime.minute,
+                )
+            form = forms.RSERoomForm(initial={'schedule': schedule, 'room': room})
+    else:   # GET
+        entry_id = request.REQUEST.get('entry', None)
+        if (entry_id):
+            entry = models.RoomScheduleEntry.objects.get(pk=int(entry_id))
+            form=forms.RSERoomForm(initial={
+                'id': entry.id,
+                'schedule': entry.schedule,
+                'room': entry.room,
+                'dow': entry.dow,
+                'begtime': datetime.time(entry.begtime/60, entry.begtime%60),
+                'endtime': datetime.time(entry.endtime/60, entry.endtime%60),
+                'specialty': entry.specialty,
+            })
+            #
+            #del request.REQUEST['entry']
+        else:
+            form = forms.RSERoomForm(initial={'schedule': schedule, 'room': room})
     return jrender_to_response(
         'employee/rs_room.html',
         {
@@ -139,10 +181,11 @@ def rs_room(request, rs_id, room_id):
             'room': room,
             'rse': rses,
             'dows': dows,
-            'rooms': models.Room.objects.order_by('pk'),
+            'rooms': rooms,
             'hbeg': 8,
             'hend': 22,
-            'rows': dows.count()
+            'rows': dows.count(),
+            'form': form,
         },
         request=request
     )
@@ -226,6 +269,7 @@ def rs_dow(request, rs_id, dow_id):
     '''
     schedule = models.RoomSchedule.objects.get(pk=int(rs_id))
     dow = DOW.objects.get(pk=int(dow_id))
+    dows = DOW.objects.order_by('pk')
     rooms = models.Room.objects.order_by('pk')
     rses = models.RoomScheduleEntry.objects.filter(schedule=schedule, dow=dow)
     return jrender_to_response(
@@ -234,7 +278,7 @@ def rs_dow(request, rs_id, dow_id):
             'rs': schedule,
             'dow': dow,
             'rse': rses,
-            'dows': DOW.objects.order_by('pk'),
+            'dows': dows,
             'rooms': rooms,
             'hbeg': 8,
             'hend': 22,
