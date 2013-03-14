@@ -1,0 +1,4 @@
+#!/bin/sh
+# script to rotate backups; $1 - count of backups to leave alive
+ALL=`ls -1 | sort | wc -l`
+if [[ $ALL -gt $1 ]]; then ls -1 | sort | head -n `expr $ALL - $1` | xargs rm -f; fi

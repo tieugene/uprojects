@@ -1,0 +1,17 @@
+#!/bin/sh
+# backup 1Cv7 databases
+# $1 - src dir
+# $2 - dst dir
+DATE=`date +%y%m%d`
+mkdir $2/$DATE
+pushd $1 > /dev/null
+ls -1 | while read i; do
+    if [ -d "$i" ]; then
+	echo "$i"
+	pushd "$i" > /dev/null
+	/usr/local/bin/ucasefn
+	7za a -t7z -m0=lzma -mx=9 -mfb=64 -md=32m -ms=on "$2/$DATE/$i.$DATE.7z" 1CV7.?D *.DBF > /dev/null
+	popd > /dev/null
+    fi
+done
+popd

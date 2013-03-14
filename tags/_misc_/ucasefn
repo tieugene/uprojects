@@ -1,0 +1,2 @@
+#!/bin/sh
+for i in `ls -l | grep ^- | gawk '{print $9}'`; do newfn=`echo $i | tr [:lower:] [:upper:]`; if [ "$newfn" != "$i" ]; then mv "$i" "$newfn"; fi; done
