@@ -5,6 +5,7 @@
 # 3. remove them
 # folder names must be YYMMDD
 # ISOs will YYMMDDYYMMDD.iso
+# each folder is packing whole - or nothing
 # in: * dir of archives, * dir of ISOs
 
 import sys, os
@@ -32,7 +33,7 @@ def	getfolders(path):
 			if (size < DVDSIZE):
 				folders[folder] = size
 			else:
-				sys.stderr.write(folder + ' is too big')
+				sys.stderr.write(fullpath + ' is too big')
 	return folders
 
 if (__name__ == '__main__'):

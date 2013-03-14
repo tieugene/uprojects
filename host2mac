@@ -1,0 +1,3 @@
+#!/bin/sh
+# search MAC of HOST in LDAP
+ldapsearch -x -h localhost -LLL -b "cn=Static,cn=192.168.0.0,cn=config,cn=master.lan,ou=DHCP,dc=ldap" "cn=$1" dhcpHWAddress | grep ^dhcpHWAddress | gawk '{print $3}'

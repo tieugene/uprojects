@@ -1,9 +1,0 @@
-{% extends "employee/base.html" %}
-{% block body_main %}
-<form method="post" action="">
-<p> Добавить ставок для специальности &quot;{{ spec.name }}&quot; с {{ stafflist.begdate|date }}:
-{{ form.as_p() }}
-<button type="submit"> OK </button>
-<a href="{{ url_for('stafflist_view', stafflist.id) }}"> <button type="button"> Cancel </button> </a>
-</form>
-{% endblock %}

@@ -1,1 +1,0 @@
-\bin\flash_player_ax.11.0.1.152.exe -install
