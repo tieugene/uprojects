@@ -443,3 +443,20 @@ def employee_view(request, id):
         },
         request=request
     )
+
+def ticket_list(request):
+    return jrender_to_response(
+        'employee/ticket_list.html', {
+            'object_list': page_queryset(models.Ticket.objects.all(), request.GET.get('page', 1)),
+        },
+        request=request
+    )
+
+def ticket_view(request, id):
+    return jrender_to_response(
+        'employee/ticket_detail.html',
+        {
+            'object': models.Ticket.objects.get(pk=int(id)),
+        },
+        request=request
+    )

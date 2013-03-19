@@ -1,0 +1,6 @@
+{% extends "employee/base.html" %}
+{% block title %} {{ super() }}: Талончик: {{ object }} {% endblock %}
+{% block header %} <a href="{{ url_for('employee.views.ticket_list') }}"> Талончик </a> {% endblock %}
+{% block body_main %}
+<p> ID: {{ object.pk }} </p>
+{% endblock %}

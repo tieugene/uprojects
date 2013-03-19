@@ -20,4 +20,6 @@ urlpatterns = patterns('',
     url(r'^rse_d/(?P<id>\d+)/del/$',                        views.rse_dow_del,      name='rse_dow_del'),
     url(r'^employee/$',                                     views.employee_list,    name='employee_list'),
     url(r'^employee/(?P<id>\d+)/$',	                        views.employee_view,    name='employee_view'),
+    url(r'^ticket/$',                                       views.ticket_list,      name='ticket_list'),
+    url(r'^ticket/(?P<id>\d+)/$',	                        views.ticket_view,      name='ticket_view'),
 )
