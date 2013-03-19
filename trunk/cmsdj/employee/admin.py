@@ -24,6 +24,10 @@ class   RoomScheduleEntryLine(admin.TabularInline):
     model   = RoomScheduleEntry
     extra   = 1
 
+class   RoomScheduleEntryDocLine(admin.TabularInline):
+    model   = RoomScheduleEntryDoc
+    extra   = 1
+
 # 2. ordinar
 class	DepartmentAdmin(admin.ModelAdmin):
     inlines = (RoomLine, SpecialtyLine,)
@@ -37,9 +41,13 @@ class	StaffListAdmin(admin.ModelAdmin):
 class	RoomScheduleAdmin(admin.ModelAdmin):
     inlines = (RoomScheduleEntryLine,)
 
+class	RoomScheduleEntryAdmin(admin.ModelAdmin):
+    inlines = (RoomScheduleEntryDocLine,)
+
 admin.site.register(Department, DepartmentAdmin)
 admin.site.register(Room)
 admin.site.register(Specialty)
 admin.site.register(Employee, EmployeeAdmin)
 admin.site.register(StaffList, StaffListAdmin)
 admin.site.register(RoomSchedule, RoomScheduleAdmin)
+admin.site.register(RoomScheduleEntry, RoomScheduleEntryAdmin)

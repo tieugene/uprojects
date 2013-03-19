@@ -14,35 +14,7 @@
 {% endblock %}
 {% block css %}
     {{ super() }}
-    svg #svgbg {
-        fill: silver;
-        stroke-width: 1;
-        stroke: black;
-    }
-    svg g.head > line {
-        stroke: yellow;
-        stroke-width: 1;
-    }
-    svg g.head text {
-        fill: black;
-    }
-    svg g.hcenter text {
-        text-anchor: middle;
-    }
-    svg g.occupy rect {
-        fill: lightgrey;
-        stroke: blue;
-        stroke-width: 1;
-    }
-    svg g.occupy text {
-        fill: black;
-        text-anchor: middle;
-    }
-    svg g.occupy text tspan {
-        font-family: serif;
-        font-size: 12pt;
-    }
-    form :disabled { 
+    form :disabled {
         color: black; 
     }
 {% endblock %}
@@ -56,7 +28,6 @@
   <table id="thetable">
     <tr>
       <td id="leftmenu" class="thecell" valign="top">
-        <p> Left <br/> menu </p>
         {% block rs_leftmenu %}
         {% endblock %}
       </td>
@@ -64,16 +35,17 @@
 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" id="thesvg" height="100" onload="refresh_svg();">
   <rect id="svgbg" width="100%" height="100%"/>
   <g class="head">
-    <!-- horizontal grid -->
+    {% set hx = 9 %}
     {% set hy = 9 %}
+    <line x1="0" y1="0" x2="{{hx}}%" y2="{{hy}}%"/>
+    <!-- horizontal grid -->
     {% set dy = (100 - hy)/(hend - hbeg) %}
     {% for i in range(hend - hbeg) %}
       {% set y = hy + (loop.index0 * dy) %}
-      <line y1="{{y}}%" x1="0" y2="{{y}}%" x2="100%"/>
+      <line x1="0" y1="{{y}}%" x2="100%" y2="{{y}}%"/>
       <text x="0" y="{{y}}%"><tspan dy="1.5ex"> {{i+hbeg}}:00 </tspan></text>
     {% endfor %}
     <!-- vertical grid:  -->
-    {% set hx = 9 %}
     {% set dx = (100 - hx)/rows %}
     {% block rs_hgrid scoped %}
     {% endblock %}

@@ -1,67 +1,95 @@
+{#Режим просмотра всех "слотов" занятости кабинетов. Можно добавить новый слот (форма вверху). Для изменения/удаления слота или врача в нем кликните по нужному прямоугольнику.#}
 {% extends "employee/rs_base.html" %}
 {% block jsready %}
-    {{ super() }}
-    //document.getElementById("id_dow").setAttribute('disabled', 'disabled');
-    //document.getElementById("id_begtime").setAttribute('disabled', 'disabled');
-    //document.getElementById("id_endtime").setAttribute('disabled', 'disabled');
-    //document.getElementById("id_specialty").setAttribute('disabled', 'disabled');
+  {{ super() }}
+  $("#id_begtime").mask("99:99");
+  $("#id_endtime").mask("99:99");
 {% endblock %}
 {% block rs_head %}
-    <p> График кабинета №{{ room.pk }} (с {{ rs.begdate|date }}): </p>
-    <p> Еще кабинетов: {% for i in rooms %}
-        {% if i == room %}
-            {{ i.pk }}
-        {% else %}
-            <a href="{{ url_for('rs_room', rs.id, i.pk) }}" style="border: 1px solid grey; margin-left: 2px;"> {{ i.pk }} </a>
-        {% endif %}
-    {% endfor %} </p>
+  <p style="margin: 0"> График кабинета (с {{ rs.begdate|date }}):
+  {% for i in rooms %}
+    {% if i == room %}
+      <span style="border: 1px solid grey; margin-left: 2px; background-color: silver;"> {{ i }} </span>
+    {% else %}
+      <a href="{{ url_for('rs_room', rs.id, i.pk) }}" style="border: 1px solid grey; margin-left: 2px;"> {{ i }} </a>
+    {% endif %}
+  {% endfor %} </p>
 {% endblock %}
 {% block rs_leftmenu %}
-        <form method="post" action=".">
-        <table>
-        {{ form.as_table() }}
-        </table>
-        <button type="submit"> Ok </button>
-        <a href="."> <button type="button"> Cancel </button> </a>
-        {% if delurl %}
-        <a href="{{ delurl }}"> <button type="button"> Del </button> </a>
-        {% endif %}
-        </form>
+  {% block rs %}
+  <form method="post" action=".">
+    {{ form_rse.non_field_errors() }}
+    {% for hidden in form_rse.hidden_fields() %}
+      {{ hidden }}
+    {% endfor %}
+    <table>
+      <tr>
+        <td> {{ form_rse.dow }} </td>
+        <td> {{ form_rse.begtime }} </td>
+        <td> - </td>
+        <td> {{ form_rse.endtime }} </td>
+      </tr>
+      <tr>
+        <td/>
+        <td> {{ form_rse.begtime.errors }} </td>
+        <td/>
+        <td> {{ form_rse.endtime.errors }} </td>
+      </tr>
+      <tr>
+        <td colspan="4"> {{ form_rse.specialty }} </td>
+      </tr>
+    </table>
+    <button type="submit" title="Add/Save" name="submit_rse"> &radic; </button>
+    <a href="."> <button type="button" title="Cancel/Clear"> x </button> </a>
+    {% block delbutton %}
+    {% endblock %}
+  </form>
+  {% endblock %}
+  {% block docs %}
+  {% endblock %}
 {% endblock %}
 {% block rs_hgrid %}
-  {% for d in dows %}
+  {% for item in dows %}
 	  {% set x = hx + (loop.index0 * dx) %}
     <!-- grid -->
 	  <line x1="{{x}}%" y1="0" y2="100%" x2="{{x}}%"/>
     <g class="hcenter">
-      <a xlink:href="{{ url_for('rs_dow', rs.id, d.pk) }}" xlink:title="ГК для {{ d.name }}">
-        <text x="{{x+(dx/2.0)}}%" y="0"> <tspan dy="1.5ex"> {{ d.name }} </tspan> </text>
+      <a xlink:href="{{ url_for('rs_dow', rs.id, item.pk) }}" xlink:title="ГК для {{ item }}">
+        <text x="{{x+(dx/2.0)}}%" y="0"> <tspan dy="1.5ex"> {{ item }} </tspan> </text>
       </a>
     </g>
     <!-- slots -->
-    <g class="occupy">
-      {% for entry in rse.filter(dow=d) %}
+      {% for entry in rses.filter(dow=item) %}
         {% set y = hy+(((entry.begtime/60.0)-hbeg)*dy) %}
-        <a xlink:href="?entry={{entry.pk}}" xlink:title="Edit this entry">
+      <g class="occupy">
+        {% block highlight_rse scoped %}
+        <a xlink:href="{{ url_for('rse_room', entry.pk) }}">
           <rect
-            x="{{x}}%"
-            y="{{y}}%"
-            width="{{dx}}%"
-            height="{{(entry.endtime-entry.begtime)/60.0*dy}}%"
-            rx="3" ry="3"
-          >
-            <title> {{ entry.specialty.name }} </title>
-          </rect>
+        {% endblock %}
+          x="{{x}}%" y="{{y}}%" width="{{dx}}%" height="{{(entry.endtime-entry.begtime)/60.0*dy}}%" rx="3" ry="3"/>
+          {% set xt = x+(dx/2.0) %}
+          <text x="{{xt}}%" y="{{y}}%">
+            {% for t in entry.specialty.get_name_wrapped() %}
+              <tspan x="{{xt}}%" dy="1.5ex"> {{ t }} </tspan>
+            {% endfor %}
+          </text>
         </a>
-        {% set xt = x+(dx/2.0) %}
-        <text
-            x="{{xt}}%"
-            y="{{y}}%"
-        > {% for t in entry.specialty.get_name_wrapped() %}
-          <tspan x="{{xt}}%" dy="1.5ex"> {{ t }} </tspan>
-          {% endfor %}
-        </text>
+      </g>
+        <!-- docs -->
+      <g class="doccupy">
+        {% for doc in entry.docs.all() %}
+          {% set docy = hy+((((entry.begtime+doc.begtime)/60.0)-hbeg)*dy) %}
+          {% block highlight_rsed scoped %}
+          <a xlink:href="{{ url_for('rsed_room', doc.pk) }}">
+            <rect
+          {% endblock %}
+            x="{{xt}}%" y="{{docy}}%" width="{{dx/2}}%" height="{{(doc.endtime-doc.begtime)/60.0*dy}}%" rx="3" ry="3" />
+            <text x="{{x+(dx*0.75)}}%" y="{{docy}}%" dy="1em">
+              {{ doc.doc.person.lastname }}
+            </text>
+          </a>
+        {% endfor %}
+      </g>
       {% endfor %}
-    </g>
   {% endfor %}
 {% endblock %}

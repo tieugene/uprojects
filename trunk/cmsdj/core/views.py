@@ -13,9 +13,6 @@ import models, forms
 
 PAGE_SIZE = 20
 
-def index(request):
-    return jrender_to_response('core/index.html', request=request)
-
 # Person CRUD
 def person_list(request):
 	return  object_list (

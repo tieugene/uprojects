@@ -1,0 +1,37 @@
+{#Режим редактирования слота. Выделенный слот можно изменить или удалить (верхняя форма). Или добавить нового врача (нижняя форма). Для изменения/удаления врача кликните по нему. Для возврата в общий график еще раз кликните по выделенному слоту. #}
+{% extends "employee/rs_room.html" %}
+
+{% block delbutton %}
+  <a href="{{ url_for('rse_room_del', rse.pk) }}"> <button type="button" title="Удалить"> - </button> </a>
+{% endblock %}
+
+{% block docs %}
+  <table border="1" class="thick" style="margin-top: 1em" width="100%">
+  <caption style="border-top: 1px solid black; background-color: wheat"> Врачи: </caption>
+  <tr> <th> с </th> <th> по </th> <th> кто </th> </tr>
+  {% for doc in rse.docs.all() %}
+  <tr>
+    <td> {{ doc.get_begstr() }} </td>
+    <td> {{ doc.get_endstr() }} </td>
+    <td> {{ doc.doc.person.lastname }} </td>
+  </tr>
+  {% endfor %}
+  </table>
+  <form method="post" action=".">
+  <table  border="1" class="thick" style="margin-top: 1em" width="100%">
+  <caption style="border-top: 1px solid black; background-color: wheat"> Новый: </caption>
+  {{ form_rsed.as_table() }}
+  </table>
+  <button type="submit" title="Add/Save" name="submit_rsed"> &radic; </button>
+  <a href="."> <button type="button" title="Cancel/Clear"> x </button> </a>
+  </form>
+{% endblock %}
+
+{% block highlight_rse %}
+  {% if rse == entry %}
+    <a xlink:href="{{ url_for('rs_room', entry.schedule.pk, entry.room.pk) }}">
+      <rect style="fill: yellow"
+  {% else %}
+    {{ super() }}
+  {% endif %}
+{% endblock %}

@@ -9,9 +9,6 @@ import models
 
 PAGE_SIZE = 20
 
-def index(request):
-    return jrender_to_response('patient/index.html', request=request)
-
 def patient_list(request):
     return jrender_to_response('patient/patient_list.html', {'object_list': models.Patient.objects.order_by('pk'),}, request=request)
 

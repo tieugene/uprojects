@@ -69,7 +69,7 @@ class   Employee(models.Model):
 class   EmployeeSpecialty(models.Model):
     employee	= models.ForeignKey(Employee, related_name='specialties', verbose_name=u'Врач')
     specialty	= models.ForeignKey(Specialty, related_name='employees', verbose_name=u'Специальность')
-    rate      	= models.DecimalField(blank=True, null=True, max_digits=3, decimal_places=2, verbose_name=u'Ставка')
+    rate        = models.DecimalField(blank=True, null=True, max_digits=3, decimal_places=2, verbose_name=u'Ставка')
 
     class   Meta:
         ordering                = ('employee', 'specialty')
@@ -126,9 +126,58 @@ class   RoomScheduleEntry(models.Model):
 
     class   Meta:
         ordering                = ('schedule', 'room', 'dow', 'begtime')
-        #unique_together         = (('schedule', 'room'),)
-        verbose_name            = u'Сокет кабинета'
-        verbose_name_plural     = u'Сокеты кабинетов'
+        verbose_name            = u'Слот кабинета'
+        verbose_name_plural     = u'Слоты кабинетов'
 
     def     __unicode__(self):
         return '%s, каб.№%d: %s %02d:%02d-%02d:%02d - %s' % (self.schedule, self.room.pk, self.dow, self.begtime/60, self.begtime%60, self.endtime/60, self.endtime%60, self.specialty.name)
+
+    def     __min2str(self, m):
+        return '%02d:%02d' % (m/60, m%60)
+
+    def     get_begstr(self):
+        return self.__min2str(self.begtime)
+
+    def     get_endstr(self):
+        return self.__min2str(self.endtime)
+
+    def     __min2time(self, m):
+        return datetime.time(m/60, m%60)
+
+    def     get_begtime(self):
+        return self.__min2time(self.begtime)
+
+    def     get_endtime(self):
+        return self.__min2time(self.endtime)
+
+class   RoomScheduleEntryDoc(models.Model):
+    rse         = models.ForeignKey(RoomScheduleEntry, related_name='docs', verbose_name=u'Слот')
+    doc         = models.ForeignKey(Employee, related_name='+', verbose_name=u'Доктор')
+    begtime     = models.PositiveIntegerField(verbose_name=u'с')
+    endtime     = models.PositiveIntegerField(verbose_name=u'по')
+
+    class   Meta:
+        ordering                = ('rse', 'doc', 'begtime')
+        verbose_name            = u'Слот врача'
+        verbose_name_plural     = u'Слоты врачей'
+
+    def     __unicode__(self):
+        return '%s: %s' % (str(self.rse), str(self.doc))
+
+    def     __min2str(self, m):
+        return '%02d:%02d' % (m/60, m%60)
+
+    def     get_begstr(self):
+        return self.__min2str(self.rse.begtime + self.begtime)
+
+    def     get_endstr(self):
+        return self.__min2str(self.rse.begtime + self.endtime)
+
+    def     __min2time(self, m):
+        return datetime.time(m/60, m%60)
+
+    def     get_begtime(self):
+        return self.__min2time(self.rse.begtime + self.begtime)
+
+    def     get_endtime(self):
+        return self.__min2time(self.rse.begtime + self.endtime)
