@@ -1,22 +1,18 @@
-{% if is_paginated %}
-<span class="pagination" align="right">
-	{% if page_obj.has_previous %}
-		<input type="button" value="<<" title="Первая страница" onClick="window.location.href='?page=1'" style="cursor:pointer"/>
-		<input type="button" value="<" title="Предыдущая страница" onClick="window.location.href='?page={{ page_obj.previous_page_number }}'" style="cursor:pointer"/>
-	{% else %}
-		<input type="button" value="<<" disabled/>
-		<input type="button" value="<" disabled/>
-	{% endif %}
-	{{ page_obj.start_index }} - {{ page_obj.end_index }} / {{ paginator.count }}
-	({{ page_obj.number }}/{{ paginator.num_pages }})
-	{% if page_obj.has_next %}
-		<input type="button" value=">" title="Следующая страница" onClick="window.location.href='?page={{ page_obj.next_page_number }}'" style="cursor:pointer"/>
-		<input type="button" value=">>" title="Последняя страница" onClick="window.location.href='?page={{ paginator.num_pages }}'" style="cursor:pointer"/>
-	{% else %}
-		<input type="button" value=">" disabled/>
-		<input type="button" value=">>" disabled/>
-	{% endif %}
-</span>
+{% if object_list.previous_page_number() %}
+  <a href="{{ pager_url }}?page=1"> <img src="{{ STATIC_URL }}img/16/icon-fast-backward.png"/> </a>
+  <a href="{{ pager_url }}?page={{ object_list.previous_page_number() }}"> <img src="{{ STATIC_URL }}img/16/icon-backward.png"/> </a>
 {% else %}
-	({{ paginator.count }})
+  <img src="{{ STATIC_URL }}img/16/icon-fast-backward.png" style="opacity: 0.25"/>
+  <img src="{{ STATIC_URL }}img/16/icon-backward.png" style="opacity: 0.25"/>
+{% endif %}
+
+{{ pager_title }}
+({{ object_list.number }}/{{ object_list.paginator.num_pages }})
+
+{% if object_list.number < object_list.paginator.num_pages %}
+  <a href="{{ pager_url }}?page={{ object_list.next_page_number() }}"> <img src="{{ STATIC_URL }}img/16/icon-forward.png"/> </a>
+  <a href="{{ pager_url }}?page=last"> <img src="{{ STATIC_URL }}img/16/icon-fast-forward.png"/> </a>
+{% else %}
+  <img src="{{ STATIC_URL }}img/16/icon-fast-forward.png" style="opacity: 0.25"/>
+  <img src="{{ STATIC_URL }}img/16/icon-forward.png" style="opacity: 0.25"/>
 {% endif %}
