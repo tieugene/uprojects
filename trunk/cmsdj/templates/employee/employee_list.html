@@ -1,11 +1,13 @@
 {% extends "employee/base.html" %}
+{% block title %} {{ super() }}: Сотрудники {% endblock %}
+{% block header %}
+  {% set pager_url = url_for('employee.views.employee_list') %}
+  {% set pager_title = 'Сотрудники' %}
+  {% include "paginator.html" with context %}
+{% endblock %}
+ 
 {% block body_main %}
-<center> Сотрудники: </center>
-
-<ul>
-{% for object in object_list %}
-<li> <a href="{{ url_for('employee_view', object.pk) }}"> {{ object }} </a> </li>
-{% endfor %}
-</ul>
-
+ {% for object in object_list %}
+  <p style="padding: 0; margin: 0"> <a href="{{ url_for('employee.views.employee_view', object.pk) }}"> {{ object }} </a> </p>
+ {% endfor %}
 {% endblock %}

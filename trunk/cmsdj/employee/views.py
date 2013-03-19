@@ -12,10 +12,9 @@ from django.views.decorators.csrf import csrf_exempt
 from jnj import *
 import models, forms
 from enum.models import DOW
+from utils.pager import page_queryset, PAGE_SIZE
 
 import datetime, pprint
-
-PAGE_SIZE = 20
 
 def stafflist_list(request):
     return redirect('stafflist_view', models.StaffList.objects.order_by('begdate')[0].pk)
@@ -430,9 +429,8 @@ def rse_dow_del(request, id):
 
 def employee_list(request):
     return jrender_to_response(
-        'employee/employee_list.html',
-        {
-            'object_list': models.Employee.objects.order_by('pk'),
+        'employee/employee_list.html', {
+            'object_list': page_queryset(models.Employee.objects.all(), request.GET.get('page', 1)),
         },
         request=request
     )
