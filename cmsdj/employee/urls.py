@@ -22,4 +22,5 @@ urlpatterns = patterns('',
     url(r'^employee/(?P<id>\d+)/$',	                        views.employee_view,    name='employee_view'),
     url(r'^ticket/$',                                       views.ticket_list,      name='ticket_list'),
     url(r'^ticket/(?P<id>\d+)/$',	                        views.ticket_view,      name='ticket_view'),
+    url(r'^ticket_t/$',                                     views.ticket_table,     name='ticket_table'),
 )
