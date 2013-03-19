@@ -181,3 +181,15 @@ class   RoomScheduleEntryDoc(models.Model):
 
     def     get_endtime(self):
         return self.__min2time(self.rse.begtime + self.endtime)
+
+class   Ticket(models.Model):
+    patient     = models.ForeignKey(Person, related_name='tickets', verbose_name=u'Людь')
+    date        = models.DateField(verbose_name=u'Дата')
+    begtime     = models.TimeField(verbose_name=u'Начало')
+    endtime     = models.TimeField(verbose_name=u'Конец')
+    specialty   = models.ForeignKey(Specialty, related_name='tickets', verbose_name=u'Специальность')
+    rse         = models.ForeignKey(RoomScheduleEntry, null=True, blank=True, related_name='tickets', verbose_name=u'Слот')
+
+    class   Meta:
+        verbose_name            = u'Талончик'
+        verbose_name_plural     = u'Талончики'

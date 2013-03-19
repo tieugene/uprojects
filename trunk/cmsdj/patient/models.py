@@ -12,7 +12,7 @@ from employee.models import Employee
 class   Patient(models.Model):
     person      = models.OneToOneField(Person, verbose_name=u'Людь')
     nationality = models.CharField(max_length=32, blank=True, verbose_name=u'Национальность')
-    deathdate   = models.DateField(null=True, blank=True, verbose_name=u'Дата смертии')
+    deathdate   = models.DateField(null=True, blank=True, default='', verbose_name=u'Дата смертии')
 
     class   Meta:
         ordering                = ('person', )
