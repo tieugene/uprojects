@@ -9,25 +9,19 @@ from django.views.generic.list_detail import object_list, object_detail
 from django.views.generic.create_update import create_object, update_object, delete_object
 
 from jnj import *
+from utils.pager import page_queryset, PAGE_SIZE
 import models, forms
-
-PAGE_SIZE = 20
 
 # Person CRUD
 def person_list(request):
-	return  object_list (
-		request,
-		queryset = models.Person.objects.all(),
-		paginate_by = PAGE_SIZE,
-		page = int(request.GET.get('page', '1')),
-	)
+    return jrender_to_response('core/person_list.html', {
+        'object_list': page_queryset(models.Person.objects.all(), request.GET.get('page', 1)),
+    }, request=request)
 
 def person_detail(request, id):
-	return  object_detail (
-		request,
-		queryset = models.Person.objects.all(),
-		object_id = id,
-	)
+    return jrender_to_response('core/base.html', {
+        'object': models.Person.objects.get(pk=int(id)),
+    }, request=request)
 
 # Person
 def person_delete(request, id):
