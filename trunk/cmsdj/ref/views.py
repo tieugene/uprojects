@@ -5,12 +5,10 @@ from django.conf import settings
 from django.views.generic.list_detail import object_list, object_detail
 
 from jnj import *
+from utils.pager import page_queryset
 import models
 
-PAGE_SIZE = 20
-
 def pmu_list(request):
-    '''
-    TODO: pager
-    '''
-    return jrender_to_response('ref/pmu_list.html', {'object_list': models.PMU3.objects.order_by('pk'),}, request=request)
+    return jrender_to_response('ref/pmu_list.html', {
+        'object_list': page_queryset(models.PMU3.objects.order_by('pk'), request.GET.get('page', 1)),
+    }, request=request)

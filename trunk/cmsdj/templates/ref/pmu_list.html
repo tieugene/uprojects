@@ -1,11 +1,13 @@
 {% extends "ref/base.html" %}
+{% block title %} {{ super() }}: ПМУ {% endblock %}
+{% block header %}
+  {% set pager_url = url_for('ref.views.pmu_list') %}
+  {% set pager_title = 'ПМУ' %}
+  {% include "paginator.html" with context %}
+{% endblock %}
+ 
 {% block body_main %}
-<center> ПМУ: </center>
-
-<ul>
-{% for object in object_list %}
-    <li> {{ object }} </li>
-{% endfor %}
-</ul>
-
+ {% for object in object_list %}
+  <p style="padding: 0; margin: 0"> {{ object }} </p>
+ {% endfor %}
 {% endblock %}
