@@ -9,9 +9,6 @@ import models
 
 PAGE_SIZE = 20
 
-def index(request):
-    return jrender_to_response('ref/index.html', request=request)
-
 def pmu_list(request):
     '''
     TODO: pager

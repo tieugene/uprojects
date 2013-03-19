@@ -5,12 +5,12 @@
   $("#id_endtime").mask("99:99");
 {% endblock %}
 {% block rs_head %}
-  <p style="margin: 0"> График дня недели (с {{ rs.begdate|date }}):
-  {% for i in dows %}
-    {% if i == dow %}
+  <p style="margin: 0"> График кабинета (с {{ rs.begdate|date }}):
+  {% for i in rooms %}
+    {% if i == room %}
       <span style="border: 1px solid grey; margin-left: 2px; background-color: silver;"> {{ i }} </span>
     {% else %}
-      <a href="{{ url_for('rs_dow', rs.id, i.pk) }}" style="border: 1px solid grey; margin-left: 2px;"> {{ i }} </a>
+      <a href="{{ url_for('rs_room', rs.id, i.pk) }}" style="border: 1px solid grey; margin-left: 2px;"> {{ i }} </a>
     {% endif %}
   {% endfor %} </p>
 {% endblock %}
@@ -22,7 +22,7 @@
     {% endfor %}
     <table>
       <tr>
-        <td> {{ form.room }} </td>
+        <td> {{ form.dow }} </td>
         <td> {{ form.begtime }} </td>
         <td> - </td>
         <td> {{ form.endtime }} </td>
@@ -40,25 +40,25 @@
     <button type="submit" title="Add/Save"> &radic; </button>
     <a href="."> <button type="button" title="Cancel/Clear"> x </button> </a>
     {% if rse %}
-      <a href="{{ url_for('rse_dow_del', rse.pk) }}"> <button type="button" title="Удалить"> - </button> </a>
+      <a href="{{ url_for('rse_room_del', rse.pk) }}"> <button type="button" title="Удалить"> - </button> </a>
     {% endif %}
   </form>
 {% endblock %}
 {% block rs_hgrid %}
-  {% for item in rooms %}
+  {% for item in dows %}
 	  {% set x = hx + (loop.index0 * dx) %}
     <!-- grid -->
 	  <line x1="{{x}}%" y1="0" y2="100%" x2="{{x}}%"/>
     <g class="hcenter">
-      <a xlink:href="{{ url_for('rs_room', rs.id, item.pk) }}" xlink:title="ГК для {{ item }}">
+      <a xlink:href="{{ url_for('rs_dow', rs.id, item.pk) }}" xlink:title="ГК для {{ item }}">
         <text x="{{x+(dx/2.0)}}%" y="0"> <tspan dy="1.5ex"> {{ item }} </tspan> </text>
       </a>
     </g>
     <!-- slots -->
     <g class="occupy">
-      {% for entry in rses.filter(room=item) %}
+      {% for entry in rses.filter(dow=item) %}
         {% set y = hy+(((entry.begtime/60.0)-hbeg)*dy) %}
-        <a xlink:href="{{ url_for('rse_dow', entry.pk) }}">
+        <a xlink:href="{{ url_for('rse_room', entry.pk) }}">
           <rect
             x="{{x}}%"
             y="{{y}}%"

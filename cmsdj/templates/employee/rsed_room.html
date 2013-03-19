@@ -1,0 +1,50 @@
+{% extends "employee/rse_room.html" %}
+
+{% block rs %}
+  <table border="0">
+  <tr>
+    <td> {{ rse.dow.name }} </td>
+    <td> {{ rse.get_begstr() }} </td>
+    <td> - </td>
+    <td> {{ rse.get_endstr() }} </td>
+  </tr>
+  <tr> <td colspan="4"> {{ rse.specialty.name }} </td> </tr>
+  </table>
+{% endblock %}
+
+{% block docs %}
+  <table border="1" class="thick" style="margin-top: 1em" width="100%">
+  <caption style="border-top: 1px solid black; background-color: wheat"> Врачи: </caption>
+  <tr> <th> с </th> <th> по </th> <th> кто </th> </tr>
+  {% for doc in rse.docs.exclude(pk=rsed.pk) %}
+  <tr>
+    <td> {{ doc.get_begstr() }} </td>
+    <td> {{ doc.get_endstr() }} </td>
+    <td> {{ doc.doc.person.lastname }} </td>
+  </tr>
+  {% endfor %}
+  </table>
+  <form method="post" action=".">
+  <table  border="1" class="thick" style="margin-top: 1em" width="100%">
+  <caption style="border-top: 1px solid black; background-color: wheat"> Изменить: </caption>
+  {{ form_rsed.as_table() }}
+  </table>
+  <button type="submit" title="Save"> &radic; </button>
+  <a href="."> <button type="button" title="Reload"> x </button> </a>
+  <a href="{{ url_for('rsed_room_del', rsed.pk) }}"> <button type="button" title="Удалить"> - </button> </a>
+  </form>
+{% endblock %}
+
+{% block highlight_rse scoped %}
+<a xlink:href="{{ url_for('rse_room', entry.pk) }}">
+  <rect
+{% endblock %}
+
+{% block highlight_rsed %}
+  {% if rsed == doc %}
+    <a xlink:href="{{ url_for('rse_room', rse.pk) }}">
+      <rect style="fill: green"
+  {% else %}
+    {{ super() }}
+  {% endif %}
+{% endblock %}
