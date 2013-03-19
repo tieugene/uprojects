@@ -460,3 +460,11 @@ def ticket_view(request, id):
         },
         request=request
     )
+
+def ticket_table(request):
+    return jrender_to_response(
+        'employee/ticket_table.html', {
+            'object_list': page_queryset(models.Ticket.objects.all(), request.GET.get('page', 1)),
+        },
+        request=request
+    )
