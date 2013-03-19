@@ -17,7 +17,7 @@ class   Person(models.Model):
     midname     = models.CharField(max_length=32, blank=True, verbose_name=u'Отчество')
     gender      = models.ForeignKey(Gender, related_name='+', verbose_name=u'Пол')
     birthdate   = models.DateField(blank=True, null=True, verbose_name=u'Дата рождения')
-    birthplace  = models.CharField(max_length=64, blank=True, verbose_name=u'Место рождения')
+    birthplace  = models.CharField(max_length=64, blank=True, default='', verbose_name=u'Место рождения')
 
     class   Meta:
         #app_label               = 'Ядро'
