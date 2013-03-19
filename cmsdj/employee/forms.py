@@ -116,7 +116,6 @@ class   RSEDForm(forms.Form):
             if (begtime >= endtime):
                 raise forms.ValidationError('Begtime >= Endtime!')
             rse = cleaned_data['rse']
-            print "Time:", begtime.hour * 60 + begtime.minute - rse.begtime, "=>", endtime.hour * 60 + endtime.minute - rse.begtime
             x = (models.RoomScheduleEntryDoc.objects.filter(
                 rse = rse,
                 begtime__lt = endtime.hour * 60 + endtime.minute - rse.begtime,
@@ -125,7 +124,6 @@ class   RSEDForm(forms.Form):
             if (cleaned_data['id']):
                 x = x.exclude(id=cleaned_data['id'])
             x = x.count()
-            print "Found:", x
             if x:
                 raise forms.ValidationError('%d intersections!' % x)
         return cleaned_data
