@@ -18,7 +18,8 @@ import datetime, pprint
 PAGE_SIZE = 20
 
 def stafflist_list(request):
-    return jrender_to_response('employee/stafflist_list.html', {'object_list': models.StaffList.objects.order_by('begdate')}, request=request)
+    return redirect('stafflist_view', models.StaffList.objects.order_by('begdate')[0].pk)
+    #return jrender_to_response('employee/stafflist_list.html', {'object_list': models.StaffList.objects.order_by('begdate')}, request=request)
 
 def stafflist_view(request, id):
     '''
