@@ -191,5 +191,9 @@ class   Ticket(models.Model):
     rse         = models.ForeignKey(RoomScheduleEntry, null=True, blank=True, related_name='tickets', verbose_name=u'Слот')
 
     class   Meta:
+        ordering                = ('date', 'begtime', 'specialty', 'patient')
         verbose_name            = u'Талончик'
         verbose_name_plural     = u'Талончики'
+
+    def     __unicode__(self):
+        return '%s %s %s - %s' % (self.date, self.begtime, self.specialty, self.patient)

@@ -2,5 +2,12 @@
 {% block title %} {{ super() }}: Талончик: {{ object }} {% endblock %}
 {% block header %} <a href="{{ url_for('employee.views.ticket_list') }}"> Талончик </a> {% endblock %}
 {% block body_main %}
-<p> ID: {{ object.pk }} </p>
+<table border="1" class="thick">
+  <tr> <th> Дата </th> <td> {{ object.date }} </td> </tr>
+  <tr> <th> Начало </th> <td> {{ object.begtime }} </td> </tr>
+  <tr> <th> Конец </th> <td> {{ object.endtime }} </td> </tr>
+  <tr> <th> Специальность </th> <td> {{ object.specialty }} </td> </tr>
+  <tr> <th> Пациент </th> <td> {{ object.person }} </td> </tr>
+  <tr> <th> Слот </th> <td> {{ object.rse }} </td> </tr>
+</table>
 {% endblock %}
