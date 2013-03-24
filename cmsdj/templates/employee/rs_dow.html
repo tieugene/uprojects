@@ -1,3 +1,4 @@
+{# .. #}
 {% extends "employee/rs_base.html" %}
 {% block title %} График дня недели {% endblock %}
 {% block header %} График дня недели {% endblock %}
@@ -19,36 +20,39 @@
   </p>
 {% endblock %}
 {% block rs_leftmenu %}
+  {% block rs %}
   <form method="post" action=".">
-    {{ form.non_field_errors() }}
-    {% for hidden in form.hidden_fields() %}
+    {{ form_rse.non_field_errors() }}
+    {% for hidden in form_rse.hidden_fields() %}
       {{ hidden }}
     {% endfor %}
     <table>
       <tr>
-        <td> {{ form.room }} </td>
-        <td> {{ form.begtime }} </td>
+        <td> {{ form_rse.room }} </td>
+        <td> {{ form_rse.begtime }} </td>
         <td> - </td>
-        <td> {{ form.endtime }} </td>
+        <td> {{ form_rse.endtime }} </td>
       </tr>
       <tr>
         <td> </td>
-        <td> {{ form.begtime.errors }} </td>
+        <td> {{ form_rse.begtime.errors }} </td>
         <td> </td>
-        <td> {{ form.endtime.errors }} </td>
+        <td> {{ form_rse.endtime.errors }} </td>
       </tr>
       <tr>
-        <td colspan="4"> {{ form.specialty }} </td>
+        <td colspan="4"> {{ form_rse.specialty }} </td>
       </tr>
     </table>
-    <button type="submit" title="Add/Save"> &radic; </button>
+    <button type="submit" title="Add/Save" name="submit_rse"> &radic; </button>
     <a href="."> <button type="button" title="Cancel/Clear"> x </button> </a>
-    {% if rse %}
-      <a href="{{ url_for('rse_dow_del', rse.pk) }}"> <button type="button" title="Удалить"> - </button> </a>
-    {% endif %}
+    {% block delbutton %}
+    {% endblock %}
   </form>
+  {% endblock %}
+  {% block docs %}
+  {% endblock %}
 {% endblock %}
 
 {% block svg %}
-  {{ svg_dow(dow, rse) }}
+    {{ svg_dow(dow) }}
 {% endblock %}

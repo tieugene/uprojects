@@ -137,21 +137,16 @@ def rs_room(request, rs_id, room_id):
                 begtime     = __time2min(form.cleaned_data['begtime']),
                 endtime     = __time2min(form.cleaned_data['endtime']),
             )
+            form = forms.RSERoomForm(initial={'schedule': schedule, 'room': room})
     else:   # GET
         form = forms.RSERoomForm(initial={'schedule': schedule, 'room': room})
-    #dows = DOW.objects.order_by('pk')
     return jrender_to_response(
         'employee/rs_room.html',
         {
-            'rs':   schedule,
-            'room': room,
-            'rooms': models.Room.objects.order_by('pk'),
+            'rs':       schedule,
+            'room':     room,
+            'rooms':    models.Room.objects.order_by('pk'),
             'form_rse': form,
-            #'rses': models.RoomScheduleEntry.objects.filter(schedule=schedule, room=room),
-            #'dows': dows,
-            #'rows': dows.count(),
-            #'hbeg': 8,
-            #'hend': 22,
         },
         request=request
     )
@@ -168,12 +163,8 @@ def rse_room(request, id):
                 # TODO: check changes
                 entry.dow       = form_rse.cleaned_data['dow']
                 entry.specialty = form_rse.cleaned_data['specialty']
-                #entry.begtime   = __time2min(form_rse.cleaned_data['begtime']),
-                #entry.endtime   = __time2min(form_rse.cleaned_data['endtime']),
-                begtime=form_rse.cleaned_data['begtime']
-                endtime=form_rse.cleaned_data['endtime']
-                entry.begtime=begtime.hour*60+begtime.minute
-                entry.endtime=endtime.hour*60+endtime.minute
+                entry.begtime   = __time2min(form_rse.cleaned_data['begtime'])
+                entry.endtime   = __time2min(form_rse.cleaned_data['endtime'])
                 entry.save()
         else:
             form_rsed = forms.RSEDForm(request.POST)
@@ -193,13 +184,10 @@ def rse_room(request, id):
             'dow':      entry.dow,
             'begtime':  entry.get_begtime(),
             'endtime':  entry.get_endtime(),
-            #'endtime':  __min2time(entry.endtime),
-            #'begtime':  datetime.time(entry.begtime/60, entry.begtime%60),
-            'specialty': entry.specialty,
+            'specialty':entry.specialty,
         })
     if (form_rsed == None):
         form_rsed = forms.RSEDForm(initial={'rse': entry,})
-    #dows = DOW.objects.order_by('pk')
     return jrender_to_response(
         'employee/rse_room.html',
         {
@@ -209,11 +197,6 @@ def rse_room(request, id):
             'rooms': models.Room.objects.order_by('pk'),
             'form_rse': form_rse,
             'form_rsed': form_rsed,
-            #'rses': models.RoomScheduleEntry.objects.filter(schedule=entry.schedule, room=entry.room),
-            #'dows': dows,
-            #'rows': dows.count(),
-            #'hbeg': 8,
-            #'hend': 22,
         },
         request=request
     )
@@ -244,7 +227,6 @@ def rsed_room(request, id):
             'begtime':  entry.get_begtime(),
             'endtime':  entry.get_endtime(),
         })
-    #dows = DOW.objects.order_by('pk')
     return jrender_to_response(
         'employee/rsed_room.html',
         {
@@ -254,11 +236,6 @@ def rsed_room(request, id):
             'rse':  entry.rse,
             'rsed':  entry,
             'form_rsed': form,
-            #'rses': models.RoomScheduleEntry.objects.filter(schedule=entry.rse.schedule, room=entry.rse.room),
-            #'dows': dows,
-            #'rows': dows.count(),
-            #'hbeg': 8,
-            #'hend': 22,
         },
         request=request
     )
@@ -281,69 +258,81 @@ def rs_dow(request, rs_id, dow_id):
     '''
     schedule = models.RoomSchedule.objects.get(pk=int(rs_id))
     dow = DOW.objects.get(pk=int(dow_id))
-    dows = DOW.objects.order_by('pk')
-    rooms = models.Room.objects.order_by('pk')
     rses = models.RoomScheduleEntry.objects.filter(schedule=schedule, dow=dow)
-    entry = None
     if request.method == 'POST':
         form = forms.RSEDOWForm(request.POST)
-        entry_id = request.POST.get('id', None)
-        if (entry_id):
-            entry = models.RoomScheduleEntry.objects.get(pk=int(entry_id))
         if form.is_valid():
-            begtime=form.cleaned_data['begtime']
-            endtime=form.cleaned_data['endtime']
-            if (entry):
-                # TODO: chack changes
-                entry.room=form.cleaned_data['room']
-                entry.specialty=form.cleaned_data['specialty']
-                entry.begtime=begtime.hour*60+begtime.minute
-                entry.endtime=endtime.hour*60+endtime.minute
-                entry.save()
-                entry = None
-            else:
-                models.RoomScheduleEntry.objects.create(
-                    schedule=schedule,
-                    room=form.cleaned_data['room'],
-                    dow=form.cleaned_data['dow'],
-                    specialty=form.cleaned_data['specialty'],
-                    begtime=begtime.hour*60+begtime.minute,
-                    endtime=endtime.hour*60+endtime.minute,
-                )
+            models.RoomScheduleEntry.objects.create(
+                schedule    = schedule,
+                room        = form.cleaned_data['room'],
+                dow         = form.cleaned_data['dow'],
+                specialty   = form.cleaned_data['specialty'],
+                begtime     = __time2min(form.cleaned_data['begtime']),
+                endtime     = __time2min(form.cleaned_data['endtime']),
+            )
             form = forms.RSEDOWForm(initial={'schedule': schedule, 'dow': dow})
     else:   # GET
-        entry_id = request.session.get('entry_id', None)
-        if (entry_id):
-            del request.session['entry_id']
-            entry = models.RoomScheduleEntry.objects.get(pk=int(entry_id))
-            form = forms.RSEDOWForm(initial={
-                'id': entry.id,
-                'schedule': entry.schedule,
-                'room': entry.room,
-                'dow': entry.dow,
-                'begtime': datetime.time(entry.begtime/60, entry.begtime%60),
-                'endtime': datetime.time(entry.endtime/60, entry.endtime%60),
-                'specialty': entry.specialty,
-            })
-        else:
-            form = forms.RSEDOWForm(initial={'schedule': schedule, 'dow': dow})
+        form = forms.RSEDOWForm(initial={'schedule': schedule, 'dow': dow})
     return jrender_to_response(
         'employee/rs_dow.html',
         {
             'rs':   schedule,
             'dow':  dow,
-            'rses': rses,
-            'rse':  entry,
-            'dows': dows,
-            'form': form,
+            'dows': DOW.objects.order_by('pk'),
+            'form_rse': form,
         },
         request=request
     )
 
+@csrf_exempt
 def rse_dow(request, id):
     entry = models.RoomScheduleEntry.objects.get(pk=int(id))
-    request.session['entry_id'] = entry.pk
-    return redirect('rs_dow', entry.schedule.pk, entry.dow.pk)
+    form_rse = None
+    form_rsed = None
+    if request.method == 'POST':
+        if ('submit_rse' in request.POST):
+            form_rse = forms.RSEDOWForm(request.POST)
+            if form_rse.is_valid():
+                # TODO: check changes
+                entry.room      = form_rse.cleaned_data['room']
+                entry.specialty = form_rse.cleaned_data['specialty']
+                entry.begtime   = __time2min(form_rse.cleaned_data['begtime'])
+                entry.endtime   = __time2min(form_rse.cleaned_data['endtime'])
+                entry.save()
+        else:
+            form_rsed = forms.RSEDForm(request.POST)
+            if form_rsed.is_valid():
+                models.RoomScheduleEntryDoc.objects.create(
+                    rse        = entry,
+                    doc         = form_rsed.cleaned_data['doc'],
+                    begtime     = __time2min(form_rsed.cleaned_data['begtime']) - entry.begtime,
+                    endtime     = __time2min(form_rsed.cleaned_data['endtime']) - entry.begtime,
+                )
+                form_rsed = None
+    if (form_rse == None):
+        form_rse = forms.RSEDOWForm(initial={
+            'id':       entry.id,
+            'schedule': entry.schedule,
+            'room':     entry.room,
+            'dow':      entry.dow,
+            'begtime':  entry.get_begtime(),
+            'endtime':  entry.get_endtime(),
+            'specialty':entry.specialty,
+        })
+    if (form_rsed == None):
+        form_rsed = forms.RSEDForm(initial={'rse': entry,})
+    return jrender_to_response(
+        'employee/rse_dow.html',
+        {
+            'rs':   entry.schedule,
+            'rse':  entry,
+            'dow':  entry.dow,
+            'dows': DOW.objects.order_by('pk'),
+            'form_rse': form_rse,
+            'form_rsed': form_rsed,
+        },
+        request=request
+    )
 
 def rse_dow_del(request, id):
     entry = models.RoomScheduleEntry.objects.get(pk=int(id))
@@ -351,6 +340,44 @@ def rse_dow_del(request, id):
     dow_id = entry.dow.pk
     entry.delete()
     return redirect('rs_dow', rs_id, dow_id)
+
+@csrf_exempt
+def rsed_dow(request, id):
+    entry = models.RoomScheduleEntryDoc.objects.get(pk=int(id))
+    if request.method == 'POST':
+        form = forms.RSEDForm(request.POST)
+        if form.is_valid():
+            entry.doc       = form.cleaned_data['doc']
+            entry.begtime   = __time2min(form.cleaned_data['begtime']) - entry.rse.begtime
+            entry.endtime   = __time2min(form.cleaned_data['endtime']) - entry.rse.begtime
+            entry.save()
+            return redirect('rse_dow', entry.rse.pk)
+    else:   # GET
+        form = forms.RSEDForm(initial={
+            'id':       entry.id,
+            'rse':      entry.rse,
+            'doc':      entry.doc,
+            'begtime':  entry.get_begtime(),
+            'endtime':  entry.get_endtime(),
+        })
+    return jrender_to_response(
+        'employee/rsed_dow.html',
+        {
+            'rs':   entry.rse.schedule,
+            'dow': entry.rse.dow,
+            'dows': DOW.objects.order_by('pk'),
+            'rse':  entry.rse,
+            'rsed':  entry,
+            'form_rsed': form,
+        },
+        request=request
+    )
+
+def rsed_dow_del(request, id):
+    entry = models.RoomScheduleEntryDoc.objects.get(pk=int(id))
+    rse_id = entry.rse.pk
+    entry.delete()
+    return redirect('rse_dow', rse_id)
 
 def employee_list(request):
     return jrender_to_response(
