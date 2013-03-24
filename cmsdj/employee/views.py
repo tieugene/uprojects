@@ -139,13 +139,13 @@ def rs_room(request, rs_id, room_id):
             )
     else:   # GET
         form = forms.RSERoomForm(initial={'schedule': schedule, 'room': room})
-    dows = DOW.objects.order_by('pk')
+    #dows = DOW.objects.order_by('pk')
     return jrender_to_response(
         'employee/rs_room.html',
         {
             'rs':   schedule,
-            'rooms': models.Room.objects.order_by('pk'),
             'room': room,
+            'rooms': models.Room.objects.order_by('pk'),
             'form_rse': form,
             #'rses': models.RoomScheduleEntry.objects.filter(schedule=schedule, room=room),
             #'dows': dows,
@@ -199,21 +199,21 @@ def rse_room(request, id):
         })
     if (form_rsed == None):
         form_rsed = forms.RSEDForm(initial={'rse': entry,})
-    dows = DOW.objects.order_by('pk')
+    #dows = DOW.objects.order_by('pk')
     return jrender_to_response(
         'employee/rse_room.html',
         {
             'rs':   entry.schedule,
-            'rooms': models.Room.objects.order_by('pk'),
+            'rse':  entry,
             'room': entry.room,
-            'rses': models.RoomScheduleEntry.objects.filter(schedule=entry.schedule, room=entry.room),
+            'rooms': models.Room.objects.order_by('pk'),
             'form_rse': form_rse,
             'form_rsed': form_rsed,
+            #'rses': models.RoomScheduleEntry.objects.filter(schedule=entry.schedule, room=entry.room),
             #'dows': dows,
             #'rows': dows.count(),
             #'hbeg': 8,
             #'hend': 22,
-            'rse':  entry,
         },
         request=request
     )
@@ -244,21 +244,21 @@ def rsed_room(request, id):
             'begtime':  entry.get_begtime(),
             'endtime':  entry.get_endtime(),
         })
-    dows = DOW.objects.order_by('pk')
+    #dows = DOW.objects.order_by('pk')
     return jrender_to_response(
         'employee/rsed_room.html',
         {
             'rs':   entry.rse.schedule,
             'room': entry.rse.room,
-            'rses': models.RoomScheduleEntry.objects.filter(schedule=entry.rse.schedule, room=entry.rse.room),
-            'dows': dows,
             'rooms': models.Room.objects.order_by('pk'),
-            'rows': dows.count(),
-            'hbeg': 8,
-            'hend': 22,
             'rse':  entry.rse,
             'rsed':  entry,
             'form_rsed': form,
+            #'rses': models.RoomScheduleEntry.objects.filter(schedule=entry.rse.schedule, room=entry.rse.room),
+            #'dows': dows,
+            #'rows': dows.count(),
+            #'hbeg': 8,
+            #'hend': 22,
         },
         request=request
     )
