@@ -13,8 +13,9 @@ from jnj import *
 import models, forms
 from enum.models import DOW
 from utils.pager import page_queryset, PAGE_SIZE
+import svg
 
-import datetime, pprint
+import datetime, pprint, calendar
 
 def stafflist_list(request):
     return redirect('stafflist_view', models.StaffList.objects.order_by('begdate')[0].pk)
@@ -143,14 +144,14 @@ def rs_room(request, rs_id, room_id):
         'employee/rs_room.html',
         {
             'rs':   schedule,
-            'room': room,
-            'rses': models.RoomScheduleEntry.objects.filter(schedule=schedule, room=room),
-            'dows': dows,
             'rooms': models.Room.objects.order_by('pk'),
-            'rows': dows.count(),
-            'hbeg': 8,
-            'hend': 22,
+            'room': room,
             'form_rse': form,
+            #'rses': models.RoomScheduleEntry.objects.filter(schedule=schedule, room=room),
+            #'dows': dows,
+            #'rows': dows.count(),
+            #'hbeg': 8,
+            #'hend': 22,
         },
         request=request
     )
@@ -203,15 +204,15 @@ def rse_room(request, id):
         'employee/rse_room.html',
         {
             'rs':   entry.schedule,
+            'rooms': models.Room.objects.order_by('pk'),
             'room': entry.room,
             'rses': models.RoomScheduleEntry.objects.filter(schedule=entry.schedule, room=entry.room),
-            'dows': dows,
-            'rooms': models.Room.objects.order_by('pk'),
-            'rows': dows.count(),
-            'hbeg': 8,
-            'hend': 22,
             'form_rse': form_rse,
             'form_rsed': form_rsed,
+            #'dows': dows,
+            #'rows': dows.count(),
+            #'hbeg': 8,
+            #'hend': 22,
             'rse':  entry,
         },
         request=request
@@ -267,78 +268,6 @@ def rsed_room_del(request, id):
     rse_id = entry.rse.pk
     entry.delete()
     return redirect('rse_room', rse_id)
-
-@csrf_exempt
-def rs_room_old(request, rs_id, room_id):
-    '''
-    By cab (DxT=Spec) - ГКк
-    @param rs_id:ID - RoomSchedule object id
-    @param room_id:ID - Room object id
-    '''
-    schedule = models.RoomSchedule.objects.get(pk=int(rs_id))
-    dows = DOW.objects.order_by('pk')
-    room = models.Room.objects.get(pk=int(room_id))
-    rooms = models.Room.objects.order_by('pk')
-    rses = models.RoomScheduleEntry.objects.filter(schedule=schedule, room=room)
-    entry = None
-    if request.method == 'POST':
-        form = forms.RSERoomForm(request.POST)
-        entry_id = request.POST.get('id', None)
-        if (entry_id):
-            entry = models.RoomScheduleEntry.objects.get(pk=int(entry_id))
-        if form.is_valid():
-            begtime=form.cleaned_data['begtime']
-            endtime=form.cleaned_data['endtime']
-            if (entry):
-                # TODO: chack changes
-                entry.dow=form.cleaned_data['dow']
-                entry.specialty=form.cleaned_data['specialty']
-                entry.begtime=begtime.hour*60+begtime.minute
-                entry.endtime=endtime.hour*60+endtime.minute
-                entry.save()
-                entry = None
-            else:
-                models.RoomScheduleEntry.objects.create(
-                    schedule=schedule,
-                    room=form.cleaned_data['room'],
-                    dow=form.cleaned_data['dow'],
-                    specialty=form.cleaned_data['specialty'],
-                    begtime=begtime.hour*60+begtime.minute,
-                    endtime=endtime.hour*60+endtime.minute,
-                )
-            form = forms.RSERoomForm(initial={'schedule': schedule, 'room': room})
-    else:   # GET
-        entry_id = request.session.get('entry_id', None)
-        if (entry_id):
-            del request.session['entry_id']
-            entry = models.RoomScheduleEntry.objects.get(pk=int(entry_id))
-            form = forms.RSERoomForm(initial={
-                'id': entry.id,
-                'schedule': entry.schedule,
-                'room': entry.room,
-                'dow': entry.dow,
-                'begtime': datetime.time(entry.begtime/60, entry.begtime%60),
-                'endtime': datetime.time(entry.endtime/60, entry.endtime%60),
-                'specialty': entry.specialty,
-            })
-        else:
-            form = forms.RSERoomForm(initial={'schedule': schedule, 'room': room})
-    return jrender_to_response(
-        'employee/rs_room.html',
-        {
-            'rs':   schedule,
-            'room': room,
-            'rses': rses,
-            'rse':  entry,
-            'dows': dows,
-            'rooms': rooms,
-            'hbeg': 8,
-            'hend': 22,
-            'rows': dows.count(),
-            'form': form,
-        },
-        request=request
-    )
 
 def rs_dow_auto(request):
     return redirect('rs_dow', models.RoomSchedule.objects.order_by('begdate')[0].pk, DOW.objects.order_by('pk')[0].pk)
@@ -406,10 +335,6 @@ def rs_dow(request, rs_id, dow_id):
             'rses': rses,
             'rse':  entry,
             'dows': dows,
-            'rooms': rooms,
-            'hbeg': 8,
-            'hend': 22,
-            'rows': rooms.count(),
             'form': form,
         },
         request=request
@@ -454,17 +379,36 @@ def ticket_list(request):
 
 def ticket_view(request, id):
     return jrender_to_response(
-        'employee/ticket_detail.html',
-        {
+        'employee/ticket_detail.html', {
             'object': models.Ticket.objects.get(pk=int(id)),
         },
         request=request
     )
 
-def ticket_table(request):
+def ticket_table_auto(request):
+    '''
+    @param yymmdd
+    @param spec_id
+    '''
+    id = models.Specialty.objects.order_by('name')[0].pk
+    yymmdd = datetime.date.today().strftime('%y%m%d')
+    return redirect('ticket_table', id, yymmdd)
+
+def ticket_table(request, id, date):
+    '''
+    @param yymmdd:date - date to show
+    @param spec_id:int - specialty id
+    '''
+    y, m, d = (2000+int(date[:2]), int(date[2:4]), int(date[4:]))
+    cur_day = datetime.date(y, m, d)
+    #print calendar.LocaleHTMLCalendar().formatmonth(2013, 3)
+    #print calendar.LocaleHTMLCalendar().formatmonth(2013, 3)
     return jrender_to_response(
         'employee/ticket_table.html', {
-            'object_list': page_queryset(models.Ticket.objects.all(), request.GET.get('page', 1)),
+            'spec': models.Specialty.objects.get(pk=int(id)),
+            'date': cur_day,
+            'cal':  calendar.Calendar(),   # FIXME:
+            'form': forms.Ticket(),
         },
         request=request
     )

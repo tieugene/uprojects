@@ -19,19 +19,18 @@
     }
 {% endblock %}
 {% block body_main %}
-  <div id="topmenu">
-    <center>
+  <div id="header">
     {% block rs_head %}
     {% endblock %}
-    </center>
   </div>
   <table id="thetable">
     <tr>
-      <td id="leftmenu" class="thecell" valign="top">
+      <td id="leftmenu" class="thecell" style="vertical-align: top">
         {% block rs_leftmenu %}
         {% endblock %}
       </td>
       <td id="canvas" class="thecell">  <!-- set height="1234" for compatibility-->
+{% block svg %}
 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" id="thesvg" height="100" onload="refresh_svg();">
   <rect id="svgbg" width="100%" height="100%"/>
   <g class="head">
@@ -52,4 +51,8 @@
   </g>
   <!-- x = 9% + (((beg/60) - 8) * 6.5%); y = 9% + ((dow-1) * 13%) -->
 </svg>
+{% endblock %}
+      </td>
+    </tr>
+  </table>
 {% endblock %}

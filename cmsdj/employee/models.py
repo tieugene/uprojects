@@ -64,7 +64,11 @@ class   Employee(models.Model):
         verbose_name_plural     = u'Сотрудники'
 
     def     __unicode__(self):
-        return str(self.person)
+        retvalue = self.person.lastname + ' ' + self.person.firstname[0] + '.'
+        midname = self.person.midname
+        if midname:
+            retvalue += (' ' + midname[0] + '.')
+        return retvalue
 
 class   EmployeeSpecialty(models.Model):
     employee	= models.ForeignKey(Employee, related_name='specialties', verbose_name=u'Врач')
@@ -183,12 +187,20 @@ class   RoomScheduleEntryDoc(models.Model):
         return self.__min2time(self.rse.begtime + self.endtime)
 
 class   Ticket(models.Model):
+    '''
+    TODO:
+    - patient => fio+birthdate
+    - rse -> room | doc
+    - date+begtime+endtime=>datetime+minutes
+    http://gorzdrav.spb.ru/signup/free/ - ФИО, birthdate > Specialty (специализация врача) > врач > datetime (free; на неделю вперед)
+    '''
     patient     = models.ForeignKey(Person, related_name='tickets', verbose_name=u'Людь')
     date        = models.DateField(verbose_name=u'Дата')
-    begtime     = models.TimeField(verbose_name=u'Начало')
-    endtime     = models.TimeField(verbose_name=u'Конец')
+    begtime     = models.PositiveIntegerField(verbose_name=u'с')
+    endtime     = models.PositiveIntegerField(verbose_name=u'по')
+    #begtime     = models.TimeField(verbose_name=u'Начало')
     specialty   = models.ForeignKey(Specialty, related_name='tickets', verbose_name=u'Специальность')
-    rse         = models.ForeignKey(RoomScheduleEntry, null=True, blank=True, related_name='tickets', verbose_name=u'Слот')
+    room        = models.ForeignKey(Room, related_name='tickets', verbose_name=u'Кабинет')
 
     class   Meta:
         ordering                = ('date', 'begtime', 'specialty', 'patient')

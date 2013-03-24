@@ -5,8 +5,9 @@
   {% set pager_title = 'Талончики' %}
   {% include "paginator.html" with context %}
 {% endblock %}
- 
+
 {% block body_main %}
+<a href="{{ url_for('employee.views.ticket_table_auto') }}"> <img src="{{ STATIC_URL }}img/16/icon-spreadsheet.png" alt="table"/> </a>
  {% for object in object_list %}
   <p style="padding: 0; margin: 0"> <a href="{{ url_for('employee.views.ticket_view', object.pk) }}"> {{ object }} </a> </p>
  {% endfor %}

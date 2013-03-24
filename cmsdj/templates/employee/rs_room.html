@@ -1,19 +1,23 @@
 {#Режим просмотра всех "слотов" занятости кабинетов. Можно добавить новый слот (форма вверху). Для изменения/удаления слота или врача в нем кликните по нужному прямоугольнику.#}
 {% extends "employee/rs_base.html" %}
+{% block title %} График занятости кабинета {% endblock %}
+{% block header %} График занятости кабинета {% endblock %}
 {% block jsready %}
   {{ super() }}
   $("#id_begtime").mask("99:99");
   $("#id_endtime").mask("99:99");
 {% endblock %}
 {% block rs_head %}
-  <p style="margin: 0"> График кабинета (с {{ rs.begdate|date }}):
+  <p style="margin: 0; text-align: center">
   {% for i in rooms %}
     {% if i == room %}
       <span style="border: 1px solid grey; margin-left: 2px; background-color: silver;"> {{ i }} </span>
     {% else %}
       <a href="{{ url_for('rs_room', rs.id, i.pk) }}" style="border: 1px solid grey; margin-left: 2px;"> {{ i }} </a>
     {% endif %}
-  {% endfor %} </p>
+  {% endfor %}
+  (с {{ rs.begdate|date }})
+  </p>
 {% endblock %}
 {% block rs_leftmenu %}
   {% block rs %}
@@ -30,9 +34,9 @@
         <td> {{ form_rse.endtime }} </td>
       </tr>
       <tr>
-        <td/>
+        <td> </td>
         <td> {{ form_rse.begtime.errors }} </td>
-        <td/>
+        <td> </td>
         <td> {{ form_rse.endtime.errors }} </td>
       </tr>
       <tr>
@@ -48,48 +52,7 @@
   {% block docs %}
   {% endblock %}
 {% endblock %}
-{% block rs_hgrid %}
-  {% for item in dows %}
-	  {% set x = hx + (loop.index0 * dx) %}
-    <!-- grid -->
-	  <line x1="{{x}}%" y1="0" y2="100%" x2="{{x}}%"/>
-    <g class="hcenter">
-      <a xlink:href="{{ url_for('rs_dow', rs.id, item.pk) }}" xlink:title="ГК для {{ item }}">
-        <text x="{{x+(dx/2.0)}}%" y="0"> <tspan dy="1.5ex"> {{ item }} </tspan> </text>
-      </a>
-    </g>
-    <!-- slots -->
-      {% for entry in rses.filter(dow=item) %}
-        {% set y = hy+(((entry.begtime/60.0)-hbeg)*dy) %}
-      <g class="occupy">
-        {% block highlight_rse scoped %}
-        <a xlink:href="{{ url_for('rse_room', entry.pk) }}">
-          <rect
-        {% endblock %}
-          x="{{x}}%" y="{{y}}%" width="{{dx}}%" height="{{(entry.endtime-entry.begtime)/60.0*dy}}%" rx="3" ry="3"/>
-          {% set xt = x+(dx/2.0) %}
-          <text x="{{xt}}%" y="{{y}}%">
-            {% for t in entry.specialty.get_name_wrapped() %}
-              <tspan x="{{xt}}%" dy="1.5ex"> {{ t }} </tspan>
-            {% endfor %}
-          </text>
-        </a>
-      </g>
-        <!-- docs -->
-      <g class="doccupy">
-        {% for doc in entry.docs.all() %}
-          {% set docy = hy+((((entry.begtime+doc.begtime)/60.0)-hbeg)*dy) %}
-          {% block highlight_rsed scoped %}
-          <a xlink:href="{{ url_for('rsed_room', doc.pk) }}">
-            <rect
-          {% endblock %}
-            x="{{xt}}%" y="{{docy}}%" width="{{dx/2}}%" height="{{(doc.endtime-doc.begtime)/60.0*dy}}%" rx="3" ry="3" />
-            <text x="{{x+(dx*0.75)}}%" y="{{docy}}%" dy="1em">
-              {{ doc.doc.person.lastname }}
-            </text>
-          </a>
-        {% endfor %}
-      </g>
-      {% endfor %}
-  {% endfor %}
+
+{% block svg %}
+    {{ svg_room(room) }}
 {% endblock %}

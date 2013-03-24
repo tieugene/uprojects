@@ -1,9 +1,9 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader, Context, RequestContext
 from django.conf import settings
-from jinja2 import FileSystemLoader, Environment, PackageLoader, ChoiceLoader, environmentfilter
-
 from django.utils.datetime_safe import datetime
+from django.core import urlresolvers
+from jinja2 import FileSystemLoader, Environment, PackageLoader, ChoiceLoader, environmentfilter
 
 loader_array = []
 for pth in getattr(settings, 'TEMPLATE_DIRS', ()):
@@ -16,12 +16,10 @@ default_mimetype = getattr(settings, 'DEFAULT_CONTENT_TYPE')
 global_exts = getattr(settings, 'JINJA_EXTS', ())
 env = Environment(extensions=global_exts, loader=ChoiceLoader(loader_array))
 
-from django.core import urlresolvers
-
 def url_for(viewname,*args,**kwargs):
    return urlresolvers.reverse(viewname, args=args, kwargs=kwargs)
 
-env.globals['url_for'] =url_for
+env.globals['url_for'] = url_for
 env.globals['MEDIA_URL'] = settings.MEDIA_URL
 env.globals['STATIC_URL'] = settings.STATIC_URL
 
@@ -57,8 +55,6 @@ def jrender_to_response(filename, context={}, request=None, mimetype=default_mim
             context['user'] = request.user
     rendered = jrender_to_string(filename, context)
     return HttpResponse(rendered,mimetype=mimetype)
-#'''
-
 
 def render_to(template):
     def renderer(func):

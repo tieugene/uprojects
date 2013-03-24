@@ -127,3 +127,22 @@ class   RSEDForm(forms.Form):
             if x:
                 raise forms.ValidationError('%d intersections!' % x)
         return cleaned_data
+
+class   Ticket(forms.Form):
+    '''
+    '''
+    #id          = forms.IntegerField(label='ID', required=False, widget = forms.HiddenInput())
+    rse	        = forms.ModelChoiceField(models.Specialty.objects, label='Спец.', empty_label=None)
+    date        = forms.DateField(label='Дата', widget=forms.widgets.DateInput(format='%D.%m.%Y'))
+    begtime     = forms.TimeField(label='с', widget=forms.widgets.TimeInput(format='%H:%M'))
+    endtime     = forms.TimeField(label='по', widget=forms.widgets.TimeInput(format='%H:%M'))
+    lastname    = forms.CharField(label='Ф')
+    firstname   = forms.CharField(label='И')
+    midname     = forms.CharField(label='О')
+
+    def __init__(self, *args, **kwargs):
+        super(Ticket, self).__init__(*args, **kwargs)
+        self.fields['date'].widget.attrs['size'] = 10
+        self.fields['begtime'].widget.attrs['size'] = 5
+        self.fields['endtime'].widget.attrs['size'] = 5
+
