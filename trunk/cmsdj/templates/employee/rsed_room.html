@@ -35,16 +35,6 @@
   </form>
 {% endblock %}
 
-{% block highlight_rse scoped %}
-<a xlink:href="{{ url_for('rse_room', entry.pk) }}">
-  <rect
-{% endblock %}
-
-{% block highlight_rsed %}
-  {% if rsed == doc %}
-    <a xlink:href="{{ url_for('rse_room', rse.pk) }}">
-      <rect style="fill: green"
-  {% else %}
-    {{ super() }}
-  {% endif %}
+{% block svg %}
+    {{ svg_room(room, rsed) }}
 {% endblock %}

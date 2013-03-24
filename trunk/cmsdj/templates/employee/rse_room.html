@@ -27,11 +27,6 @@
   </form>
 {% endblock %}
 
-{% block highlight_rse %}
-  {% if rse == entry %}
-    <a xlink:href="{{ url_for('rs_room', entry.schedule.pk, entry.room.pk) }}">
-      <rect style="fill: yellow"
-  {% else %}
-    {{ super() }}
-  {% endif %}
+{% block svg %}
+    {{ svg_room(room, rse) }}
 {% endblock %}
