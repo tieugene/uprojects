@@ -129,8 +129,6 @@ class   RSEDForm(forms.Form):
         return cleaned_data
 
 class   Ticket1(forms.Form):
-    '''
-    '''
     #id          = forms.IntegerField(label='ID', required=False, widget = forms.HiddenInput())
     specialty   = forms.ModelChoiceField(models.Specialty.objects, label='Спец.', empty_label=None)
     room        = forms.ModelChoiceField(models.Room.objects, label='Каб.', empty_label=None)
@@ -154,3 +152,16 @@ class   Specialty(forms.Form):
 class   Ticket(forms.ModelForm):
     class   Meta:
         model = models.Ticket
+
+    def __init__(self, *args, **kwargs):
+        super(Ticket, self).__init__(*args, **kwargs)
+        #self.fields['specialty'].widget = forms.HiddenInput()
+        #self.fields['date'].widget = forms.HiddenInput()
+        self.fields['date'].widget.attrs['format'] = '%D.%m.%Y'
+        self.fields['date'].widget.attrs['size'] = 10
+        self.fields['begtime'].widget.attrs['format'] = '%H:%M'
+        self.fields['begtime'].widget.attrs['size'] = 5
+        self.fields['endtime'].widget.attrs['format'] = '%H:%M'
+        self.fields['endtime'].widget.attrs['size'] = 5
+        self.fields['birthdate'].widget.attrs['format'] = '%D.%m.%Y'
+        self.fields['birthdate'].widget.attrs['size'] = 10

@@ -434,18 +434,70 @@ def ticket_table(request, id, date):
     y, m, d = (2000+int(date[:2]), int(date[2:4]), int(date[4:]))
     cur_day = datetime.date(y, m, d)
     spec = models.Specialty.objects.get(pk=int(id))
+    '''
+    schedule = models.RoomSchedule.objects.order_by('begdate')[0].pk
+    rses = models.RoomScheduleEntry.objects.filter(schedule=schedule, specialty=spec)
+    rooms_pk = set(rses.values_list('room__pk', flat=True))
+    cols = models.Room.objects.filter(pk__in = rooms_pk).order_by('pk')
+    if (cols.count() < 1):
+        pass
+    '''
+    form_ticket = None
     if request.method == 'POST':
         if ('submit_spec' in request.POST):
             form = forms.Specialty(request.POST)
             if form.is_valid():
                 return redirect('ticket_table', form.cleaned_data['specialty'].pk, date)
+        else:
+            form_ticket = forms.Ticket(request.POST)
+            if form_ticket.is_valid():
+                #print 'saving ticket...'
+                form_ticket.save()
+                form_ticket = None
+    if (form_ticket == None):
+        form_ticket = forms.Ticket(initial={'specialty': spec, 'date': cur_day, })
     return jrender_to_response(
         'employee/ticket_table.html', {
             'spec': spec,
             'date': cur_day,
             'cal':  calendar.Calendar(),   # FIXME:
             'form_spec': forms.Specialty(initial={'specialty': spec}),
-            'form_ticket': forms.Ticket(),
+            'form_ticket': form_ticket,
         },
         request=request
     )
+
+@csrf_exempt
+def ticket(request, id):
+    ticket = models.Ticket.objects.get(pk=int(id))
+    if request.method == 'POST':
+        if ('submit_spec' in request.POST):
+            form = forms.Specialty(request.POST)
+            if form.is_valid():
+                return redirect('ticket_table', form.cleaned_data['specialty'].pk, ticket.date.strftime('%y%m%d'))
+        else:
+            form_ticket = forms.Ticket(request.POST, instance=ticket)
+            if form_ticket.is_valid():
+                #print 'resaving ticket...'
+                form_ticket.save()
+                return redirect('ticket_table', ticket.specialty.pk, ticket.date.strftime('%y%m%d'))
+    else:
+        form_ticket = forms.Ticket(instance=ticket)
+    return jrender_to_response(
+        'employee/ticket_table.html', {
+            'spec': ticket.specialty,
+            'date': ticket.date,
+            'cal':  calendar.Calendar(),   # FIXME:
+            'form_spec': forms.Specialty(initial={'specialty': ticket.specialty}),
+            'form_ticket': form_ticket,
+            'ticket': ticket
+        },
+        request=request
+    )
+
+def ticket_del(request, id):
+    entry = models.Ticket.objects.get(pk=int(id))
+    spec = entry.specialty
+    date = entry.date
+    entry.delete()
+    return redirect('ticket_table', spec.pk, date.strftime('%y%m%d'))

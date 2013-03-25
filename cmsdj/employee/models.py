@@ -195,8 +195,8 @@ class   Ticket(models.Model):
     http://gorzdrav.spb.ru/signup/free/ - ФИО, birthdate > Specialty (специализация врача) > врач > datetime (free; на неделю вперед)
     '''
     specialty   = models.ForeignKey(Specialty, related_name='tickets', verbose_name=u'Специальность')
-    room        = models.ForeignKey(Room, related_name='tickets', verbose_name=u'Кабинет')
     date        = models.DateField(verbose_name=u'Дата')
+    room        = models.ForeignKey(Room, related_name='tickets', verbose_name=u'Кабинет')
     begtime     = models.TimeField(verbose_name=u'с')
     endtime     = models.TimeField(verbose_name=u'по')
     #begtime     = models.PositiveIntegerField(verbose_name=u'с')
@@ -212,4 +212,4 @@ class   Ticket(models.Model):
         verbose_name_plural     = u'Талончики'
 
     def     __unicode__(self):
-        return '%s %s %s - %s' % (self.date, self.begtime, self.specialty, self.patient)
+        return '%s %s %s - %s' % (self.date, self.begtime, self.specialty, self.lastname)
