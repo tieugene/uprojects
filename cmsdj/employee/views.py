@@ -53,9 +53,13 @@ def stafflist_view(request, id):
             if specialty.id in are:
                 entry['are'] = are[specialty.id]
             roomed = 0
+            doced = 0
             for i in specialty.rsentries.all():
                 roomed += (i.endtime-i.begtime)
+                for j in i.docs.all():
+                    doced += (j.endtime-j.begtime)
             entry['roomed'] = roomed/2400.00 if roomed else 0   # 60 min * 40 h
+            entry['doced'] = doced/2400.00 if doced else 0
             subdata.append(entry)
         data.append({'dep': department, 'data': subdata})
     return jrender_to_response('employee/stafflist_detail.html', {'stafflist': sl, 'data': data}, request=request)
@@ -421,21 +425,27 @@ def ticket_table_auto(request):
     yymmdd = datetime.date.today().strftime('%y%m%d')
     return redirect('ticket_table', id, yymmdd)
 
+@csrf_exempt
 def ticket_table(request, id, date):
     '''
-    @param yymmdd:date - date to show
     @param spec_id:int - specialty id
+    @param yymmdd:date - date to show
     '''
     y, m, d = (2000+int(date[:2]), int(date[2:4]), int(date[4:]))
     cur_day = datetime.date(y, m, d)
-    #print calendar.LocaleHTMLCalendar().formatmonth(2013, 3)
-    #print calendar.LocaleHTMLCalendar().formatmonth(2013, 3)
+    spec = models.Specialty.objects.get(pk=int(id))
+    if request.method == 'POST':
+        if ('submit_spec' in request.POST):
+            form = forms.Specialty(request.POST)
+            if form.is_valid():
+                return redirect('ticket_table', form.cleaned_data['specialty'].pk, date)
     return jrender_to_response(
         'employee/ticket_table.html', {
-            'spec': models.Specialty.objects.get(pk=int(id)),
+            'spec': spec,
             'date': cur_day,
             'cal':  calendar.Calendar(),   # FIXME:
-            'form': forms.Ticket(),
+            'form_spec': forms.Specialty(initial={'specialty': spec}),
+            'form_ticket': forms.Ticket(),
         },
         request=request
     )
