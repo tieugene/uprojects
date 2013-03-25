@@ -10,15 +10,17 @@
 {% endblock %}
 
 {% block body_main %}
+<div style="-moz-column-count: 2; -webkit-column-count: 2; column-count: 2;">
 <table border="1" class="thick">
     <tr>
         <th> Специальность </th>
         <th colspan="2" title="Придумано в штатном расписании"> Ставок </th>
-        <th title="Обеспечено врачами в штате"> Занято </th>
+        <th title="Обеспечено врачами в штате"> Нанято </th>
         <th title="Расписано в Графике кабинетов"> Окабинечено </th>
+        <th title="Расписано в Графике кабинетов по врачам"> Оврачено </th>
     </tr>
     {% for dep in data %}
-        <tr> <th colspan = "4"> {{ dep.dep.name }} </th> </tr>
+        <tr> <th colspan = "6"> {{ dep.dep.name }} </th> </tr>
         {% for spec in dep.data %}
             <tr>
                 <td> {{ spec.spec.name }} </td>
@@ -31,8 +33,10 @@
                 {% endif %}
                 <td> {{ spec.are }} </td>
                 <td> {{ spec.roomed }} </td>
+                <td> {{ spec.doced }} </td>
             </tr>
         {% endfor %}
     {% endfor %}
 </table>
+</div>
 {% endblock %}

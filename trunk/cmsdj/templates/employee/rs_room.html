@@ -2,11 +2,6 @@
 {% extends "employee/rs_base.html" %}
 {% block title %} График занятости кабинета {% endblock %}
 {% block header %} График занятости кабинета {% endblock %}
-{% block jsready %}
-  {{ super() }}
-  $("#id_begtime").mask("99:99");
-  $("#id_endtime").mask("99:99");
-{% endblock %}
 {% block rs_head %}
   <p style="margin: 0; text-align: center">
   {% for i in rooms %}
@@ -29,9 +24,9 @@
     <table>
       <tr>
         <td> {{ form_rse.dow }} </td>
-        <td> {{ form_rse.begtime }} </td>
+        <td class="hhmm"> {{ form_rse.begtime }} </td>
         <td> - </td>
-        <td> {{ form_rse.endtime }} </td>
+        <td class="hhmm"> {{ form_rse.endtime }} </td>
       </tr>
       <tr>
         <td> </td>

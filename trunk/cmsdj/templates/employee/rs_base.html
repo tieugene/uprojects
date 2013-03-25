@@ -11,6 +11,7 @@
     {{ super() }}
     refresh_svg();
     document.getElementsByTagName("body")[0].setAttribute('onresize', 'refresh_svg();');
+    $(".hhmm>input").mask("99:99");
 {% endblock %}
 {% block css %}
     {{ super() }}
@@ -31,26 +32,6 @@
       </td>
       <td id="canvas" class="thecell">  <!-- set height="1234" for compatibility-->
 {% block svg %}
-<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" id="thesvg" height="100" onload="refresh_svg();">
-  <rect id="svgbg" width="100%" height="100%"/>
-  <g class="head">
-    {% set hx = 9 %}
-    {% set hy = 9 %}
-    <line x1="0" y1="0" x2="{{hx}}%" y2="{{hy}}%"/>
-    <!-- horizontal grid -->
-    {% set dy = (100 - hy)/(hend - hbeg) %}
-    {% for i in range(hend - hbeg) %}
-      {% set y = hy + (loop.index0 * dy) %}
-      <line x1="0" y1="{{y}}%" x2="100%" y2="{{y}}%"/>
-      <text x="0" y="{{y}}%"><tspan dy="1.5ex"> {{i+hbeg}}:00 </tspan></text>
-    {% endfor %}
-    <!-- vertical grid:  -->
-    {% set dx = (100 - hx)/rows %}
-    {% block rs_hgrid scoped %}
-    {% endblock %}
-  </g>
-  <!-- x = 9% + (((beg/60) - 8) * 6.5%); y = 9% + ((dow-1) * 13%) -->
-</svg>
 {% endblock %}
       </td>
     </tr>

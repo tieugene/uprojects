@@ -194,16 +194,20 @@ class   Ticket(models.Model):
     - date+begtime+endtime=>datetime+minutes
     http://gorzdrav.spb.ru/signup/free/ - ФИО, birthdate > Specialty (специализация врача) > врач > datetime (free; на неделю вперед)
     '''
-    patient     = models.ForeignKey(Person, related_name='tickets', verbose_name=u'Людь')
-    date        = models.DateField(verbose_name=u'Дата')
-    begtime     = models.PositiveIntegerField(verbose_name=u'с')
-    endtime     = models.PositiveIntegerField(verbose_name=u'по')
-    #begtime     = models.TimeField(verbose_name=u'Начало')
     specialty   = models.ForeignKey(Specialty, related_name='tickets', verbose_name=u'Специальность')
     room        = models.ForeignKey(Room, related_name='tickets', verbose_name=u'Кабинет')
+    date        = models.DateField(verbose_name=u'Дата')
+    begtime     = models.TimeField(verbose_name=u'с')
+    endtime     = models.TimeField(verbose_name=u'по')
+    #begtime     = models.PositiveIntegerField(verbose_name=u'с')
+    #endtime     = models.PositiveIntegerField(verbose_name=u'по')
+    lastname    = models.CharField(max_length=32, verbose_name=u'Фамилия')
+    firstname   = models.CharField(max_length=32, verbose_name=u'Имя')
+    midname     = models.CharField(max_length=32, blank=True, verbose_name=u'Отчество')
+    birthdate   = models.DateField(verbose_name=u'Дата рождения')
 
     class   Meta:
-        ordering                = ('date', 'begtime', 'specialty', 'patient')
+        ordering                = ('date', 'begtime', 'specialty', 'room')
         verbose_name            = u'Талончик'
         verbose_name_plural     = u'Талончики'
 
