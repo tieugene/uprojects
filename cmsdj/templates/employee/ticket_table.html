@@ -1,0 +1,99 @@
+{% extends "employee/rs_base.html" %}
+{# block jsready %}
+    {{ super() }}
+    $("#id_begtime").mask("99:99");
+    $("#id_endtime").mask("99:99");
+    $("#id_birthdate").mask("99.99.9999");
+{% endblock #}
+{% block title %} Талончики {% endblock %}
+{% block header %} Талончики: {{ spec.name }}, {{ date }} {% endblock %}
+
+{% block css %}
+    table.calendar {
+        border-collapse: collapse;
+        border: 1px solid black;
+        width: 100%;
+    }
+    table.calendar caption {
+        font: bold 10pt sans-serif;
+        text-align: center;
+    }
+    table.calendar th {
+        font: normal 10pt sans-serif;
+        text-align: center;
+    }
+    table.calendar td {
+        border: 1px dotted black;
+        font: bold 8pt sans-serif;
+        text-align: center;
+        padding: 0;
+    }
+    table.calendar tbody td a div {
+        /*width:  24px;*/
+        height: 19px;
+        padding: 5px 0 0;
+    }
+    table.calendar tbody td a:link {
+        color: black;
+        text-decoration: none;
+    }
+    table.calendar tbody td a:visited {
+        color: black;
+        text-decoration: none;
+    }
+{% endblock %}
+
+{% block jsready %}
+{% endblock %}
+
+{% block rs_head %}
+{% endblock %}
+
+{% block rs_leftmenu %}
+  <!-- specialty: -->
+  <form method="post" action=".">
+  <p style="padding: 0; margin: 0;">
+  {{ form_spec.specialty }}
+  <button type="submit" name="submit_spec" title="Set new specialty"> &gt; </button>
+  </p>
+  </form>
+  <!-- /specialty -->
+  <!-- calendar: -->
+  <table class="calendar">
+    <thead>
+      <tr>
+        <th> <a href=""> <img src="{{ STATIC_URL }}img/16/icon-backward.png" alt="prev"/> </a> </th>
+        <th colspan="5" class="bb"> <b> {{ date.month }}/{{ date.year }} </b> </th>
+        <th> <a href=""> <img src="{{ STATIC_URL }}img/16/icon-forward.png" alt="next"/> </a> </th>
+      </tr>
+      <tr> <th> П </th> <th> В </th> <th> С </th> <th> Ч </th> <th> П </th> <th> С </th> <th> В </th> </tr>
+    </thead>
+    <tbody>
+    {% for week in cal.monthdatescalendar(date.year, date.month) %}
+        <tr>
+        {% for d in week %}
+            <td {% if d == date %} style="background-color: yellow" {% endif %}>
+            <a href="{{ url_for('ticket_table', spec.pk, d.strftime('%y%m%d')) }}">
+            <div> {{ d.day }} </div> </a> </td>
+        {% endfor %}
+        </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  <!-- /calendar -->
+  <!-- form: -->
+  <form method="post" action=".">
+  <table>
+  {{ form_ticket.as_table() }}
+  </table>
+  <button type="submit" title="Ok"> &radic; </button>
+  <a href="."> <button type="button" title="Reload"> x </button> </a>
+  {% if ticket %}
+  <a href="{{ url_for('ticket_del', ticket.pk) }}"> <button type="button" title="Delete"> - </button> </a>
+  {% endif %}
+  </form>
+  <!-- /form -->
+{% endblock %}
+{% block svg %}
+  {{ svg_tickets(spec, date, ticket) }}
+{% endblock %}
