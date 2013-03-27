@@ -66,7 +66,6 @@ def svg_room(room, highlight=None):
         x = hx + (col_e2n[entry.dow.pk] * dx)
         y = hy+(((entry.begtime/60.0)-hbeg)*dy)
         r += '<g class="occupy">\n'
-        # rse_room && !rsed_room: if (rse == entry) => 'rs_room'(entry.schedule.pk, entry.room.pk) + yellow
         r += '<a xlink:href="%s">\n' % (reverse('rs_room', args=[entry.schedule.pk, entry.room.pk]) if (thisrse) else reverse('rse_room', args=[entry.pk,]))
         r += '<rect x="%f%%" y="%f%%" width="%f%%" height="%f%%" rx="3" ry="3" %s />\n' % (
             x, y, dx, (entry.endtime-entry.begtime)/60.0*dy, 'style="fill: yellow"' if (thisrse) else '')
@@ -82,7 +81,6 @@ def svg_room(room, highlight=None):
         for doc in entry.docs.all():
             thisrsed = (itsrsed and (highlight.id == doc.pk))
             docy = hy+((((entry.begtime+doc.begtime)/60.0)-hbeg)*dy)
-            # rsed_room: if (rsed == doc) => 'rse_room'(rse.pk) + green
             r += '<a xlink:href="%s">\n' % (reverse('rs_room', args=[entry.schedule.pk, entry.room.pk]) if (thisrsed) else reverse('rsed_room', args=[doc.pk]))
             r += '<rect x="%f%%" y="%f%%" width="%f%%" height="%f%%" rx="3" ry="3" %s />\n' % (
                 xt, docy, dx/2.0, (doc.endtime-doc.begtime)/60.0*dy, 'style="fill: green"' if (thisrsed) else '')

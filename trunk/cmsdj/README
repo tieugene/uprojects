@@ -1,6 +1,3 @@
-Acer Iconia Tab A500, 1GB RAM, 32GB ?, 1280x800
-Asus: 344x193mm (1366x768) = 100 ppi
-
 = check busy rooms =
 new time bound (nb..ne) vs existing one (ob..oe): (n: new, o: old, b: begin, e: end)
 * полностью внутри:     nb>=ob & ne<=oe
@@ -10,10 +7,35 @@ new time bound (nb..ne) vs existing one (ob..oe): (n: new, o: old, b: begin, e: 
 НЕ перекрывает: oe <= nb || ob >= ne
 Перекрывают:    ob <  ne && oe >  nb
 
-Что в основном интерфейсе:
-* U Штатное расписание
-* U График кабинетов
-* U График врача
-* LCRUD Пациента
-* LCRUD РПП
-* ?ЭМК
+= usual links =
+Ways to choose fot form was submited:
+* form prefix (http://stackoverflow.com/questions/2374224/django-working-with-multiple-forms)
+* submit name (http://stackoverflow.com/questions/866272/how-can-i-build-multiple-submit-buttons-django-form)
+* http://harvesthq.github.com/chosen/
+
+= future =
+
+== architecture ==
+* engine independent (orm/node4j)
+
+== devel ==
+* w3c validator
+* python validator
+
+== accelleration ==
+* [semi]static svg templates
+
+== бонусы ==
+* ?svg main menu
+* внесение слота мышкой
+* редактирование слота мышкой (время, кабинет/день недели)
+* соответствие default slot time
+* autocomplete *name:
+   * lastnames:
+       * http://ru.wikipedia.org/wiki/Категория:Фамилии_по_алфавиту
+       * http://www.familii.ru/onomastika/spravka
+       * http://toldot.ru/urava/lnames/a6118/
+       * http://rusfam.narod.ru/in/p.html
+   * firstnames:
+       * http://ru.wikipedia.org/wiki/Категория:Мужские_имена
+

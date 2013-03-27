@@ -1,14 +1,14 @@
 {#Режим просмотра всех "слотов" занятости кабинетов. Можно добавить новый слот (форма вверху). Для изменения/удаления слота или врача в нем кликните по нужному прямоугольнику.#}
 {% extends "employee/rs_base.html" %}
 {% block title %} График занятости кабинета {% endblock %}
-{% block header %} График занятости кабинета {% endblock %}
+{% block header %} График занятости кабинета № {{ room.pk }} {% endblock %}
 {% block rs_head %}
-  <p style="margin: 0; text-align: center">
+  <p class="colselector">
   {% for i in rooms %}
     {% if i == room %}
-      <span style="border: 1px solid grey; margin-left: 2px; background-color: silver;"> {{ i }} </span>
+      <span class="active">{{ i }}</span>
     {% else %}
-      <a href="{{ url_for('rs_room', rs.id, i.pk) }}" style="border: 1px solid grey; margin-left: 2px;"> {{ i }} </a>
+      <span><a href="{{ url_for('rs_room', rs.id, i.pk) }}">{{ i }}</a></span>
     {% endif %}
   {% endfor %}
   (с {{ rs.begdate|date }})
