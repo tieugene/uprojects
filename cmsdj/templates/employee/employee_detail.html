@@ -1,7 +1,0 @@
-{% extends "employee/base.html" %}
-{% block title %} {{ super() }}: Сотрудник: {{ object.person }} {% endblock %}
-{% block header %} <a href="{{ url_for('employee.views.employee_list') }}"> Сотрудник </a> {% endblock %}
-{% block body_main %}
-<p> ID: {{ object.pk }} </p>
-<p> Фамилия: {{ object.person.lastname }} </p>
-{% endblock %}
