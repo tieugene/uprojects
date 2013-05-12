@@ -1,4 +1,0 @@
-Requires:
-python-neo4jrestclient
-python-webpy
-graphviz-python
