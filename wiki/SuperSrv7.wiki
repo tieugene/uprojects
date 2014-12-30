@@ -8,7 +8,14 @@ Super server based on CentOS7: VMS, LDAP, all-in-one.
 = 1. VMS =
  * download CentOS7-mini
  * install
-
+ * patch selinux
+ * patch network
+ * restart
+ * add repos
+ * add mc rpmreaper
+ * remove unwanted
+ * update
+ * add wanted
 
 = 2. Server =
 
