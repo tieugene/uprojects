@@ -4,8 +4,14 @@
 
 Super server based on CentOS7: VMS, LDAP, all-in-one.
 
+= 0. Pre-req =
+ * lan:
+  * 192.168.0.0/24
+ * ldap:
+  * base:
+  * manager: cn=..., password=...
 
-= 1. VMS =
+= 1. Any CentOS =
  * download CentOS7-mini
  * install
  * patch selinux
@@ -15,8 +21,10 @@ Super server based on CentOS7: VMS, LDAP, all-in-one.
  * add mc rpmreaper
  * remove unwanted
  * update
+
+= 2. VMS =
  * add wanted
 
-= 2. Server =
+= 3. Server =
 
-= 3. Client =
+= 4. Client =
