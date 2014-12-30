@@ -15,8 +15,8 @@ Super server based on CentOS7: VMS, LDAP, all-in-one.
  * ldap:
   * base: dc=ldap
   * manager:
-   * binddn="cn=..."
-   * password=secredpass
+   * binddn: "cn=..."
+   * password: secredpass
 
 = 1. Any CentOS =
  * download [http://mirror.yandex.ru/centos/7.0.1406/isos/x86_64/CentOS-7.0-1406-x86_64-Minimal.iso CentOS7-mini], burn it.
