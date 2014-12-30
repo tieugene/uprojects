@@ -2,12 +2,14 @@
 
 = Introduction =
 
-Add your content here.
+Super server based on CentOS7: VMS, LDAP, all-in-one.
 
 
-= Details =
+= 1. VMS =
+ * download CentOS7-mini
+ * install
 
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+
+= 2. Server =
+
+= 3. Client =
