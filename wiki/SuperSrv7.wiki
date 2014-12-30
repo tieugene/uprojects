@@ -17,7 +17,7 @@ Super server based on CentOS7: VMS, LDAP, all-in-one.
   * manager: binddn="cn=...", password=secredpass
 
 = 1. Any CentOS =
- * download [CentOS7-mini http://mirror.yandex.ru/centos/7.0.1406/isos/x86_64/CentOS-7.0-1406-x86_64-Minimal.iso]
+ * download [http://mirror.yandex.ru/centos/7.0.1406/isos/x86_64/CentOS-7.0-1406-x86_64-Minimal.iso CentOS7-mini]
  * install
  * patch selinux
  * patch network
