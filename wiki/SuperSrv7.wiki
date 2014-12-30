@@ -23,7 +23,7 @@ Super server based on CentOS7: VMS, LDAP, all-in-one.
  * patch network:
   * /etc/sysconfig/networking
   * /etc/sysconfig/network-scripts/e*-*
- * add repos (epel, rpmfussion)
+ * add repos (epel, rpmfusion)
  * yum install mc rpmreaper
  * init 6
  * remove unwanted (rpmreaper)
