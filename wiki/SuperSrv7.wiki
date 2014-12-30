@@ -22,8 +22,8 @@ Super server based on CentOS7: VMS, LDAP, all-in-one.
  * patch selinux
  * patch network
  * restart
- * add repos
- * add mc rpmreaper
+ * add repos (epel, rpmfussion)
+ * yum install mc rpmreaper
  * remove unwanted
  * update
 
