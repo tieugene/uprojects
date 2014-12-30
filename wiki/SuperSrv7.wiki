@@ -5,11 +5,16 @@
 Super server based on CentOS7: VMS, LDAP, all-in-one.
 
 = 0. Pre-req =
- * lan:
-  * 192.168.0.0/24
+ * LAN:
+  * LAN: 192.168.0.0/24
+  * gw: 192.168.0.254
+  * vms: 192.168.0.2
+  * server: 192.168.0.1
+ * smb:
+  * domain: office
  * ldap:
-  * base:
-  * manager: cn=..., password=...
+  * base: dc=ldap
+  * manager: binddn="cn=...", password=secredpass
 
 = 1. Any CentOS =
  * download CentOS7-mini
