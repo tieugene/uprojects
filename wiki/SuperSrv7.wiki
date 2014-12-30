@@ -24,10 +24,13 @@ Super server based on CentOS7: VMS, LDAP, all-in-one.
   * /etc/sysconfig/networking
   * /etc/sysconfig/network-scripts/e*-*
  * add repos (epel, rpmfusion)
- * yum install mc rpmreaper
+ * rpm -Uvh .../rpmreaper
+ * yum install mc
+ * chk network:
+  * chkconfig network on; service network restart; service NetworkManager stop; ping ya.ru;
  * init 6
  * remove unwanted (rpmreaper)
- * update
+ * yum update
 
 = 2. VMS =
  * add wanted
