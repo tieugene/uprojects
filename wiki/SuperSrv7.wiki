@@ -17,14 +17,14 @@ Super server based on CentOS7: VMS, LDAP, all-in-one.
   * manager: binddn="cn=...", password=secredpass
 
 = 1. Any CentOS =
- * download [http://mirror.yandex.ru/centos/7.0.1406/isos/x86_64/CentOS-7.0-1406-x86_64-Minimal.iso CentOS7-mini]
+ * download [http://mirror.yandex.ru/centos/7.0.1406/isos/x86_64/CentOS-7.0-1406-x86_64-Minimal.iso CentOS7-mini], burn it.
  * install
- * patch selinux
- * patch network
- * restart
+ * patch selinux (/etc/sysconfig/selinux)
+ * patch network (/etc/sysconfig/networking, /etc/sysconfig/network-scripts/e*-)
  * add repos (epel, rpmfussion)
  * yum install mc rpmreaper
- * remove unwanted
+ * init 6
+ * remove unwanted (rpmreaper)
  * update
 
 = 2. VMS =
