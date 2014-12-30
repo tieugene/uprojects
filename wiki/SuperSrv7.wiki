@@ -28,7 +28,7 @@ Super server based on CentOS7: VMS, LDAP, all-in-one.
   * /etc/resolve.conf:
  * add repos (epel, rpmfusion)
  * rpm -Uvh .../rpmreaper
- * yum install mc
+ * yum install mc net-tools
  * chk network:
   * chkconfig network on; service network restart; service NetworkManager stop; ping ya.ru;
  * init 6
