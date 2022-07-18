@@ -1,6 +1,6 @@
 # uprojects
 
-&mu;-projects - and archive of misc little projects.
+&mu;-projects - archive of misc little projects.
 
 ## TOC
 - [chkicons](chkicons) - Tool to check icons theme on FDO
