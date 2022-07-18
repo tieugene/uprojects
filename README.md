@@ -8,4 +8,5 @@
 - [qtpath](qtpath) - Show Qt paths
 - [test.1a01](test.1a01) - Testing task 2021-10-01
 - [test.1b19](test.1b19) - Testing task 2021-11-19
+- [test.2118](test.2118) - Testing task 2022-01-18
 - [server7](server7) - CentOS7-based server (LDAP powered)
