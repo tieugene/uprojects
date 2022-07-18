@@ -10,3 +10,4 @@
 - [test.1b19](test.1b19) - Testing task 2021-11-19
 - [test.2118](test.2118) - Testing task 2022-01-18
 - [server7](server7) - CentOS7-based server (LDAP powered)
+- [jirapad](jirapad) - Jira Cloud web frontend (init)
