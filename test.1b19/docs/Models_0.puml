@@ -1,0 +1,57 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+left to right direction
+
+class Org {
+    id: ID
+    created : datetime
+    modified : datetime
+    fullname : str
+    name : str
+    vat : str
+    kpp : str
+}
+
+class Depart {
+    id: ID
+    name : str
+}
+
+class Person {
+    id : ID
+    phone : phone
+    phones[] : phone
+    lastname : str
+    firstname : str
+    midname : str
+    created : datetime
+    modified : datetime
+    statemod : datetime
+    state : bool
+    type : EType
+    email[] : email
+    sex : bool null
+    tz : str
+    soc_vk[] : str
+    soc_fb[] : str
+    soc_ok : str
+    soc_ig : str
+    soc_tg : str
+    soc_wa : str
+    soc_vb : str
+}
+
+enum EType {
+    Primary
+    Repeate
+    Ext
+    Indirect
+}
+
+Org "1" *-- "*" Depart
+Depart "1" *-- "*" Depart
+Org "?" <-- "*" Person
+Depart "*" <-- "*" Person
+
+@enduml
