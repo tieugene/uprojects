@@ -1,0 +1,59 @@
+# QT4 at Fedora 30 x32
+QLibraryInfo::PrefixPath: /usr/lib/qt4
+QLibraryInfo::DocumentationPath: /usr/share/doc/qt4
+QLibraryInfo::HeadersPath: /usr/include
+QLibraryInfo::LibrariesPath: /usr/lib
+QLibraryInfo::BinariesPath: /usr/lib/qt4/bin
+QLibraryInfo::PluginsPath: /usr/lib/qt4/plugins
+QLibraryInfo::DataPath: /usr/lib/qt4
+QLibraryInfo::TranslationsPath: /usr/share/qt4/translations
+QLibraryInfo::SettingsPath: /etc
+QLibraryInfo::DemosPath: /usr/lib/qt4/demos
+QLibraryInfo::ExamplesPath: /usr/lib/qt4/examples
+QDesktopServices::DesktopLocation: ~/Desktop
+QDesktopServices::DocumentsLocation: ~/Documents
+QDesktopServices::FontsLocation: ~/.fonts
+QDesktopServices::ApplicationsLocation: 
+QDesktopServices::MusicLocation: ~/
+QDesktopServices::MoviesLocation: ~/
+QDesktopServices::PicturesLocation: ~/
+QDesktopServices::TempLocation: /tmp
+QDesktopServices::HomeLocation: ~
+QDesktopServices::DataLocation: ~/.local/share/data/TI_Eugene/QtInfo
+QDesktopServices::CacheLocation: ~/.cache/TI_Eugene/QtInfo
+
+# QT5 at Fedora 30 x32
+QLibraryInfo::PrefixPath: /usr
+QLibraryInfo::DocumentationPath: /usr/share/doc/qt5
+QLibraryInfo::HeadersPath: /usr/include/qt5
+QLibraryInfo::LibrariesPath: /usr/lib
+QLibraryInfo::BinariesPath: /usr/lib/qt5/bin
+QLibraryInfo::PluginsPath: /usr/lib/qt5/plugins
+QLibraryInfo::DataPath: /usr/share/qt5
+QLibraryInfo::TranslationsPath: /usr/share/qt5/translations
+QLibraryInfo::SettingsPath: /etc/xdg
+QLibraryInfo::ExamplesPath: /usr/lib/qt5/examples
+QLibraryInfo::ImportsPath: /usr/lib/qt5/imports
+QLibraryInfo::Qml2ImportsPath: /usr/lib/qt5/qml
+QLibraryInfo::ArchDataPath: /usr/lib/qt5
+QLibraryInfo::LibraryExecutablesPath: /usr/lib/qt5/libexec
+QStandardPaths::DesktopLocation: ~/Desktop
+QStandardPaths::DocumentsLocation: ~/Documents
+QStandardPaths::FontsLocation: ~/.local/share/fonts
+QStandardPaths::ApplicationsLocation: ~/.local/share/applications
+QStandardPaths::MusicLocation: ~
+QStandardPaths::MoviesLocation: ~
+QStandardPaths::PicturesLocation: ~
+QStandardPaths::TempLocation: /tmp
+QStandardPaths::HomeLocation: ~
+QStandardPaths::DataLocation: ~/.local/share/TI_Eugene/QtInfo
+QStandardPaths::CacheLocation: ~/.cache/TI_Eugene/QtInfo
+QStandardPaths::GenericCacheLocation: ~/.cache
+QStandardPaths::GenericDataLocation: ~/.local/share
+QStandardPaths::RuntimeLocation: /tmp/runtime-eugene	// XDG_RUNTIME_DIR not set, defaulting to '/tmp/runtime-eugene'
+QStandardPaths::ConfigLocation: ~/.config
+QStandardPaths::DownloadLocation: ~/Download
+QStandardPaths::GenericConfigLocation: ~/.config
+QStandardPaths::AppDataLocation: ~/.local/share/TI_Eugene/QtInfo
+QStandardPaths::AppLocalDataLocation: ~/.local/share/TI_Eugene/QtInfo
+QStandardPaths::AppConfigLocation: ~/.config/TI_Eugene/QtInfo

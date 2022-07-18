@@ -1,0 +1,2 @@
+# qtpaths
+Qt paths explorer
