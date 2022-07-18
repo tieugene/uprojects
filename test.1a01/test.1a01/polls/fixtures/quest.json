@@ -1,0 +1,62 @@
+[
+{
+  "model": "polls.quest",
+  "pk": 1,
+  "fields": {
+    "poll": 1,
+    "title": "2x2=",
+    "mult": false,
+    "payload": "три\r\nчетыре\r\nпять"
+  }
+},
+{
+  "model": "polls.quest",
+  "pk": 2,
+  "fields": {
+    "poll": 1,
+    "title": "0 - это число...",
+    "mult": true,
+    "payload": "Целое\r\nПоложительное\r\nНатуральное\r\nРациональное\r\nВещественное"
+  }
+},
+{
+  "model": "polls.quest",
+  "pk": 3,
+  "fields": {
+    "poll": 1,
+    "title": "Как Вы относитесь к математике?",
+    "mult": false,
+    "payload": ""
+  }
+},
+{
+  "model": "polls.quest",
+  "pk": 4,
+  "fields": {
+    "poll": 2,
+    "title": "Лондон - это столица",
+    "mult": false,
+    "payload": "Парижа\r\nАнглии\r\nВеликобритании"
+  }
+},
+{
+  "model": "polls.quest",
+  "pk": 5,
+  "fields": {
+    "poll": 2,
+    "title": "Россия находится в",
+    "mult": true,
+    "payload": "Азии\r\nАрктике\r\nЕвропе"
+  }
+},
+{
+  "model": "polls.quest",
+  "pk": 6,
+  "fields": {
+    "poll": 3,
+    "title": "Главные вопросы",
+    "mult": true,
+    "payload": "Кто виноват\r\nЧто делать"
+  }
+}
+]

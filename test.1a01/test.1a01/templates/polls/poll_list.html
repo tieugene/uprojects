@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block body_main %}
+    <h1> Poll list </h1>
+    <ul>
+        {% for object in object_list %}
+            <li>
+                <a href="{{ object.get_absolute_url }}"> {{ object }} </a>
+                {% if object.comments %} <i> ({{ object.comments }}) </i> {% endif %}
+            </li>
+        {% endfor %}
+        <li> <a href="{% url 'poll_add' %}"> <button type="button"> &plus; </button> </a> </li>
+    </ul>
+{% endblock %}

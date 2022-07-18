@@ -1,0 +1,189 @@
+openapi: 3.0.2
+info:
+  title: ''
+  version: ''
+paths:
+  /rest/p/:
+    get:
+      operationId: listPolls
+      description: Get polls available today.
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Poll'
+          description: Poll details
+      tags:
+      - rest
+  /rest/p/{pid}/:
+    get:
+      operationId: retrieveQuest
+      description: Get poll questions.
+      parameters:
+      - name: pid
+        in: path
+        required: true
+        description: Poll id questions belong to
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Quest'
+          description: Question details
+      tags:
+      - rest
+  /rest/v/{cid}/:
+    get:
+      operationId: retrieveVote
+      description: Get customer votes.
+      parameters:
+      - name: cid
+        in: path
+        required: true
+        description: Customer ID
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Vote'
+          description: Poll IDs that Customer participated in
+      tags:
+      - rest
+  /rest/v/{cid}/{pid}/:
+    get:
+      operationId: retrieveAnswer
+      description: Get customer answers.
+      parameters:
+      - name: cid
+        in: path
+        required: true
+        description: Customer ID
+        schema:
+          type: integer
+      - name: pid
+        in: path
+        required: true
+        description: Poll ID
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Answer'
+          description: ''
+      tags:
+      - rest
+  /rest/a/:
+    post:
+      operationId: createAnswerDe
+      description: Add new customer's answer.
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Answer'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Answer'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Answer'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Answer'
+          description: ''
+      tags:
+      - rest
+components:
+  schemas:
+    Poll:
+      description: Poll details
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+          description: PK
+        title:
+          type: string
+          maxLength: 32
+          readOnly: true
+        date0:
+          type: string
+          format: date
+          readOnly: true
+          description: Poll start
+        date1:
+          type: string
+          format: date
+          readOnly: true
+          description: Poll end
+        comments:
+          type: string
+          nullable: true
+          maxLength: 255
+          readOnly: true
+    Quest:
+      description: Question details
+      type: object
+      properties:
+        pk:
+          type: integer
+          readOnly: true
+          description: PK
+        title:
+          type: string
+          maxLength: 255
+          readOnly: true
+        qtype:
+          type: integer
+          readOnly: true
+          description: Answer type
+          enum:
+          - 0
+          - 1
+          - 2
+        qitems:
+          type: array
+          items:
+            type: string
+    Vote:
+      description: Poll ID
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+    Answer:
+      description: Question answer
+      type: object
+      properties:
+        cust_id:
+          type: integer
+          description: Customer ID
+        quest:
+          type: integer
+          description: Question ID
+        resume:
+          type: object
+          description: Answer itself (str / int (choice) / list[int] (multichoice))
+      required:
+      - cust_id
+      - quest
+      - resume

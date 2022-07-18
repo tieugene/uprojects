@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block body_main %}
+    <h1> Customer list </h1>
+    {% for object in object_list %}
+        <button type="button">
+             <a href="{% url 'cust_votes' object %}"> {{ object }} </a>
+        </button>
+    {% endfor %}
+{% endblock %}

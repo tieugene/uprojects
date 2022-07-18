@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block body_main %}
+    <h1> Answers: </h1>
+    <ul>
+    {% for object in object_list %}
+        <li> {{ object.quest.title }}: {{ object }} </li>
+    {% endfor %}
+    </ul>
+{% endblock %}

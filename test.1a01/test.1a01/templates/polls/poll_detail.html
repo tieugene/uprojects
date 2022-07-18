@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block body_main %}
+    <h1>
+        Poll: {{ object }} ({{ object.date0|date:"d/m/y" }}&hellip;{{ object.date1|date:"d/m/y" }})
+        <a href="{% url 'poll_edit' object.pk %}" title="Edit"> <button type="button"> &#9998; </button> </a>
+        <a href="{% url 'poll_del' object.pk %}" title="Delete"> <button type="button"> &times; </button> </a>
+    </h1>
+    <i> {{ object.comments|default_if_none:"&lt;no comments&gt;" }}</i>
+    <h2> Questions: {{ object.quest_set.count }}</h2>
+    <ul>
+        {% for quest in object.quest_set.all %}
+            <li>
+                ({{ quest.pk }}) {{ quest.title }}
+                <a href="{% url 'quest_edit' quest.pk %}" title="Edit"> <button type="button"> &#9998; </button> </a>
+                <a href="{% url 'quest_del' quest.pk %}" title="Delete"> <button type="button"> &times; </button> </a>
+                {% if quest.payload %}
+                    <details>
+                        <summary> {{ quest.get_char|safe }} </summary>
+                        <ul>
+                            {% for i in quest.get_list %}
+                                <li> {{ i }} </li>
+                            {% endfor %}
+                        </ul>
+                    </details>
+                {% endif %}
+            </li>
+        {% endfor %}
+        <li> <a href="{% url 'quest_add' object.pk %}" title="Add new"> <button type="button"> &plus; </button> </</a> </li>
+    </ul>
+{% endblock %}

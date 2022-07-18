@@ -1,0 +1,32 @@
+[
+{
+  "model": "polls.poll",
+  "pk": 1,
+  "fields": {
+    "title": "Математика",
+    "date0": "2021-10-01",
+    "date1": "2021-10-30",
+    "comments": "Царица наук"
+  }
+},
+{
+  "model": "polls.poll",
+  "pk": 2,
+  "fields": {
+    "title": "География",
+    "date0": "2021-10-05",
+    "date1": "2021-10-10",
+    "comments": null
+  }
+},
+{
+  "model": "polls.poll",
+  "pk": 3,
+  "fields": {
+    "title": "Философия",
+    "date0": "1900-01-01",
+    "date1": "2099-12-31",
+    "comments": null
+  }
+}
+]

@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block body_main %}
+    <h1> Vote list of customer '{{ cid }}' </h1>
+    <ul>
+    {% for object in object_list %}
+        <li> <a href="{% url 'cust_answers' cid object.pk %}"> {{ object }} </a> </li>
+    {% endfor %}
+    </ul>
+{% endblock %}
